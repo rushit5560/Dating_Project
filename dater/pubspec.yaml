@@ -78,9 +78,10 @@ flutter:
   # list giving the asset and other descriptors for the font. For
   # example:
   fonts:
-    - family: SchylelucidaCalligraphyr
+    - family: lucidaCalligraphyItalic
       fonts:
         - asset: assets\fonts\lucida_calligraphy_italic.ttf
+          style: normal
     - family: SFProDisplayBlack
       fonts:
         - asset: assets\fonts\SFProDisplay_Black.ttf
@@ -105,6 +106,9 @@ flutter:
     - family: SFProDisplayUltralight
       fonts:
         - asset: assets\fonts\SFProDisplay_Ultralight.ttf
+    - family: SFProDisplayRegular
+      fonts:
+        - asset: assets\fonts\SFProDisplay_Regular.ttf
           
         # - asset: fonts/Schyler-Italic.ttf
         #   style: italic

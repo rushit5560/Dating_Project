@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 
 class AppColors {
   static const Color blackColor = Colors.black;
+  static const Color whiteColor = Colors.white;
+  
   static const Color pinkPrimaryColor = Color(0xffFE877C);
   static const Color pinkGradientColor1 = Color(0xffFF7074);
   static const Color pinkGradientColor2 = Color(0xffFEA085);
+  static const Color darkOrange1Color = Color.fromARGB(255, 140, 58, 0);
   static const Color darkOrangeColor = Color(0xffFF6900);
   static const Color lightOrangeColor = Color(0xffFF8733);
   static const Color gray50Color = Color(0xffFAFAFA);
