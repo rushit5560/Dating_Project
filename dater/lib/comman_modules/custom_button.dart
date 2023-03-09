@@ -15,7 +15,7 @@ class ButtonCustom extends StatelessWidget {
   ButtonCustom({
     Key? key,
     required this.text,
-    this.textColor = AppColors.whiteColor,
+    this.textColor = AppColors.blackColor,
     this.fontWeight = FontWeight.normal,
     this.textsize = 12,
     this.backgroundColor = AppColors.whiteColor,

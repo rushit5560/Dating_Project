@@ -1,5 +1,6 @@
 import 'package:dater/comman_modules/custom_button.dart';
 import 'package:dater/constants/app_images.dart';
+import 'package:dater/constants/messages.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -37,7 +38,7 @@ class LoginInScreen extends StatelessWidget {
               children: [
                 ButtonCustom(
                   onPressed: () {},
-                  text: '',
+                  text: AppMessages.completsYou,
                   size: Size(double.infinity, 50),
                 )
               ],
