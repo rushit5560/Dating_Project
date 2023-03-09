@@ -2,11 +2,12 @@ import 'dart:developer';
 
 import 'package:dater/constants/app_images.dart';
 import 'package:dater/constants/colors.dart';
+import 'package:dater/constants/messages.dart';
 import 'package:dater/utils/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
-import '../../constants/button_custom.dart';
+import '../../comman_modules/custom_button.dart';
 class PosterImageModule extends StatelessWidget {
   const PosterImageModule({Key? key}) : super(key: key);
   @override
@@ -60,21 +61,21 @@ class WhatsYourNameEmailModule extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children:  [
-            Text('''What's Your email?''',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 18.sp)),
+            Text(AppMessages.whatsyouremail,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 18.sp)),
           ],
         ),
         SizedBox(height: 2.h,),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children:  [
-            Text('''Don't lose access to Your account ''',maxLines: 1,style: TextStyle(color: AppColors.grey500Color,fontSize: 13.sp)),
+            Text(AppMessages.dontloseaccesstoyouraccount,maxLines: 1,style: TextStyle(color: AppColors.grey500Color,fontSize: 13.sp)),
           ],
         ),
         //SizedBox(height: 2.h,),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text('''so We can contact you, But its optional ! ''',maxLines: 1,style: TextStyle(color: AppColors.grey500Color,fontSize: 13.sp)),
+            Text(AppMessages.soWecancontactyouButitsoptional,maxLines: 1,style: TextStyle(color: AppColors.grey500Color,fontSize: 13.sp)),
           ],
         ),
         SizedBox(height: 3.h,),
@@ -114,7 +115,14 @@ class WhatsYourNameEmailModule extends StatelessWidget {
           children: [
             ButtonCustom(text: 'Skip', onPressed: () {log('message');},),
           ],
-        )
+        ),
+        SizedBox(height: 2.h,),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ButtonCustom(text: 'Continue', onPressed: () {log('message');},),
+          ],
+        ),
       ],
     );
   }

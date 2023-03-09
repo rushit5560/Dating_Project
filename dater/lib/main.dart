@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 
+import 'screens/sign_up_email_screen/sign_up_email_screen.dart';
 import 'screens/splash_screen/splash_screen.dart';
 
 void main() {
@@ -18,7 +19,7 @@ class MyApp extends StatelessWidget {
         return  GetMaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'Dating App',
-          home: SplashScreen(),
+          home: SignUpEmailScreen(),
         );
       },
     );
