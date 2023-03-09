@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:dater/screens/login_screen/login_screen.dart';
+import 'package:dater/screens/authantication_screen/login_screen/login_screen.dart';
 import 'package:get/get.dart';
 
 class SplashScreencontroller extends GetxController {

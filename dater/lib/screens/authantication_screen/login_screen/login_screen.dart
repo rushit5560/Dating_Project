@@ -34,15 +34,7 @@ class LoginInScreen extends StatelessWidget {
                 ),
               ),
             ),
-            Column(
-              children: [
-                ButtonCustom(
-                  onPressed: () {},
-                  text: AppMessages.completsYou,
-                  size: Size(double.infinity, 50),
-                )
-              ],
-            )
+            
           ],
         ),
       ),
