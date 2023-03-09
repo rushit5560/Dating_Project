@@ -7,7 +7,7 @@ import 'package:dater/utils/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
-import '../../comman_modules/custom_button.dart';
+import '../../../comman_modules/custom_button.dart';
 class PosterImageModule extends StatelessWidget {
   const PosterImageModule({Key? key}) : super(key: key);
   @override

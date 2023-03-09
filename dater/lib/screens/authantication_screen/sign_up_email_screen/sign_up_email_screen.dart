@@ -1,4 +1,4 @@
-import 'package:dater/screens/sign_up_email_screen/sign_up_email_screen_widgets.dart';
+import 'package:dater/screens/authantication_screen/sign_up_email_screen/sign_up_email_screen_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
