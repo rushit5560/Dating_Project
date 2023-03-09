@@ -1,3 +1,5 @@
 class AppMessages {
-  static String findWhatCompletsYou = "Find What Complets You";
+  static String findWhat = "Find What";
+  static String completsYou = "Complets You";
+  static String gather = "GATHER";
 }
