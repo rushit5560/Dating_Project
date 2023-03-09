@@ -1,3 +1,4 @@
+import 'package:dater/constants/app_images.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -12,7 +13,11 @@ class SplashScreen extends StatelessWidget {
           Container(
             width: Get.width,
             height: Get.height,
-            decoration: BoxDecoration(image: DecorationImage(image: AssetImage(""))),
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage(AppImages.splashScreenImage),
+              ),
+            ),
           ),
         ],
       ),
