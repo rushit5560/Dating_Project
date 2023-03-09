@@ -6,7 +6,6 @@ import 'package:dater/constants/messages.dart';
 import 'package:dater/utils/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
-
 import '../../../comman_modules/custom_button.dart';
 class PosterImageModule extends StatelessWidget {
   const PosterImageModule({Key? key}) : super(key: key);
@@ -25,7 +24,7 @@ class PosterImageModule extends StatelessWidget {
             fit: BoxFit.fitWidth,
           ),
         ),
-    ).commonOnlyPadding(left: 5.w,right: 5.w),
+      ).commonOnlyPadding(left: 5.w,right: 5.w),
           const LocationImageModule().commonOnlyPadding(top: 39.h),
       ]);
   }
@@ -61,21 +60,21 @@ class WhatsYourNameEmailModule extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children:  [
-            Text(AppMessages.whatsyouremail,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 18.sp)),
+            Text(AppMessages.whatsYourEmail,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 18.sp)),
           ],
         ),
         SizedBox(height: 2.h,),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children:  [
-            Text(AppMessages.dontloseaccesstoyouraccount,maxLines: 1,style: TextStyle(color: AppColors.grey500Color,fontSize: 13.sp)),
+            Text(AppMessages.donTLoseAccessToYourAccount,maxLines: 1,style: TextStyle(color: AppColors.grey500Color,fontSize: 13.sp)),
           ],
         ),
         //SizedBox(height: 2.h,),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(AppMessages.soWecancontactyouButitsoptional,maxLines: 1,style: TextStyle(color: AppColors.grey500Color,fontSize: 13.sp)),
+            Text(AppMessages.soWeCanContactYouButItsOptional,maxLines: 1,style: TextStyle(color: AppColors.grey500Color,fontSize: 13.sp)),
           ],
         ),
         SizedBox(height: 3.h,),
@@ -88,19 +87,20 @@ class WhatsYourNameEmailModule extends StatelessWidget {
                 child:
                 TextFormField(
                   keyboardType: TextInputType.text,
-                  decoration: const InputDecoration(
-                    hintText: "Enter your email",
-                    contentPadding: EdgeInsets.symmetric(horizontal: 15, vertical: 12),
-                    enabledBorder: OutlineInputBorder(
+                  decoration:  InputDecoration(
+                    hintText: AppMessages.enterYourEmail,
+                    hintStyle: const TextStyle(color: AppColors.grey400Color),
+                    contentPadding: const EdgeInsets.symmetric(horizontal: 15, vertical: 12),
+                    enabledBorder: const OutlineInputBorder(
                         borderRadius: BorderRadius.all(Radius.circular(30)),
                         borderSide: BorderSide(color: AppColors.grey400Color)),
-                    focusedBorder: OutlineInputBorder(
+                    focusedBorder: const OutlineInputBorder(
                         borderRadius: BorderRadius.all(Radius.circular(30)),
                         borderSide: BorderSide(color: AppColors.grey400Color)),
-                    errorBorder: OutlineInputBorder(
+                    errorBorder: const OutlineInputBorder(
                         borderRadius: BorderRadius.all(Radius.circular(30)),
                         borderSide: BorderSide(color: AppColors.grey400Color)),
-                    focusedErrorBorder: OutlineInputBorder(
+                    focusedErrorBorder: const OutlineInputBorder(
                         borderRadius: BorderRadius.all(Radius.circular(30)),
                         borderSide: BorderSide(color: AppColors.grey400Color)),
                   ),
@@ -113,14 +113,20 @@ class WhatsYourNameEmailModule extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            ButtonCustom(text: 'Skip', onPressed: () {log('message');},),
+            ButtonCustom(
+              backgroundColor: AppColors.lightOrangeColor,
+              shadowColor: Colors.blueGrey,
+              text:AppMessages.skipButton,textColor: AppColors.gray50Color,fontWeight: FontWeight.bold,textsize: 14.sp, onPressed: () {log('message');},),
           ],
         ),
         SizedBox(height: 2.h,),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            ButtonCustom(text: 'Continue', onPressed: () {log('message');},),
+            ButtonCustom(
+              backgroundColor: AppColors.lightOrangeColor,
+              shadowColor: Colors.blueGrey,
+              text:AppMessages.continueButton,textColor: AppColors.gray50Color,fontWeight: FontWeight.bold,textsize: 14.sp, onPressed: () {log('message1');},),
           ],
         ),
       ],
