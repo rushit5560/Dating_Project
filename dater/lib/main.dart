@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:sizer/sizer.dart';
 
 import 'screens/splash_screen/splash_screen.dart';
 
@@ -11,10 +13,14 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Dating App',
-      home: SplashScreen(),
+    return Sizer(
+      builder: (context, orientation, deviceType) {
+        return const GetMaterialApp(
+          debugShowCheckedModeBanner: false,
+          title: 'Dating App',
+          home: SplashScreen(),
+        );
+      },
     );
   }
 }
-
