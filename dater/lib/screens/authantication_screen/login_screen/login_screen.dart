@@ -1,6 +1,6 @@
-import 'package:dater/comman_modules/custom_button.dart';
 import 'package:dater/constants/app_images.dart';
-import 'package:dater/constants/messages.dart';
+import 'package:dater/screens/authantication_screen/login_screen/login_screen_widgets.dart';
+import 'package:dater/utils/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -10,33 +10,23 @@ class LoginInScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: Stack(
-          children: [
-            Container(
-              width: Get.width,
-              height: Get.height,
-              decoration: const BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage(AppImages.splashScreenImage),
-                  fit: BoxFit.fill,
-                ),
+      body: Stack(
+        children: [
+          Container(
+            width: Get.width,
+            height: Get.height,
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage(AppImages.signInBackgroundimage),
+                fit: BoxFit.fill,
               ),
             ),
-            Container(
-              width: Get.width,
-              height: Get.height,
-              decoration: const BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage(AppImages.corveColorImage),
-                  fit: BoxFit.fill,
-                  opacity: 0.8,
-                ),
-              ),
-            ),
-            
-          ],
-        ),
+          ),
+          SafeArea(
+            child: const ColumnWidgets()
+                .commonOnlyPadding(top: 60, right: 10, left: 10, bottom: 20),
+          ),
+        ],
       ),
     );
   }

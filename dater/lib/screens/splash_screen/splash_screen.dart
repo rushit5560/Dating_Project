@@ -15,68 +15,20 @@ class SplashScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: Stack(
-          children: [
-            Container(
-              width: Get.width,
-              height: Get.height,
-              decoration: const BoxDecoration(
-                // gradient: LinearGradient(
-                //   begin: FractionalOffset.topRight,
-                //   end: FractionalOffset.bottomLeft,
-                //   colors: [
-                //     Color(0xff0d69ff).withOpacity(0.0),
-                //     Color(0xff0069ff).withOpacity(0.8),
-                //   ],
-                // ),
-                image: DecorationImage(
-                  image: AssetImage(AppImages.splashScreenImage),
-                  fit: BoxFit.fill,
-                  colorFilter: ColorFilter.mode(
-                    // AppColors.accentColor.withOpacity(0.7),
-                    AppColors.lightOrangeColor,
-
-                    BlendMode.multiply,
-                  ),
-
-                  // opacity: 0.5,
-                ),
+      body: Stack(
+        children: [
+          Container(
+            width: Get.width,
+            height: Get.height,
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage(AppImages.splashBackgroundImage),
+                fit: BoxFit.fill,
               ),
             ),
-            // Container(
-            //   width: Get.width,
-            //   height: Get.height,
-            //   decoration: const BoxDecoration(
-            //     image: DecorationImage(
-            //       image: AssetImage(AppImages.colorImage),
-            //       fit: BoxFit.fill,
-            //       opacity: 0.2,
-            //       // colorFilter: ColorFilter.mode(
-            //       //   // AppColors.accentColor.withOpacity(0.7),
-            //       //   AppColors.darkOrangeColor,
-            //       //   BlendMode.multiply,
-            //       // ),
-            //     ),
-            //   ),
-            // ),
-            // Container(
-            //   width: Get.width,
-            //   height: Get.height,
-            //   decoration: const BoxDecoration(
-            //     image: DecorationImage(
-            //       image: AssetImage(AppImages.colorImage),
-            //       fit: BoxFit.fill,
-            //       opacity: 0.2,
-            //       // colorFilter: ColorFilter.mode(
-            //       //   // AppColors.accentColor.withOpacity(0.7),
-            //       //   AppColors.darkOrangeColor,
-            //       //   BlendMode.multiply,
-            //       // ),
-            //     ),
-            //   ),
-            // ),
-            Column(
+          ),
+          SafeArea(
+            child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Text(
@@ -117,8 +69,8 @@ class SplashScreen extends StatelessWidget {
                 )
               ],
             ).commonOnlyPadding(top: 30),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

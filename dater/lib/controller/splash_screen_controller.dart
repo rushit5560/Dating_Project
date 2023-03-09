@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 class SplashScreencontroller extends GetxController {
   startTimer() async {
     Timer(
-      const Duration(milliseconds: 2500),
+      const Duration(milliseconds: 3500),
       () {
         Get.to(
           () {
