@@ -5,6 +5,7 @@ import 'package:dater/constants/app_images.dart';
 import 'package:dater/constants/colors.dart';
 import 'package:dater/constants/messages.dart';
 import 'package:dater/controller/sign_up_email_screen_controller.dart';
+import 'package:dater/screens/location_screen/location_screen.dart';
 import 'package:dater/utils/extensions.dart';
 import 'package:dater/utils/style.dart';
 import 'package:flutter/material.dart';
@@ -70,7 +71,7 @@ class SignUpEmailScreenWidgets extends StatelessWidget {
           size: const Size(150, 0),
           textsize: 14.sp,
           onPressed: () {
-            log('message');
+            Get.to(() => LocationScreen());
           },
         ),
         SizedBox(height: 2.h),
@@ -83,7 +84,7 @@ class SignUpEmailScreenWidgets extends StatelessWidget {
           size: const Size(150, 0),
           textsize: 14.sp,
           onPressed: () {
-            log('message1');
+            Get.to(() => LocationScreen());
           },
         ),
       ],

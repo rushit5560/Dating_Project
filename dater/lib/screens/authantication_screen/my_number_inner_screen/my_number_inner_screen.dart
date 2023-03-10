@@ -1,7 +1,7 @@
 import 'package:dater/comman_modules/custom_button.dart';
 import 'package:dater/constants/colors.dart';
 import 'package:dater/controller/my_number_inner_screen_controller.dart';
-import 'package:dater/screens/authantication_screen/sign_up_email_screen/sign_up_email_screen.dart';
+import 'package:dater/screens/verify_code/verify_code.dart';
 import 'package:dater/utils/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -38,7 +38,7 @@ class MyNumberInnerScreen extends StatelessWidget {
               textsize: 14.sp,
               onPressed: () {
                 Get.to(
-                  () =>  SignUpEmailScreen(),
+                  () => VerifyCodeScreen(),
                 );
               },
             ),

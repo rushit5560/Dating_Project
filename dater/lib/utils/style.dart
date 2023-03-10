@@ -34,6 +34,16 @@ class InputFieldStyles {
     return const OutlineInputBorder(
       borderRadius: BorderRadius.all(Radius.circular(10)),
       borderSide: BorderSide(color: Colors.transparent),
+    
+    );
+  }
+
+
+  InputBorder errorBorder() {
+    return OutlineInputBorder(
+      borderRadius: BorderRadius.circular(10),
+      borderSide: const BorderSide(color: Colors.red),
+      // borderSide: const BorderSide(width: 1.0),
     );
   }
 }

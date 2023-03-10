@@ -37,4 +37,6 @@ class AppMessages {
   static String userName1 = ''' You can't change your name later''';
   static String userName2 = 'Your name will be shown on your profile';
   static String enterYourName = "Enter your name";
+  static String addYourFirstPhoto = "Add your first photo";
+  static String atLeastYouNeedOnPhoto="At least you need one photo";
 }

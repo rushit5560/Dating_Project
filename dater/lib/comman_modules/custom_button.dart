@@ -27,7 +27,7 @@ class ButtonCustom extends StatelessWidget {
     this.size = const Size(double.infinity, 0),
     required this.onPressed,
     this.shadowColor = AppColors.grey900Color,
-    this.textFontFamily = "SFProDisplayRegular",
+    this.textFontFamily = "SFProDisplayBold",
   }) : super(key: key);
 
   @override
@@ -74,7 +74,7 @@ class ButtonCustomLoginAndSignUp extends StatelessWidget {
     required this.text,
     this.textColor = AppColors.blackColor,
     this.fontWeight = FontWeight.normal,
-    this.textFontFamily = "SFProDisplayRegular",
+    this.textFontFamily = "SFProDisplayBold",
     this.textsize = 12,
     this.backgroundColor = AppColors.whiteColor,
     this.size = const Size(double.infinity, 0),
