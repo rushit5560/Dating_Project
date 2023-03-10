@@ -20,4 +20,6 @@ class AppMessages {
   static String continueButton = "Continue";
   static String enterYourEmail = "Enter your email";
   static String myNumberIs = "My number is";
+   static String phoneNumber = "Phone Number";
+
 }

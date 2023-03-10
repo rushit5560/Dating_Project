@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:dater/screens/authantication_screen/sign_up_email_screen/sign_up_email_screen.dart';
 import 'package:dater/utils/extensions.dart';
+import 'package:dater/utils/style.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
@@ -41,7 +42,12 @@ class _CountryDropDownModuleState extends State<CountryDropDownModule> {
             items: country.map((String country) {
               return DropdownMenuItem(
                 value: country,
-                child: Text(country),
+                child: Text(
+                  country,
+                  style: TextStyleConfig.textStyle(
+                    fontFamily: "SFProDisplayRegular",
+                  ),
+                ),
               );
             }).toList(),
             onChanged: (String? value) {
@@ -56,9 +62,12 @@ class _CountryDropDownModuleState extends State<CountryDropDownModule> {
         flex: 3,
         child: SizedBox(
           height: 4.h,
-          child: const TextField(
+          child: TextFormField(
+            style: TextStyleConfig.textStyle(
+                fontFamily: "SFProDisplayRegular",
+                textColor: AppColors.grey800Color),
             decoration: InputDecoration(
-              labelText: 'Full Name',
+              labelText: AppMessages.phoneNumber,
             ),
           ),
         ).commonOnlyPadding(right: 2.w),
@@ -91,22 +100,22 @@ class ContinueModule extends StatelessWidget {
           Get.to(() => SignUpEmailScreen());
         },
       ),
-      SizedBox(
-        height: 20.h,
-      ),
-      const Text('Do you have a referral number from a friend?'),
-      ButtonCustom(
-        //size: Size(double.infinity, 50),
-        backgroundColor: AppColors.whiteColor,
-        shadowColor: Colors.white,
-        text: '\$123456',
-        textColor: AppColors.grey700Color,
-        fontWeight: FontWeight.bold,
-        textsize: 14.sp,
-        onPressed: () {
-          log('message1');
-        },
-      ),
+      // SizedBox(
+      //   height: 20.h,
+      // ),
+      // const Text('Do you have a referral number from a friend?'),
+      // ButtonCustom(
+      //   //size: Size(double.infinity, 50),
+      //   backgroundColor: AppColors.whiteColor,
+      //   shadowColor: Colors.white,
+      //   text: '\$123456',
+      //   textColor: AppColors.grey700Color,
+      //   fontWeight: FontWeight.bold,
+      //   textsize: 14.sp,
+      //   onPressed: () {
+      //     log('message1');
+      //   },
+      // ),
     ]).commonOnlyPadding(left: 5.w, right: 5.w);
   }
 }
