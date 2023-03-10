@@ -2,9 +2,11 @@ import 'package:dater/comman_modules/custom_button.dart';
 import 'package:dater/constants/app_images.dart';
 import 'package:dater/constants/colors.dart';
 import 'package:dater/constants/messages.dart';
+import 'package:dater/screens/authantication_screen/my_number_inner_screen/my_number_inner_screen.dart';
 import 'package:dater/utils/extensions.dart';
 import 'package:dater/utils/style.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 
 class ColumnWidgets extends StatelessWidget {
@@ -103,7 +105,9 @@ class ColumnWidgets extends StatelessWidget {
               SizedBox(height: 7.h),
               ButtonCustomLoginAndSignUp(
                 image: AppImages.mobileImage,
-                onPressed: () {},
+                onPressed: () {
+                  Get.to(() => MyNumberInnerScreen());
+                },
                 text: AppMessages.signUpWithphoneNumber,
                 textsize: 14.sp,
                 textColor: AppColors.grey900Color,
@@ -111,7 +115,9 @@ class ColumnWidgets extends StatelessWidget {
               SizedBox(height: 2.h),
               ButtonCustomLoginAndSignUp(
                 image: AppImages.mobileImage,
-                onPressed: () {},
+                onPressed: () {
+                  Get.to(() => MyNumberInnerScreen());
+                },
                 text: AppMessages.signInWithphoneNumber,
                 textsize: 14.sp,
                 textColor: AppColors.grey900Color,
@@ -123,7 +129,7 @@ class ColumnWidgets extends StatelessWidget {
                 style: TextStyleConfig.textStyle(
                     fontSize: 15.sp, fontFamily: "SFProDisplayBold"),
               ).commonSymmetricPadding(horizontal: 15),
-              Spacer(),
+              const Spacer(),
               Text(
                 AppMessages.termsOfUseAndPrivacyPolice,
                 style: TextStyleConfig.textStyle(
