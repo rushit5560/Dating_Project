@@ -39,4 +39,5 @@ class AppMessages {
   static String enterYourName = "Enter your name";
   static String addYourFirstPhoto = "Add your first photo";
   static String atLeastYouNeedOnPhoto="At least you need one photo";
+   static String whatsyourinterests = '''What's your interests ?''';
 }
