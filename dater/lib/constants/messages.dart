@@ -22,11 +22,19 @@ class AppMessages {
   static String enterYourEmail = "Enter your email";
   static String myNumberIs = "My number is";
   static String phoneNumber = "Phone Number";
-   static String location = "Location";
+  static String location = "Location";
   static String search = "Search";
   static String confirm = "Confirm";
-
-
+  static String myCodeIs = "My code is";
   static String myNumberScreenInformationText =
       "When you tap “Continue”, Gather will send \nyou\n a text with verification code, The verified phone number can be used to log in.";
+  static String resend = "Resend";
+  static String verificationCodeText =
+      "Please enter the 4-digit code sent to you at +1 354 112 2376";
+  static String submit = "Submit";
+  static String userName = "Username";
+  static String whatSYourName = ''' What's your name ?''';
+  static String userName1 = ''' You can't change your name later''';
+  static String userName2 = 'Your name will be shown on your profile';
+  static String enterYourName = "Enter your name";
 }
