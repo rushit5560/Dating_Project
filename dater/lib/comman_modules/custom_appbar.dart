@@ -35,7 +35,7 @@ PreferredSizeWidget commonAppBarModule(
         color: textColor,
         fontWeight: FontWeight.bold,
         fontFamily: textFontFamily,
-        fontSize: 20.sp,
+        fontSize: 23,
       ),
     ),
   );

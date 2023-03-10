@@ -38,6 +38,7 @@ dependencies:
   get: ^4.6.5
   sizer: ^2.0.15
   image_picker: ^0.8.7
+  intl: ^0.18.0
 
 dev_dependencies:
   flutter_test:

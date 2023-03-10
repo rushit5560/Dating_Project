@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../controller/auth_screen_controllers/add_user_photo_screen_controller.dart';
+import '../dob_select_screen/dob_select_screen.dart';
 import 'add_user_photo_screen_widgets.dart';
 
 class AddUserPhotoScreen extends StatelessWidget {
@@ -81,7 +82,7 @@ class AddUserPhotoScreen extends StatelessWidget {
                 text: "Done",
                 textFontFamily: "SFProDisplayBold",
                 textsize: 15,
-                onPressed: () {},
+                onPressed: () => Get.to(()=> DobSelectScreen()),
               ).commonSymmetricPadding(horizontal: 20, vertical: 10),
             ],
           ),

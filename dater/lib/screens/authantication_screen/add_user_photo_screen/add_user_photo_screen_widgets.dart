@@ -1,4 +1,5 @@
 import 'package:dater/constants/colors.dart';
+import 'package:dater/constants/font_family.dart';
 import 'package:dater/utils/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -137,11 +138,11 @@ class PointHintModule extends StatelessWidget {
     return Row(
       children: [
         Expanded(
-          flex: 25,
+          flex: 15,
           child: Container(),
         ),
         Expanded(
-          flex: 75,
+          flex: 85,
           child: Column(
             children: [
               _singleItemModule(
@@ -172,13 +173,13 @@ class PointHintModule extends StatelessWidget {
       children: [
         Text(number,
           style: TextStyle(
-              fontFamily: "SFProDisplayRegular",
+              fontFamily: FontFamilyText.sFProDisplayRegular,
               fontSize: 15
           ),),
         Expanded(
           child: Text(text,
             style: TextStyle(
-                fontFamily: "SFProDisplayRegular",
+                fontFamily: FontFamilyText.sFProDisplayRegular,
                 fontSize: 15
             ),),
         ),
