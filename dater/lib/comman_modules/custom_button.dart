@@ -51,7 +51,7 @@ class ButtonCustom extends StatelessWidget {
           fontSize: textsize!,
           fontFamily: textFontFamily,
         ),
-      ).commonSymmetricPadding(vertical: 12),
+      ).commonSymmetricPadding(vertical: 10),
     );
   }
 }
