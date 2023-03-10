@@ -10,18 +10,19 @@ PreferredSizeWidget commonAppBarModule(
   Color iconColor = AppColors.lightOrangeColor,
   String textFontFamily = "SFProDisplayRegular",
   Color textColor = AppColors.grey800Color,
+    Color backGroundColor = AppColors.gray50Color
   }) {
   return AppBar(
-    backgroundColor: AppColors.gray50Color,
+    backgroundColor: backGroundColor,
     leading: Builder(
       builder: (BuildContext context) {
         return IconButton(
           onPressed: () {
             Get.back();
           },
-          icon: const Icon(
+          icon: Icon(
             Icons.west_outlined,
-            color: AppColors.lightOrangeColor,
+            color: iconColor,
           ),
         );
       },
@@ -31,9 +32,9 @@ PreferredSizeWidget commonAppBarModule(
     title: Text(
       text,
       style: TextStyle(
-        color: AppColors.grey800Color,
+        color: textColor,
         fontWeight: FontWeight.bold,
-        fontFamily: "SFProDisplayRegular",
+        fontFamily: textFontFamily,
         fontSize: 20.sp,
       ),
     ),
