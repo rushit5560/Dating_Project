@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 
 import '../constants/colors.dart';
 
-PreferredSizeWidget commonAppBarModule() {
+PreferredSizeWidget commonAppBarModule({required text}) {
   return AppBar(
       backgroundColor: AppColors.gray50Color,
       leading:Builder(
@@ -17,6 +17,6 @@ PreferredSizeWidget commonAppBarModule() {
       ),
       centerTitle: true,
       elevation: 0,
-      title: Text(AppMessages.myNumberIs,style: const TextStyle(color: AppColors.blackColor,fontWeight: FontWeight.w800)),
+      title: Text(text,style: const TextStyle(color: AppColors.blackColor,fontWeight: FontWeight.w800)),
   );
 }
