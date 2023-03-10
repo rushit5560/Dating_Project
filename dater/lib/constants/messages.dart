@@ -12,20 +12,21 @@ class AppMessages {
   static String signInWithphoneNumber = "Sign In with phone number";
   static String termsOfUseAndPrivacyPolice = "Terms of Use and Privacy Policy";
   static String referralNumber =
-      "  Do you have a referral number from a friend ?";
+      "Do you have a referral number from a friend ?";
   static String whatsYourEmail = '''What's Your email?''';
   static String donTLoseAccessToYourAccount =
-      '''Don't lose access to Your account ''';
-  static String soWeCanContactYouButItsOptional =
-      '''so We can contact you, But its optional ! ''';
+      '''Don't lose access to Your account\n so We can contact you, But its optional !''';
+
   static String skipButton = "Skip";
   static String continueButton = "Continue";
   static String enterYourEmail = "Enter your email";
   static String myNumberIs = "My number is";
   static String phoneNumber = "Phone Number";
+   static String location = "Location";
+  static String search = "Search";
+  static String confirm = "Confirm";
+
 
   static String myNumberScreenInformationText =
       "When you tap “Continue”, Gather will send \nyou\n a text with verification code, The verified phone number can be used to log in.";
-
-    
 }

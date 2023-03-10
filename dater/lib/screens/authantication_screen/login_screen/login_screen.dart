@@ -3,6 +3,7 @@ import 'package:dater/screens/authantication_screen/login_screen/login_screen_wi
 import 'package:dater/utils/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:sizer/sizer.dart';
 
 class LoginInScreen extends StatelessWidget {
   const LoginInScreen({super.key});
@@ -24,7 +25,7 @@ class LoginInScreen extends StatelessWidget {
           ),
           SafeArea(
             child: const ColumnWidgets()
-                .commonOnlyPadding(top: 60, right: 10, left: 10, bottom: 20),
+                .commonOnlyPadding(top: 5.h, right: 15, left: 15, bottom: 20),
           ),
         ],
       ),

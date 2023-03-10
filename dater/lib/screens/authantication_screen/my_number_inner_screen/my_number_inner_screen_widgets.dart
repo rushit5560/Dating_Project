@@ -1,74 +1,79 @@
-import 'dart:developer';
-
-import 'package:dater/screens/authantication_screen/sign_up_email_screen/sign_up_email_screen.dart';
-import 'package:dater/utils/extensions.dart';
+import 'package:dater/controller/my_number_inner_screen_controller.dart';
 import 'package:dater/utils/style.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 
-import '../../../comman_modules/custom_button.dart';
 import '../../../constants/colors.dart';
 import '../../../constants/messages.dart';
 
-class TextFormFiledModule extends StatefulWidget {
-  const TextFormFiledModule({Key? key}) : super(key: key);
+class TextFormFiledModule extends StatelessWidget {
+  TextFormFiledModule({Key? key}) : super(key: key);
 
-  @override
-  State<TextFormFiledModule> createState() => _CountryDropDownModuleState();
-}
+  final myNumberInnerScreenController =
+      Get.find<MyNumberInnerScreenController>();
 
-class _CountryDropDownModuleState extends State<TextFormFiledModule> {
-  String dropdownvalue = 'In +91';
-  var country = [
-    'In +91',
-    'Pk +92',
-    'Pu +02',
-  ];
   @override
   Widget build(BuildContext context) {
     return Row(children: [
-      Expanded(
-        flex: 2,
-        child: Container(
-          height: 4.h,
-          decoration: const BoxDecoration(
-            color: Colors.white,
-          ),
-          child: DropdownButton(
-            value: dropdownvalue,
-            items: country.map((String country) {
-              return DropdownMenuItem(
-                value: country,
-                child: Text(
-                  country,
-                  style: TextStyleConfig.textStyle(
-                      fontFamily: "SFProDisplayRegular",
-                      textColor: AppColors.grey800Color),
-                ),
-              );
-            }).toList(),
-            onChanged: (String? value) {
-              setState(() {
-                dropdownvalue = value!;
-              });
+      Obx(
+        () => SizedBox(
+          height: 3.8.h,
+          width: 22.w,
+          child: DropdownButton<String>(
+            isDense: true,
+            value: myNumberInnerScreenController.dropdownvalue.value,
+            alignment: Alignment.center,
+            items: myNumberInnerScreenController.country
+                .map((item) => DropdownMenuItem<String>(
+                      value: item,
+                      child: Text(
+                        item,
+                        style: const TextStyle(
+                          fontFamily: "Roboto",
+                          fontSize: 15,
+                        ),
+                      ),
+                    ))
+                .toList(),
+            onChanged: (val) {
+              myNumberInnerScreenController.isLoading(true);
+              myNumberInnerScreenController.dropdownvalue.value = val!;
+              myNumberInnerScreenController.isLoading(false);
             },
-          ).commonOnlyPadding(left: 2.w, right: 12.w),
+          ),
         ),
       ),
-      Expanded(
-        flex: 3,
-        child: SizedBox(
-          height: 4.h,
-          child: TextFormField(
-            style: TextStyleConfig.textStyle(
-                fontFamily: "SFProDisplayRegular",
-                textColor: AppColors.grey500Color),
-            decoration: InputDecoration(
-              labelText: AppMessages.phoneNumber,
+      Form(
+        key: myNumberInnerScreenController.formKey,
+        child: Expanded(
+          child: SizedBox(
+            child: TextFormField(
+              cursorColor: AppColors.darkOrangeColor,
+              controller: myNumberInnerScreenController.phoneNumberController,
+              textInputAction: TextInputAction.next,
+              keyboardType: TextInputType.text,
+              decoration: InputDecoration(
+                focusedErrorBorder: const UnderlineInputBorder(
+                  borderSide: BorderSide(color: AppColors.darkOrange1Color),
+                ),
+                enabledBorder: const UnderlineInputBorder(
+                  borderSide: BorderSide(color: AppColors.darkOrange1Color),
+                ),
+                focusedBorder: const UnderlineInputBorder(
+                  borderSide: BorderSide(color: AppColors.darkOrange1Color),
+                ),
+                isDense: true,
+                hintText: AppMessages.phoneNumber,
+                hintStyle: TextStyle(
+                  color: AppColors.grey500Color,
+                  fontSize: 12.sp,
+                  fontFamily: "SFProDisplayRegular",
+                ),
+              ),
             ),
           ),
-        ).commonOnlyPadding(right: 2.w),
+        ),
       ),
     ]);
   }
@@ -84,9 +89,10 @@ class TextCustomModule extends StatelessWidget {
       text: TextSpan(
         text: AppMessages.myNumberScreenInformationText,
         style: TextStyleConfig.textStyle(
-            fontFamily: "SFProDisplayRegular",
-            textColor: AppColors.grey600Color,
-            fontSize: 13.sp),
+          fontFamily: "SFProDisplayRegular",
+          textColor: AppColors.grey600Color,
+          fontSize: 13.sp,
+        ),
       ),
     );
   }

@@ -1,23 +1,40 @@
+import 'package:dater/constants/app_images.dart';
+import 'package:dater/constants/colors.dart';
+import 'package:dater/controller/sign_up_email_screen_controller.dart';
 import 'package:dater/screens/authantication_screen/sign_up_email_screen/sign_up_email_screen_widgets.dart';
+import 'package:dater/utils/extensions.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 
 class SignUpEmailScreen extends StatelessWidget {
-  const SignUpEmailScreen({Key? key}) : super(key: key);
+  SignUpEmailScreen({Key? key}) : super(key: key);
+  final signUpEmailScreenController = Get.put(SignUpEmailScreenController());
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-       // appBar: AppBar(),
-        body: SingleChildScrollView(
-          scrollDirection: Axis.vertical,
+    return Scaffold(
+      // resizeToAvoidBottomInset: false,
+      // appBar: AppBar(),
+      body: SafeArea(
+        child: SingleChildScrollView(
           child: Column(
             children: [
-              const PosterImageModule(),
-              SizedBox(height: 2.h,),
-              const WhatsYourNameEmailModule(),
+              Container(
+                height: 35.h,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: AppColors.gray50Color,
+                  image: const DecorationImage(
+                    image: AssetImage(AppImages.posterImage),
+                    fit: BoxFit.fitWidth,
+                  ),
+                ),
+              ),
+
+              SignUpEmailScreenWidgets(),
+              // const WhatsYourNameEmailModule(),
             ],
-          ),
+          ).commonSymmetricPadding(horizontal: 15, vertical: 20),
         ),
       ),
     );

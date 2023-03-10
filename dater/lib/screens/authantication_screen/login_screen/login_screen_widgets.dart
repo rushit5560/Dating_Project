@@ -24,8 +24,8 @@ class ColumnWidgets extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     SizedBox(
-                      height: 30.w,
-                      width: 30.w,
+                      height: 28.w,
+                      width: 28.w,
                       child: Image.asset(AppImages.locationImage),
                     ),
                   ],
@@ -34,7 +34,7 @@ class ColumnWidgets extends StatelessWidget {
                 Text(
                   AppMessages.gather,
                   style: TextStyleConfig.textStyle(
-                    fontSize: 23.sp,
+                    fontSize: 25.sp,
                     textColor: AppColors.lightOrangeColor,
                   ),
                 ),
@@ -106,28 +106,30 @@ class ColumnWidgets extends StatelessWidget {
               ButtonCustomLoginAndSignUp(
                 image: AppImages.mobileImage,
                 onPressed: () {
-                  Get.to(() => MyNumberInnerScreen());
+                  Get.to(() =>  MyNumberInnerScreen());
                 },
                 text: AppMessages.signUpWithphoneNumber,
-                textsize: 14.sp,
-                textColor: AppColors.grey900Color,
+                textsize: 13.sp,
+                textColor: AppColors.grey700Color,
               ),
               SizedBox(height: 2.h),
               ButtonCustomLoginAndSignUp(
                 image: AppImages.mobileImage,
                 onPressed: () {
-                  Get.to(() => MyNumberInnerScreen());
+                  Get.to(() =>  MyNumberInnerScreen());
                 },
                 text: AppMessages.signInWithphoneNumber,
-                textsize: 14.sp,
-                textColor: AppColors.grey900Color,
+                textsize: 13.sp,
+                textColor: AppColors.grey700Color,
               ),
               SizedBox(height: 3.h),
               Text(
                 textAlign: TextAlign.center,
                 AppMessages.referralNumber,
                 style: TextStyleConfig.textStyle(
-                    fontSize: 15.sp, fontFamily: "SFProDisplayBold"),
+                    textColor: AppColors.grey800Color,
+                    fontSize: 15.sp,
+                    fontFamily: "SFProDisplayBold"),
               ).commonSymmetricPadding(horizontal: 15),
               const Spacer(),
               Text(

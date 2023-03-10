@@ -1,5 +1,6 @@
 import 'package:dater/comman_modules/custom_button.dart';
 import 'package:dater/constants/colors.dart';
+import 'package:dater/controller/my_number_inner_screen_controller.dart';
 import 'package:dater/screens/authantication_screen/sign_up_email_screen/sign_up_email_screen.dart';
 import 'package:dater/utils/extensions.dart';
 import 'package:flutter/material.dart';
@@ -10,7 +11,9 @@ import '../../../constants/messages.dart';
 import 'my_number_inner_screen_widgets.dart';
 
 class MyNumberInnerScreen extends StatelessWidget {
-  const MyNumberInnerScreen({Key? key}) : super(key: key);
+  MyNumberInnerScreen({Key? key}) : super(key: key);
+  final myNumberInnerScreenController =
+      Get.put(MyNumberInnerScreenController());
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +23,8 @@ class MyNumberInnerScreen extends StatelessWidget {
         body: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            const TextFormFiledModule(),
+            SizedBox(height: 4.h),
+            TextFormFiledModule(),
             SizedBox(height: 4.h),
             const TextCustomModule(),
             SizedBox(height: 7.h),
@@ -29,11 +33,13 @@ class MyNumberInnerScreen extends StatelessWidget {
               backgroundColor: AppColors.lightOrangeColor,
               shadowColor: Colors.blueGrey,
               text: AppMessages.continueButton,
-              textColor: AppColors.gray50Color,
+              textColor: AppColors.whiteColor2,
               fontWeight: FontWeight.bold,
               textsize: 14.sp,
               onPressed: () {
-                Get.to(() => const SignUpEmailScreen());
+                Get.to(
+                  () =>  SignUpEmailScreen(),
+                );
               },
             ),
           ],
