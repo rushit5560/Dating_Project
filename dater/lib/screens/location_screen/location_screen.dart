@@ -6,27 +6,34 @@ import 'package:sizer/sizer.dart';
 import '../../comman_modules/custom_appbar.dart';
 import '../../comman_modules/custom_button.dart';
 import '../../constants/colors.dart';
+import '../../controller/location_screen_controller.dart';
+import '../username_screen/user_name_screen.dart';
 import 'location_screen_widgets.dart';
 
 class LocationScreen extends StatelessWidget {
-  const LocationScreen({Key? key}) : super(key: key);
-
+   LocationScreen({Key? key}) : super(key: key);
+  final locationScreenController = Get.put(LocationScreenController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: commonAppBarModule(text: AppMessages.location),
       bottomNavigationBar:
       ButtonCustom(
+        backgroundColor: AppColors.darkOrangeColor,
           text:AppMessages.confirm,
+          fontWeight: FontWeight.bold,
+          textsize: 14.sp,
           textColor: AppColors.gray50Color,
-          onPressed: () {Get.back();},
-        shadowColor: AppColors.grey900Color).commonSymmetricPadding(horizontal: 10,vertical: 20),
-      body: Column(
-        children: [
-          const SearchTextfiledModule(),
-          SizedBox(height: 2.h,),
-          const CountryListViewModule(),
-        ],
+          onPressed: () {Get.to(UserNameScreen());},
+        shadowColor: AppColors.grey900Color).commonSymmetricPadding(horizontal: 25,vertical: 30),
+      body: SafeArea(
+        child: Column(
+          children: [
+            const SearchTextfiledModule().commonSymmetricPadding(horizontal: 20),
+            SizedBox(height: 3.h,),
+            const CountryListViewModule(),
+          ],
+        ),
       ),
     );
   }
