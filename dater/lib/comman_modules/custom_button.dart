@@ -11,9 +11,11 @@ class ButtonCustom extends StatelessWidget {
   Color textColor;
   FontWeight? fontWeight;
   double? textsize;
+
   Size? size;
   Function() onPressed;
   Color backgroundColor;
+  String textFontFamily;
 
   ButtonCustom({
     Key? key,
@@ -25,6 +27,7 @@ class ButtonCustom extends StatelessWidget {
     this.size = const Size(150, 0),
     required this.onPressed,
     required this.shadowColor,
+    this.textFontFamily = "SFProDisplayRegular",
   }) : super(key: key);
 
   @override
@@ -46,6 +49,7 @@ class ButtonCustom extends StatelessWidget {
           textColor: textColor,
           fontWeight: fontWeight!,
           fontSize: textsize!,
+          fontFamily: textFontFamily,
         ),
       ).commonSymmetricPadding(vertical: 12),
     );
@@ -58,6 +62,8 @@ class ButtonCustomLoginAndSignUp extends StatelessWidget {
   FontWeight? fontWeight;
   double? textsize;
   Size? size;
+  String textFontFamily;
+
   Function() onPressed;
   Color backgroundColor;
   String? image;
@@ -67,6 +73,7 @@ class ButtonCustomLoginAndSignUp extends StatelessWidget {
     required this.text,
     this.textColor = AppColors.blackColor,
     this.fontWeight = FontWeight.normal,
+    this.textFontFamily = "SFProDisplayRegular",
     this.textsize = 12,
     this.backgroundColor = AppColors.whiteColor,
     this.size = const Size(double.infinity, 0),
@@ -100,7 +107,7 @@ class ButtonCustomLoginAndSignUp extends StatelessWidget {
               textColor: textColor,
               fontWeight: fontWeight!,
               fontSize: textsize!,
-              fontFamily: "SFProDisplayRegular",
+              fontFamily: textFontFamily,
             ),
           ),
         ],
