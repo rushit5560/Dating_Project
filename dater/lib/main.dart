@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
         return GetMaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'Dating App',
-          home: LocationScreen(),
+          home: SplashScreen(),
         );
       },
     );

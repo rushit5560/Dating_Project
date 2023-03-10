@@ -1,5 +1,6 @@
 import 'package:dater/constants/app_images.dart';
 import 'package:dater/constants/colors.dart';
+import 'package:dater/utils/extensions.dart';
 import 'package:dater/utils/style.dart';
 import 'package:flutter/material.dart';
 
@@ -21,8 +22,9 @@ class ButtonCustom extends StatelessWidget {
     this.fontWeight = FontWeight.normal,
     this.textsize = 12,
     this.backgroundColor = AppColors.whiteColor,
-    this.size = const Size(150, 40),
-    required this.onPressed, required this.shadowColor,
+    this.size = const Size(150, 0),
+    required this.onPressed,
+    required this.shadowColor,
   }) : super(key: key);
 
   @override
@@ -32,7 +34,6 @@ class ButtonCustom extends StatelessWidget {
         shadowColor: shadowColor,
         backgroundColor: backgroundColor,
         elevation: 6,
-
         minimumSize: size,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(30),
@@ -46,11 +47,10 @@ class ButtonCustom extends StatelessWidget {
           fontWeight: fontWeight!,
           fontSize: textsize!,
         ),
-      ),
+      ).commonSymmetricPadding(vertical: 12),
     );
   }
 }
-
 
 class ButtonCustomLoginAndSignUp extends StatelessWidget {
   final String text;
@@ -69,7 +69,7 @@ class ButtonCustomLoginAndSignUp extends StatelessWidget {
     this.fontWeight = FontWeight.normal,
     this.textsize = 12,
     this.backgroundColor = AppColors.whiteColor,
-    this.size = const Size(double.infinity, 60),
+    this.size = const Size(double.infinity, 0),
     required this.onPressed,
     this.image,
   }) : super(key: key);
@@ -88,7 +88,7 @@ class ButtonCustomLoginAndSignUp extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Container(
+          SizedBox(
             height: 25,
             width: 25,
             child: Image.asset("$image"),
@@ -104,7 +104,7 @@ class ButtonCustomLoginAndSignUp extends StatelessWidget {
             ),
           ),
         ],
-      ),
+      ).commonSymmetricPadding(vertical: 12),
     );
   }
 }

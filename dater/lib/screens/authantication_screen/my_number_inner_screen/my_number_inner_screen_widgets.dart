@@ -11,14 +11,14 @@ import '../../../comman_modules/custom_button.dart';
 import '../../../constants/colors.dart';
 import '../../../constants/messages.dart';
 
-class CountryDropDownModule extends StatefulWidget {
-  const CountryDropDownModule({Key? key}) : super(key: key);
+class TextFormFiledModule extends StatefulWidget {
+  const TextFormFiledModule({Key? key}) : super(key: key);
 
   @override
-  State<CountryDropDownModule> createState() => _CountryDropDownModuleState();
+  State<TextFormFiledModule> createState() => _CountryDropDownModuleState();
 }
 
-class _CountryDropDownModuleState extends State<CountryDropDownModule> {
+class _CountryDropDownModuleState extends State<TextFormFiledModule> {
   String dropdownvalue = 'In +91';
   var country = [
     'In +91',
@@ -32,8 +32,6 @@ class _CountryDropDownModuleState extends State<CountryDropDownModule> {
         flex: 2,
         child: Container(
           height: 4.h,
-          //margin: const EdgeInsets.all(10),
-          // padding: EdgeInsets.all(2),
           decoration: const BoxDecoration(
             color: Colors.white,
           ),
@@ -45,8 +43,8 @@ class _CountryDropDownModuleState extends State<CountryDropDownModule> {
                 child: Text(
                   country,
                   style: TextStyleConfig.textStyle(
-                    fontFamily: "SFProDisplayRegular",
-                  ),
+                      fontFamily: "SFProDisplayRegular",
+                      textColor: AppColors.grey800Color),
                 ),
               );
             }).toList(),
@@ -65,7 +63,7 @@ class _CountryDropDownModuleState extends State<CountryDropDownModule> {
           child: TextFormField(
             style: TextStyleConfig.textStyle(
                 fontFamily: "SFProDisplayRegular",
-                textColor: AppColors.grey800Color),
+                textColor: AppColors.grey500Color),
             decoration: InputDecoration(
               labelText: AppMessages.phoneNumber,
             ),
@@ -76,46 +74,20 @@ class _CountryDropDownModuleState extends State<CountryDropDownModule> {
   }
 }
 
-class ContinueModule extends StatelessWidget {
-  const ContinueModule({Key? key}) : super(key: key);
+class TextCustomModule extends StatelessWidget {
+  const TextCustomModule({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Column(children: [
-      Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-        const Text('''When you tap "Continue", Gather will send you''')
-      ]),
-      SizedBox(
-        height: 20.h,
+    return RichText(
+      textAlign: TextAlign.center,
+      text: TextSpan(
+        text: AppMessages.myNumberScreenInformationText,
+        style: TextStyleConfig.textStyle(
+            fontFamily: "SFProDisplayRegular",
+            textColor: AppColors.grey600Color,
+            fontSize: 13.sp),
       ),
-      ButtonCustom(
-        size: const Size(double.infinity, 50),
-        backgroundColor: AppColors.lightOrangeColor,
-        shadowColor: Colors.blueGrey,
-        text: AppMessages.continueButton,
-        textColor: AppColors.gray50Color,
-        fontWeight: FontWeight.bold,
-        textsize: 14.sp,
-        onPressed: () {
-          Get.to(() => SignUpEmailScreen());
-        },
-      ),
-      // SizedBox(
-      //   height: 20.h,
-      // ),
-      // const Text('Do you have a referral number from a friend?'),
-      // ButtonCustom(
-      //   //size: Size(double.infinity, 50),
-      //   backgroundColor: AppColors.whiteColor,
-      //   shadowColor: Colors.white,
-      //   text: '\$123456',
-      //   textColor: AppColors.grey700Color,
-      //   fontWeight: FontWeight.bold,
-      //   textsize: 14.sp,
-      //   onPressed: () {
-      //     log('message1');
-      //   },
-      // ),
-    ]).commonOnlyPadding(left: 5.w, right: 5.w);
+    );
   }
 }

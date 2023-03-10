@@ -1,22 +1,41 @@
-import 'dart:developer';
 
-import 'package:dater/constants/messages.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:sizer/sizer.dart';
 
 import '../constants/colors.dart';
 
-PreferredSizeWidget commonAppBarModule({required text}) {
+PreferredSizeWidget commonAppBarModule(
+  {required String text,
+  Color iconColor = AppColors.lightOrangeColor,
+  String textFontFamily = "SFProDisplayRegular",
+  Color textColor = AppColors.grey800Color,
+  }) {
   return AppBar(
-      backgroundColor: AppColors.gray50Color,
-      leading:Builder(
-        builder: (BuildContext context) {
-          return
-            IconButton(onPressed: () => log('message3') ,
-                icon: const Icon(Icons.west_outlined,color: AppColors.lightOrangeColor));
-        },
+    backgroundColor: AppColors.gray50Color,
+    leading: Builder(
+      builder: (BuildContext context) {
+        return IconButton(
+          onPressed: () {
+            Get.back();
+          },
+          icon: const Icon(
+            Icons.west_outlined,
+            color: AppColors.lightOrangeColor,
+          ),
+        );
+      },
+    ),
+    centerTitle: true,
+    elevation: 0,
+    title: Text(
+      text,
+      style: TextStyle(
+        color: AppColors.grey800Color,
+        fontWeight: FontWeight.bold,
+        fontFamily: "SFProDisplayRegular",
+        fontSize: 20.sp,
       ),
-      centerTitle: true,
-      elevation: 0,
-      title: Text(text,style: const TextStyle(color: AppColors.blackColor,fontWeight: FontWeight.w800)),
+    ),
   );
 }
