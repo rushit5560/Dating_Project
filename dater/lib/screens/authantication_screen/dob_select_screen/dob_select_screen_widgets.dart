@@ -8,7 +8,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-
 class DobSelectModule extends StatelessWidget {
   DobSelectModule({Key? key}) : super(key: key);
   final screenController = Get.find<DobSelectScreenController>();
@@ -31,12 +30,11 @@ class DobSelectModule extends StatelessWidget {
               "My birthday is",
               style: TextStyle(
                   fontFamily: FontFamilyText.sFProDisplaySemibold,
-                  fontSize: 18
-              ),
+                  fontSize: 18),
             ),
             const SizedBox(height: 8),
             Obx(
-              ()=> Text(
+              () => Text(
                 screenController.dobString.value,
                 style: TextStyle(
                   fontFamily: FontFamilyText.sFProDisplayRegular,
@@ -45,7 +43,6 @@ class DobSelectModule extends StatelessWidget {
                 ),
               ),
             ),
-
             const SizedBox(height: 10),
             const Divider(
               color: AppColors.grey300Color,
@@ -53,7 +50,6 @@ class DobSelectModule extends StatelessWidget {
               endIndent: 10,
               indent: 10,
             ),
-
             const SizedBox(height: 10),
             Text(
               "Your age will be public",
@@ -63,76 +59,68 @@ class DobSelectModule extends StatelessWidget {
                 fontFamily: FontFamilyText.sFProDisplayRegular,
               ),
             ),
-
-
           ],
         ).commonSymmetricPadding(horizontal: 10, vertical: 20),
       ),
     );
   }
 
-
   void _showDatePicker(ctx) {
     // showCupertinoModalPopup is a built-in function of the cupertino library
     showCupertinoModalPopup(
         context: ctx,
         builder: (_) => Material(
-          child: Container(
-            // height: 300,
-            color: const Color.fromARGB(255, 255, 255, 255),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              child: Container(
+                // height: 300,
+                color: const Color.fromARGB(255, 255, 255, 255),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
                   children: [
-                    IconButton(
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        IconButton(
                           onPressed: () => Get.back(),
                           icon: const Icon(
                             Icons.close_rounded,
                             color: AppColors.darkOrangeColor,
                           ),
                         ),
-
-                    IconButton(
-                      onPressed: () {
-                        screenController.setDobInStringFunction();
-                      },
-                      icon: const Icon(
-                        Icons.check_rounded,
-                        color: AppColors.darkOrangeColor,
-                      ),
+                        IconButton(
+                          onPressed: () {
+                            screenController.setDobInStringFunction();
+                          },
+                          icon: const Icon(
+                            Icons.check_rounded,
+                            color: AppColors.darkOrangeColor,
+                          ),
+                        ),
+                      ],
                     ),
 
-                      ],
-                ),
+                    SizedBox(
+                      height: 300,
+                      child: CupertinoDatePicker(
+                          mode: CupertinoDatePickerMode.date,
+                          initialDateTime: DateTime.now(),
+                          onDateTimeChanged: (val) {
+                            log('val : $val');
+                            // _chosenDateTime = val;
+                            screenController.tempDobString = val;
+                          }),
+                    ),
 
-                SizedBox(
-                  height: 300,
-                  child: CupertinoDatePicker(
-                    mode: CupertinoDatePickerMode.date,
-                      initialDateTime: DateTime.now(),
-                      onDateTimeChanged: (val) {
-                        log('val : $val');
-                          // _chosenDateTime = val;
-                        screenController.tempDobString = val;
-                      }),
+                    // Close the modal
+                    // CupertinoButton(
+                    //   child: const Text('OK'),
+                    //   onPressed: () => Navigator.of(ctx).pop(),
+                    // )
+                  ],
                 ),
-
-                // Close the modal
-                // CupertinoButton(
-                //   child: const Text('OK'),
-                //   onPressed: () => Navigator.of(ctx).pop(),
-                // )
-              ],
-            ),
-          ),
-        ));
+              ),
+            ));
   }
-
 }
-
 
 class AgeNotesModule extends StatelessWidget {
   const AgeNotesModule({Key? key}) : super(key: key);
@@ -151,7 +139,8 @@ class AgeNotesModule extends StatelessWidget {
             children: [
               _singleItemModule(
                 number: '1- ',
-                text: 'We only show your age on your profile not your birthday !',
+                text:
+                    'We only show your age on your profile not your birthday !',
               ),
               _singleItemModule(
                 number: '2- ',
@@ -159,7 +148,8 @@ class AgeNotesModule extends StatelessWidget {
               ),
               _singleItemModule(
                 number: '3- ',
-                text: 'Make sure this will be your right age, you cant change it later !',
+                text:
+                    'Make sure this will be your right age, you cant change it later !',
               ),
             ],
           ),
@@ -175,17 +165,20 @@ class AgeNotesModule extends StatelessWidget {
         Text(
           number,
           style: TextStyle(
-              fontFamily: FontFamilyText.sFProDisplayRegular, fontSize: 15),
+            fontFamily: FontFamilyText.sFProDisplayRegular,
+            fontSize: 18,
+          ),
         ),
         Expanded(
           child: Text(
             text,
             style: TextStyle(
-                fontFamily: FontFamilyText.sFProDisplayRegular, fontSize: 15),
+              fontFamily: FontFamilyText.sFProDisplayRegular,
+              fontSize: 18,
+            ),
           ),
         ),
       ],
     ).commonSymmetricPadding(vertical: 6);
   }
 }
-

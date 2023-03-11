@@ -78,3 +78,70 @@ class RadioButtonModule extends StatelessWidget {
     );
   }
 }
+
+class GenderNotesModule extends StatelessWidget {
+  const GenderNotesModule({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Expanded(
+          flex: 15,
+          child: Container(),
+        ),
+        Expanded(
+          flex: 85,
+          child: Column(
+            children: [
+              _singleItemModule(
+                number: '1- ',
+                text: 'You can alwaysb change, your gender later',
+              ),
+              _singleItemModule(
+                number: '2- ',
+                text: 'Try to choose which, best describes you ',
+              ),
+              _singleItemModule(
+                number: '3- ',
+                text: 'You can add more about your gender later on',
+              ),
+              _singleItemModule(
+                number: '4- ',
+                text:
+                    'You will only be shown to people looking to date your gender',
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _singleItemModule({required String number, required String text}) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          number,
+          style: TextStyle(
+            fontFamily: FontFamilyText.sFProDisplayRegular,
+            fontSize: 18,
+            color: AppColors.grey500Color,
+          ),
+        ),
+        Expanded(
+          child: Text(
+            text,
+            style: TextStyle(
+              fontFamily: FontFamilyText.sFProDisplayRegular,
+              fontSize: 18,
+              color: AppColors.grey500Color,
+              
+            ),
+          ),
+        ),
+      ],
+    ).commonSymmetricPadding(vertical: 6);
+  }
+}

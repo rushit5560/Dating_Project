@@ -54,6 +54,8 @@ class GenderSelectScreen extends StatelessWidget {
               backgroundColor: AppColors.greyColor,
             ),
           ),
+          SizedBox(height: 3.h),
+          GenderNotesModule()
         ],
       ).commonSymmetricPadding(horizontal: 25, vertical: 10),
     );
