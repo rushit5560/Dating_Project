@@ -16,7 +16,14 @@ class CreativeWidgetsModule extends StatefulWidget {
 }
 
 class _CreativeWidgetsModuleState extends State<CreativeWidgetsModule> {
-  int? _value = 0;
+  var selectedVal = 0;
+  // bool  value = true;
+  var  options = [
+    'News', 'Entertainment', 'Politics',
+    'Automotive', 'Sports', 'Education',
+    'Fashion', 'Travel', 'Food', 'Tech',
+    'Science',
+  ];
   @override
   Widget build(BuildContext context) {
     return
@@ -71,29 +78,29 @@ class _CreativeWidgetsModuleState extends State<CreativeWidgetsModule> {
                     fontSize: 12.sp,
                   ),
                 ),
-                SizedBox(height: 1.h,),
+                //SizedBox(height: 2.h,),
                 Wrap(
-                  spacing: 2.0,
+                  spacing: 3.0,
                   //runSpacing: 2.0,
                   children: List.generate(
-                    10,
+                    options.length,
                         (int index) {
                       return ChoiceChip(
                         avatar: Image.asset(AppImages.findImage),
-                        //padding: EdgeInsets.all(10),
-                        label: Text('Item $index'),
-                        selected: _value == index,
-                        selectedColor: Colors.deepOrange,
+                        padding: const EdgeInsets.all(2),
+                        label: Text(options[index]),
+                        selected: selectedVal == index,
+                        selectedColor:AppColors.darkOrangeColor,
                         backgroundColor: Colors.white,
                         shape: const StadiumBorder(
                             side: BorderSide(
                               // width: 1,
-                              color: Colors.black,
-                            )
+                              color: AppColors.grey400Color,
+                            ),
                         ),
-                        onSelected: (bool selected) {
+                        onSelected: (bool value) {
                           setState(() {
-                            _value = selected ? index : null;
+                            selectedVal = (value ? index : null)!;
                           });
                         },
                       );
