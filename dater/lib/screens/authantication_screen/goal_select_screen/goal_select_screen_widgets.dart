@@ -1,6 +1,5 @@
 import 'dart:developer';
 import 'package:dater/constants/messages.dart';
-import 'package:dater/controller/auth_screen_controllers/gender_target_screen_controller.dart';
 import 'package:dater/utils/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -8,11 +7,13 @@ import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:sizer/sizer.dart';
 import '../../../constants/colors.dart';
 import '../../../constants/font_family.dart';
+import '../../../controller/auth_screen_controllers/goal_select_screen_controller.dart';
 import '../../../utils/style.dart';
 
-class GenderTargetRadioButtonModule extends StatelessWidget {
-  GenderTargetRadioButtonModule({super.key});
-  final genderTargetScreenController = Get.find<GenderTargetScreenController>();
+class GoalRadioButtonModule extends StatelessWidget {
+  GoalRadioButtonModule({super.key});
+  final goalSelectScreenController = Get.find<GoalSelectScreenController>();
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -30,7 +31,7 @@ class GenderTargetRadioButtonModule extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                AppMessages.gender,
+                AppMessages.goal,
                 style: TextStyleConfig.textStyle(
                   fontFamily: FontFamilyText.sFProDisplayBold,
                   fontSize: 14.sp,
@@ -41,13 +42,13 @@ class GenderTargetRadioButtonModule extends StatelessWidget {
           SizedBox(
             height: 150,
             child: ListView.builder(
-              itemCount: genderTargetScreenController.gender.length,
+              itemCount: goalSelectScreenController.gender.length,
               itemBuilder: (context, index) {
                 return Row(
                   children: [
                     Expanded(
                       child: Text(
-                        genderTargetScreenController.gender[index],
+                        goalSelectScreenController.gender[index],
                         style: TextStyleConfig.textStyle(
                           fontFamily: FontFamilyText.sFProDisplayRegular,
                           fontSize: 15.sp,
@@ -58,13 +59,13 @@ class GenderTargetRadioButtonModule extends StatelessWidget {
                     Obx(
                           () => Radio(
                         activeColor: AppColors.darkOrangeColor,
-                        value: genderTargetScreenController.gender[index],
-                        groupValue: genderTargetScreenController.selectedvalue.value,
+                        value: goalSelectScreenController.gender[index],
+                        groupValue: goalSelectScreenController.selectedvalue.value,
                         onChanged: (val) {
                           log("val : $val");
-                          genderTargetScreenController.isLoading(true);
-                          genderTargetScreenController.selectedvalue.value = val!;
-                          genderTargetScreenController.isLoading(false);
+                          goalSelectScreenController.isLoading(true);
+                          goalSelectScreenController.selectedvalue.value = val!;
+                          goalSelectScreenController.isLoading(false);
                         },
                       ),
                     ),
@@ -80,28 +81,19 @@ class GenderTargetRadioButtonModule extends StatelessWidget {
 }
 
 
-class GenderTargetNotesModule extends StatelessWidget {
-  const GenderTargetNotesModule({Key? key}) : super(key: key);
+class GoalselectNotesModule extends StatelessWidget {
+  const GoalselectNotesModule({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
         Expanded(
-          flex: 15,
-          child: Container(),
-        ),
-        Expanded(
-          flex: 85,
           child: Column(
             children: [
               _singleItemModule(
-                number: AppMessages.targetgendernumber1,
-                text: AppMessages.YouCanAlwaysChangeYourTargetGenderLater,
-              ),
-              _singleItemModule(
-                number: AppMessages.targetgendernumber2,
-                text: AppMessages.Youwillonlyseepeopleyouaretargeting,
+                number: AppMessages.goalselectednumber,
+                text: AppMessages.Beinghonestwillhelpeveryonetogetthebestexperience,
               ),
             ],
           ),

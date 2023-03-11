@@ -44,7 +44,15 @@ class AppMessages {
   static String creative = "Creative";
   static String sports = "Sports";
   static String genderNotes = "Gender notes";
+  static String goalNotes = "Goal notes";
   static String gender = "Gender";
   static String targetGenderNotes = "What's your target gender ?";
-  //static String targetGenderNotes = "What's your target gender ?";
+  static String whatsyourgoal = "What's your goal ?";
+  static String YouCanAlwaysChangeYourTargetGenderLater = "You can always change,your target gender later";
+  static String Youwillonlyseepeopleyouaretargeting = "You will only see people , you are targeting . ";
+  static String Beinghonestwillhelpeveryonetogetthebestexperience= "Being honest will help everyone to get the best experience.";
+  static String targetgendernumber1 = '1- ';
+  static String targetgendernumber2 = '2- ';
+  static String goalselectednumber = '1- ';
+  static String goal = 'Goal ';
 }
