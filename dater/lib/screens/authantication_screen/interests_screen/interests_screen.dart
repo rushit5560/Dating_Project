@@ -11,11 +11,16 @@ class InterestsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return  Scaffold(
       backgroundColor: AppColors.grey200Color,
-      body: Column(
-        children: [
-          SizedBox(height: 3.h,),
-          const CreativeWidgetsModule(),
-        ],
+      body: SingleChildScrollView(
+        scrollDirection: Axis.vertical,
+        child: Column(
+          children: [
+            SizedBox(height: 2.h,),
+            const CreativeWidgetsModule(),
+           // SizedBox(height: 3.h,),
+            SportsWidgetsModule(),
+          ],
+        ),
       ),
     );
   }

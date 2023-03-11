@@ -42,5 +42,9 @@ class AppMessages {
   static String interestsText1 = '''You can choose up to 8 things you love,''';
   static String interestsText2 = '''it will help you find your soulmate .''';
   static String creative = "Creative";
+  static String sports = "Sports";
   static String genderNotes = "Gender notes";
+  static String gender = "Gender";
+  static String targetGenderNotes = "What's your target gender ?";
+  //static String targetGenderNotes = "What's your target gender ?";
 }
