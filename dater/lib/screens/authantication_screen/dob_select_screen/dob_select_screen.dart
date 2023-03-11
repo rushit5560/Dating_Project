@@ -46,7 +46,7 @@ class DobSelectScreen extends StatelessWidget {
             textFontFamily: FontFamilyText.sFProDisplayBold,
             textsize: 15,
             onPressed: () {
-              // Get.to(() => GenderSelectScreen());
+              Get.to(() => GenderSelectScreen());
             },
           ),
         ],

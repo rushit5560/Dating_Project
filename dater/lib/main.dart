@@ -1,4 +1,5 @@
 import 'package:dater/screens/location_screen/location_screen.dart';
+import 'package:dater/screens/splash_screen/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
@@ -20,7 +21,7 @@ class MyApp extends StatelessWidget {
         return  GetMaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'Dating App',
-          home: UserName1Screen(),
+          home: SplashScreen(),
         );
       },
     );
