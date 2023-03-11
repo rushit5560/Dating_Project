@@ -41,6 +41,7 @@ class GenderTargetRadioButtonModule extends StatelessWidget {
           SizedBox(
             height: 150,
             child: ListView.builder(
+              physics: const NeverScrollableScrollPhysics(),
               itemCount: 3,
               itemBuilder: (context, index) {
                 return Row(

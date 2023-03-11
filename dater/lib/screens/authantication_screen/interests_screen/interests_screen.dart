@@ -19,15 +19,17 @@ class InterestsScreen extends StatelessWidget {
         child: Obx(
           () => interestsScreen1Controller.isLoading.value
               ? const CustomLoader()
-              : Column(
-                  children: [
-                    SizedBox(
-                      height: 2.h,
-                    ),
-                    const InterestsWidgetModule(),
-                    // SizedBox(height: 3.h,),
-                    // SportsWidgetsModule(),
-                  ],
+              : SafeArea(
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        height: 2.h,
+                      ),
+                      const InterestsWidgetModule(),
+                      // SizedBox(height: 3.h,),
+                      // SportsWidgetsModule(),
+                    ],
+                  ),
                 ),
         ),
       ),

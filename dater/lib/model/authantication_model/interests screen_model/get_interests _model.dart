@@ -4,14 +4,14 @@
 
 import 'dart:convert';
 
-GetIntrestModel getIntrestModelFromJson(String str) =>
-    GetIntrestModel.fromJson(json.decode(str));
+IntrestModel getIntrestModelFromJson(String str) =>
+  IntrestModel.fromJson(json.decode(str));
 
-String getIntrestModelToJson(GetIntrestModel data) =>
+String getIntrestModelToJson(IntrestModel data) =>
     json.encode(data.toJson());
 
-class GetIntrestModel {
-  GetIntrestModel({
+class IntrestModel {
+  IntrestModel({
     required this.response,
     required this.msg,
     required this.statusCode,
@@ -21,8 +21,8 @@ class GetIntrestModel {
   final List<InterestsData> msg;
   final int statusCode;
 
-  factory GetIntrestModel.fromJson(Map<String, dynamic> json) =>
-      GetIntrestModel(
+  factory IntrestModel.fromJson(Map<String, dynamic> json) =>
+      IntrestModel(
         response: json["response"] ?? "",
         msg: List<InterestsData>.from(
             json["msg"].map((x) => InterestsData.fromJson(x)) ?? []),

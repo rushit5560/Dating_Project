@@ -4,13 +4,13 @@
 
 import 'dart:convert';
 
-GetTargetGenderModel getGenderModelFromJson(String str) =>
-    GetTargetGenderModel.fromJson(json.decode(str));
+TargetGenderModel getGenderModelFromJson(String str) =>
+    TargetGenderModel.fromJson(json.decode(str));
 
-String getGenderModelToJson(GetTargetGenderModel data) => json.encode(data.toJson());
+String getGenderModelToJson(TargetGenderModel data) => json.encode(data.toJson());
 
-class GetTargetGenderModel {
-  GetTargetGenderModel({
+class TargetGenderModel {
+TargetGenderModel({
     required this.response,
     required this.msg,
     required this.statusCode,
@@ -20,7 +20,7 @@ class GetTargetGenderModel {
   final List<Msg> msg;
   final int statusCode;
 
-  factory GetTargetGenderModel.fromJson(Map<String, dynamic> json) => GetTargetGenderModel(
+  factory TargetGenderModel.fromJson(Map<String, dynamic> json) => TargetGenderModel(
         response: json["response"] ?? "",
         msg: List<Msg>.from(json["msg"].map((x) => Msg.fromJson(x)) ?? []),
         statusCode: json["status_code"] ?? 0,

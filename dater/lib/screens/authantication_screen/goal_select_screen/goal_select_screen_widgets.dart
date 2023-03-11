@@ -3,7 +3,6 @@ import 'package:dater/constants/messages.dart';
 import 'package:dater/utils/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:sizer/sizer.dart';
 import '../../../constants/colors.dart';
 import '../../../constants/font_family.dart';
@@ -42,13 +41,14 @@ class GoalRadioButtonModule extends StatelessWidget {
           SizedBox(
             height: 150,
             child: ListView.builder(
-              itemCount: goalSelectScreenController.gender.length,
+              physics: const NeverScrollableScrollPhysics(),
+              itemCount: goalSelectScreenController.goleDataList.length,
               itemBuilder: (context, index) {
                 return Row(
                   children: [
                     Expanded(
                       child: Text(
-                        goalSelectScreenController.gender[index],
+                        goalSelectScreenController.goleDataList[index].name,
                         style: TextStyleConfig.textStyle(
                           fontFamily: FontFamilyText.sFProDisplayRegular,
                           fontSize: 15.sp,
@@ -57,10 +57,12 @@ class GoalRadioButtonModule extends StatelessWidget {
                       ),
                     ),
                     Obx(
-                          () => Radio(
+                      () => Radio(
                         activeColor: AppColors.darkOrangeColor,
-                        value: goalSelectScreenController.gender[index],
-                        groupValue: goalSelectScreenController.selectedvalue.value,
+                        value:
+                            goalSelectScreenController.goleDataList[index].name,
+                        groupValue:
+                            goalSelectScreenController.selectedvalue.value,
                         onChanged: (val) {
                           log("val : $val");
                           goalSelectScreenController.isLoading(true);
@@ -80,7 +82,6 @@ class GoalRadioButtonModule extends StatelessWidget {
   }
 }
 
-
 class GoalselectNotesModule extends StatelessWidget {
   const GoalselectNotesModule({Key? key}) : super(key: key);
 
@@ -93,7 +94,8 @@ class GoalselectNotesModule extends StatelessWidget {
             children: [
               _singleItemModule(
                 number: AppMessages.goalselectednumber,
-                text: AppMessages.Beinghonestwillhelpeveryonetogetthebestexperience,
+                text: AppMessages
+                    .Beinghonestwillhelpeveryonetogetthebestexperience,
               ),
             ],
           ),

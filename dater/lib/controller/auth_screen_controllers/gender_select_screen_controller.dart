@@ -21,8 +21,8 @@ class GenderSelectScreenController extends GetxController {
     try {
       http.Response response = await http.get(Uri.parse(url));
 
-      GetGenderModel getGenderModel =
-          GetGenderModel.fromJson(json.decode(response.body));
+      GenderModel getGenderModel =
+        GenderModel.fromJson(json.decode(response.body));
 
       // isSuccessStatus =response.statusCode ;
 

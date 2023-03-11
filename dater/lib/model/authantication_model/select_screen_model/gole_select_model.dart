@@ -4,25 +4,25 @@
 
 import 'dart:convert';
 
-GetGoleModel getGoleModelFromJson(String str) =>
-    GetGoleModel.fromJson(json.decode(str));
+GoleModel getGoleModelFromJson(String str) =>
+    GoleModel.fromJson(json.decode(str));
 
-String getGoleModelToJson(GetGoleModel data) => json.encode(data.toJson());
+String getGoleModelToJson(GoleModel data) => json.encode(data.toJson());
 
-class GetGoleModel {
-  GetGoleModel({
+class GoleModel {
+  GoleModel({
     required this.response,
     required this.msg,
     required this.statusCode,
   });
 
   final String response;
-  final List<Msg> msg;
+  final List<GoleData> msg;
   final int statusCode;
 
-  factory GetGoleModel.fromJson(Map<String, dynamic> json) => GetGoleModel(
+  factory GoleModel.fromJson(Map<String, dynamic> json) => GoleModel(
         response: json["response"] ?? "",
-        msg: List<Msg>.from(json["msg"].map((x) => Msg.fromJson(x)) ?? []),
+        msg: List<GoleData>.from(json["msg"].map((x) => GoleData.fromJson(x)) ?? []),
         statusCode: json["status_code"] ?? 0,
       );
 
@@ -33,8 +33,8 @@ class GetGoleModel {
       };
 }
 
-class Msg {
-  Msg({
+class GoleData {
+  GoleData({
     required this.id,
     required this.name,
   });
@@ -42,7 +42,7 @@ class Msg {
   final String id;
   final String name;
 
-  factory Msg.fromJson(Map<String, dynamic> json) => Msg(
+  factory GoleData.fromJson(Map<String, dynamic> json) => GoleData(
         id: json["id"] ?? "",
         name: json["name"] ?? "",
       );
