@@ -1,21 +1,19 @@
-import 'dart:developer';
 
 import 'package:dater/comman_modules/custom_appbar.dart';
 import 'package:dater/comman_modules/custom_button.dart';
 import 'package:dater/constants/colors.dart';
 import 'package:dater/constants/font_family.dart';
 import 'package:dater/constants/messages.dart';
-import 'package:dater/controller/gender_screen_controller.dart';
+import 'package:dater/controller/gender_select_screen_controller.dart';
 import 'package:dater/screens/authantication_screen/gender_select_screen/gender_select_screen_widgets.dart';
 import 'package:dater/utils/extensions.dart';
-import 'package:dater/utils/style.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 
 class GenderSelectScreen extends StatelessWidget {
   GenderSelectScreen({super.key});
-  final genderScreenController = Get.put(GenderScreenController());
+  final genderSelectScreenController = Get.put(GenderSelectScreenController());
 
   @override
   Widget build(BuildContext context) {

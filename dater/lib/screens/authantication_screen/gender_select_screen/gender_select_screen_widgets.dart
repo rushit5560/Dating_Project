@@ -2,7 +2,7 @@ import 'dart:developer';
 
 import 'package:dater/constants/colors.dart';
 import 'package:dater/constants/font_family.dart';
-import 'package:dater/controller/gender_screen_controller.dart';
+import 'package:dater/controller/gender_select_screen_controller.dart';
 import 'package:dater/utils/extensions.dart';
 import 'package:dater/utils/style.dart';
 import 'package:flutter/material.dart';
@@ -11,7 +11,7 @@ import 'package:sizer/sizer.dart';
 
 class RadioButtonModule extends StatelessWidget {
   RadioButtonModule({super.key});
-  final genderScreenController = Get.find<GenderScreenController>();
+  final genderSelectScreenController = Get.find<GenderSelectScreenController>();
 
   @override
   Widget build(BuildContext context) {
@@ -41,13 +41,13 @@ class RadioButtonModule extends StatelessWidget {
           SizedBox(
             height: 150,
             child: ListView.builder(
-              itemCount: genderScreenController.gender.length,
+              itemCount: genderSelectScreenController.msgData.length,
               itemBuilder: (context, index) {
                 return Row(
                   children: [
                     Expanded(
                       child: Text(
-                        genderScreenController.gender[index],
+                        genderSelectScreenController.msgData[index].name,
                         style: TextStyleConfig.textStyle(
                           fontFamily: FontFamilyText.sFProDisplayRegular,
                           fontSize: 15.sp,
@@ -58,13 +58,15 @@ class RadioButtonModule extends StatelessWidget {
                     Obx(
                       () => Radio(
                         activeColor: AppColors.darkOrangeColor,
-                        value: genderScreenController.gender[index],
-                        groupValue: genderScreenController.selectedvalue.value,
+                        value: genderSelectScreenController.msgData[index].name,
+                        groupValue:
+                            genderSelectScreenController.selectedvalue.value,
                         onChanged: (val) {
                           log("val : $val");
-                          genderScreenController.isLoading(true);
-                          genderScreenController.selectedvalue.value = val!;
-                          genderScreenController.isLoading(false);
+                          genderSelectScreenController.isLoading(true);
+                          genderSelectScreenController.selectedvalue.value =
+                              val!;
+                          genderSelectScreenController.isLoading(false);
                         },
                       ),
                     ),
@@ -137,7 +139,6 @@ class GenderNotesModule extends StatelessWidget {
               fontFamily: FontFamilyText.sFProDisplayRegular,
               fontSize: 18,
               color: AppColors.grey500Color,
-              
             ),
           ),
         ),
