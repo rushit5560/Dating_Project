@@ -1,18 +1,18 @@
 import 'dart:developer';
 
 import 'package:dater/screens/authantication_screen/add_user_photo_screen/add_user_photo_screen.dart';
-import 'package:dater/screens/username_screen/interests_screen.dart';
+import 'package:dater/screens/authantication_screen/username_screen/interests_screen.dart';
 import 'package:dater/utils/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 
-import '../../comman_modules/custom_button.dart';
-import '../../comman_modules/custom_textfromfiled.dart';
-import '../../constants/colors.dart';
-import '../../constants/messages.dart';
-import '../../controller/user_name_screen_controller.dart';
-import '../../utils/style.dart';
+import '../../../comman_modules/custom_button.dart';
+import '../../../comman_modules/custom_textfromfiled.dart';
+import '../../../constants/colors.dart';
+import '../../../constants/messages.dart';
+import '../../../controller/user_name_screen_controller.dart';
+import '../../../utils/style.dart';
 
 class SignUpNameScreenWidgets extends StatelessWidget {
   SignUpNameScreenWidgets({Key? key}) : super(key: key);

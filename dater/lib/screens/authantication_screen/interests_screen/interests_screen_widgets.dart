@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 
-import '../../utils/style.dart';
+import '../../../utils/style.dart';
 
 class CreativeWidgetsModule extends StatefulWidget {
   const CreativeWidgetsModule({Key? key}) : super(key: key);

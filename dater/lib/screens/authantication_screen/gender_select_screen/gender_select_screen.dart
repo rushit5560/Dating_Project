@@ -6,7 +6,7 @@ import 'package:dater/constants/colors.dart';
 import 'package:dater/constants/font_family.dart';
 import 'package:dater/constants/messages.dart';
 import 'package:dater/controller/gender_screen_controller.dart';
-import 'package:dater/screens/gender_select_screen/gender_select_screen_widgets.dart';
+import 'package:dater/screens/authantication_screen/gender_select_screen/gender_select_screen_widgets.dart';
 import 'package:dater/utils/extensions.dart';
 import 'package:dater/utils/style.dart';
 import 'package:flutter/material.dart';

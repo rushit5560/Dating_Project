@@ -6,8 +6,8 @@ import 'package:dater/utils/style.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
-import '../../comman_modules/custom_textfromfiled.dart';
-import '../../constants/messages.dart';
+import '../../../comman_modules/custom_textfromfiled.dart';
+import '../../../constants/messages.dart';
 class SearchTextfiledModule extends StatelessWidget {
   const SearchTextfiledModule({Key? key}) : super(key: key);
   @override

@@ -1,5 +1,5 @@
 import 'package:dater/constants/colors.dart';
-import 'package:dater/screens/interests_screen/interests_screen_widgets.dart';
+import 'package:dater/screens/authantication_screen/interests_screen/interests_screen_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 

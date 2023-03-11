@@ -3,10 +3,10 @@ import 'package:dater/utils/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
-import '../../comman_modules/custom_appbar.dart';
-import '../../comman_modules/custom_button.dart';
-import '../../constants/colors.dart';
-import '../../controller/location_screen_controller.dart';
+import '../../../comman_modules/custom_appbar.dart';
+import '../../../comman_modules/custom_button.dart';
+import '../../../constants/colors.dart';
+import '../../../controller/location_screen_controller.dart';
 import '../username_screen/interests_screen.dart';
 import 'location_screen_widgets.dart';
 

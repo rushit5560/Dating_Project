@@ -1,6 +1,6 @@
 import 'package:dater/constants/colors.dart';
 import 'package:dater/constants/font_family.dart';
-import 'package:dater/screens/gender_select_screen/gender_select_screen.dart';
+import 'package:dater/screens/authantication_screen/gender_select_screen/gender_select_screen.dart';
 import 'package:dater/utils/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
