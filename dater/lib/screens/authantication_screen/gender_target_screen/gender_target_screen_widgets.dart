@@ -4,14 +4,13 @@ import 'package:dater/controller/auth_screen_controllers/gender_target_screen_co
 import 'package:dater/utils/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:sizer/sizer.dart';
 import '../../../constants/colors.dart';
 import '../../../constants/font_family.dart';
 import '../../../utils/style.dart';
 
-class GenderTargetRadioButtonModule extends StatelessWidget {
-  GenderTargetRadioButtonModule({super.key});
+class RadioButtonModule extends StatelessWidget {
+  RadioButtonModule({super.key});
   final genderTargetScreenController = Get.find<GenderTargetScreenController>();
   @override
   Widget build(BuildContext context) {
@@ -41,13 +40,14 @@ class GenderTargetRadioButtonModule extends StatelessWidget {
           SizedBox(
             height: 150,
             child: ListView.builder(
-              itemCount: genderTargetScreenController.gender.length,
+              physics: const NeverScrollableScrollPhysics(),
+              itemCount: 3,
               itemBuilder: (context, index) {
                 return Row(
                   children: [
                     Expanded(
                       child: Text(
-                        genderTargetScreenController.gender[index],
+                        genderTargetScreenController.msgData[index].name,
                         style: TextStyleConfig.textStyle(
                           fontFamily: FontFamilyText.sFProDisplayRegular,
                           fontSize: 15.sp,
@@ -56,14 +56,16 @@ class GenderTargetRadioButtonModule extends StatelessWidget {
                       ),
                     ),
                     Obx(
-                          () => Radio(
+                      () => Radio(
                         activeColor: AppColors.darkOrangeColor,
-                        value: genderTargetScreenController.gender[index],
-                        groupValue: genderTargetScreenController.selectedvalue.value,
+                        value: genderTargetScreenController.msgData[index].name,
+                        groupValue:
+                            genderTargetScreenController.selectedvalue.value,
                         onChanged: (val) {
                           log("val : $val");
                           genderTargetScreenController.isLoading(true);
-                          genderTargetScreenController.selectedvalue.value = val!;
+                          genderTargetScreenController.selectedvalue.value =
+                              val!;
                           genderTargetScreenController.isLoading(false);
                         },
                       ),
@@ -76,63 +78,5 @@ class GenderTargetRadioButtonModule extends StatelessWidget {
         ],
       ).commonSymmetricPadding(horizontal: 25, vertical: 10),
     );
-  }
-}
-
-
-class GenderTargetNotesModule extends StatelessWidget {
-  const GenderTargetNotesModule({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Expanded(
-          flex: 15,
-          child: Container(),
-        ),
-        Expanded(
-          flex: 85,
-          child: Column(
-            children: [
-              _singleItemModule(
-                number: AppMessages.targetgendernumber1,
-                text: AppMessages.YouCanAlwaysChangeYourTargetGenderLater,
-              ),
-              _singleItemModule(
-                number: AppMessages.targetgendernumber2,
-                text: AppMessages.Youwillonlyseepeopleyouaretargeting,
-              ),
-            ],
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget _singleItemModule({required String number, required String text}) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          number,
-          style: TextStyle(
-            fontFamily: FontFamilyText.sFProDisplayRegular,
-            fontSize: 18,
-            color: AppColors.grey500Color,
-          ),
-        ),
-        Expanded(
-          child: Text(
-            text,
-            style: TextStyle(
-              fontFamily: FontFamilyText.sFProDisplayRegular,
-              fontSize: 18,
-              color: AppColors.grey500Color,
-            ),
-          ),
-        ),
-      ],
-    ).commonSymmetricPadding(vertical: 6);
   }
 }

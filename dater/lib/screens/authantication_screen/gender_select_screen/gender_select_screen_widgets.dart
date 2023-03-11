@@ -41,7 +41,8 @@ class RadioButtonModule extends StatelessWidget {
           SizedBox(
             height: 150,
             child: ListView.builder(
-              itemCount: genderSelectScreenController.msgData.length,
+              physics: const NeverScrollableScrollPhysics(),
+              itemCount: 3,
               itemBuilder: (context, index) {
                 return Row(
                   children: [

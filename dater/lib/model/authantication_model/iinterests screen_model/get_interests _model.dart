@@ -18,14 +18,14 @@ class GetIntrestModel {
   });
 
   final String response;
-  final List<MsgData> msg;
+  final List<InterestsData> msg;
   final int statusCode;
 
   factory GetIntrestModel.fromJson(Map<String, dynamic> json) =>
       GetIntrestModel(
         response: json["response"] ?? "",
-        msg: List<MsgData>.from(
-            json["msg"].map((x) => MsgData.fromJson(x)) ?? []),
+        msg: List<InterestsData>.from(
+            json["msg"].map((x) => InterestsData.fromJson(x)) ?? []),
         statusCode: json["status_code"] ?? 0,
       );
 
@@ -36,8 +36,8 @@ class GetIntrestModel {
       };
 }
 
-class MsgData {
-  MsgData({
+class InterestsData {
+  InterestsData({
     required this.id,
     required this.name,
     required this.categoryName,
@@ -49,7 +49,7 @@ class MsgData {
   final String categoryName;
   final String categoryId;
 
-  factory MsgData.fromJson(Map<String, dynamic> json) => MsgData(
+  factory InterestsData.fromJson(Map<String, dynamic> json) => InterestsData(
         id: json["id"] ?? "",
         name: json["name"] ?? "",
         categoryName: json["category_name"] ?? "",

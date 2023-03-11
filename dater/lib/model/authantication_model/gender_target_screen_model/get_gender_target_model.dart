@@ -1,15 +1,16 @@
-
+// To parse this JSON data, do
+//
+//     final getGenderModel = getGenderModelFromJson(jsonString);
 
 import 'dart:convert';
 
-GetTargetenderModel getTargetenderModelFromJson(String str) =>
-    GetTargetenderModel.fromJson(json.decode(str));
+GetTargetGenderModel getGenderModelFromJson(String str) =>
+    GetTargetGenderModel.fromJson(json.decode(str));
 
-String getTargetenderModelToJson(GetTargetenderModel data) =>
-    json.encode(data.toJson());
+String getGenderModelToJson(GetTargetGenderModel data) => json.encode(data.toJson());
 
-class GetTargetenderModel {
-  GetTargetenderModel({
+class GetTargetGenderModel {
+  GetTargetGenderModel({
     required this.response,
     required this.msg,
     required this.statusCode,
@@ -19,8 +20,7 @@ class GetTargetenderModel {
   final List<Msg> msg;
   final int statusCode;
 
-  factory GetTargetenderModel.fromJson(Map<String, dynamic> json) =>
-      GetTargetenderModel(
+  factory GetTargetGenderModel.fromJson(Map<String, dynamic> json) => GetTargetGenderModel(
         response: json["response"] ?? "",
         msg: List<Msg>.from(json["msg"].map((x) => Msg.fromJson(x)) ?? []),
         statusCode: json["status_code"] ?? 0,
