@@ -1,6 +1,6 @@
-
 import 'package:dater/comman_modules/custom_appbar.dart';
 import 'package:dater/comman_modules/custom_button.dart';
+import 'package:dater/comman_modules/custom_loader.dart';
 import 'package:dater/constants/colors.dart';
 import 'package:dater/constants/font_family.dart';
 import 'package:dater/constants/messages.dart';
@@ -34,28 +34,32 @@ class GenderSelectScreen extends StatelessWidget {
           Get.to(() => GenderSelectScreen());
         },
       ).commonSymmetricPadding(horizontal: 20, vertical: 10),
-      body: Column(
-        children: [
-          SizedBox(height: 2.h),
-          RadioButtonModule(),
-          SizedBox(height: 6.h),
-          Align(
-            alignment: Alignment.centerLeft,
-            child: ButtonCustom(
-              text: AppMessages.genderNotes,
-              onPressed: () {},
-              size: const Size(50, 0),
-              fontWeight: FontWeight.bold,
-              textsize: 15,
-              textFontFamily: FontFamilyText.sFProDisplayHeavy,
-              textColor: AppColors.whiteColor2,
-              backgroundColor: AppColors.greyColor,
-            ),
-          ),
-          SizedBox(height: 3.h),
-          GenderNotesModule()
-        ],
-      ).commonSymmetricPadding(horizontal: 25, vertical: 10),
+      body: Obx(
+        () => genderSelectScreenController.isLoading.value
+            ? const CustomLoader()
+            : Column(
+                children: [
+                  SizedBox(height: 2.h),
+                  RadioButtonModule(),
+                  SizedBox(height: 6.h),
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: ButtonCustom(
+                      text: AppMessages.genderNotes,
+                      onPressed: () {},
+                      size: const Size(50, 0),
+                      fontWeight: FontWeight.bold,
+                      textsize: 15,
+                      textFontFamily: FontFamilyText.sFProDisplayHeavy,
+                      textColor: AppColors.whiteColor2,
+                      backgroundColor: AppColors.greyColor,
+                    ),
+                  ),
+                  SizedBox(height: 3.h),
+                  GenderNotesModule()
+                ],
+              ).commonSymmetricPadding(horizontal: 25, vertical: 10),
+      ),
     );
   }
 }
