@@ -6,6 +6,7 @@ import 'package:dater/constants/font_family.dart';
 import 'package:dater/constants/messages.dart';
 import 'package:dater/controller/auth_screen_controllers/gender_select_screen_controller.dart';
 import 'package:dater/screens/authantication_screen/gender_select_screen/gender_select_screen_widgets.dart';
+import 'package:dater/screens/authantication_screen/gender_target_screen/gender_target_screen.dart';
 import 'package:dater/utils/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -31,7 +32,7 @@ class GenderSelectScreen extends StatelessWidget {
         backgroundColor: AppColors.darkOrangeColor,
         textColor: AppColors.whiteColor2,
         onPressed: () {
-          Get.to(() => GenderSelectScreen());
+          Get.to(() => GenderTargetScreen());
         },
       ).commonSymmetricPadding(horizontal: 20, vertical: 10),
       body: Obx(
