@@ -9,4 +9,10 @@ class UserNameScreen1Controller extends GetxController{
     'Fashion', 'Travel', 'Food', 'Tech',
     'Science',
   ];
+@override
+  void onInit() {
+    
+    super.onInit();
+  }
+
  }
