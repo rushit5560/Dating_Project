@@ -58,7 +58,8 @@ class CountryListViewModule extends StatelessWidget {
          // shrinkWrap: true,
           itemCount: 5,
           itemBuilder: (context, index) {
-        return  Row(
+        return
+          Row(
           children: [
             SizedBox(
               height: 4.h,

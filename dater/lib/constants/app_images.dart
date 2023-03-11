@@ -8,4 +8,5 @@ class AppImages {
   static const mobileImage = '$rootPath/mobile.png';
   static const location2Image = '$rootPath/location_2.png';
   static const findImage = '$rootPath/find.png';
+  static const creativeImage = '$rootPath/creative.png';
 }

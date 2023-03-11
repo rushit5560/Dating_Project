@@ -7,7 +7,7 @@ import '../../comman_modules/custom_appbar.dart';
 import '../../comman_modules/custom_button.dart';
 import '../../constants/colors.dart';
 import '../../controller/location_screen_controller.dart';
-import '../username_screen/user_name_screen.dart';
+import '../username_screen/interests_screen.dart';
 import 'location_screen_widgets.dart';
 
 class LocationScreen extends StatelessWidget {
@@ -29,9 +29,9 @@ class LocationScreen extends StatelessWidget {
       body: SafeArea(
         child: Column(
           children: [
-            const SearchTextfiledModule().commonSymmetricPadding(horizontal: 20),
+             SearchTextfiledModule().commonSymmetricPadding(horizontal: 20),
             SizedBox(height: 3.h,),
-            const CountryListViewModule(),
+             CountryListViewModule(),
           ],
         ),
       ),

@@ -16,7 +16,6 @@ class AppMessages {
   static String whatsYourEmail = '''What's Your email?''';
   static String donTLoseAccessToYourAccount =
       '''Don't lose access to Your account\n so We can contact you, But its optional !''';
-
   static String skipButton = "Skip";
   static String continueButton = "Continue";
   static String enterYourEmail = "Enter your email";
@@ -39,4 +38,8 @@ class AppMessages {
   static String enterYourName = "Enter your name";
   static String addYourFirstPhoto = "Add your first photo";
   static String atLeastYouNeedOnPhoto="At least you need one photo";
+  static String whatsyourinterests = '''What's your interests ?''';
+  static String interestsText1 = '''You can choose up to 8 things you love,''';
+  static String interestsText2 = '''it will help you find your soulmate .''';
+  static String creative = "Creative";
 }

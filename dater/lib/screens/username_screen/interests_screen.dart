@@ -1,5 +1,5 @@
 import 'package:dater/constants/messages.dart';
-import 'package:dater/screens/username_screen/user_name_screen_widgets.dart';
+import 'package:dater/screens/username_screen/interests_screen_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
