@@ -29,64 +29,54 @@ class AddUserPhotoScreen extends StatelessWidget {
         ),
       ),
       child: Obx(
-        ()=> addUserPhotoScreenController.isLoading.value
-        ? CustomLoader()
-        : Scaffold(
-          backgroundColor: Colors.transparent,
-          appBar: commonAppBarModule(
-            text: "Add your first photo",
-            iconColor: AppColors.blackColor,
-            backGroundColor: Colors.transparent
-          ),
-          body: Column(
-            children: [
-              const Text(
-                'At least you need one photo',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontFamily: "SFProDisplayRegular",
-                  fontSize: 15
-                ),
-              ).commonSymmetricPadding(vertical: 5, horizontal: 20),
-
-              const SizedBox(height: 25),
-              UserImageSelectModule(),
-
-              const Text(
-                "don't worry you can add more photos later on !",
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                    fontFamily: "SFProDisplayRegular",
-                    fontSize: 15
-                ),
-              ).commonSymmetricPadding(vertical: 8, horizontal: 20),
-
-              const SizedBox(height: 20),
-              Align(
-                alignment: Alignment.centerLeft,
-                child: ButtonCustom(
-                  text: "Photo hints",
-                  onPressed: () {},
-                  size: const Size(50,0),
-                  fontWeight: FontWeight.bold,
+        () => addUserPhotoScreenController.isLoading.value
+            ? CustomLoader()
+            : Scaffold(
+                backgroundColor: Colors.transparent,
+                appBar: commonAppBarModule(
+                    text: "Add your first photo",
+                    iconColor: AppColors.blackColor,
+                    backGroundColor: Colors.transparent),
+                bottomNavigationBar: ButtonCustom(
+                  text: "Done",
+                  textFontFamily: "SFProDisplayBold",
                   textsize: 15,
-                  textFontFamily: "SFProDisplayHeavy",
-                ).commonSymmetricPadding(horizontal: 20),
+                  onPressed: () => Get.to(() => DobSelectScreen()),
+                ).commonSymmetricPadding(horizontal: 20, vertical: 10),
+                body: Column(
+                  children: [
+                    const Text(
+                      'At least you need one photo',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          fontFamily: "SFProDisplayRegular", fontSize: 15),
+                    ).commonSymmetricPadding(vertical: 5, horizontal: 20),
+                    const SizedBox(height: 25),
+                    UserImageSelectModule(),
+                    const Text(
+                      "don't worry you can add more photos later on !",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          fontFamily: "SFProDisplayRegular", fontSize: 15),
+                    ).commonSymmetricPadding(vertical: 8, horizontal: 20),
+                    const SizedBox(height: 20),
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: ButtonCustom(
+                        text: "Photo hints",
+                        onPressed: () {},
+                        size: const Size(50, 0),
+                        fontWeight: FontWeight.bold,
+                        textsize: 15,
+                        textFontFamily: "SFProDisplayHeavy",
+                      ).commonSymmetricPadding(horizontal: 20),
+                    ),
+                    const SizedBox(height: 20),
+                    const PointHintModule(),
+                    Expanded(child: Container()),
+                  ],
+                ),
               ),
-
-              const SizedBox(height: 20),
-              const PointHintModule(),
-
-              Expanded(child: Container()),
-              ButtonCustom(
-                text: "Done",
-                textFontFamily: "SFProDisplayBold",
-                textsize: 15,
-                onPressed: () => Get.to(()=> DobSelectScreen()),
-              ).commonSymmetricPadding(horizontal: 20, vertical: 10),
-            ],
-          ),
-        ),
       ),
     );
   }

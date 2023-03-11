@@ -1,10 +1,13 @@
 import 'package:get/get.dart';
 
 class GenderScreenController extends GetxController {
-  final List<String> gender = [
+  List<String> gender = [
     "Female",
     "Male",
     "Non-Binary",
   ];
-  RxString selectedval = "Female".obs;
+  RxString selectedvalue = "Female".obs;
+  // var selectedGender = "".obs;
+  RxBool isLoading = false.obs;
+  RxBool isSuccessStatus = false.obs;
 }

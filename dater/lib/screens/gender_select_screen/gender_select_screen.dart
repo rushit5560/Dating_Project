@@ -1,7 +1,12 @@
+import 'dart:developer';
+
 import 'package:dater/comman_modules/custom_appbar.dart';
+import 'package:dater/comman_modules/custom_button.dart';
 import 'package:dater/constants/colors.dart';
 import 'package:dater/constants/font_family.dart';
+import 'package:dater/constants/messages.dart';
 import 'package:dater/controller/gender_screen_controller.dart';
+import 'package:dater/screens/gender_select_screen/gender_select_screen_widgets.dart';
 import 'package:dater/utils/extensions.dart';
 import 'package:dater/utils/style.dart';
 import 'package:flutter/material.dart';
@@ -21,54 +26,33 @@ class GenderSelectScreen extends StatelessWidget {
         iconColor: AppColors.darkOrangeColor,
         textFontFamily: FontFamilyText.sFProDisplayHeavy,
       ),
+      bottomNavigationBar: ButtonCustom(
+        text: "Next",
+        textFontFamily: FontFamilyText.sFProDisplayBold,
+        textsize: 15,
+        backgroundColor: AppColors.darkOrangeColor,
+        textColor: AppColors.whiteColor2,
+        onPressed: () {
+          Get.to(() => GenderSelectScreen());
+        },
+      ).commonSymmetricPadding(horizontal: 20, vertical: 10),
       body: Column(
         children: [
           SizedBox(height: 2.h),
-          Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              color: Colors.grey.shade200,
-              border: Border.all(
-                color: AppColors.grey300Color,
-                width: 2,
-              ),
+          RadioButtonModule(),
+          SizedBox(height: 6.h),
+          Align(
+            alignment: Alignment.centerLeft,
+            child: ButtonCustom(
+              text: AppMessages.genderNotes,
+              onPressed: () {},
+              size: const Size(50, 0),
+              fontWeight: FontWeight.bold,
+              textsize: 15,
+              textFontFamily: FontFamilyText.sFProDisplayHeavy,
+              textColor: AppColors.whiteColor2,
+              backgroundColor: AppColors.greyColor,
             ),
-            child: Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      "Gender",
-                      style: TextStyleConfig.textStyle(
-                        fontFamily: FontFamilyText.sFProDisplayBold,
-                        fontSize: 14.sp,
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: 150,
-                  child: ListView.builder(
-
-                      itemCount: genderScreenController.gender.length,
-                      itemBuilder: (context, index) {
-                        return Row(
-                          children: [
-                            Text(genderScreenController.gender[index]),
-                            Obx(() => Radio(
-                                value: genderScreenController.selectedval.value,
-                                groupValue: genderScreenController.selectedval,
-                                onChanged: (val) {
-                                
-                                  genderScreenController.selectedval.value;
-                                })),
-                          ],
-                        );
-                      }),
-                ),
-              ],
-            ).commonSymmetricPadding(horizontal: 25, vertical: 10),
           ),
         ],
       ).commonSymmetricPadding(horizontal: 25, vertical: 10),

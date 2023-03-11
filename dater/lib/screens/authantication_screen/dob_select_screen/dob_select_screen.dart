@@ -23,6 +23,14 @@ class DobSelectScreen extends StatelessWidget {
         iconColor: AppColors.blackColor,
         textFontFamily: FontFamilyText.sFProDisplayHeavy,
       ),
+      bottomNavigationBar: ButtonCustom(
+        text: "Next",
+        textFontFamily: FontFamilyText.sFProDisplayBold,
+        textsize: 15,
+        onPressed: () {
+          Get.to(() => GenderSelectScreen());
+        },
+      ).commonSymmetricPadding(horizontal: 20, vertical: 10),
       body: Column(
         children: [
           DobSelectModule(),
@@ -41,14 +49,6 @@ class DobSelectScreen extends StatelessWidget {
           const SizedBox(height: 15),
           AgeNotesModule(),
           Expanded(child: Container()),
-          ButtonCustom(
-            text: "Next",
-            textFontFamily: FontFamilyText.sFProDisplayBold,
-            textsize: 15,
-            onPressed: () {
-              Get.to(() => GenderSelectScreen());
-            },
-          ),
         ],
       ).commonSymmetricPadding(horizontal: 25, vertical: 20),
     );

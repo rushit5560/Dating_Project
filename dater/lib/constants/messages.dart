@@ -37,9 +37,10 @@ class AppMessages {
   static String userName2 = 'Your name will be shown on your profile';
   static String enterYourName = "Enter your name";
   static String addYourFirstPhoto = "Add your first photo";
-  static String atLeastYouNeedOnPhoto="At least you need one photo";
+  static String atLeastYouNeedOnPhoto = "At least you need one photo";
   static String whatsyourinterests = '''What's your interests ?''';
   static String interestsText1 = '''You can choose up to 8 things you love,''';
   static String interestsText2 = '''it will help you find your soulmate .''';
   static String creative = "Creative";
+  static String genderNotes = "Gender notes";
 }
