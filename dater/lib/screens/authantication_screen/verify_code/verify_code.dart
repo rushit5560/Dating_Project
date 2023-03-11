@@ -2,7 +2,7 @@ import 'package:dater/comman_modules/custom_appbar.dart';
 import 'package:dater/comman_modules/custom_button.dart';
 import 'package:dater/constants/colors.dart';
 import 'package:dater/constants/messages.dart';
-import 'package:dater/controller/verification_code_screen_controller.dart';
+import 'package:dater/controller/auth_screen_controllers/verification_code_screen_controller.dart';
 import 'package:dater/screens/authantication_screen/sign_up_email_screen/sign_up_email_screen.dart';
 import 'package:dater/screens/authantication_screen/verify_code/verify_code_widgets.dart';
 import 'package:dater/utils/extensions.dart';

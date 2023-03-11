@@ -11,7 +11,7 @@ import '../../../comman_modules/custom_button.dart';
 import '../../../comman_modules/custom_textfromfiled.dart';
 import '../../../constants/colors.dart';
 import '../../../constants/messages.dart';
-import '../../../controller/user_name_screen_controller.dart';
+import '../../../controller/auth_screen_controllers/user_name_screen_controller.dart';
 import '../../../utils/style.dart';
 
 class SignUpNameScreenWidgets extends StatelessWidget {

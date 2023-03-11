@@ -2,7 +2,7 @@ import 'dart:developer';
 
 import 'package:dater/constants/colors.dart';
 import 'package:dater/constants/font_family.dart';
-import 'package:dater/controller/gender_select_screen_controller.dart';
+import 'package:dater/controller/auth_screen_controllers/gender_select_screen_controller.dart';
 import 'package:dater/utils/extensions.dart';
 import 'package:dater/utils/style.dart';
 import 'package:flutter/material.dart';

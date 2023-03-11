@@ -1,6 +1,6 @@
 import 'package:dater/constants/app_images.dart';
 import 'package:dater/constants/colors.dart';
-import 'package:dater/controller/location_screen_controller.dart';
+import 'package:dater/controller/auth_screen_controllers/location_screen_controller.dart';
 import 'package:dater/utils/extensions.dart';
 import 'package:dater/utils/style.dart';
 import 'package:flutter/material.dart';

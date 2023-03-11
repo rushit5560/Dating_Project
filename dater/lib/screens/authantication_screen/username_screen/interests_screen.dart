@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../comman_modules/custom_appbar.dart';
-import '../../../controller/user_name_screen_controller.dart';
+import '../../../controller/auth_screen_controllers/user_name_screen_controller.dart';
 
 class UserNameScreen extends StatelessWidget {
    UserNameScreen({Key? key}) : super(key: key);

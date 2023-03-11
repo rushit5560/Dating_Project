@@ -1,4 +1,4 @@
-import 'package:dater/controller/my_number_inner_screen_controller.dart';
+import 'package:dater/controller/auth_screen_controllers/my_number_inner_screen_controller.dart';
 import 'package:dater/utils/style.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

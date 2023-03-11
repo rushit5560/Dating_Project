@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:dater/constants/api_url.dart';
-import 'package:dater/model/gender_select_screen_model/get_gender_model.dart';
+import 'package:dater/model/authantication_model/gender_select_screen_model/get_gender_model.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 

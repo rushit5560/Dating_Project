@@ -6,7 +6,7 @@ import 'package:sizer/sizer.dart';
 import '../../../comman_modules/custom_appbar.dart';
 import '../../../comman_modules/custom_button.dart';
 import '../../../constants/colors.dart';
-import '../../../controller/location_screen_controller.dart';
+import '../../../controller/auth_screen_controllers/location_screen_controller.dart';
 import '../username_screen/interests_screen.dart';
 import 'location_screen_widgets.dart';
 

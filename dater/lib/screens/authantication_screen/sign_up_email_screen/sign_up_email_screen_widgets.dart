@@ -4,7 +4,7 @@ import 'package:dater/comman_modules/custom_textfromfiled.dart';
 import 'package:dater/constants/app_images.dart';
 import 'package:dater/constants/colors.dart';
 import 'package:dater/constants/messages.dart';
-import 'package:dater/controller/sign_up_email_screen_controller.dart';
+import 'package:dater/controller/auth_screen_controllers/sign_up_email_screen_controller.dart';
 import 'package:dater/screens/authantication_screen/location_screen/location_screen.dart';
 import 'package:dater/utils/extensions.dart';
 import 'package:dater/utils/style.dart';

@@ -1,7 +1,7 @@
 import 'package:dater/comman_modules/keybord_key_module.dart';
 import 'package:dater/constants/colors.dart';
 import 'package:dater/constants/messages.dart';
-import 'package:dater/controller/verification_code_screen_controller.dart';
+import 'package:dater/controller/auth_screen_controllers/verification_code_screen_controller.dart';
 import 'package:dater/utils/extensions.dart';
 import 'package:dater/utils/style.dart';
 import 'package:flutter/material.dart';

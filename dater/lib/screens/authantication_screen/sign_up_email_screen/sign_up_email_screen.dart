@@ -1,6 +1,6 @@
 import 'package:dater/constants/app_images.dart';
 import 'package:dater/constants/colors.dart';
-import 'package:dater/controller/sign_up_email_screen_controller.dart';
+import 'package:dater/controller/auth_screen_controllers/sign_up_email_screen_controller.dart';
 import 'package:dater/screens/authantication_screen/sign_up_email_screen/sign_up_email_screen_widgets.dart';
 import 'package:dater/utils/extensions.dart';
 import 'package:flutter/material.dart';
