@@ -1,4 +1,5 @@
 import 'package:dater/controller/auth_screen_controllers/my_number_inner_screen_controller.dart';
+import 'package:dater/utils/extensions.dart';
 import 'package:dater/utils/style.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -15,39 +16,44 @@ class TextFormFiledModule extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(children: [
-      Obx(
-        () => SizedBox(
-          height: 3.8.h,
-          width: 22.w,
-          child: DropdownButton<String>(
-            isDense: true,
-            value: myNumberInnerScreenController.dropdownvalue.value,
-            alignment: Alignment.center,
-            items: myNumberInnerScreenController.country
-                .map((item) => DropdownMenuItem<String>(
+    return Row(
+      children: [
+        Expanded(
+          flex: 20,
+          child: Obx(
+            () => DropdownButton<String>(
+              value: myNumberInnerScreenController.dropdownvalue.value,
+              // alignment: Alignment.center,
+              items: myNumberInnerScreenController.country
+                  .map(
+                    (item) => DropdownMenuItem<String>(
+                      enabled: true,
                       value: item,
                       child: Text(
                         item,
                         style: const TextStyle(
                           fontFamily: "Roboto",
-                          fontSize: 15,
+                          fontSize: 16,
+                          color: AppColors.grey800Color,
                         ),
                       ),
-                    ))
-                .toList(),
-            onChanged: (val) {
-              myNumberInnerScreenController.isLoading(true);
-              myNumberInnerScreenController.dropdownvalue.value = val!;
-              myNumberInnerScreenController.isLoading(false);
-            },
+                    ),
+                  )
+                  .toList(),
+              onChanged: (val) {
+                myNumberInnerScreenController.isLoading(true);
+                myNumberInnerScreenController.dropdownvalue.value = val!;
+                myNumberInnerScreenController.isLoading(false);
+              },
+            ),
           ),
         ),
-      ),
-      Form(
-        key: myNumberInnerScreenController.formKey,
-        child: Expanded(
-          child: SizedBox(
+        // ),
+        const Expanded(flex: 5, child: SizedBox()),
+        Expanded(
+          flex: 75,
+          child: Form(
+            key: myNumberInnerScreenController.formKey,
             child: TextFormField(
               cursorColor: AppColors.darkOrangeColor,
               controller: myNumberInnerScreenController.phoneNumberController,
@@ -55,27 +61,27 @@ class TextFormFiledModule extends StatelessWidget {
               keyboardType: TextInputType.text,
               decoration: InputDecoration(
                 focusedErrorBorder: const UnderlineInputBorder(
-                  borderSide: BorderSide(color: AppColors.darkOrange1Color),
+                  borderSide: BorderSide(color: AppColors.darkOrangeColor),
                 ),
                 enabledBorder: const UnderlineInputBorder(
-                  borderSide: BorderSide(color: AppColors.darkOrange1Color),
+                  borderSide: BorderSide(color: AppColors.grey500Color),
                 ),
                 focusedBorder: const UnderlineInputBorder(
-                  borderSide: BorderSide(color: AppColors.darkOrange1Color),
+                  borderSide: BorderSide(color: AppColors.darkOrangeColor),
                 ),
                 isDense: true,
                 hintText: AppMessages.phoneNumber,
-                hintStyle: TextStyle(
+                hintStyle: const TextStyle(
                   color: AppColors.grey500Color,
-                  fontSize: 12.sp,
+                  fontSize: 14,
                   fontFamily: "SFProDisplayRegular",
                 ),
               ),
             ),
           ),
         ),
-      ),
-    ]);
+      ],
+    );
   }
 }
 

@@ -1,4 +1,5 @@
 import 'package:dater/comman_modules/custom_button.dart';
+import 'package:dater/comman_modules/custom_loader.dart';
 import 'package:dater/constants/colors.dart';
 import 'package:dater/controller/auth_screen_controllers/my_number_inner_screen_controller.dart';
 import 'package:dater/screens/authantication_screen/verify_code/verify_code.dart';
@@ -19,31 +20,40 @@ class MyNumberInnerScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        backgroundColor: AppColors.whiteColor2,
         appBar: commonAppBarModule(text: AppMessages.myNumberIs),
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            SizedBox(height: 4.h),
-            TextFormFiledModule(),
-            SizedBox(height: 4.h),
-            const TextCustomModule(),
-            SizedBox(height: 7.h),
-            ButtonCustom(
-              size: const Size(double.infinity, 50),
-              backgroundColor: AppColors.lightOrangeColor,
-              shadowColor: Colors.blueGrey,
-              text: AppMessages.continueButton,
-              textColor: AppColors.whiteColor2,
-              fontWeight: FontWeight.bold,
-              textsize: 14.sp,
-              onPressed: () {
-                Get.to(
-                  () => VerifyCodeScreen(),
-                );
-              },
-            ),
-          ],
-        ).commonSymmetricPadding(horizontal: 15),
+        body: Obx(
+          () => myNumberInnerScreenController.isLoading.value
+              ? const CustomLoader()
+              : Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    SizedBox(height: 4.h),
+                    TextFormFiledModule(),
+
+                    // Obx(
+                    //   () =>
+                    
+                    SizedBox(height: 4.h),
+                    const TextCustomModule(),
+                    SizedBox(height: 7.h),
+                    ButtonCustom(
+                      size: const Size(double.infinity, 50),
+                      backgroundColor: AppColors.lightOrangeColor,
+                      shadowColor: Colors.blueGrey,
+                      text: AppMessages.continueButton,
+                      textColor: AppColors.whiteColor2,
+                      fontWeight: FontWeight.bold,
+                      textsize: 14.sp,
+                      onPressed: () {
+                        Get.to(
+                          () => VerifyCodeScreen(),
+                        );
+                      },
+                    ),
+                  ],
+                ).commonSymmetricPadding(horizontal: 15),
+        ),
       ),
     );
   }
