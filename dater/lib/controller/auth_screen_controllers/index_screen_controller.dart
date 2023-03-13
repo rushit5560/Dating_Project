@@ -6,9 +6,9 @@ import '../../screens/message_screen/message_screen.dart';
 import '../../screens/profile_screen/profile_screen.dart';
 
 class IndexScreenController extends GetxController {
-  RxInt currentPage = 0.obs;
-
-  RxInt currentSelectedIndex = 0.obs;
-  RxInt menuIndex = 2.obs;
+  var selectedIndex = 0.obs;
+  changeIndex(int index){
+    selectedIndex.value = index;
+  }
 }
 

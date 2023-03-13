@@ -22,4 +22,5 @@ class AppImages {
   static const swiper1Image = '$rootPath/swiper1.png';
   static const swiper2Image = '$rootPath/swiper2.png';
   static const swiper3Image = '$rootPath/swiper3.png';
+  static const rightImage = '$rootPath/right.png';
 }
