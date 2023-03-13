@@ -1,5 +1,10 @@
 import 'package:get/get.dart';
 
+import '../../screens/favorite_screen/favorite_screen.dart';
+import '../../screens/home_screen/home_screen.dart';
+import '../../screens/message_screen/message_screen.dart';
+import '../../screens/profile_screen/profile_screen.dart';
+
 class IndexScreenController extends GetxController {
   RxInt currentPage = 0.obs;
 
@@ -7,21 +12,3 @@ class IndexScreenController extends GetxController {
   RxInt menuIndex = 2.obs;
 }
 
-/*
-class IndexScreenController extends GetxController {
-  var tabIndex = 0.obs;
-
-  void changeTabIndex(int index) {
-    tabIndex.value = index;
-  }
-
-  @override
-  void onInit() {
-    super.onInit();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-  }
-}*/
