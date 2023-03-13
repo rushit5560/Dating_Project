@@ -1,7 +1,7 @@
 import 'dart:developer';
 
 import 'package:dater/screens/authantication_screen/add_user_photo_screen/add_user_photo_screen.dart';
-import 'package:dater/screens/authantication_screen/username_screen/interests_screen.dart';
+import 'package:dater/screens/authantication_screen/username_screen/username_screen.dart';
 import 'package:dater/utils/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

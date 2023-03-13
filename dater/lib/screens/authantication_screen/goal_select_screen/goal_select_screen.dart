@@ -18,6 +18,7 @@ class GoalSelectScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.whiteColor2,
       appBar: commonAppBarModule(
         text: AppMessages.whatsyourgoal,
         backGroundColor: Colors.transparent,

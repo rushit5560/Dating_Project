@@ -18,6 +18,8 @@ class GenderTargetScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.whiteColor2,
+
       appBar: commonAppBarModule(
         text: AppMessages.targetGenderNotes,
         backGroundColor: Colors.transparent,

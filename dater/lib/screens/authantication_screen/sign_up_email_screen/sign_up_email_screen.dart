@@ -15,6 +15,8 @@ class SignUpEmailScreen extends StatelessWidget {
     return Scaffold(
       // resizeToAvoidBottomInset: false,
       // appBar: AppBar(),
+      backgroundColor: AppColors.whiteColor2,
+
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(

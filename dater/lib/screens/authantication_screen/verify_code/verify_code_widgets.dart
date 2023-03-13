@@ -1,5 +1,6 @@
 import 'package:dater/comman_modules/keybord_key_module.dart';
 import 'package:dater/constants/colors.dart';
+import 'package:dater/constants/font_family.dart';
 import 'package:dater/constants/messages.dart';
 import 'package:dater/controller/auth_screen_controllers/verification_code_screen_controller.dart';
 import 'package:dater/utils/extensions.dart';
@@ -25,7 +26,8 @@ class VerificationCodeFieldModule extends StatelessWidget {
             height: 15.w,
             child: TextFormField(
               cursorColor: AppColors.darkOrangeColor,
-              // controller: verifyCodeScreenController.firstDigitController,
+              controller: verifyCodeScreenController.firstDigitController,
+              readOnly: true,
               onChanged: (value) {
                 if (value.length == 1) {
                   FocusScope.of(context).nextFocus();
@@ -33,8 +35,8 @@ class VerificationCodeFieldModule extends StatelessWidget {
               },
               style: Theme.of(context).textTheme.headline6!.copyWith(
                     fontWeight: FontWeight.bold,
-                    fontFamily: "SFProDisplayRegular",
-                    color: AppColors.grey800Color,
+                    fontFamily: FontFamilyText.sFProDisplayRegular,
+                    color: AppColors.grey700Color,
                     fontSize: 15.sp,
                   ),
               keyboardType: TextInputType.number,
@@ -47,7 +49,7 @@ class VerificationCodeFieldModule extends StatelessWidget {
                 hintText: '0',
                 hintStyle: TextStyleConfig.textStyle(
                   fontWeight: FontWeight.bold,
-                  fontFamily: "SFProDisplayRegular",
+                  fontFamily: FontFamilyText.sFProDisplayRegular,
                   textColor: AppColors.grey500Color,
                   fontSize: 15.sp,
                 ),
@@ -64,17 +66,18 @@ class VerificationCodeFieldModule extends StatelessWidget {
             child: TextFormField(
               cursorColor: AppColors.darkOrangeColor,
               controller: verifyCodeScreenController.secondDigitController,
+              readOnly: true,
               onChanged: (value) {
                 if (value.length == 1) {
                   FocusScope.of(context).nextFocus();
-                } else if (value.length == 0) {
+                } else if (value.isEmpty) {
                   FocusScope.of(context).previousFocus();
                 }
               },
               style: Theme.of(context).textTheme.headline6!.copyWith(
                     fontWeight: FontWeight.bold,
-                    fontFamily: "SFProDisplayRegular",
-                    color: AppColors.grey800Color,
+                    fontFamily: FontFamilyText.sFProDisplayRegular,
+                    color: AppColors.grey700Color,
                     fontSize: 15.sp,
                   ),
               keyboardType: TextInputType.number,
@@ -87,7 +90,7 @@ class VerificationCodeFieldModule extends StatelessWidget {
                 hintText: '0',
                 hintStyle: TextStyleConfig.textStyle(
                   fontWeight: FontWeight.bold,
-                  fontFamily: "SFProDisplayRegular",
+                  fontFamily: FontFamilyText.sFProDisplayRegular,
                   textColor: AppColors.grey500Color,
                   fontSize: 15.sp,
                 ),
@@ -104,6 +107,7 @@ class VerificationCodeFieldModule extends StatelessWidget {
             child: TextFormField(
               cursorColor: AppColors.darkOrangeColor,
               controller: verifyCodeScreenController.thirdDigitController,
+              readOnly: true,
               onChanged: (value) {
                 if (value.length == 1) {
                   FocusScope.of(context).nextFocus();
@@ -113,8 +117,8 @@ class VerificationCodeFieldModule extends StatelessWidget {
               },
               style: Theme.of(context).textTheme.headline6!.copyWith(
                     fontWeight: FontWeight.bold,
-                    fontFamily: "SFProDisplayRegular",
-                    color: AppColors.grey800Color,
+                    fontFamily: FontFamilyText.sFProDisplayRegular,
+                    color: AppColors.grey700Color,
                     fontSize: 15.sp,
                   ),
               keyboardType: TextInputType.number,
@@ -127,7 +131,7 @@ class VerificationCodeFieldModule extends StatelessWidget {
                 hintText: '0',
                 hintStyle: TextStyleConfig.textStyle(
                   fontWeight: FontWeight.bold,
-                  fontFamily: "SFProDisplayRegular",
+                  fontFamily: FontFamilyText.sFProDisplayRegular,
                   textColor: AppColors.grey500Color,
                   fontSize: 15.sp,
                 ),
@@ -144,15 +148,16 @@ class VerificationCodeFieldModule extends StatelessWidget {
             child: TextFormField(
               cursorColor: AppColors.darkOrangeColor,
               controller: verifyCodeScreenController.fourthDigitController,
+              readOnly: true,
               onChanged: (value) {
-                if (value.length == 0) {
+                if (value.isEmpty) {
                   FocusScope.of(context).previousFocus();
                 }
               },
               style: Theme.of(context).textTheme.headline6!.copyWith(
                     fontWeight: FontWeight.bold,
-                    fontFamily: "SFProDisplayRegular",
-                    color: AppColors.grey800Color,
+                    fontFamily: FontFamilyText.sFProDisplayRegular,
+                    color: AppColors.grey700Color,
                     fontSize: 15.sp,
                   ),
               keyboardType: TextInputType.number,
@@ -165,7 +170,7 @@ class VerificationCodeFieldModule extends StatelessWidget {
                 hintText: '0',
                 hintStyle: TextStyleConfig.textStyle(
                   fontWeight: FontWeight.bold,
-                  fontFamily: "SFProDisplayRegular",
+                  fontFamily: FontFamilyText.sFProDisplayRegular,
                   textColor: AppColors.grey500Color,
                   fontSize: 15.sp,
                 ),
@@ -189,7 +194,12 @@ class ResendButtonModule extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        verifyCodeScreenController.firstDigitController.clear();
+        verifyCodeScreenController.secondDigitController.clear();
+        verifyCodeScreenController.thirdDigitController.clear();
+        verifyCodeScreenController.fourthDigitController.clear();
+      },
       child: Container(
         decoration: BoxDecoration(
           border: Border.all(

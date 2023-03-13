@@ -1,10 +1,11 @@
+import 'dart:developer';
+
 import 'package:dater/comman_modules/custom_button.dart';
 import 'package:dater/constants/app_images.dart';
 import 'package:dater/constants/colors.dart';
 import 'package:dater/constants/font_family.dart';
 import 'package:dater/constants/messages.dart';
 import 'package:dater/controller/auth_screen_controllers/interests%20_screen_controller.dart';
-import 'package:dater/screens/authantication_screen/interests_screen/interests_screen.dart';
 import 'package:dater/utils/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -12,195 +13,121 @@ import 'package:sizer/sizer.dart';
 
 import '../../../utils/style.dart';
 
+// ignore: must_be_immutable
 class InterestsWidgetModule extends StatelessWidget {
   InterestsWidgetModule({Key? key}) : super(key: key);
 
-  final interestsScreen1Controller = Get.find<InterestsScreen1Controller>();
-  var selectedVal = 0;
+  final interestsScreenController = Get.find<InterestsScreenController>();
+  // var selectedVal = 0;
   // bool  value = true;
-  var options = [
-    'News',
-    'Entertainment',
-    'Politics',
-    'Automotive',
-    'Sports',
-    'Education',
-    'Fashion',
-    'Travel',
-    'Food',
-    'Tech',
-    'Science',
-  ];
+
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 200,
-      child: ListView.builder(
-          itemCount: interestsScreen1Controller.categoryList.length,
-          itemBuilder: (context, index) {
-            return Card(
-              child: SizedBox(
-                height: 50.h,
-                child: Column(children: [
-                  ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: interestsScreen1Controller.categoryList.length,
-                    itemBuilder: (context, i) {
-                      return Column(
-                        children: [
-                          Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Image.asset(AppImages.creativeImage),
-                                SizedBox(
-                                  width: 1.w,
-                                ),
-                                Text(
-                                  interestsScreen1Controller
-                                      .categoryList[i].categoryName,
-                                  style: TextStyleConfig.textStyle(
-                                    fontFamily: "SFProDisplayRegular",
-                                    textColor: AppColors.blackColor,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 12.sp,
-                                  ),
-                                ),
-                              ]),
-                          Wrap(
-                            spacing: 3.0,
-                            //runSpacing: 2.0,
-                            children: List.generate(
-                              interestsScreen1Controller
-                                  .categoryList[i].options.length,
-                              (int index) {
-                                return Transform(
-                                  transform: Matrix4.identity()..scale(0.9),
-                                  child: ChoiceChip(
-                                    // avatar: Image.asset(AppImages.findImage),
-                                    //padding: const EdgeInsets.symmetric(vertical: 9,horizontal: 10),
-                                    label: Text(interestsScreen1Controller
-                                        .categoryList[i].options[index].name),
-                                    //labelPadding: EdgeInsets.only(left: 2.w),
-                                    selected: selectedVal == index,
-                                    selectedColor: AppColors.darkOrangeColor,
-                                    backgroundColor: Colors.white,
-                                    shape: const StadiumBorder(
-                                      side: BorderSide(
-                                        // width: 1,
-                                        color: AppColors.grey400Color,
-                                      ),
-                                    ),
-                                    onSelected: (bool value) {
-                                      // setState(() {
-                                      //   selectedVal = (value ? index : null)!;
-                                      // });
-                                    },
-                                  ),
-                                );
-                              },
-                            ).toList(),
-                          )
-                        ],
-                      );
-                    },
-                  ),
-                ]),
+    return ListView.separated(
+      shrinkWrap: true,
+      itemCount: interestsScreenController.categoryList.length,
+      itemBuilder: (context, i) {
+        return Column(
+          children: [
+            Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+              Image.asset(AppImages.creativeImage),
+              SizedBox(width: 1.w),
+              Text(
+                interestsScreenController.categoryList[i].categoryName,
+                style: TextStyleConfig.textStyle(
+                  fontFamily: "SFProDisplayRegular",
+                  textColor: AppColors.blackDarkColor,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18,
+                ),
               ),
-            ).commonOnlyPadding(bottom: 0.h);
-          }),
+            ]),
+            Wrap(
+              spacing: 3.0,
+              children: List.generate(
+                interestsScreenController.categoryList[i].options.length,
+                (int index) {
+                  return Transform(
+                    transform: Matrix4.identity()..scale(0.9),
+                    child: ChoiceChip(
+                      label: Text(
+                        interestsScreenController
+                            .categoryList[i].options[index].name,
+                        style: TextStyleConfig.textStyle(
+                          fontFamily: FontFamilyText.sFProDisplaySemibold,
+                          textColor:
+                              interestsScreenController.isSelectedValue == index
+                                  ? AppColors.blackDarkColor
+                                  : AppColors.grey600Color,
+                        ),
+                      ),
+                      selected:
+                          interestsScreenController.isSelectedValue == index,
+                      selectedColor: AppColors.darkOrangeColor,
+                      backgroundColor: Colors.white,
+                      shape: const StadiumBorder(
+                        side: BorderSide(
+                          color: AppColors.grey400Color,
+                          width: 1.5,
+                        ),
+                      ),
+                      onSelected: (bool value) {
+                        for (int i = 0;
+                            i < interestsScreenController.categoryList.length;
+                            i++) {
+                          for (int j = 0;
+                              j <
+                                  interestsScreenController
+                                      .categoryList[i].options.length;
+                              j++) {
+                            if (interestsScreenController
+                                    .categoryList[i].options[j].isSelected ==
+                                true) {
+                              log("isSelected value:: ${interestsScreenController.categoryList[i].options[j].isSelected}");
+                              interestsScreenController.isSelectedValue++;
+                            }
+                          }
+                        }
+                        if (interestsScreenController.isSelectedValue < 8) {
+                          interestsScreenController
+                                  .categoryList[i].options[index].isSelected ==
+                              true;
+                        } else {
+                          log("isSelectedValue 8");
+                        }
+                        // for (int i = 0;
+                        //     i <
+                        //         interestsScreenController
+                        //             .categoryList[i].options.length;
+                        //     i++) {}
+                        // setState(() {
+                        // interestsScreenController.isLoading(true);
+                        // selectedVal = (value ? index : null)!;
+                        // interestsScreenController.isLoading(false);
+
+                        // });
+                      },
+                    ),
+                  );
+                },
+              ).toList(),
+            )
+          ],
+        );
+      },
+      separatorBuilder: (BuildContext context, int index) {
+        return Container(
+          height: 5,
+          color: AppColors.grey300Color,
+        );
+      },
     );
   }
 }
 
-// class SportsWidgetsModule extends StatefulWidget {
-//   const SportsWidgetsModule({Key? key}) : super(key: key);
-
-//   @override
-//   State<SportsWidgetsModule> createState() => _SportsWidgetsModuleState();
-// }
-
-// class _SportsWidgetsModuleState extends State<SportsWidgetsModule> {
-//   var selectedVal = 0;
-//   // bool  value = true;
-//   var options = [
-//     'News',
-//     'Entertainment',
-//     'Politics',
-//     'Automotive',
-//     'Sports',
-//     'Education',
-//     'Fashion',
-//     'Travel',
-//     'Food',
-//     'Tech',
-//     'Science',
-//   ];
-//   @override
-//   Widget build(BuildContext context) {
-//     return Card(
-//       child: SizedBox(
-//         height: 50.h,
-//         child: Column(children: [
-//           SizedBox(
-//             height: 3.h,
-//           ),
-//           Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-//             Image.asset(AppImages.creativeImage),
-//             SizedBox(
-//               width: 1.w,
-//             ),
-//             Text(
-//               AppMessages.sports,
-//               style: TextStyleConfig.textStyle(
-//                 fontFamily: "SFProDisplayRegular",
-//                 textColor: AppColors.blackColor,
-//                 fontWeight: FontWeight.bold,
-//                 fontSize: 12.sp,
-//               ),
-//             ),
-//           ]),
-//           SizedBox(
-//             height: 2.h,
-//           ),
-//           Wrap(
-//             spacing: 3.0,
-//             //runSpacing: 2.0,
-//             children: List.generate(
-//               options.length,
-//               (int index) {
-//                 return Transform(
-//                   transform: Matrix4.identity()..scale(0.9),
-//                   child: ChoiceChip(
-//                     avatar: Image.asset(AppImages.findImage),
-//                     //padding: const EdgeInsets.all(2),
-//                     label: Text(options[index]),
-//                     selected: selectedVal == index,
-//                     selectedColor: AppColors.darkOrangeColor,
-//                     backgroundColor: Colors.white,
-//                     shape: const StadiumBorder(
-//                       side: BorderSide(
-//                         // width: 1,
-//                         color: AppColors.grey400Color,
-//                       ),
-//                     ),
-//                     onSelected: (bool value) {
-//                       setState(() {
-//                         selectedVal = (value ? index : null)!;
-//                       });
-//                     },
-//                   ),
-//                 );
-//               },
-//             ).toList(),
-//           ),
-//         ]),
-//       ),
-//     );
-//   }
-// }
-
 class SkipAndNextButtonModule extends StatelessWidget {
-  const SkipAndNextButtonModule({super.key});
+  SkipAndNextButtonModule({super.key});
+  final interestsScreenController = Get.find<InterestsScreenController>();
 
   @override
   Widget build(BuildContext context) {
@@ -239,7 +166,11 @@ class SkipAndNextButtonModule extends StatelessWidget {
             textsize: 15,
             backgroundColor: AppColors.darkOrangeColor,
             textColor: AppColors.whiteColor2,
-            onPressed: () {
+            onPressed: () async {
+              log("message");
+              await interestsScreenController.saveInterestsFunction(
+                  interestsScreenController.categoryList);
+
               // Get.to(
               //   () => InterestsScreen(),
               // );

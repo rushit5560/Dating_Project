@@ -8,11 +8,13 @@ import 'package:http/http.dart' as http;
 
 import '../../model/authantication_model/interests screen_model/cateory_item_model.dart';
 
-class InterestsScreen1Controller extends GetxController {
+class InterestsScreenController extends GetxController {
   RxBool isLoading = false.obs;
   RxBool isSuccessStatus = false.obs;
   List<InterestsData> interestsData = [];
   List<String> interestsDataStringList = [];
+                  int isSelectedValue = 0;
+
 
   List<String> categoryNameList = [];
   List<CategoryItemModel> categoryList = [];
@@ -47,7 +49,8 @@ class InterestsScreen1Controller extends GetxController {
           ///
           for (int i = 0; i < getIntrestModel.msg.length; i++) {
             for (int j = 0; j < categoryList.length; j++) {
-              if (getIntrestModel.msg[i].categoryId == categoryList[j].categoryId) {
+              if (getIntrestModel.msg[i].categoryId ==
+                  categoryList[j].categoryId) {
                 categoryList[j].options.add(
                       Option(
                         id: getIntrestModel.msg[i].id,
@@ -62,30 +65,34 @@ class InterestsScreen1Controller extends GetxController {
           ///
           for (int i = 0; i < categoryList.length; i++) {
             for (int j = 0; j < categoryList[i].options.length; j++) {
-              log('${categoryList[i].categoryName} => ${categoryList[i].options[j].name}');
+              log('${categoryList[i].categoryName} => ${categoryList[i].options[j].name}:: name id ${categoryList[i].options[j].id}');
             }
           }
         } else {
           /// When api list getting empty that time coming here
         }
-
-        //   List<InterestsData> interestsDataList = [];
-        //   for (var item in interestsData) {
-        //     log("getInterestFunction 111");
-        //     if (interestsDataStringList.contains(item.categoryName)) {
-        //       interestsDataList.add(item);
-        //     } else {
-        //       interestsDataStringList.add(item.categoryName);
-        //       interestsDataList.add(item);
-        //     }
-        //     log("interestsDataList: $interestsDataList");
-        //   }
-        // } else {
-        //   log("getInterestFunction Error");
       }
     } catch (e) {
       log("getInterestFunction Error: $e");
       rethrow;
+    } finally {
+      isLoading(false);
+    }
+  }
+
+  Future<void> saveInterestsFunction(indx) async {
+    log("message");
+    isLoading(true);
+    String url = ApiUrl.saveInterestsApi;
+    log("saveInterestsFunction: $url");
+    try {
+      // var id = categoryList[index].options[index].id;
+      var bodyData = {
+        "token": "b3faf72b83187112adeccbeeba7e2dcc",
+        // "interest_id": id,
+      };
+    } catch (e) {
+      log("saveInterestsFunction:: $e");
     } finally {
       isLoading(false);
     }

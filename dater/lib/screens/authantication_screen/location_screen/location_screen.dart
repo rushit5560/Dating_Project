@@ -7,7 +7,7 @@ import '../../../comman_modules/custom_appbar.dart';
 import '../../../comman_modules/custom_button.dart';
 import '../../../constants/colors.dart';
 import '../../../controller/auth_screen_controllers/location_screen_controller.dart';
-import '../username_screen/interests_screen.dart';
+import '../username_screen/username_screen.dart';
 import 'location_screen_widgets.dart';
 
 class LocationScreen extends StatelessWidget {
@@ -16,6 +16,8 @@ class LocationScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.whiteColor2,
+
       appBar: commonAppBarModule(text: AppMessages.location),
       bottomNavigationBar:
       ButtonCustom(

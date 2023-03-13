@@ -17,6 +17,7 @@ class VerifyCodeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
+      backgroundColor: AppColors.whiteColor2,
       appBar: commonAppBarModule(text: AppMessages.myCodeIs),
       bottomNavigationBar: ButtonCustom(
               backgroundColor: AppColors.darkOrangeColor,

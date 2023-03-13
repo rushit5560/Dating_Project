@@ -1,17 +1,14 @@
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sizer/sizer.dart';
 
 import '../constants/colors.dart';
 
 PreferredSizeWidget commonAppBarModule(
-  {required String text,
-  Color iconColor = AppColors.lightOrangeColor,
-  String textFontFamily = "SFProDisplayRegular",
-  Color textColor = AppColors.grey800Color,
-    Color backGroundColor = AppColors.gray50Color
-  }) {
+    {required String text,
+    Color iconColor = AppColors.lightOrangeColor,
+    String textFontFamily = "SFProDisplayRegular",
+    Color textColor = AppColors.grey800Color,
+    Color backGroundColor = AppColors.whiteColor2}) {
   return AppBar(
     backgroundColor: backGroundColor,
     leading: Builder(

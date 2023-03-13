@@ -1,8 +1,10 @@
 import 'dart:developer';
-
 import 'package:dater/constants/colors.dart';
+import 'package:dater/constants/font_family.dart';
+import 'package:dater/controller/auth_screen_controllers/verification_code_screen_controller.dart';
 import 'package:dater/utils/style.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class KeyBordKeyModule extends StatelessWidget {
   Function()? onTap;
@@ -16,6 +18,7 @@ class KeyBordKeyModule extends StatelessWidget {
     required this.controller,
   });
 
+  final verifyCodeScreenController = Get.find<VerifyCodeScreenController>();
   @override
   Widget build(BuildContext context) {
     return Expanded(
@@ -23,7 +26,23 @@ class KeyBordKeyModule extends StatelessWidget {
         onTap: () {
           log("1111");
           if (controller.text.length < 4) {
-            controller.text += text.toString();
+            if (verifyCodeScreenController.firstDigitController.text.isEmpty) {
+              verifyCodeScreenController.firstDigitController.text +=
+                  text.toString();
+            } else if (verifyCodeScreenController
+                .secondDigitController.text.isEmpty) {
+              verifyCodeScreenController.secondDigitController.text +=
+                  text.toString();
+            } else if (verifyCodeScreenController
+                .thirdDigitController.text.isEmpty) {
+              verifyCodeScreenController.thirdDigitController.text +=
+                  text.toString();
+            } else if (verifyCodeScreenController
+                .fourthDigitController.text.isEmpty) {
+              verifyCodeScreenController.fourthDigitController.text +=
+                  text.toString();
+            }
+            // controller.text += text.toString();
             log("controller.text : ${controller.text}");
           }
         },
@@ -32,8 +51,8 @@ class KeyBordKeyModule extends StatelessWidget {
             text,
             style: TextStyleConfig.textStyle(
               textColor: AppColors.grey500Color,
-              fontSize: 22,
-              fontFamily: "",
+              fontSize: 24,
+              fontFamily: FontFamilyText.sFProDisplayRegular,
             ),
           ),
         ),

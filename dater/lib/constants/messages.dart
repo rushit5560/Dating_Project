@@ -66,4 +66,5 @@ class AppMessages {
       "Being honest will help everyone to get the best experience .";
         static String skip = "Skip";
   static String next = "Next";
+  static String chooseChatext="You can choose up to 8 things you love, \nit will help you find your soulmate .";
 }
