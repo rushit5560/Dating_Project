@@ -5,7 +5,7 @@ import 'package:dater/model/authantication_model/login_screen_model/login_model.
 import 'package:dater/model/authantication_model/my_number_inner_screen_models/country_code_model.dart';
 import 'package:dater/screens/authantication_screen/verify_code/verify_code.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:http/http.dart'as http;
+import 'package:http/http.dart' as http;
 import 'package:dater/constants/api_url.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -28,31 +28,31 @@ class MyNumberInnerScreenController extends GetxController {
     log('Country Code List Api Url :$url');
 
     try {
-
       http.Response response = await http.get(Uri.parse(url));
       // log('response : ${response.body}');
 
-      if(response.statusCode == 200) {
+      if (response.statusCode == 200) {
         String mainResponse = response.body.toString();
         // Json Response convert into List
-        List<String> singleObjectList = mainResponse.substring(1, mainResponse.length - 1).split(", ");
+        List<String> singleObjectList =
+            mainResponse.substring(1, mainResponse.length - 1).split(", ");
 
         // Make single object for all positions in list
-        for(var item in singleObjectList) {
+        for (var item in singleObjectList) {
           List<String> tempSingleItem = item.split(": ");
-          String fString = tempSingleItem[0] == "" ? "" : tempSingleItem[0].substring(1, tempSingleItem[0].length -1);
-          String lString = tempSingleItem[1] == "" ? "" : tempSingleItem[1].substring(1, tempSingleItem[1].length -1);
+          String fString = tempSingleItem[0] == ""
+              ? ""
+              : tempSingleItem[0].substring(1, tempSingleItem[0].length - 1);
+          String lString = tempSingleItem[1] == ""
+              ? ""
+              : tempSingleItem[1].substring(1, tempSingleItem[1].length - 1);
           countryCodeList.add("$fString $lString");
         }
         log('countryCodeList : ${countryCodeList.length}');
-
-
       } else {
         log('Status code : ${response.statusCode}');
       }
-
-
-    } catch(e) {
+    } catch (e) {
       log('getCountryCodesFunction Error :$e');
       rethrow;
     }
@@ -76,25 +76,24 @@ class MyNumberInnerScreenController extends GetxController {
           .transform(const Utf8Decoder())
           .transform(const LineSplitter())
           .listen((value) async {
-            log('value : $value');
+        log('value : $value');
 
-            LoginModel loginModel = LoginModel.fromJson(jsonDecode(value));
+        LoginModel loginModel = LoginModel.fromJson(json.decode(value));
 
-
-            if(loginModel.statusCode == 200) {
-              Fluttertoast.showToast(msg: loginModel.msg);
-              Get.to(()=> VerifyCodeScreen(),
-              arguments: [phoneNumberController.text.trim()],
-              );
-            } else if(loginModel.statusCode == 400) {
-              Fluttertoast.showToast(msg: loginModel.msg);
-            } else {
-              Fluttertoast.showToast(msg: AppMessages.apiCallWrong);
-            }
+        if (loginModel.statusCode == 200) {
+          Fluttertoast.showToast(msg: loginModel.msg);
+          Get.to(
+            () => VerifyCodeScreen(),
+            arguments: [phoneNumberController.text.trim()],
+          );
+        } else if (loginModel.statusCode == 400) {
+          Fluttertoast.showToast(msg: loginModel.msg);
+        } else {
+          Fluttertoast.showToast(msg: AppMessages.apiCallWrong);
+        }
       });
-
-    } catch(e) {
-     log('loginUsingMobileNumberFunction Error :e');
+    } catch (e) {
+      log('loginUsingMobileNumberFunction Error :e');
       rethrow;
     }
 
@@ -103,24 +102,22 @@ class MyNumberInnerScreenController extends GetxController {
 
   // Continue Button Function
   Future<void> onContinueButtonClickFunction() async {
-    if(formKey.currentState!.validate()) {
+    if (formKey.currentState!.validate()) {
       // String finalMobileNumber = "";
 
-       List<String> countryNameAndCodeList =selectCountryCodeValue.value.split(" ");
-       String countryCode = countryNameAndCodeList[1].replaceAll("+", "").replaceAll("-", "");
-       log('countryCode :$countryCode');
+      List<String> countryNameAndCodeList =
+          selectCountryCodeValue.value.split(" ");
+      String countryCode =
+          countryNameAndCodeList[1].replaceAll("+", "").replaceAll("-", "");
+      log('countryCode :$countryCode');
 
-       log('Mobile Number :${phoneNumberController.text.trim()}');
+      log('Mobile Number :${phoneNumberController.text.trim()}');
 
       finalMobileNumber = "$countryCode${phoneNumberController.text.trim()}";
       log('finalMobileNumber : $finalMobileNumber');
       await loginUsingMobileNumberFunction();
-
-
     }
   }
-
-
 
   @override
   void onInit() {
@@ -131,5 +128,4 @@ class MyNumberInnerScreenController extends GetxController {
   initMethod() async {
     await getCountryCodesFunction();
   }
-
 }

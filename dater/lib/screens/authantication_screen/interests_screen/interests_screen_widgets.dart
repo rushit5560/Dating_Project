@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:chips_choice/chips_choice.dart';
 import 'package:dater/comman_modules/custom_button.dart';
 import 'package:dater/constants/app_images.dart';
 import 'package:dater/constants/colors.dart';
@@ -111,7 +112,7 @@ class InterestsWidgetModule extends StatelessWidget {
                   );
                 },
               ).toList(),
-            )
+            ),
           ],
         );
       },

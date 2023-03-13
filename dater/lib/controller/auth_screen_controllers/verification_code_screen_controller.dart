@@ -27,6 +27,4 @@ class VerifyCodeScreenController extends GetxController {
     "0",
     "#",
   ];
-
- 
 }

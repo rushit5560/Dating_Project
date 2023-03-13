@@ -3,6 +3,7 @@ import 'dart:developer';
 
 import 'package:dater/constants/api_url.dart';
 import 'package:dater/model/authantication_model/interests%20screen_model/get_interests%20_model.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
@@ -13,8 +14,8 @@ class InterestsScreenController extends GetxController {
   RxBool isSuccessStatus = false.obs;
   List<InterestsData> interestsData = [];
   List<String> interestsDataStringList = [];
-                  int isSelectedValue = 0;
-
+  int isSelectedValue = 0;
+  List<Widget> selectList = [];
 
   List<String> categoryNameList = [];
   List<CategoryItemModel> categoryList = [];
