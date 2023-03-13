@@ -39,10 +39,10 @@ class GenderTargetRadioButtonModule extends StatelessWidget {
             ],
           ),
           SizedBox(
-            height: 150,
+            height: 300,
             child: ListView.builder(
               physics: const NeverScrollableScrollPhysics(),
-              itemCount: 3,
+              itemCount: genderTargetScreenController.msgData.length,
               itemBuilder: (context, index) {
                 return Row(
                   children: [
@@ -99,11 +99,11 @@ class GenderTargetNotesModule extends StatelessWidget {
             children: [
               _singleItemModule(
                 number: AppMessages.targetgendernumber1,
-                text: AppMessages.YouCanAlwaysChangeYourTargetGenderLater,
+                text: AppMessages.youCanAlwaysChangeYourTargetGenderLater,
               ),
               _singleItemModule(
                 number: AppMessages.targetgendernumber2,
-                text: AppMessages.Youwillonlyseepeopleyouaretargeting,
+                text: AppMessages.youwillonlyseepeopleyouaretargeting,
               ),
             ],
           ),

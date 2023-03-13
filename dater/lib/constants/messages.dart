@@ -14,8 +14,8 @@ class AppMessages {
   static String referralNumber =
       "Do you have a referral number from a friend ?";
   static String whatsYourEmail = '''What's Your email?''';
-  static String donTLoseAccessToYourAccount =
-      '''Don't lose access to Your account\n so We can contact you, But its optional !''';
+  // static String donTLoseAccessToYourAccount =
+  //     '''Don't lose access to Your account\n so We can contact you, But its optional !''';
   static String skipButton = "Skip";
   static String continueButton = "Continue";
   static String enterYourEmail = "Enter your email";
@@ -48,11 +48,22 @@ class AppMessages {
   static String gender = "Gender";
   static String targetGenderNotes = "What's your target gender ?";
   static String whatsyourgoal = "What's your goal ?";
-  static String YouCanAlwaysChangeYourTargetGenderLater = "You can always change,your target gender later";
-  static String Youwillonlyseepeopleyouaretargeting = "You will only see people , you are targeting . ";
-  static String Beinghonestwillhelpeveryonetogetthebestexperience= "Being honest will help everyone to get the best experience.";
+  static String youCanAlwaysChangeYourTargetGenderLater =
+      "You can always change,your target gender later";
+  static String youwillonlyseepeopleyouaretargeting =
+      "You will only see people , you are targeting . ";
+  static String yeinghonestwillhelpeveryonetogetthebestexperience =
+      "Being honest will help everyone to get the best experience.";
   static String targetgendernumber1 = '1- ';
   static String targetgendernumber2 = '2- ';
   static String goalselectednumber = '1- ';
   static String goal = 'Goal ';
+  static String donTLoseAccessToYourAccount =
+      '''Don't lose access to Your account ''';
+  static String soWeCanContactYouButItsOptional =
+      '''so We can contact you, But its optional ! ''';
+  static String goalScreenNoteText =
+      "Being honest will help everyone to get the best experience .";
+        static String skip = "Skip";
+  static String next = "Next";
 }
