@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class VerifyCodeScreenController extends GetxController {
+  String mobileNumber = Get.arguments[0] ?? "";
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   TextEditingController firstDigitController = TextEditingController();

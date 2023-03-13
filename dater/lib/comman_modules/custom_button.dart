@@ -74,7 +74,7 @@ class ButtonCustomLoginAndSignUp extends StatelessWidget {
     required this.text,
     this.textColor = AppColors.blackColor,
     this.fontWeight = FontWeight.normal,
-    this.textFontFamily = "SFProDisplayBold",
+    this.textFontFamily = "SFProDisplaySemibold",
     this.textsize = 12,
     this.backgroundColor = AppColors.whiteColor,
     this.size = const Size(double.infinity, 0),

@@ -53,7 +53,7 @@ class ColumnWidgets extends StatelessWidget {
                       style: TextStyleConfig.textStyle(
                         textColor: AppColors.whiteColor,
                         fontFamily: "SFProDisplayRegular",
-                        fontSize: 13.sp,
+                        fontSize: 11.5.sp,
                       ),
                     ),
                     TextSpan(
@@ -61,7 +61,7 @@ class ColumnWidgets extends StatelessWidget {
                       style: TextStyleConfig.textStyle(
                         textColor: AppColors.whiteColor,
                         fontFamily: "SFProDisplayRegular",
-                        fontSize: 13.sp,
+                        fontSize: 11.5.sp,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -70,7 +70,7 @@ class ColumnWidgets extends StatelessWidget {
                       style: TextStyleConfig.textStyle(
                         textColor: AppColors.whiteColor,
                         fontFamily: "SFProDisplayRegular",
-                        fontSize: 13.sp,
+                        fontSize: 11.5.sp,
                       ),
                     ),
                     TextSpan(
@@ -78,7 +78,7 @@ class ColumnWidgets extends StatelessWidget {
                       style: TextStyleConfig.textStyle(
                         textColor: AppColors.whiteColor,
                         fontFamily: "SFProDisplayRegular",
-                        fontSize: 13.sp,
+                        fontSize: 11.5.sp,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -87,7 +87,7 @@ class ColumnWidgets extends StatelessWidget {
                       style: TextStyleConfig.textStyle(
                         textColor: AppColors.whiteColor,
                         fontFamily: "SFProDisplayRegular",
-                        fontSize: 13.sp,
+                        fontSize: 11.5.sp,
                       ),
                     ),
                     TextSpan(
@@ -95,7 +95,7 @@ class ColumnWidgets extends StatelessWidget {
                       style: TextStyleConfig.textStyle(
                         textColor: AppColors.whiteColor,
                         fontFamily: "SFProDisplayRegular",
-                        fontSize: 13.sp,
+                        fontSize: 11.5.sp,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -103,32 +103,34 @@ class ColumnWidgets extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 7.h),
+
               ButtonCustomLoginAndSignUp(
                 image: AppImages.mobileImage,
                 onPressed: () {
                   Get.to(() => MyNumberInnerScreen());
                 },
                 text: AppMessages.signUpWithphoneNumber,
-                textsize: 13.sp,
+                textsize: 12.sp,
                 textColor: AppColors.grey700Color,
               ),
               SizedBox(height: 2.h),
+
               ButtonCustomLoginAndSignUp(
                 image: AppImages.mobileImage,
                 onPressed: () {
                   Get.to(() => MyNumberInnerScreen());
                 },
                 text: AppMessages.signInWithphoneNumber,
-                textsize: 13.sp,
+                textsize: 12.sp,
                 textColor: AppColors.grey700Color,
               ),
-              SizedBox(height: 3.h),
+              SizedBox(height: 6.h),
               Text(
                 textAlign: TextAlign.center,
                 AppMessages.referralNumber,
                 style: TextStyleConfig.textStyle(
                     textColor: AppColors.grey800Color,
-                    fontSize: 15.sp,
+                    fontSize: 13.sp,
                     fontFamily: "SFProDisplayBold"),
               ).commonSymmetricPadding(horizontal: 15),
               const Spacer(),

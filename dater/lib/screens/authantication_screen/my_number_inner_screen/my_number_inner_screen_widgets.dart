@@ -1,5 +1,7 @@
+import 'package:dater/constants/font_family.dart';
 import 'package:dater/controller/auth_screen_controllers/my_number_inner_screen_controller.dart';
 import 'package:dater/utils/extensions.dart';
+import 'package:dater/utils/field_validator.dart';
 import 'package:dater/utils/style.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -18,47 +20,53 @@ class TextFormFiledModule extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Expanded(
-          flex: 20,
-          child: Obx(
-            () => DropdownButton<String>(
-              value: myNumberInnerScreenController.dropdownvalue.value,
-              // alignment: Alignment.center,
-              items: myNumberInnerScreenController.country
-                  .map(
-                    (item) => DropdownMenuItem<String>(
-                      enabled: true,
-                      value: item,
-                      child: Text(
-                        item,
-                        style: const TextStyle(
-                          fontFamily: "Roboto",
-                          fontSize: 16,
-                          color: AppColors.grey800Color,
+        // Expanded(
+          // flex: 20,
+          /*child:*/ Obx(
+            () => SizedBox(
+              // width: Get.size.width * 0.25,
+              // height: 50,
+              child: DropdownButton<String>(
+                value: myNumberInnerScreenController.selectCountryCodeValue.value,
+                alignment: Alignment.center,
+                items: myNumberInnerScreenController.countryCodeList
+                    .map(
+                      (item) => DropdownMenuItem<String>(
+                        // enabled: true,
+                        value: item,
+                        child: Text(
+                          item,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                            fontFamily: FontFamilyText.sFProDisplayRegular,
+                            fontSize: 14,
+                            color: AppColors.grey800Color,
+                          ),
                         ),
                       ),
-                    ),
-                  )
-                  .toList(),
-              onChanged: (val) {
-                myNumberInnerScreenController.isLoading(true);
-                myNumberInnerScreenController.dropdownvalue.value = val!;
-                myNumberInnerScreenController.isLoading(false);
-              },
+                    )
+                    .toList(),
+                onChanged: (val) {
+                  myNumberInnerScreenController.isLoading(true);
+                  myNumberInnerScreenController.selectCountryCodeValue.value = val!;
+                  myNumberInnerScreenController.isLoading(false);
+                },
+              ),
             ),
           ),
-        ),
         // ),
-        const Expanded(flex: 5, child: SizedBox()),
+        const SizedBox(width: 20),
         Expanded(
-          flex: 75,
+          // flex: 70,
           child: Form(
             key: myNumberInnerScreenController.formKey,
             child: TextFormField(
               cursorColor: AppColors.darkOrangeColor,
               controller: myNumberInnerScreenController.phoneNumberController,
               textInputAction: TextInputAction.next,
-              keyboardType: TextInputType.text,
+              keyboardType: TextInputType.phone,
+              validator: (value) => FieldValidator().validateMobileNumber(value!),
               decoration: InputDecoration(
                 focusedErrorBorder: const UnderlineInputBorder(
                   borderSide: BorderSide(color: AppColors.darkOrangeColor),
@@ -71,10 +79,10 @@ class TextFormFiledModule extends StatelessWidget {
                 ),
                 isDense: true,
                 hintText: AppMessages.phoneNumber,
-                hintStyle: const TextStyle(
+                hintStyle: TextStyle(
                   color: AppColors.grey500Color,
                   fontSize: 14,
-                  fontFamily: "SFProDisplayRegular",
+                  fontFamily: FontFamilyText.sFProDisplayRegular,
                 ),
               ),
             ),

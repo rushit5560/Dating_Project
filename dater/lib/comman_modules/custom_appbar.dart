@@ -15,6 +15,7 @@ PreferredSizeWidget commonAppBarModule(
       builder: (BuildContext context) {
         return IconButton(
           onPressed: () {
+            FocusManager.instance.primaryFocus?.unfocus();
             Get.back();
           },
           icon: Icon(

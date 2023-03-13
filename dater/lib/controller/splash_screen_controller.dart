@@ -8,7 +8,7 @@ class SplashScreencontroller extends GetxController {
     Timer(
       const Duration(milliseconds: 3500),
       () {
-        Get.to(
+        Get.off(
           () {
             return LoginInScreen();
           },

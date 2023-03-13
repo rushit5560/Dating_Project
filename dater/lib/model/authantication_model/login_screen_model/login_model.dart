@@ -24,11 +24,11 @@ class LoginModel {
     final int statusCode;
 
     factory LoginModel.fromJson(Map<String, dynamic> json) => LoginModel(
-        response: json["response"]??"",
-        msg: json["msg"]??"",
-        verifyToken: json["verify_token"]??"",
-        msgSent: json["msg_sent"]??false,
-        statusCode: json["status_code"]??0,
+        response: json["response"] ?? "",
+        msg: json["msg"] ?? "",
+        verifyToken: json["verify_token"] ?? "",
+        msgSent: json["msg_sent"] ?? false,
+        statusCode: json["status_code"] ?? 0,
     );
 
     // Map<String, dynamic> toJson() => {

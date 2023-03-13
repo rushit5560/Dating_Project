@@ -10,7 +10,7 @@ import 'package:sizer/sizer.dart';
 
 class SplashScreen extends StatelessWidget {
   SplashScreen({Key? key}) : super(key: key);
-  final splashScreencontroller = Get.put(SplashScreencontroller());
+  final splashScreenController = Get.put(SplashScreencontroller());
 
   @override
   Widget build(BuildContext context) {
