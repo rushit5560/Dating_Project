@@ -24,16 +24,6 @@ class GoalSelectScreen extends StatelessWidget {
         iconColor: AppColors.darkOrangeColor,
         textFontFamily: FontFamilyText.sFProDisplayHeavy,
       ),
-      bottomNavigationBar: ButtonCustom(
-        text: "Next",
-        textFontFamily: FontFamilyText.sFProDisplayBold,
-        textsize: 15,
-        backgroundColor: AppColors.darkOrangeColor,
-        textColor: AppColors.whiteColor2,
-        onPressed: () {
-          Get.to(() => InterestsScreen());
-        },
-      ).commonSymmetricPadding(horizontal: 20, vertical: 10),
       body: Obx(
         () => goalSelectScreenController.isLoading.value
             ? const CustomLoader()
@@ -63,6 +53,18 @@ class GoalSelectScreen extends StatelessWidget {
                 ).commonSymmetricPadding(horizontal: 25, vertical: 10),
               ),
       ),
+      bottomNavigationBar: ButtonCustom(
+        text: "Next",
+        textFontFamily: FontFamilyText.sFProDisplayBold,
+        textsize: 15,
+        backgroundColor: AppColors.darkOrangeColor,
+        textColor: AppColors.whiteColor2,
+        onPressed: () {
+          Get.to(
+            () => InterestsScreen(),
+          );
+        },
+      ).commonSymmetricPadding(horizontal: 20, vertical: 10),
     );
   }
 }

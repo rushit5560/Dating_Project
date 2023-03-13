@@ -38,29 +38,31 @@ class GenderTargetScreen extends StatelessWidget {
       body: Obx(
         () => genderTargetScreenController.isLoading.value
             ? const CustomLoader()
-            : Column(
-                children: [
-                  GenderTargetRadioButtonModule(),
-                  SizedBox(height: 6.h),
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: ButtonCustom(
-                      text: AppMessages.genderNotes,
-                      onPressed: () {},
-                      size: const Size(50, 0),
-                      fontWeight: FontWeight.bold,
-                      textsize: 15,
-                      textFontFamily: FontFamilyText.sFProDisplayHeavy,
-                      textColor: AppColors.whiteColor2,
-                      backgroundColor: AppColors.greyColor,
+            : SingleChildScrollView(
+              child: Column(
+                  children: [
+                    GenderTargetRadioButtonModule(),
+                    SizedBox(height: 6.h),
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: ButtonCustom(
+                        text: AppMessages.genderNotes,
+                        onPressed: () {},
+                        size: const Size(50, 0),
+                        fontWeight: FontWeight.bold,
+                        textsize: 15,
+                        textFontFamily: FontFamilyText.sFProDisplayHeavy,
+                        textColor: AppColors.whiteColor2,
+                        backgroundColor: AppColors.greyColor,
+                      ),
                     ),
-                  ),
-                  SizedBox(
-                    height: 2.h,
-                  ),
-                  const GenderTargetNotesModule(),
-                ],
-              ).commonSymmetricPadding(horizontal: 25, vertical: 10),
+                    SizedBox(
+                      height: 2.h,
+                    ),
+                    const GenderTargetNotesModule(),
+                  ],
+                ).commonSymmetricPadding(horizontal: 25, vertical: 10),
+            ),
       ),
     );
   }

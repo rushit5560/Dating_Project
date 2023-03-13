@@ -1,5 +1,8 @@
+import 'package:dater/comman_modules/custom_appbar.dart';
 import 'package:dater/comman_modules/custom_loader.dart';
 import 'package:dater/constants/colors.dart';
+import 'package:dater/constants/font_family.dart';
+import 'package:dater/constants/messages.dart';
 import 'package:dater/controller/auth_screen_controllers/interests%20_screen_controller.dart';
 import 'package:dater/screens/authantication_screen/interests_screen/interests_screen_widgets.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +17,12 @@ class InterestsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.grey200Color,
+      appBar: commonAppBarModule(
+        text: AppMessages.whatsyourinterests,
+        backGroundColor: Colors.transparent,
+        iconColor: AppColors.darkOrangeColor,
+        textFontFamily: FontFamilyText.sFProDisplayHeavy,
+      ),
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
         child: Obx(
@@ -25,7 +34,7 @@ class InterestsScreen extends StatelessWidget {
                       SizedBox(
                         height: 2.h,
                       ),
-                      const InterestsWidgetModule(),
+                      InterestsWidgetModule(),
                       // SizedBox(height: 3.h,),
                       // SportsWidgetsModule(),
                     ],
@@ -33,6 +42,7 @@ class InterestsScreen extends StatelessWidget {
                 ),
         ),
       ),
+      bottomNavigationBar: SkipAndNextButtonModule(),
     );
   }
 }

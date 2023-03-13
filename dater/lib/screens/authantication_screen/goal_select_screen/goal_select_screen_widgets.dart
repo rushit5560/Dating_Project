@@ -94,8 +94,7 @@ class GoalselectNotesModule extends StatelessWidget {
             children: [
               _singleItemModule(
                 number: AppMessages.goalselectednumber,
-                text: AppMessages
-                    .Beinghonestwillhelpeveryonetogetthebestexperience,
+                text: AppMessages.goalScreenNoteText,
               ),
             ],
           ),

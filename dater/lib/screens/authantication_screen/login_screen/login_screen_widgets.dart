@@ -106,7 +106,7 @@ class ColumnWidgets extends StatelessWidget {
               ButtonCustomLoginAndSignUp(
                 image: AppImages.mobileImage,
                 onPressed: () {
-                  Get.to(() =>  MyNumberInnerScreen());
+                  Get.to(() => MyNumberInnerScreen());
                 },
                 text: AppMessages.signUpWithphoneNumber,
                 textsize: 13.sp,
@@ -116,7 +116,7 @@ class ColumnWidgets extends StatelessWidget {
               ButtonCustomLoginAndSignUp(
                 image: AppImages.mobileImage,
                 onPressed: () {
-                  Get.to(() =>  MyNumberInnerScreen());
+                  Get.to(() => MyNumberInnerScreen());
                 },
                 text: AppMessages.signInWithphoneNumber,
                 textsize: 13.sp,
