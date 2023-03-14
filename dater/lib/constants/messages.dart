@@ -46,6 +46,8 @@ class AppMessages {
   static String genderNotes = "Gender notes";
   static String goalNotes = "Goal notes";
   static String gender = "Gender";
+  static String filter = "Filters";
+
   static String targetGenderNotes = "What's your target gender ?";
   static String whatsyourgoal = "What's your goal ?";
   static String youCanAlwaysChangeYourTargetGenderLater =
@@ -64,10 +66,15 @@ class AppMessages {
       '''so We can contact you, But its optional ! ''';
   static String goalScreenNoteText =
       "Being honest will help everyone to get the best experience .";
-        static String skip = "Skip";
+  static String skip = "Skip";
   static String next = "Next";
-  static String chooseChatext="You can choose up to 8 things you love, \nit will help you find your soulmate .";
+  static String chooseChatext =
+      "You can choose up to 8 things you love, \nit will help you find your soulmate .";
 
   static String apiCallWrong = "Something went wrong!";
   static String enterValidCode = "Please enter valid code!";
+  static String addThisFilter = "Add this filter";
+  static String whatIsTheirAge = "What is their age ?";
+  static String filterScreentext = "You can add one or all filters";
+
 }

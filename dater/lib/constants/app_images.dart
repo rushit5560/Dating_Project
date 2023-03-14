@@ -21,6 +21,8 @@ class AppImages {
   static const homeImage = '$rootPath/home.png';
   static const swiper1Image = '$rootPath/swiper1.png';
   static const swiper2Image = '$rootPath/swiper2.png';
-  static const swiper3Image = '$rootPath/swiper3.png';
+  static const swipeswiper1Imager3Image = '$rootPath/swiper3.png';
   static const rightImage = '$rootPath/right.png';
+  static const lightorange1 = '$rootPath/lightorange1.png';
+  static const lightorange2 = '$rootPath/lightorange2.png';
 }
