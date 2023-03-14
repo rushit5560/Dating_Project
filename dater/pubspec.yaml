@@ -44,6 +44,7 @@ dependencies:
   shared_preferences: ^2.0.18
   swipable_stack: ^2.0.0
   chips_choice: ^3.0.0
+  flutter_switch: ^0.3.2
 
 dev_dependencies:
   flutter_test:
