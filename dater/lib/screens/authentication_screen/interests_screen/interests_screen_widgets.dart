@@ -7,6 +7,7 @@ import 'package:dater/constants/messages.dart';
 import 'package:dater/controller/auth_screen_controllers/interests%20_screen_controller.dart';
 import 'package:dater/utils/extensions.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 import '../../../utils/style.dart';
@@ -24,48 +25,47 @@ class InterestsWidgetModule extends StatelessWidget {
     return ListView.separated(
       shrinkWrap: true,
       itemCount: interestsScreenController.categoryList.length,
+      physics: const AlwaysScrollableScrollPhysics(),
       itemBuilder: (context, i) {
         return Column(
           children: [
-            Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-              Image.asset(AppImages.creativeImage),
-              SizedBox(width: 1.w),
-              Text(
-                interestsScreenController.categoryList[i].categoryName,
-                style: TextStyleConfig.textStyle(
-                  fontFamily: "SFProDisplayRegular",
-                  textColor: AppColors.blackDarkColor,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 18,
+            const SizedBox(height: 12),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Image.asset(AppImages.creativeImage),
+                SizedBox(width: 1.w),
+                Text(
+                  interestsScreenController.categoryList[i].categoryName,
+                  style: TextStyleConfig.textStyle(
+                    fontFamily: FontFamilyText.sFProDisplayRegular,
+                    textColor: AppColors.blackDarkColor,
+                    // fontWeight: FontWeight.bold,
+                    fontSize: 18,
+                  ),
                 ),
-              ),
-            ]),
+              ],
+            ),
+            const SizedBox(height: 12),
             Wrap(
               spacing: 3.0,
-              children:
-
-                  //  techChips(i)
-
-                  List.generate(
+              children: List.generate(
                 interestsScreenController.categoryList[i].options.length,
                 (int index) {
                   return Transform(
                     transform: Matrix4.identity()..scale(0.9),
                     child: ChoiceChip(
                       label: Text(
-                        interestsScreenController
-                            .categoryList[i].options[index].name,
+                        interestsScreenController.categoryList[i].options[index].name,
                         style: TextStyleConfig.textStyle(
                           fontFamily: FontFamilyText.sFProDisplaySemibold,
-                          textColor: interestsScreenController
-                                  .categoryList[i].options[index].isSelected
+                          textColor: interestsScreenController.categoryList[i].options[index].isSelected
                               ? AppColors.blackDarkColor
                               : AppColors.grey600Color,
                           fontSize: 16,
                         ),
                       ),
-                      selected: interestsScreenController
-                          .categoryList[i].options[index].isSelected,
+                      selected: interestsScreenController.categoryList[i].options[index].isSelected,
                       selectedColor: AppColors.darkOrangeColor,
                       backgroundColor: Colors.white,
                       shape: const StadiumBorder(
@@ -75,14 +75,38 @@ class InterestsWidgetModule extends StatelessWidget {
                         ),
                       ),
                       onSelected: (bool value) {
-                        log("1111");
+                        value == false ? interestsScreenController.selectedItemCount.value-- : null;
+
+                        if(interestsScreenController.selectedItemCount.value >= 8) {
+                          Fluttertoast.showToast(msg: "You select only 8 Interest");
+                        } else {
+                          value == true
+                              ? interestsScreenController.selectedItemCount.value++
+                              : null;
+                          int selectedOptionId = int.parse(interestsScreenController.categoryList[i].options[index].id);
+
+                          interestsScreenController.selectChoiceOnSelectFunction(
+                            value: value,
+                            categoryIndex: i,
+                            categoryOptionIndex: index,
+                            optionId: selectedOptionId,
+                          );
+                        }
+
+
+
                         interestsScreenController.isLoading(true);
-
-                        interestsScreenController
-                            .categoryList[i].options[index].isSelected = value;
                         interestsScreenController.isLoading(false);
-                        log("interestsScreenController.categoryList[i].options[index].id: ${interestsScreenController.categoryList[i].options[index].id}");
 
+                        // value == true
+                        //     ? interestsScreenController.selectedItemCount.value++
+                        //     : interestsScreenController.selectedItemCount.value--;
+                        //
+                        // if(interestsScreenController.selectedItemCount.value < 8) {
+                        //   // interestsScreenController.selectChoiceOnSelectFunction();
+                        // } else {
+                        //   Fluttertoast.showToast(msg: "You select only 8 Interest");
+                        // }
 
                         // for (int i = 0;
                         //     i < interestsScreenController.categoryList.length;
@@ -136,30 +160,7 @@ class InterestsWidgetModule extends StatelessWidget {
     );
   }
 
-  List<Widget> techChips(int index) {
-    List<Widget> interestDataList = [];
 
-    for (int i = 0;
-        i < interestsScreenController.categoryList[index].options.length;
-        i++) {
-      log("interestsScreenController.categoryList[index].options.length:: ${interestsScreenController.categoryList[index].options.length}");
-      Widget item = FilterChip(
-        label:
-            Text(interestsScreenController.categoryList[i].options[index].name),
-        selected:
-            interestsScreenController.categoryList[i].options[index].isSelected,
-        onSelected: (bool val) {
-          interestsScreenController.isLoading(true);
-          interestsScreenController.categoryList[i].options[index].isSelected =
-              val;
-          interestsScreenController.isLoading(false);
-        },
-      );
-      log("interestsScreenController.categoryList[i].options[index].id  ${interestsScreenController.categoryList[i].options[index].id}");
-      interestDataList.add(item);
-    }
-    return interestDataList;
-  }
 }
 
 class SkipAndNextButtonModule extends StatelessWidget {
@@ -172,31 +173,31 @@ class SkipAndNextButtonModule extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Expanded(
-          // flex: 5,
           child: ButtonCustom(
             text: AppMessages.skip,
             textFontFamily: FontFamilyText.sFProDisplayBold,
             textsize: 15,
             backgroundColor: AppColors.darkOrangeColor,
             textColor: AppColors.whiteColor2,
-            onPressed: () {
-              // Get.to(
-              //   () => InterestsScreen(),
-              // );
+            onPressed: () async {
+              await interestsScreenController.completeSignUpFunction();
             },
           ),
         ),
         const SizedBox(width: 30),
-        Text(
-          "0/8 Selected",
-          style: TextStyleConfig.textStyle(
-              fontFamily: FontFamilyText.sFProDisplayRegular,
-              textColor: AppColors.grey500Color,
-              fontSize: 14.sp),
+        Expanded(
+          child: Obx(
+            () => Text(
+              "${interestsScreenController.selectedItemCount.value}/8 Selected",
+              style: TextStyleConfig.textStyle(
+                  fontFamily: FontFamilyText.sFProDisplayRegular,
+                  textColor: AppColors.grey500Color,
+                  fontSize: 12.sp),
+            ),
+          ),
         ),
         const SizedBox(width: 30),
         Expanded(
-          // flex: 5,
           child: ButtonCustom(
             text: AppMessages.next,
             textFontFamily: FontFamilyText.sFProDisplayBold,
@@ -204,13 +205,11 @@ class SkipAndNextButtonModule extends StatelessWidget {
             backgroundColor: AppColors.darkOrangeColor,
             textColor: AppColors.whiteColor2,
             onPressed: () async {
-              log("message");
-              await interestsScreenController.saveInterestsFunction(
-                  interestsScreenController.categoryList);
-
-              // Get.to(
-              //   () => InterestsScreen(),
-              // );
+              if(interestsScreenController.selectedItemCount.value == 0) {
+                Fluttertoast.showToast(msg: "Please select at least one interest!");
+              } else {
+                await interestsScreenController.nextButtonClickFunction();
+              }
             },
           ),
         ),

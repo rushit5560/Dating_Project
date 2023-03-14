@@ -1,11 +1,11 @@
 import 'dart:convert';
 
-SaveInterestModel saveInterestModelFromJson(String str) => SaveInterestModel.fromJson(json.decode(str));
+AccountActiveModel accountActiveModelFromJson(String str) => AccountActiveModel.fromJson(json.decode(str));
 
-String saveInterestModelToJson(SaveInterestModel data) => json.encode(data.toJson());
+String accountActiveModelToJson(AccountActiveModel data) => json.encode(data.toJson());
 
-class SaveInterestModel {
-  SaveInterestModel({
+class AccountActiveModel {
+  AccountActiveModel({
     required this.response,
     required this.msg,
     required this.token,
@@ -17,7 +17,7 @@ class SaveInterestModel {
   String token;
   int statusCode;
 
-  factory SaveInterestModel.fromJson(Map<String, dynamic> json) => SaveInterestModel(
+  factory AccountActiveModel.fromJson(Map<String, dynamic> json) => AccountActiveModel(
     response: json["response"] ?? "",
     msg: json["msg"] ?? "",
     token: json["token"] ?? "",

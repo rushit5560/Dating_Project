@@ -10,21 +10,29 @@ class SignUpPreference {
   static String userImage2Key = "userImage2Key";
   static String userImage3Key = "userImage3Key";
   static String userDobKey = "userDobKey";
+  static String userSexualityKey = "userSexualityKey";
   static String userGenderKey = "userGenderKey";
   static String targetGenderKey = "targetGenderKey";
   static String userGoalKey = "userGoalKey";
   static String userInterestKey = "userInterestKey";
 
-  setStringValueInPrefs({required String key, required String value}) async {
+  Future<void> setStringValueInPrefs({required String key, required String value}) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString(key, value);
     log('prefs value :${prefs.getString(key)}');
   }
 
-  setListValueInPrefs({required String key, required List<String> value}) async {
+  Future<void> setListValueInPrefs({required String key, required List<String> value}) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setStringList(key, value);
     log('prefs list value :${prefs.getStringList(key)}');
   }
+
+  Future<String> getStringFromPrefs({required String key}) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String value = prefs.getString(key) ?? "";
+    return value;
+  }
+
 
 }

@@ -23,29 +23,30 @@ class InterestsScreen extends StatelessWidget {
         iconColor: AppColors.darkOrangeColor,
         textFontFamily: FontFamilyText.sFProDisplayHeavy,
       ),
-      body: SingleChildScrollView(
-        scrollDirection: Axis.vertical,
-        child: Obx(
-          () => interestsScreenController.isLoading.value
-              ? const CustomLoader()
-              : SafeArea(
-                  child: Column(
-                    children: [
-                      Text(
-                        textAlign: TextAlign.center,
-                        AppMessages.chooseChatext,
-                        style: TextStyleConfig.textStyle(
-                          fontFamily: FontFamilyText.sFProDisplayRegular,
-                          textColor: AppColors.grey500Color,
+      body: Obx(
+        ()=> interestsScreenController.isLoading.value
+        ? const CustomLoader()
+        : SingleChildScrollView(
+          // scrollDirection: Axis.vertical,
+          child: SafeArea(
+                    child: Column(
+                      children: [
+                        Text(
+                          textAlign: TextAlign.center,
+                          AppMessages.chooseChatext,
+                          style: TextStyleConfig.textStyle(
+                            fontFamily: FontFamilyText.sFProDisplayRegular,
+                            textColor: AppColors.grey500Color,
+                          ),
                         ),
-                      ),
-                      const SizedBox(height: 12),
-                      InterestsWidgetModule(),
-                      // SizedBox(height: 3.h,),
-                      // SportsWidgetsModule(),
-                    ],
+                        // const SizedBox(height: 12),
+                        InterestsWidgetModule(),
+                        // SizedBox(height: 3.h,),
+                        // SportsWidgetsModule(),
+                      ],
+                    ),
                   ),
-                ),
+
         ),
       ),
       bottomNavigationBar:  SkipAndNextButtonModule(),

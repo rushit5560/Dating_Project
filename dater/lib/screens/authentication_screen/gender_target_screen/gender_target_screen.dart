@@ -66,7 +66,6 @@ class GenderTargetScreen extends StatelessWidget {
         onPressed: () async => await genderTargetScreenController.nextButtonFunction(),
       ).commonSymmetricPadding(horizontal: 20, vertical: 10),
 
-
     );
   }
 }

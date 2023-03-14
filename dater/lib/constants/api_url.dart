@@ -3,6 +3,7 @@ class ApiUrl {
   //authantication api's
   static const loginApi = "${apiMainPath}api/login";
   static const accountActiveApi = "${apiMainPath}api/activate";
+  static const completeSignUpApi = "${apiMainPath}api/complete_signup";
 
   static const getGenderApi = "${apiMainPath}api/get_genders";
   static const getGoalApi = "${apiMainPath}api/get_goals";

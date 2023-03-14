@@ -1,6 +1,7 @@
 import 'package:dater/common_modules/custom_button.dart';
 import 'package:dater/constants/app_images.dart';
 import 'package:dater/constants/colors.dart';
+import 'package:dater/constants/font_family.dart';
 import 'package:dater/constants/messages.dart';
 import 'package:dater/screens/authentication_screen/my_number_inner_screen/my_number_inner_screen.dart';
 import 'package:dater/utils/extensions.dart';
@@ -8,6 +9,8 @@ import 'package:dater/utils/style.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
+
+import '../../../constants/enums.dart';
 
 class ColumnWidgets extends StatelessWidget {
   const ColumnWidgets({super.key});
@@ -60,7 +63,7 @@ class ColumnWidgets extends StatelessWidget {
                       text: AppMessages.terms,
                       style: TextStyleConfig.textStyle(
                         textColor: AppColors.whiteColor,
-                        fontFamily: "SFProDisplayRegular",
+                        fontFamily: FontFamilyText.sFProDisplayRegular,
                         fontSize: 11.5.sp,
                         fontWeight: FontWeight.bold,
                       ),
@@ -69,7 +72,7 @@ class ColumnWidgets extends StatelessWidget {
                       text: AppMessages.authText2,
                       style: TextStyleConfig.textStyle(
                         textColor: AppColors.whiteColor,
-                        fontFamily: "SFProDisplayRegular",
+                        fontFamily: FontFamilyText.sFProDisplayRegular,
                         fontSize: 11.5.sp,
                       ),
                     ),
@@ -77,7 +80,7 @@ class ColumnWidgets extends StatelessWidget {
                       text: AppMessages.privacyPolicy,
                       style: TextStyleConfig.textStyle(
                         textColor: AppColors.whiteColor,
-                        fontFamily: "SFProDisplayRegular",
+                        fontFamily: FontFamilyText.sFProDisplayRegular,
                         fontSize: 11.5.sp,
                         fontWeight: FontWeight.bold,
                       ),
@@ -86,7 +89,7 @@ class ColumnWidgets extends StatelessWidget {
                       text: AppMessages.and,
                       style: TextStyleConfig.textStyle(
                         textColor: AppColors.whiteColor,
-                        fontFamily: "SFProDisplayRegular",
+                        fontFamily: FontFamilyText.sFProDisplayRegular,
                         fontSize: 11.5.sp,
                       ),
                     ),
@@ -94,7 +97,7 @@ class ColumnWidgets extends StatelessWidget {
                       text: AppMessages.cookissPolicy,
                       style: TextStyleConfig.textStyle(
                         textColor: AppColors.whiteColor,
-                        fontFamily: "SFProDisplayRegular",
+                        fontFamily: FontFamilyText.sFProDisplayRegular,
                         fontSize: 11.5.sp,
                         fontWeight: FontWeight.bold,
                       ),
@@ -107,7 +110,10 @@ class ColumnWidgets extends StatelessWidget {
               ButtonCustomLoginAndSignUp(
                 image: AppImages.mobileImage,
                 onPressed: () {
-                  Get.to(() => MyNumberInnerScreen());
+                  Get.to(
+                    () => MyNumberInnerScreen(),
+                    arguments: [AuthAs.register],
+                  );
                 },
                 text: AppMessages.signUpWithphoneNumber,
                 textsize: 12.sp,
@@ -118,7 +124,10 @@ class ColumnWidgets extends StatelessWidget {
               ButtonCustomLoginAndSignUp(
                 image: AppImages.mobileImage,
                 onPressed: () {
-                  Get.to(() => MyNumberInnerScreen());
+                  Get.to(
+                    () => MyNumberInnerScreen(),
+                    arguments: [AuthAs.login],
+                  );
                 },
                 text: AppMessages.signInWithphoneNumber,
                 textsize: 12.sp,

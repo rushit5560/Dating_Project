@@ -2,7 +2,7 @@ import 'package:dater/common_modules/custom_button.dart';
 import 'package:dater/common_modules/custom_loader.dart';
 import 'package:dater/constants/colors.dart';
 import 'package:dater/controller/auth_screen_controllers/my_number_inner_screen_controller.dart';
-import 'package:dater/screens/authentication_screen/verify_code/verify_code.dart';
+import 'package:dater/screens/authentication_screen/verify_code_screen/verify_code_screen.dart';
 import 'package:dater/utils/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
