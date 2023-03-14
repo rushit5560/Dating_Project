@@ -1,4 +1,4 @@
-import 'package:dater/comman_modules/custom_button.dart';
+import 'package:dater/common_modules/custom_button.dart';
 import 'package:dater/utils/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';

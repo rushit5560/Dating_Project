@@ -2,7 +2,7 @@ import 'package:dater/utils/preferences/signup_preference.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../screens/authantication_screen/add_user_photo_screen/add_user_photo_screen.dart';
+import '../../screens/authentication_screen/add_user_photo_screen/add_user_photo_screen.dart';
 
 class UserNameScreenController extends GetxController{
   RxBool isLoading = false.obs;

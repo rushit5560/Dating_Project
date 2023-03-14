@@ -1,14 +1,14 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'package:dater/constants/messages.dart';
-import 'package:dater/model/authantication_model/login_screen_model/login_model.dart';
-import 'package:dater/model/authantication_model/my_number_inner_screen_models/country_code_model.dart';
-import 'package:dater/screens/authantication_screen/verify_code/verify_code.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart'as http;
 import 'package:dater/constants/api_url.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import '../../model/authentication_model/login_screen_model/login_model.dart';
+import '../../screens/authentication_screen/verify_code/verify_code.dart';
 
 class MyNumberInnerScreenController extends GetxController {
   RxBool isLoading = false.obs;
