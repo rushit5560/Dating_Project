@@ -42,6 +42,7 @@ dependencies:
   http: ^0.13.5
   fluttertoast: ^8.2.1
   shared_preferences: ^2.0.18
+  swipable_stack: ^2.0.0
   chips_choice: ^3.0.0
 
 dev_dependencies:
