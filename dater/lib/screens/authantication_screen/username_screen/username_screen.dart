@@ -8,13 +8,13 @@ import '../../../comman_modules/custom_appbar.dart';
 import '../../../controller/auth_screen_controllers/user_name_screen_controller.dart';
 
 class UserNameScreen extends StatelessWidget {
-   UserNameScreen({Key? key}) : super(key: key);
+  UserNameScreen({Key? key}) : super(key: key);
   final userNameScreenController = Get.put(UserNameScreenController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.whiteColor2,
-
+      resizeToAvoidBottomInset: false,
       appBar: commonAppBarModule(text: AppMessages.userName),
       body: SafeArea(
         child: Column(

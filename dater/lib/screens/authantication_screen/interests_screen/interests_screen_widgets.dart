@@ -1,6 +1,4 @@
 import 'dart:developer';
-
-import 'package:chips_choice/chips_choice.dart';
 import 'package:dater/comman_modules/custom_button.dart';
 import 'package:dater/constants/app_images.dart';
 import 'package:dater/constants/colors.dart';
@@ -11,7 +9,6 @@ import 'package:dater/utils/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
-
 import '../../../utils/style.dart';
 
 // ignore: must_be_immutable
@@ -45,7 +42,11 @@ class InterestsWidgetModule extends StatelessWidget {
             ]),
             Wrap(
               spacing: 3.0,
-              children: List.generate(
+              children:
+
+                  //  techChips(i)
+
+                  List.generate(
                 interestsScreenController.categoryList[i].options.length,
                 (int index) {
                   return Transform(
@@ -56,14 +57,15 @@ class InterestsWidgetModule extends StatelessWidget {
                             .categoryList[i].options[index].name,
                         style: TextStyleConfig.textStyle(
                           fontFamily: FontFamilyText.sFProDisplaySemibold,
-                          textColor:
-                              interestsScreenController.isSelectedValue == index
-                                  ? AppColors.blackDarkColor
-                                  : AppColors.grey600Color,
+                          textColor: interestsScreenController
+                                  .categoryList[i].options[index].isSelected
+                              ? AppColors.blackDarkColor
+                              : AppColors.grey600Color,
+                          fontSize: 16,
                         ),
                       ),
-                      selected:
-                          interestsScreenController.isSelectedValue == index,
+                      selected: interestsScreenController
+                          .categoryList[i].options[index].isSelected,
                       selectedColor: AppColors.darkOrangeColor,
                       backgroundColor: Colors.white,
                       shape: const StadiumBorder(
@@ -73,40 +75,49 @@ class InterestsWidgetModule extends StatelessWidget {
                         ),
                       ),
                       onSelected: (bool value) {
-                        for (int i = 0;
-                            i < interestsScreenController.categoryList.length;
-                            i++) {
-                          for (int j = 0;
-                              j <
-                                  interestsScreenController
-                                      .categoryList[i].options.length;
-                              j++) {
-                            if (interestsScreenController
-                                    .categoryList[i].options[j].isSelected ==
-                                true) {
-                              log("isSelected value:: ${interestsScreenController.categoryList[i].options[j].isSelected}");
-                              interestsScreenController.isSelectedValue++;
-                            }
-                          }
-                        }
-                        if (interestsScreenController.isSelectedValue < 8) {
-                          interestsScreenController
-                                  .categoryList[i].options[index].isSelected ==
-                              true;
-                        } else {
-                          log("isSelectedValue 8");
-                        }
-                        // for (int i = 0;
-                        //     i <
-                        //         interestsScreenController
-                        //             .categoryList[i].options.length;
-                        //     i++) {}
-                        // setState(() {
-                        // interestsScreenController.isLoading(true);
-                        // selectedVal = (value ? index : null)!;
-                        // interestsScreenController.isLoading(false);
+                        log("1111");
+                        interestsScreenController.isLoading(true);
 
-                        // });
+                        interestsScreenController
+                            .categoryList[i].options[index].isSelected = value;
+                        interestsScreenController.isLoading(false);
+                        log("interestsScreenController.categoryList[i].options[index].id: ${interestsScreenController.categoryList[i].options[index].id}");
+
+
+                        // for (int i = 0;
+                        //     i < interestsScreenController.categoryList.length;
+                        //     i++) {
+                        //   for (int j = 0;
+                        //       j <
+                        //           interestsScreenController
+                        //               .categoryList[i].options.length;
+                        //       j++) {
+                        //     if (interestsScreenController
+                        //             .categoryList[i].options[j].isSelected ==
+                        //         true) {
+                        //       log("isSelected value:: ${interestsScreenController.categoryList[i].options[j].isSelected}");
+                        //       interestsScreenController.isSelectedValue++;
+                        //     }
+                        //   }
+                        // }
+                        // if (interestsScreenController.isSelectedValue < 8) {
+                        //   interestsScreenController
+                        //           .categoryList[i].options[index].isSelected ==
+                        //       true;
+                        // } else {
+                        //   log("isSelectedValue 8");
+                        // }
+                        // // for (int i = 0;
+                        // //     i <
+                        // //         interestsScreenController
+                        // //             .categoryList[i].options.length;
+                        // //     i++) {}
+                        // // setState(() {
+                        // // interestsScreenController.isLoading(true);
+                        // // selectedVal = (value ? index : null)!;
+                        // // interestsScreenController.isLoading(false);
+
+                        // // });
                       },
                     ),
                   );
@@ -123,6 +134,31 @@ class InterestsWidgetModule extends StatelessWidget {
         );
       },
     );
+  }
+
+  List<Widget> techChips(int index) {
+    List<Widget> interestDataList = [];
+
+    for (int i = 0;
+        i < interestsScreenController.categoryList[index].options.length;
+        i++) {
+      log("interestsScreenController.categoryList[index].options.length:: ${interestsScreenController.categoryList[index].options.length}");
+      Widget item = FilterChip(
+        label:
+            Text(interestsScreenController.categoryList[i].options[index].name),
+        selected:
+            interestsScreenController.categoryList[i].options[index].isSelected,
+        onSelected: (bool val) {
+          interestsScreenController.isLoading(true);
+          interestsScreenController.categoryList[i].options[index].isSelected =
+              val;
+          interestsScreenController.isLoading(false);
+        },
+      );
+      log("interestsScreenController.categoryList[i].options[index].id  ${interestsScreenController.categoryList[i].options[index].id}");
+      interestDataList.add(item);
+    }
+    return interestDataList;
   }
 }
 
