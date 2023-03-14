@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../screens/authantication_screen/location_screen/location_screen.dart';
+import '../../screens/authentication_screen/location_screen/location_screen.dart';
 import '../../utils/preferences/signup_preference.dart';
 
 class SignUpEmailScreenController extends GetxController{

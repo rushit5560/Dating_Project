@@ -2,12 +2,13 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:dater/constants/api_url.dart';
-import 'package:dater/model/authantication_model/interests%20screen_model/get_interests%20_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
-import '../../model/authantication_model/interests screen_model/cateory_item_model.dart';
+import '../../model/authentication_model/interests screen_model/cateory_item_model.dart';
+import '../../model/authentication_model/interests screen_model/get_interests _model.dart';
+
 
 class InterestsScreenController extends GetxController {
   RxBool isLoading = false.obs;
