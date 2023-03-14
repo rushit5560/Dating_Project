@@ -12,4 +12,11 @@ class FieldValidator {
     return null;
   }
 
+  String? validateName(String value) {
+    if(value.isEmpty) {
+      return "Please enter your name.";
+    }
+    return null;
+  }
+
 }

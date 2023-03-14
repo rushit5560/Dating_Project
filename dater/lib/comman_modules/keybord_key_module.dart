@@ -24,26 +24,21 @@ class KeyBordKeyModule extends StatelessWidget {
     return Expanded(
       child: InkWell(
         onTap: () {
-          log("1111");
           if (controller.text.length < 4) {
             if (verifyCodeScreenController.firstDigitController.text.isEmpty) {
-              verifyCodeScreenController.firstDigitController.text +=
-                  text.toString();
-            } else if (verifyCodeScreenController
-                .secondDigitController.text.isEmpty) {
-              verifyCodeScreenController.secondDigitController.text +=
-                  text.toString();
-            } else if (verifyCodeScreenController
-                .thirdDigitController.text.isEmpty) {
-              verifyCodeScreenController.thirdDigitController.text +=
-                  text.toString();
-            } else if (verifyCodeScreenController
-                .fourthDigitController.text.isEmpty) {
-              verifyCodeScreenController.fourthDigitController.text +=
-                  text.toString();
+              verifyCodeScreenController.firstDigitController.text += text.toString();
             }
-            // controller.text += text.toString();
-            log("controller.text : ${controller.text}");
+            else if (verifyCodeScreenController.secondDigitController.text.isEmpty) {
+              verifyCodeScreenController.secondDigitController.text += text.toString();
+            }
+            else if (verifyCodeScreenController.thirdDigitController.text.isEmpty) {
+              verifyCodeScreenController.thirdDigitController.text += text.toString();
+            }
+            else if (verifyCodeScreenController.fourthDigitController.text.isEmpty) {
+              verifyCodeScreenController.fourthDigitController.text += text.toString();
+            }
+            controller.text += text.toString();
+            log("controller.text : ${verifyCodeScreenController.controller.text}");
           }
         },
         child: Center(

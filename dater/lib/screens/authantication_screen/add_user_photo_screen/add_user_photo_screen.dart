@@ -2,6 +2,7 @@ import 'package:dater/comman_modules/custom_appbar.dart';
 import 'package:dater/comman_modules/custom_button.dart';
 import 'package:dater/comman_modules/custom_loader.dart';
 import 'package:dater/constants/colors.dart';
+import 'package:dater/constants/font_family.dart';
 import 'package:dater/utils/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -37,12 +38,6 @@ class AddUserPhotoScreen extends StatelessWidget {
                     text: "Add your first photo",
                     iconColor: AppColors.blackColor,
                     backGroundColor: Colors.transparent),
-                bottomNavigationBar: ButtonCustom(
-                  text: "Done",
-                  textFontFamily: "SFProDisplayBold",
-                  textsize: 15,
-                  onPressed: () => Get.to(() => DobSelectScreen()),
-                ).commonSymmetricPadding(horizontal: 20, vertical: 10),
                 body: Column(
                   children: [
                     const Text(
@@ -76,6 +71,12 @@ class AddUserPhotoScreen extends StatelessWidget {
                     Expanded(child: Container()),
                   ],
                 ),
+                bottomNavigationBar: ButtonCustom(
+                  text: "Done",
+                  textFontFamily: FontFamilyText.sFProDisplayBold,
+                  textsize: 15,
+                  onPressed: () async => await addUserPhotoScreenController.doneButtonFunction(),
+                ).commonSymmetricPadding(horizontal: 20, vertical: 10),
               ),
       ),
     );

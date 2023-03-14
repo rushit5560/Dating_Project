@@ -199,6 +199,7 @@ class ResendButtonModule extends StatelessWidget {
         verifyCodeScreenController.secondDigitController.clear();
         verifyCodeScreenController.thirdDigitController.clear();
         verifyCodeScreenController.fourthDigitController.clear();
+        verifyCodeScreenController.controller.clear();
       },
       child: Container(
         decoration: BoxDecoration(

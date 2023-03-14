@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dater/comman_modules/custom_appbar.dart';
 import 'package:dater/comman_modules/custom_button.dart';
 import 'package:dater/constants/colors.dart';
@@ -7,6 +9,7 @@ import 'package:dater/screens/authantication_screen/sign_up_email_screen/sign_up
 import 'package:dater/screens/authantication_screen/verify_code/verify_code_widgets.dart';
 import 'package:dater/utils/extensions.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 
@@ -19,19 +22,7 @@ class VerifyCodeScreen extends StatelessWidget {
       resizeToAvoidBottomInset: false,
       backgroundColor: AppColors.whiteColor2,
       appBar: commonAppBarModule(text: AppMessages.myCodeIs),
-      bottomNavigationBar: ButtonCustom(
-              backgroundColor: AppColors.darkOrangeColor,
-              text: AppMessages.submit,
-              fontWeight: FontWeight.bold,
-              textsize: 14.sp,
-              textColor: AppColors.gray50Color,
-              onPressed: () {
-                Get.to(
-                  () => SignUpEmailScreen(),
-                );
-              },
-              shadowColor: AppColors.grey900Color)
-          .commonOnlyPadding(left: 25, right: 25, bottom: 30),
+
       // .commonSymmetricPadding(horizontal: 25, vertical: 30),
       body: Column(
         children: [
@@ -43,6 +34,29 @@ class VerifyCodeScreen extends StatelessWidget {
           KeyBoardeCustomModule()
         ],
       ).commonSymmetricPadding(horizontal: 10),
+
+
+      bottomNavigationBar: ButtonCustom(
+          backgroundColor: AppColors.darkOrangeColor,
+          text: AppMessages.submit,
+          fontWeight: FontWeight.bold,
+          textsize: 14.sp,
+          textColor: AppColors.gray50Color,
+          onPressed: () {
+
+            if(verifyCodeScreenController.controller.text.length == 4) {
+              // log('Controller Text : ${verifyCodeScreenController.controller.text}');
+              Get.to(
+                    () => SignUpEmailScreen(),
+              );
+            } else {
+              Fluttertoast.showToast(msg: AppMessages.enterValidCode);
+            }
+
+
+          },
+          shadowColor: AppColors.grey900Color)
+          .commonOnlyPadding(left: 25, right: 25, bottom: 30),
     );
   }
 }

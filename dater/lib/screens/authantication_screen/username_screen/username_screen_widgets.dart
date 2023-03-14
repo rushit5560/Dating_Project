@@ -12,6 +12,7 @@ import '../../../comman_modules/custom_textfromfiled.dart';
 import '../../../constants/colors.dart';
 import '../../../constants/messages.dart';
 import '../../../controller/auth_screen_controllers/user_name_screen_controller.dart';
+import '../../../utils/field_validator.dart';
 import '../../../utils/style.dart';
 
 class SignUpNameScreenWidgets extends StatelessWidget {
@@ -61,11 +62,15 @@ class SignUpNameScreenWidgets extends StatelessWidget {
         SizedBox(
           height: 15.h,
         ),
-        noShadowTextFormFiledCustom(
-          fieldController: userNameScreenController.nameTextFieldController,
-          hintText: AppMessages.enterYourName,
-          keyboardType: TextInputType.text,
-        ).commonSymmetricPadding(horizontal: 25),
+        Form(
+          key: userNameScreenController.formKey,
+          child: noShadowTextFormFiledCustom(
+            fieldController: userNameScreenController.nameTextFieldController,
+            hintText: AppMessages.enterYourName,
+            keyboardType: TextInputType.text,
+            validate: (value) => FieldValidator().validateName(value!),
+          ).commonSymmetricPadding(horizontal: 25),
+        ),
         SizedBox(height: 2.h),
         ButtonCustom(
                 backgroundColor: AppColors.darkOrangeColor,
@@ -73,11 +78,7 @@ class SignUpNameScreenWidgets extends StatelessWidget {
                 fontWeight: FontWeight.bold,
                 textsize: 14.sp,
                 textColor: AppColors.gray50Color,
-                onPressed: () {
-                  Get.to(
-                    AddUserPhotoScreen(),
-                  );
-                },
+                onPressed: () async => await userNameScreenController.confirmButtonFunction(),
                 shadowColor: AppColors.grey900Color)
             .commonSymmetricPadding(horizontal: 25),
       ],

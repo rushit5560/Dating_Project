@@ -12,10 +12,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 import '../../../comman_modules/custom_button.dart';
+import '../../../utils/preferences/signup_preference.dart';
 
 class SignUpEmailScreenWidgets extends StatelessWidget {
   SignUpEmailScreenWidgets({super.key});
   final signUpEmailScreenController = Get.find<SignUpEmailScreenController>();
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -62,6 +65,8 @@ class SignUpEmailScreenWidgets extends StatelessWidget {
           keyboardType: TextInputType.text,
         ).commonSymmetricPadding(horizontal: 10),
         SizedBox(height: 2.h),
+
+        /// Skip Button
         ButtonCustom(
           backgroundColor: AppColors.lightOrangeColor,
           shadowColor: Colors.blueGrey,
@@ -75,6 +80,8 @@ class SignUpEmailScreenWidgets extends StatelessWidget {
           },
         ),
         SizedBox(height: 2.h),
+
+        /// Continue Button
         ButtonCustom(
           backgroundColor: AppColors.lightOrangeColor,
           shadowColor: Colors.blueGrey,
@@ -83,9 +90,7 @@ class SignUpEmailScreenWidgets extends StatelessWidget {
           fontWeight: FontWeight.bold,
           size: const Size(150, 0),
           textsize: 14.sp,
-          onPressed: () {
-            Get.to(() => LocationScreen());
-          },
+          onPressed: () async => await signUpEmailScreenController.continueButtonClickFunction(),
         ),
       ],
     );

@@ -69,4 +69,5 @@ class AppMessages {
   static String chooseChatext="You can choose up to 8 things you love, \nit will help you find your soulmate .";
 
   static String apiCallWrong = "Something went wrong!";
+  static String enterValidCode = "Please enter valid code!";
 }
