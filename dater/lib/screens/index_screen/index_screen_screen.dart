@@ -13,10 +13,10 @@ class IndexScreen extends StatelessWidget {
   IndexScreen({Key? key}) : super(key: key);
   final indexScreenController = Get.put(IndexScreenController());
   final screen = [
-    const BalanceScreen(),
+     BalanceScreen(),
      FavoriteScreen(),
-    const ChatScreen(),
-    const ProfileScreen(),
+     ChatScreen(),
+     ProfileScreen(),
   ];
 
   Future<bool> willPopCallback() async {
@@ -65,7 +65,7 @@ class IndexScreen extends StatelessWidget {
             items: [
               BottomNavigationBarItem(
                 icon: Image.asset(
-                  AppImages.homeImage,
+                  AppImages.balanceImage,
                 ),
                 label: '',
               ),

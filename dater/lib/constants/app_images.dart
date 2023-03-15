@@ -18,7 +18,8 @@ class AppImages {
   static const personImage = '$rootPath/person.png';
   static const refreshImage = '$rootPath/refresh.png';
   static const starImage = '$rootPath/star.png';
-  static const homeImage = '$rootPath/balance.png';
+  static const balanceImage = '$rootPath/balance.png';
+  static const balance2Image = '$rootPath/balance2.png';
   static const swiper1Image = '$rootPath/swiper1.png';
   static const swiper2Image = '$rootPath/swiper2.png';
   static const swipeswiper1Imager3Image = '$rootPath/swiper3.png';

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:sizer/sizer.dart';
 
 import '../constants/colors.dart';
 
@@ -33,7 +34,7 @@ PreferredSizeWidget commonAppBarModule(
         color: textColor,
         fontWeight: FontWeight.bold,
         fontFamily: textFontFamily,
-        fontSize: 21,
+        fontSize: 20.sp,
       ),
     ),
   );

@@ -4,7 +4,6 @@ import 'package:sizer/sizer.dart';
 
 import '../constants/colors.dart';
 import '../constants/font_family.dart';
-import '../constants/messages.dart';
 import '../utils/style.dart';
 import 'custom_button.dart';
 

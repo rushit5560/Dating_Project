@@ -96,4 +96,12 @@ class AppMessages {
   static String everyregatherwillcostyou1coins =
       "Every regather  will cost you 1 coins";
   static String filterScreentext = "You can add one or all filters";
+  static String yourBalance = "Your Balance";
+  static String coinsBalance = "coins Balance";
+  static String earnMoreCoins = "Earn more coins";
+  static String learnMore = "Learn more";
+  static String rateUs = "Rate us";
+  static String increaseRate = "increase rate";
+  static String inviteFriends = "invite friends";
+  static String yourDailyRate = "Your daily rate";
 }
