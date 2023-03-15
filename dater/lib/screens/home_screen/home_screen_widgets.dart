@@ -33,7 +33,6 @@ class CardSwipeModule extends StatelessWidget {
             Container(
               height: 56.h,
               decoration: const BoxDecoration(
-                // color: AppColors.lightOrangeColor,
                 image: DecorationImage(
                   image: AssetImage(
                     AppImages.lightorange1,
@@ -45,7 +44,6 @@ class CardSwipeModule extends StatelessWidget {
             Container(
               height: 53.h,
               decoration: const BoxDecoration(
-                // color: AppColors.lightOrangeColor,
                 image: DecorationImage(
                   image: AssetImage(
                     AppImages.lightorange2,
@@ -54,31 +52,29 @@ class CardSwipeModule extends StatelessWidget {
                 ),
               ),
             ).commonSymmetricPadding(horizontal: 8.w),
-            Positioned(
-              child: SizedBox(
-                height: 50.h,
-                child: SwipableStack(
-                  // allowVerticalSwipe: false,
-                  swipeAnchor: SwipeAnchor.bottom,
+            SizedBox(
+              height: 50.h,
+              child: SwipableStack(
+                // allowVerticalSwipe: false,
+                swipeAnchor: SwipeAnchor.bottom,
 
-                  cancelAnimationCurve: Curves.bounceIn,
-                  // overlayBuilder: (context, swipeProperty) {
-                  //   re
-                  // },
-                  controller: homeScreenController.cardController,
-                  itemCount: 5,
-                  //itemCount: imageList.length,
-                  builder: (
-                    context,
-                    index,
-                  ) {
-                    return Image.asset(
-                      AppImages.swiper1Image,
-                      width: double.infinity,
-                      fit: BoxFit.fill,
-                    );
-                  },
-                ),
+                cancelAnimationCurve: Curves.bounceIn,
+                // overlayBuilder: (context, swipeProperty) {
+                //   re
+                // },
+                controller: homeScreenController.cardController,
+                itemCount: 5,
+                //itemCount: imageList.length,
+                builder: (
+                  context,
+                  index,
+                ) {
+                  return Image.asset(
+                    AppImages.swiper1Image,
+                    width: double.infinity,
+                    fit: BoxFit.fill,
+                  );
+                },
               ),
             ),
           ],

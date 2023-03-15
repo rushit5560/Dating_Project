@@ -13,41 +13,49 @@ class FavoriteScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
+    return Scaffold(
       backgroundColor: AppColors.grey200Color,
       body: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            SizedBox(height: 4.h,),
-          Row(
-             mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              ButtonCustom(
-              backgroundColor: AppColors.lightOrangeColor,
-              shadowColor: Colors.blueGrey,
-              text: AppMessages.skipButton,
-              textColor: AppColors.gray50Color,
-              fontWeight: FontWeight.bold,
-              size: const Size(150, 0),
-              textsize: 14.sp,
-              onPressed: () {
-                //Get.to(() => LocationScreen());
-              },
+            SizedBox(
+              height: 4.h,
             ),
-          ]),
-            SizedBox(height: 4.h,),
-            Text('See people who have already liked you',
+            Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+              ButtonCustom(
+                backgroundColor: AppColors.lightOrangeColor,
+                shadowColor: Colors.blueGrey,
+                text: AppMessages.skipButton,
+                textColor: AppColors.gray50Color,
+                fontWeight: FontWeight.bold,
+                size: const Size(150, 0),
+                textsize: 14.sp,
+                onPressed: () {
+                  //Get.to(() => LocationScreen());
+                },
+              ),
+            ]),
+            SizedBox(
+              height: 4.h,
+            ),
+            Text(
+              'See people who have already liked you',
               style: TextStyleConfig.textStyle(
                 textColor: AppColors.grey700Color,
                 fontSize: 12.sp,
                 fontFamily: "SFProDisplayBlack",
                 fontWeight: FontWeight.normal,
-              ),),
-            SizedBox(height: 4.h,),
+              ),
+            ),
+            SizedBox(
+              height: 4.h,
+            ),
             const FavoriteGridViewBuilderModule(),
-        ],).commonSymmetricPadding(horizontal: 20),
+          ],
+        ).commonSymmetricPadding(horizontal: 20),
       ),
+      // bottomNavigationBar: const BottomNavigationBarModule(),
     );
   }
 }

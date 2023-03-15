@@ -57,17 +57,15 @@ class GoalRadioButtonModule extends StatelessWidget {
                       ),
                     ),
                     Radio<GoalData>(
-                        activeColor: AppColors.darkOrangeColor,
-                        value:
-                            goalSelectScreenController.goalList[index],
-                        groupValue:
-                            goalSelectScreenController.selectedGoalData,
-                        onChanged: (val) {
-                          // log("val : $val");
-                          goalSelectScreenController.radioButtonOnChangeFunction(val!);
-                        },
-                      ),
-
+                      activeColor: AppColors.darkOrangeColor,
+                      value: goalSelectScreenController.goalList[index],
+                      groupValue: goalSelectScreenController.selectedGoalData,
+                      onChanged: (val) {
+                        // log("val : $val");
+                        goalSelectScreenController
+                            .radioButtonOnChangeFunction(val!);
+                      },
+                    ),
                   ],
                 );
               },
@@ -90,7 +88,7 @@ class GoalselectNotesModule extends StatelessWidget {
           child: Column(
             children: [
               _singleItemModule(
-                number: AppMessages.goalselectednumber,
+                number: AppMessages.goalSelectedNumber,
                 text: AppMessages.goalScreenNoteText,
               ),
             ],

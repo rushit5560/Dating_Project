@@ -1,51 +1,64 @@
 import 'package:dater/controller/auth_screen_controllers/index_screen_controller.dart';
+import 'package:dater/screens/balance_screen/balance_screen.dart';
+import 'package:dater/screens/chat_screen/chat_sreen.dart';
+import 'package:dater/screens/home_screen/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../constants/app_images.dart';
 import '../../constants/colors.dart';
 import '../favorite_screen/favorite_screen.dart';
-import '../home_screen/home_screen.dart';
-import '../message_screen/message_screen.dart';
 import '../profile_screen/profile_screen.dart';
 
 class IndexScreen extends StatelessWidget {
   IndexScreen({Key? key}) : super(key: key);
   final indexScreenController = Get.put(IndexScreenController());
   final screen = [
-    HomeScreen(),
+    const BalanceScreen(),
     const FavoriteScreen(),
-    const MessageScreen(),
+    const ChatScreen(),
     const ProfileScreen(),
   ];
+
+  Future<bool> willPopCallback() async {
+    if (indexScreenController.homeScreenShow.value == false) {
+      indexScreenController.homeScreenShow.value = true;
+      return false;
+    } else {
+      return true;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Obx(
-        () => IndexedStack(
-          index: indexScreenController.selectedIndex.value,
-          children: screen,
-        ),
-      ),
-      bottomNavigationBar: Obx(
-        () => Container(
-          //padding: EdgeInsets.all(3),
-          height: Get.height * 0.10,
-          decoration: const BoxDecoration(
-              //color: AppColors.gray50Color,
-              // borderRadius: BorderRadius.only(topLeft: Radius.circular(500), topRight: Radius.circular(500)),
-              boxShadow: [
-                BoxShadow(
-                  color: AppColors.grey700Color,
-                  blurRadius: 25.0,
+    return WillPopScope(
+      onWillPop: () => willPopCallback(),
+      child: Scaffold(
+        body: Obx(
+          () => indexScreenController.homeScreenShow.value
+              ? HomeScreen()
+              : Obx(
+                  () => IndexedStack(
+                    index: indexScreenController.selectedIndex.value,
+                    children: screen,
+                  ),
                 ),
-              ]),
-          child: BottomNavigationBar(
-            type: BottomNavigationBarType.shifting,
+        ),
+
+        //  Obx(
+        //   () => IndexedStack(
+        //     index: indexScreenController.selectedIndex.value,
+        //     children: screen,
+        //   ),
+        // ),
+        bottomNavigationBar: Obx(
+          () => BottomNavigationBar(
+            type: BottomNavigationBarType.fixed,
             selectedItemColor: AppColors.gray50Color,
             unselectedItemColor: AppColors.blackColor,
             showSelectedLabels: true,
             showUnselectedLabels: false,
             onTap: (index) {
+              indexScreenController.homeScreenShow.value = false;
               indexScreenController.changeIndex(index);
             },
             currentIndex: indexScreenController.selectedIndex.value,

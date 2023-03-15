@@ -41,6 +41,7 @@ class HomeScreen extends StatelessWidget {
           ).commonSymmetricPadding(horizontal: 30, vertical: 20),
         ),
       ),
+      // bottomNavigationBar: const BottomNavigationBarModule(),
     );
   }
 }

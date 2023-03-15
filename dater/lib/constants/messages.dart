@@ -56,9 +56,9 @@ class AppMessages {
       "You will only see people , you are targeting . ";
   static String yeinghonestwillhelpeveryonetogetthebestexperience =
       "Being honest will help everyone to get the best experience.";
-  static String targetgendernumber1 = '1- ';
-  static String targetgendernumber2 = '2- ';
-  static String goalselectednumber = '1- ';
+  static String targetGenderNumber1 = '1- ';
+  static String targetGenderNumber2 = '2- ';
+  static String goalSelectedNumber = '1- ';
   static String goal = 'Goal ';
   static String donTLoseAccessToYourAccount =
       '''Don't lose access to Your account ''';
@@ -75,6 +75,25 @@ class AppMessages {
   static String enterValidCode = "Please enter valid code!";
   static String addThisFilter = "Add this filter";
   static String whatIsTheirAge = "What is their age ?";
+  static String whatIsTheirDistance = "What's their distance ?";
+  static String doTheyExercise = "Do they exercise ?";
+  static String doTheyDrink = "Do they drink ?";
+  static String doTheySmoke = "Do they smoke ?";
+  static String whatYourGatherDate = "What do you want from your Gather date ?";
+  static String underStand = "UnderStand";
+  static String getMoreCoins = "Get more coins";
+  static String dontshowagain = "don't show again";
+  static String superLove = "Super Love";
+  static String regather = "Regather";
+  static String seewholikesyou = "See who likes you";
+  static String youdonthaveenoughcoins1 = "You don't have enough coins";
+  static String youdonthaveenoughcoins2 =
+      "try to get new coins or come back tomorrow !";
+  static String everysuperlovewillcostyou4coins =
+      "Every super love will cost you 4 coins";
+  static String everyprofilewillcostyou1coins =
+      "Every profile will cost you 1 coins";
+  static String everyregatherwillcostyou1coins =
+      "Every regather  will cost you 1 coins";
   static String filterScreentext = "You can add one or all filters";
-
 }

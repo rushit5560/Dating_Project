@@ -92,11 +92,11 @@ class GenderTargetNotesModule extends StatelessWidget {
           child: Column(
             children: [
               _singleItemModule(
-                number: AppMessages.targetgendernumber1,
+                number: AppMessages.targetGenderNumber1,
                 text: AppMessages.youCanAlwaysChangeYourTargetGenderLater,
               ),
               _singleItemModule(
-                number: AppMessages.targetgendernumber2,
+                number: AppMessages.targetGenderNumber2,
                 text: AppMessages.youwillonlyseepeopleyouaretargeting,
               ),
             ],
