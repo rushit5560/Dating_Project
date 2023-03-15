@@ -14,7 +14,7 @@ class IndexScreen extends StatelessWidget {
   final indexScreenController = Get.put(IndexScreenController());
   final screen = [
     const BalanceScreen(),
-    const FavoriteScreen(),
+     FavoriteScreen(),
     const ChatScreen(),
     const ProfileScreen(),
   ];

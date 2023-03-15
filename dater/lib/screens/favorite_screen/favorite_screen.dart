@@ -1,16 +1,17 @@
 import 'package:dater/common_modules/custom_button.dart';
 import 'package:dater/utils/extensions.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
-
 import '../../constants/colors.dart';
 import '../../constants/messages.dart';
+import '../../controller/auth_screen_controllers/favorite_screen_controller.dart';
 import '../../utils/style.dart';
 import 'favorite_screen_widgets.dart';
 
 class FavoriteScreen extends StatelessWidget {
-  const FavoriteScreen({Key? key}) : super(key: key);
-
+   FavoriteScreen({Key? key}) : super(key: key);
+  final favoriteScreenController = Get.put(FavoriteScreenController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -51,7 +52,7 @@ class FavoriteScreen extends StatelessWidget {
             SizedBox(
               height: 4.h,
             ),
-            const FavoriteGridViewBuilderModule(),
+             FavoriteGridViewBuilderModule(),
           ],
         ).commonSymmetricPadding(horizontal: 20),
       ),
