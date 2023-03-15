@@ -20,15 +20,16 @@ class TextFormFiledModule extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        // Expanded(
-          // flex: 20,
-          /*child:*/ Obx(
+        Expanded(
+          flex: 25,
+          child: Obx(
             () => SizedBox(
-              // width: Get.size.width * 0.25,
+              width: Get.size.width * 0.25,
               // height: 50,
               child: DropdownButton<String>(
                 value: myNumberInnerScreenController.selectCountryCodeValue.value,
-                alignment: Alignment.center,
+                alignment: Alignment.centerLeft,
+                isExpanded: true,
                 items: myNumberInnerScreenController.countryCodeList
                     .map(
                       (item) => DropdownMenuItem<String>(
@@ -55,10 +56,10 @@ class TextFormFiledModule extends StatelessWidget {
               ),
             ),
           ),
-        // ),
+        ),
         const SizedBox(width: 20),
         Expanded(
-          // flex: 70,
+          flex: 75,
           child: Form(
             key: myNumberInnerScreenController.formKey,
             child: TextFormField(
@@ -66,6 +67,7 @@ class TextFormFiledModule extends StatelessWidget {
               controller: myNumberInnerScreenController.phoneNumberController,
               textInputAction: TextInputAction.next,
               keyboardType: TextInputType.phone,
+              maxLength: 10,
               validator: (value) => FieldValidator().validateMobileNumber(value!),
               decoration: InputDecoration(
                 focusedErrorBorder: const UnderlineInputBorder(
@@ -78,6 +80,7 @@ class TextFormFiledModule extends StatelessWidget {
                   borderSide: BorderSide(color: AppColors.darkOrangeColor),
                 ),
                 isDense: true,
+                counterText: '',
                 hintText: AppMessages.phoneNumber,
                 hintStyle: TextStyle(
                   color: AppColors.grey500Color,

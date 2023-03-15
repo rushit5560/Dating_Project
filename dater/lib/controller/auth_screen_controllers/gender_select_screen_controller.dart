@@ -65,7 +65,11 @@ class GenderSelectScreenController extends GetxController {
 
   @override
   void onInit() {
-    geGenderFunction();
+    initMethod();
     super.onInit();
+  }
+
+  initMethod() async {
+    await geGenderFunction();
   }
 }

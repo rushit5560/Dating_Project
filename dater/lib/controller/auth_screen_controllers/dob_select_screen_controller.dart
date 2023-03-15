@@ -19,9 +19,19 @@ class DobSelectScreenController extends GetxController {
 
 
   Future<void> nextButtonFunction() async {
+    int currentYear = 0;
+    int selectedYear = 0;
+    if(dobString.value != "YYYY") {
+      currentYear = int.parse(DateFormat("yyyy").format(DateTime.now()));
+      selectedYear = int.parse(dobString.value);
+    }
+
     if(dobString.value == "YYYY") {
-      Fluttertoast.showToast(msg: "Please select DOB Year");
-    } else {
+      Fluttertoast.showToast(msg: "Please select birth Year");
+    } else if(currentYear - selectedYear <= 18) {
+      Fluttertoast.showToast(msg: "Your age must be +18");
+    }
+    else {
       await signUpPreference.setStringValueInPrefs(key: SignUpPreference.userDobKey, value: dobString.value);
       Get.to(() => GenderSelectScreen());
     }

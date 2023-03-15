@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:dater/common_modules/custom_textfromfiled.dart';
 import 'package:dater/constants/app_images.dart';
 import 'package:dater/constants/colors.dart';
+import 'package:dater/constants/font_family.dart';
 import 'package:dater/constants/messages.dart';
 import 'package:dater/controller/auth_screen_controllers/sign_up_email_screen_controller.dart';
 import 'package:dater/screens/authentication_screen/location_screen/location_screen.dart';
@@ -12,6 +13,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 import '../../../common_modules/custom_button.dart';
+import '../../../utils/field_validator.dart';
 import '../../../utils/preferences/signup_preference.dart';
 
 class SignUpEmailScreenWidgets extends StatelessWidget {
@@ -39,7 +41,7 @@ class SignUpEmailScreenWidgets extends StatelessWidget {
         Text(
           AppMessages.whatsYourEmail,
           style: TextStyleConfig.textStyle(
-            fontFamily: "SFProDisplayRegular",
+            fontFamily: FontFamilyText.sFProDisplayRegular,
             textColor: AppColors.grey800Color,
             fontWeight: FontWeight.bold,
             fontSize: 20.sp,
@@ -51,7 +53,7 @@ class SignUpEmailScreenWidgets extends StatelessWidget {
           text: TextSpan(
             text: AppMessages.donTLoseAccessToYourAccount,
             style: TextStyleConfig.textStyle(
-              fontFamily: "SFProDisplayRegular",
+              fontFamily: FontFamilyText.sFProDisplayRegular,
               textColor: AppColors.grey600Color,
               fontSize: 12.sp,
               fontWeight: FontWeight.w500,
@@ -59,11 +61,15 @@ class SignUpEmailScreenWidgets extends StatelessWidget {
           ),
         ),
         SizedBox(height: 2.h),
-        noShadowTextFormFiledCustom(
-          fieldController: signUpEmailScreenController.emailTextFieldController,
-          hintText: AppMessages.enterYourEmail,
-          keyboardType: TextInputType.text,
-        ).commonSymmetricPadding(horizontal: 10),
+        Form(
+          key: signUpEmailScreenController.formKey,
+          child: noShadowTextFormFiledCustom(
+            fieldController: signUpEmailScreenController.emailTextFieldController,
+            hintText: AppMessages.enterYourEmail,
+            keyboardType: TextInputType.text,
+            validate: (value)=> FieldValidator().validateEmail(value!),
+          ).commonSymmetricPadding(horizontal: 10),
+        ),
         SizedBox(height: 2.h),
 
         /// Skip Button

@@ -103,6 +103,7 @@ class DobSelectModule extends StatelessWidget {
                       child: CupertinoDatePicker(
                           mode: CupertinoDatePickerMode.date,
                           initialDateTime: DateTime.now(),
+                          maximumDate: DateTime.now(),
                           onDateTimeChanged: (val) {
                             log('val : $val');
                             // _chosenDateTime = val;

@@ -59,7 +59,7 @@ class VerifyCodeScreenController extends GetxController {
     try {
       var request = http.MultipartRequest('POST', Uri.parse(url));
 
-      request.fields['phone'] = mobileNumber;
+      request.fields['phone'] = "$countryCode$mobileNumber";
       request.fields['verify_token'] = verifyToken;
 
       var response = await request.send();

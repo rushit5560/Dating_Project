@@ -33,7 +33,7 @@ class InterestsScreen extends StatelessWidget {
                       children: [
                         Text(
                           textAlign: TextAlign.center,
-                          AppMessages.chooseChatext,
+                          AppMessages.chooseChatText,
                           style: TextStyleConfig.textStyle(
                             fontFamily: FontFamilyText.sFProDisplayRegular,
                             textColor: AppColors.grey500Color,

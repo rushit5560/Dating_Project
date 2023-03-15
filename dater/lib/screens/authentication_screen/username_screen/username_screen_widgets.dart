@@ -1,3 +1,4 @@
+import 'package:dater/constants/font_family.dart';
 import 'package:dater/utils/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -22,7 +23,7 @@ class SignUpNameScreenWidgets extends StatelessWidget {
           Text(
             AppMessages.whatSYourName,
             style: TextStyleConfig.textStyle(
-              fontFamily: "SFProDisplayRegular",
+              fontFamily: FontFamilyText.sFProDisplayRegular,
               textColor: AppColors.grey800Color,
               fontWeight: FontWeight.bold,
               fontSize: 20.sp,
@@ -36,7 +37,7 @@ class SignUpNameScreenWidgets extends StatelessWidget {
           Text(
             AppMessages.userName1,
             style: TextStyleConfig.textStyle(
-              fontFamily: "SFProDisplayRegular",
+              fontFamily: FontFamilyText.sFProDisplayRegular,
               textColor: AppColors.grey600Color,
               fontSize: 12.sp,
             ),
@@ -49,7 +50,7 @@ class SignUpNameScreenWidgets extends StatelessWidget {
           Text(
             AppMessages.userName2,
             style: TextStyleConfig.textStyle(
-              fontFamily: "SFProDisplayRegular",
+              fontFamily: FontFamilyText.sFProDisplayRegular,
               textColor: AppColors.grey600Color,
               fontSize: 12.sp,
             ),

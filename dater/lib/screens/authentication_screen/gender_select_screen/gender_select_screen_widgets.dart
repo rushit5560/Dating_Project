@@ -93,11 +93,11 @@ class GenderNotesModule extends StatelessWidget {
             children: [
               _singleItemModule(
                 number: '1- ',
-                text: 'You can alwaysb change, your gender later',
+                text: 'You can always change, your gender later',
               ),
               _singleItemModule(
                 number: '2- ',
-                text: 'Try to choose which, best describes you ',
+                text: 'Try to choose which, best describes you',
               ),
               _singleItemModule(
                 number: '3- ',

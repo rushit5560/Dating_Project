@@ -70,9 +70,13 @@ class MyNumberInnerScreenController extends GetxController {
     log('loginUsingMobileNumberFunction Api Url : $url');
 
     try {
+      String countryCode = selectCountryCodeValue.split(" ")[1];
       var request = http.MultipartRequest('POST', Uri.parse(url));
 
-      request.fields['phone'] = phoneNumberController.text;
+      // request.fields['phone'] = "$countryCode${phoneNumberController.text}";
+      request.fields['phone'] = "$countryCode${phoneNumberController.text}";
+
+      log('Fields : ${request.fields}');
 
       var response = await request.send();
 
@@ -92,7 +96,6 @@ class MyNumberInnerScreenController extends GetxController {
             value: loginModel.verifyToken,
           );
 
-          String countryCode = selectCountryCodeValue.value.split(" ")[1];
           Get.to(
             () => VerifyCodeScreen(),
             arguments: [

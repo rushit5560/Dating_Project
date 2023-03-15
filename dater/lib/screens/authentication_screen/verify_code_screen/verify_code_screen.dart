@@ -44,7 +44,7 @@ class VerifyCodeScreen extends StatelessWidget {
                   ),
                 ),
                 TextSpan(
-                  text: "+1 ${verifyCodeScreenController.mobileNumber}",
+                  text: "${verifyCodeScreenController.countryCode} ${verifyCodeScreenController.mobileNumber}",
                   style: TextStyleConfig.textStyle(
                     fontFamily: FontFamilyText.sFProDisplayBold,
                     fontSize: 17,
