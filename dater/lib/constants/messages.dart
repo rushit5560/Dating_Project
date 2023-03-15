@@ -14,8 +14,6 @@ class AppMessages {
   static String referralNumber =
       "Do you have a referral number from a friend ?";
   static String whatsYourEmail = '''What's Your email?''';
-  // static String donTLoseAccessToYourAccount =
-  //     '''Don't lose access to Your account\n so We can contact you, But its optional !''';
   static String skipButton = "Skip";
   static String continueButton = "Continue";
   static String enterYourEmail = "Enter your email";
@@ -24,6 +22,8 @@ class AppMessages {
   static String location = "Location";
   static String search = "Search";
   static String confirm = "Confirm";
+  static String chooseChatText =
+      "You can choose up to 8 things you love,it will help you find your soulmate .";
   static String myCodeIs = "My code is";
   static String myNumberScreenInformationText =
       "When you tap “Continue”, Gather will send \nyou\n a text with verification code, The verified phone number can be used to log in.";
@@ -45,9 +45,10 @@ class AppMessages {
   static String sports = "Sports";
   static String genderNotes = "Gender notes";
   static String goalNotes = "Goal notes";
+  static String myProfile = "My Profile";
+
   static String gender = "Gender";
   static String filter = "Filters";
-
   static String targetGenderNotes = "What's your target gender ?";
   static String whatsyourgoal = "What's your goal ?";
   static String youCanAlwaysChangeYourTargetGenderLater =
@@ -70,7 +71,6 @@ class AppMessages {
   static String next = "Next";
   static String chooseChatext =
       "You can choose up to 8 things you love, \nit will help you find your soulmate .";
-
   static String apiCallWrong = "Something went wrong!";
   static String enterValidCode = "Please enter valid code!";
   static String addThisFilter = "Add this filter";
