@@ -2,16 +2,18 @@ import 'dart:developer';
 import 'package:dater/constants/messages.dart';
 import 'package:dater/utils/extensions.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 import '../../common_modules/custom_button.dart';
 import '../../constants/app_images.dart';
 import '../../constants/colors.dart';
 import '../../constants/font_family.dart';
+import '../../controller/auth_screen_controllers/settings_screen_controller.dart';
 import '../../utils/style.dart';
 
 class ReferralNumberModule extends StatelessWidget {
-  const ReferralNumberModule({Key? key}) : super(key: key);
-
+  ReferralNumberModule({Key? key}) : super(key: key);
+  final settingsScreenController = Get.find<SettingsScreenController>();
   @override
   Widget build(BuildContext context) {
     return  Column(

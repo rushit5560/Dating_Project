@@ -2,13 +2,16 @@ import 'package:dater/constants/colors.dart';
 import 'package:dater/screens/settings/settings_screen_widgets.dart';
 import 'package:dater/utils/extensions.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../common_modules/custom_appbar.dart';
 import '../../constants/messages.dart';
+import '../../controller/auth_screen_controllers/settings_screen_controller.dart';
 
 class SettingsScreen extends StatelessWidget {
-  const SettingsScreen({Key? key}) : super(key: key);
+  SettingsScreen({Key? key}) : super(key: key);
+  final settingsScreenController = Get.put(SettingsScreenController());
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
