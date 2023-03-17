@@ -154,12 +154,13 @@ class InterestsScreenController extends GetxController {
       // api calling start
       var request = http.MultipartRequest('POST', Uri.parse(url));
       request.fields['f_name'] = userName;
-      request.fields['l_name'] = userEmail;
+      request.fields['l_name'] = "";
       request.fields['sexuality'] = userSexuality;
       request.fields['gender'] = userGender;
       request.fields['token'] = verifyToken;
       request.fields['goal'] = userGoal;
       request.fields['target_gender'] = userTargetGender;
+      request.fields['email'] = userEmail;
 
       log('Request Field : ${request.fields}');
       var response = await request.send();
@@ -169,6 +170,13 @@ class InterestsScreenController extends GetxController {
 
         if(completeSignupModel.statusCode == 200) {
           Fluttertoast.showToast(msg: completeSignupModel.msg);
+
+          // Here set user now is old
+          await signUpPreference.setBoolValueInPrefs(
+            key: SignUpPreference.isUserFirstTimeKey,
+            value: false,
+          );
+
           Get.offAll(()=> IndexScreen());
         } else if(completeSignupModel.statusCode == 400) {
           Fluttertoast.showToast(msg: completeSignupModel.msg);

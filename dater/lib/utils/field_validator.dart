@@ -4,9 +4,9 @@ class FieldValidator {
   String? validateMobileNumber(String value) {
     if (value.isEmpty) {
       return 'Mobile number is required.';
-    } else if (value.length < 10) {
-      return 'Enter at least 10 digit mobile number.';
-    } else if (value == "0000000000") {
+    } else if (value.length < 8) {
+      return 'Enter at least 8 digit mobile number.';
+    } else if (value == "00000000") {
       return 'Please enter valid mobile number.';
     }
     return null;

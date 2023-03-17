@@ -11,9 +11,11 @@ import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../../constants/enums.dart';
+import '../../../controller/auth_screen_controllers/login_screen_controller.dart';
 
 class ColumnWidgets extends StatelessWidget {
-  const ColumnWidgets({super.key});
+  ColumnWidgets({super.key});
+  final screenController = Get.find<LoginInScreenController>();
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +57,7 @@ class ColumnWidgets extends StatelessWidget {
                       text: AppMessages.authScreen1,
                       style: TextStyleConfig.textStyle(
                         textColor: AppColors.whiteColor,
-                        fontFamily: "SFProDisplayRegular",
+                        fontFamily: FontFamilyText.sFProDisplayRegular,
                         fontSize: 11.5.sp,
                       ),
                     ),
@@ -107,7 +109,65 @@ class ColumnWidgets extends StatelessWidget {
               ),
               SizedBox(height: 7.h),
 
-              ButtonCustomLoginAndSignUp(
+              /*screenController.isUserFirstTime.value
+              ? Column(
+                children: [
+                  /// Register Button
+                  ButtonCustomLoginAndSignUp(
+                    image: AppImages.mobileImage,
+                    onPressed: () {
+                      Get.to(
+                            () => MyNumberInnerScreen(),
+                        arguments: [AuthAs.register],
+                      );
+                    },
+                    text: AppMessages.signUpWithphoneNumber,
+                    textsize: 12.sp,
+                    textColor: AppColors.grey700Color,
+                  ),
+                  SizedBox(height: 2.h),
+
+                  /// Login Button
+                  ButtonCustomLoginAndSignUp(
+                    image: AppImages.mobileImage,
+                    onPressed: () {
+                      Get.to(
+                            () => MyNumberInnerScreen(),
+                        arguments: [AuthAs.login],
+                      );
+                    },
+                    text: AppMessages.signInWithphoneNumber,
+                    textsize: 12.sp,
+                    textColor: AppColors.grey700Color,
+                  ),
+                ],
+              )
+              : Expanded(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Spacer(),
+                    /// Login Button
+                    ButtonCustomLoginAndSignUp(
+                      image: AppImages.mobileImage,
+                      onPressed: () {
+                        Get.to(
+                              () => MyNumberInnerScreen(),
+                          arguments: [AuthAs.login],
+                        );
+                      },
+                      text: AppMessages.signInWithphoneNumber,
+                      textsize: 12.sp,
+                      textColor: AppColors.grey700Color,
+                    ),
+                    Spacer(),
+                  ],
+                ),
+              ),*/
+
+              /// Register Button
+              screenController.isUserFirstTime.value
+              ? ButtonCustomLoginAndSignUp(
                 image: AppImages.mobileImage,
                 onPressed: () {
                   Get.to(
@@ -118,9 +178,13 @@ class ColumnWidgets extends StatelessWidget {
                 text: AppMessages.signUpWithphoneNumber,
                 textsize: 12.sp,
                 textColor: AppColors.grey700Color,
-              ),
-              SizedBox(height: 2.h),
-
+              )
+              : Container(),
+              /*screenController.isUserFirstTime.value
+              ?*/ SizedBox(height: 2.h)/* : Container()*/,
+              screenController.isUserFirstTime.value
+              ? Container() : Spacer(),
+              /// Login Button
               ButtonCustomLoginAndSignUp(
                 image: AppImages.mobileImage,
                 onPressed: () {
@@ -133,7 +197,11 @@ class ColumnWidgets extends StatelessWidget {
                 textsize: 12.sp,
                 textColor: AppColors.grey700Color,
               ),
+
+
               SizedBox(height: 6.h),
+
+
               Text(
                 textAlign: TextAlign.center,
                 AppMessages.referralNumber,

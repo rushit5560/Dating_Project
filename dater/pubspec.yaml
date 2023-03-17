@@ -45,6 +45,11 @@ dependencies:
   swipable_stack: ^2.0.0
   chips_choice: ^3.0.0
   flutter_switch: ^0.3.2
+  syncfusion_flutter_gauges: ^20.4.50
+  permission_handler: ^10.2.0
+  #geolocator: ^9.0.2
+  #geocoding: ^2.0.5
+  #flutter_card_swiper: ^2.0.1
 
 dev_dependencies:
   flutter_test:

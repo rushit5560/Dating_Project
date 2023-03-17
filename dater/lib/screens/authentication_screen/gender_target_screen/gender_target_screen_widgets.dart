@@ -39,36 +39,34 @@ class GenderTargetRadioButtonModule extends StatelessWidget {
               ),
             ],
           ),
-          SizedBox(
-            height: 300,
-            child: ListView.builder(
-              physics: const NeverScrollableScrollPhysics(),
-              itemCount: genderTargetScreenController.targetGenderList.length,
-              itemBuilder: (context, index) {
-                return Row(
-                  children: [
-                    Expanded(
-                      child: Text(
-                        genderTargetScreenController.targetGenderList[index].name,
-                        style: TextStyleConfig.textStyle(
-                          fontFamily: FontFamilyText.sFProDisplayRegular,
-                          fontSize: 15.sp,
-                          textColor: AppColors.grey600Color,
-                        ),
+          ListView.builder(
+            physics: const NeverScrollableScrollPhysics(),
+            shrinkWrap: true,
+            itemCount: genderTargetScreenController.targetGenderList.length,
+            itemBuilder: (context, index) {
+              return Row(
+                children: [
+                  Expanded(
+                    child: Text(
+                      genderTargetScreenController.targetGenderList[index].name,
+                      style: TextStyleConfig.textStyle(
+                        fontFamily: FontFamilyText.sFProDisplayRegular,
+                        fontSize: 15.sp,
+                        textColor: AppColors.grey600Color,
                       ),
                     ),
-                     Radio<Msg>(
-                        activeColor: AppColors.darkOrangeColor,
-                        value: genderTargetScreenController.targetGenderList[index],
-                        groupValue:
-                            genderTargetScreenController.targetGenderSelectedValue,
-                        onChanged: (val) =>genderTargetScreenController.radioButtonOnChangeFunction(val!),
-                      ),
+                  ),
+                   Radio<Msg>(
+                      activeColor: AppColors.darkOrangeColor,
+                      value: genderTargetScreenController.targetGenderList[index],
+                      groupValue:
+                          genderTargetScreenController.targetGenderSelectedValue,
+                      onChanged: (val) =>genderTargetScreenController.radioButtonOnChangeFunction(val!),
+                    ),
 
-                  ],
-                );
-              },
-            ),
+                ],
+              );
+            },
           ),
         ],
       ).commonSymmetricPadding(horizontal: 25, vertical: 10),

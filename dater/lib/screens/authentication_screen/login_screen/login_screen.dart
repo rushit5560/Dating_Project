@@ -1,3 +1,4 @@
+import 'package:dater/common_modules/custom_loader.dart';
 import 'package:dater/constants/app_images.dart';
 import 'package:dater/screens/authentication_screen/login_screen/login_screen_widgets.dart';
 import 'package:dater/utils/extensions.dart';
@@ -5,8 +6,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 
+import '../../../controller/auth_screen_controllers/login_screen_controller.dart';
+
 class LoginInScreen extends StatelessWidget {
-  const LoginInScreen({super.key});
+  LoginInScreen({super.key});
+  final loginInScreenController = Get.put(LoginInScreenController());
 
   @override
   Widget build(BuildContext context) {
@@ -24,8 +28,12 @@ class LoginInScreen extends StatelessWidget {
             ),
           ),
           SafeArea(
-            child: const ColumnWidgets()
-                .commonOnlyPadding(top: 5.h, right: 15, left: 15, bottom: 20),
+            child: Obx(
+              () => loginInScreenController.isLoading.value
+                  ? const CustomLoader()
+                  : ColumnWidgets().commonOnlyPadding(
+                      top: 5.h, right: 15, left: 15, bottom: 20),
+            ),
           ),
         ],
       ),

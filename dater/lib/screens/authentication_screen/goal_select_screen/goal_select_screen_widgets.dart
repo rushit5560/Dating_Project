@@ -38,38 +38,36 @@ class GoalRadioButtonModule extends StatelessWidget {
               ),
             ],
           ),
-          SizedBox(
-            height: 150,
-            child: ListView.builder(
-              physics: const NeverScrollableScrollPhysics(),
-              itemCount: goalSelectScreenController.goalList.length,
-              itemBuilder: (context, index) {
-                return Row(
-                  children: [
-                    Expanded(
-                      child: Text(
-                        goalSelectScreenController.goalList[index].name,
-                        style: TextStyleConfig.textStyle(
-                          fontFamily: FontFamilyText.sFProDisplayRegular,
-                          fontSize: 15.sp,
-                          textColor: AppColors.grey600Color,
-                        ),
+          ListView.builder(
+            physics: const NeverScrollableScrollPhysics(),
+            shrinkWrap: true,
+            itemCount: goalSelectScreenController.goalList.length,
+            itemBuilder: (context, index) {
+              return Row(
+                children: [
+                  Expanded(
+                    child: Text(
+                      goalSelectScreenController.goalList[index].name,
+                      style: TextStyleConfig.textStyle(
+                        fontFamily: FontFamilyText.sFProDisplayRegular,
+                        fontSize: 15.sp,
+                        textColor: AppColors.grey600Color,
                       ),
                     ),
-                    Radio<GoalData>(
-                      activeColor: AppColors.darkOrangeColor,
-                      value: goalSelectScreenController.goalList[index],
-                      groupValue: goalSelectScreenController.selectedGoalData,
-                      onChanged: (val) {
-                        // log("val : $val");
-                        goalSelectScreenController
-                            .radioButtonOnChangeFunction(val!);
-                      },
-                    ),
-                  ],
-                );
-              },
-            ),
+                  ),
+                  Radio<GoalData>(
+                    activeColor: AppColors.darkOrangeColor,
+                    value: goalSelectScreenController.goalList[index],
+                    groupValue: goalSelectScreenController.selectedGoalData,
+                    onChanged: (val) {
+                      // log("val : $val");
+                      goalSelectScreenController
+                          .radioButtonOnChangeFunction(val!);
+                    },
+                  ),
+                ],
+              );
+            },
           ),
         ],
       ).commonSymmetricPadding(horizontal: 25, vertical: 10),

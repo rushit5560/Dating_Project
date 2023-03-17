@@ -10,6 +10,7 @@ import 'package:get/get.dart';
 
 import '../../constants/enums.dart';
 import '../../model/authentication_model/verify_code_screen_model/account_active_model.dart';
+import '../../model/authentication_model/verify_code_screen_model/resend_code_model.dart';
 import '../../screens/authentication_screen/sign_up_email_screen/sign_up_email_screen.dart';
 
 class VerifyCodeScreenController extends GetxController {
@@ -45,9 +46,8 @@ class VerifyCodeScreenController extends GetxController {
     "0",
     "#",
   ];
-
-
-
+  
+  // Active Account
   Future<void> activateAccountFunction() async {
     isLoading(true);
     String url = ApiUrl.accountActiveApi;
@@ -88,6 +88,42 @@ class VerifyCodeScreenController extends GetxController {
     }
   }
 
+  // Resend Code
+  Future<void> resendCodeFunction() async {
+    isLoading(true);
+    String url = ApiUrl.resendCodeApi;
+    log('Resend Code Api Url :$url');
+    
+    try {
+      var request = http.MultipartRequest('POST', Uri.parse(url));
+      request.fields['phone'] = "$countryCode$mobileNumber";
+
+      var response = await request.send();
+
+      response.stream.transform(utf8.decoder).listen((value) async {
+        log('Resend code response :$value');
+
+        ResendCodeModel resendCodeModel = ResendCodeModel.fromJson(json.decode(value));
+
+        if(resendCodeModel.statusCode == 200) {
+          Fluttertoast.showToast(msg: resendCodeModel.msg);
+          firstDigitController.clear();
+          secondDigitController.clear();
+          thirdDigitController.clear();
+          fourthDigitController.clear();
+          controller.clear();
+        } else if(resendCodeModel.statusCode == 400) {
+          Fluttertoast.showToast(msg: resendCodeModel.msg);
+        } else {
+          Fluttertoast.showToast(msg: AppMessages.apiCallWrong);
+        }
+      });
+
+    } catch(e) {
+      log('resendCodeFunction Error :$e');
+      rethrow;
+    }
+  }
 
   @override
   void onInit() {

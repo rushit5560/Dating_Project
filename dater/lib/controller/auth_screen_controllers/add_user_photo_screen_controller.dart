@@ -1,11 +1,16 @@
+import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
-
+import 'package:dater/constants/messages.dart';
+import 'package:dater/utils/preferences/user_preference.dart';
+import 'package:http/http.dart' as http;
+import 'package:dater/constants/api_url.dart';
 import 'package:dater/screens/authentication_screen/dob_select_screen/dob_select_screen.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../../model/authentication_model/add_user_photo_screen_model/user_photo_upload_screen.dart';
 import '../../utils/preferences/signup_preference.dart';
 
 class AddUserPhotoScreenController extends GetxController {
@@ -16,8 +21,14 @@ class AddUserPhotoScreenController extends GetxController {
   File image2 = File("");
   File image3 = File("");
 
-  SignUpPreference signUpPreference = SignUpPreference();
+  bool isImageUploadInApiSuccess = false;
 
+  SignUpPreference signUpPreference = SignUpPreference();
+  UserPreference userPreference = UserPreference();
+
+
+
+  // Pick Image from gallery
   pickImageFromGallery(int index) async {
     try {
       XFile? pickedFile = await ImagePicker().pickImage(source: ImageSource.gallery);
@@ -41,6 +52,7 @@ class AddUserPhotoScreenController extends GetxController {
 
   }
 
+  // Photo Save button function
   Future<void> doneButtonFunction() async {
     if(image1.path.isEmpty && image2.path.isEmpty && image3.path.isEmpty) {
       Fluttertoast.showToast(msg: "Please select at least one photo");
@@ -50,22 +62,75 @@ class AddUserPhotoScreenController extends GetxController {
           key: SignUpPreference.userImage1Key,
           value: image1.path.toString(),
         );
+        await uploadImageFunction(image1);
       }
       if(image2.path != "") {
         await signUpPreference.setStringValueInPrefs(
           key: SignUpPreference.userImage2Key,
           value: image2.path.toString(),
         );
+        await uploadImageFunction(image2);
       }
       if(image3.path != "") {
         await signUpPreference.setStringValueInPrefs(
           key: SignUpPreference.userImage3Key,
           value: image3.path.toString(),
         );
+        await uploadImageFunction(image3);
       }
 
-      Get.to(() => DobSelectScreen());
+      if(isImageUploadInApiSuccess == true) {
+        Get.to(() => DobSelectScreen());
+      } else {
+        Fluttertoast.showToast(msg: AppMessages.apiCallWrong);
+      }
+
+
+      // Get.to(() => DobSelectScreen());
     }
   }
+
+  // Upload Image function
+  Future<void> uploadImageFunction(File image) async {
+    isLoading(true);
+    String url = ApiUrl.uploadPhotoApi;
+    try {
+      // Map<String, dynamic> headerData = {
+      //   "fileKey" : "file",
+      //   "chunkedMode": false,
+      //   "mimeType": "multipart/form-data"
+      // };
+      String verifyToken = await userPreference.getStringFromPrefs(key: UserPreference.userVerifyTokenKey);
+
+      var request = http.MultipartRequest('POST', Uri.parse(url));
+      request.headers['fileKey'] = "file";
+      request.headers['chunkedMode'] = "false";
+      request.headers['mimeType'] = "multipart/form-data";
+      request.fields['token'] = verifyToken;
+      request.files.add(await http.MultipartFile.fromPath("file", image.path));
+
+      var response = await request.send();
+
+      response.stream.transform(utf8.decoder).listen((value) async {
+        UserPhotoUploadModel userPhotoUploadModel = UserPhotoUploadModel.fromJson(json.decode(value));
+
+        if(userPhotoUploadModel.statusCode == 200) {
+          isImageUploadInApiSuccess = true;
+        } else if(userPhotoUploadModel.statusCode == 400) {
+          Fluttertoast.showToast(msg: userPhotoUploadModel.msg);
+        } else {
+          Fluttertoast.showToast(msg: AppMessages.apiCallWrong);
+        }
+      });
+
+
+    } catch(e) {
+      log('uploadImageFunction Error :$e');
+      rethrow;
+    }
+  }
+
+
+
 
 }

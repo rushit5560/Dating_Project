@@ -40,35 +40,33 @@ class RadioButtonModule extends StatelessWidget {
               ),
             ],
           ),
-          SizedBox(
-            height: 300,
-            child: ListView.builder(
-              physics: const NeverScrollableScrollPhysics(),
-              itemCount: genderSelectScreenController.genderList.length,
-              itemBuilder: (context, index) {
-                return Row(
-                  children: [
-                    Expanded(
-                      child: Text(
-                        genderSelectScreenController.genderList[index].name,
-                        style: TextStyleConfig.textStyle(
-                          fontFamily: FontFamilyText.sFProDisplayRegular,
-                          fontSize: 15.sp,
-                          textColor: AppColors.grey600Color,
-                        ),
+          ListView.builder(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            itemCount: genderSelectScreenController.genderList.length,
+            itemBuilder: (context, index) {
+              return Row(
+                children: [
+                  Expanded(
+                    child: Text(
+                      genderSelectScreenController.genderList[index].name,
+                      style: TextStyleConfig.textStyle(
+                        fontFamily: FontFamilyText.sFProDisplayRegular,
+                        fontSize: 15.sp,
+                        textColor: AppColors.grey600Color,
                       ),
                     ),
-                    Radio<Msg>(
-                        activeColor: AppColors.darkOrangeColor,
-                        value: genderSelectScreenController.genderList[index],
-                        groupValue: genderSelectScreenController.selectedGenderValue,
-                        onChanged: (val) => genderSelectScreenController.radioButtonOnChangeFunction(val!),
-                      ),
+                  ),
+                  Radio<Msg>(
+                      activeColor: AppColors.darkOrangeColor,
+                      value: genderSelectScreenController.genderList[index],
+                      groupValue: genderSelectScreenController.selectedGenderValue,
+                      onChanged: (val) => genderSelectScreenController.radioButtonOnChangeFunction(val!),
+                    ),
 
-                  ],
-                );
-              },
-            ),
+                ],
+              );
+            },
           ),
         ],
       ).commonSymmetricPadding(horizontal: 25, vertical: 10),

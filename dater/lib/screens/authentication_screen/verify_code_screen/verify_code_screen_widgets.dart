@@ -194,12 +194,8 @@ class ResendButtonModule extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        verifyCodeScreenController.firstDigitController.clear();
-        verifyCodeScreenController.secondDigitController.clear();
-        verifyCodeScreenController.thirdDigitController.clear();
-        verifyCodeScreenController.fourthDigitController.clear();
-        verifyCodeScreenController.controller.clear();
+      onTap: () async {
+        await verifyCodeScreenController.resendCodeFunction();
       },
       child: Container(
         decoration: BoxDecoration(
