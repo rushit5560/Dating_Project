@@ -8,6 +8,8 @@ import 'package:dater/constants/api_url.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../model/authentication_model/country_code_list_model/country_code_list.dart';
+import '../../model/authentication_model/country_code_list_model/country_code_list_model.dart';
 import '../../model/authentication_model/login_screen_model/login_model.dart';
 import '../../screens/authentication_screen/verify_code_screen/verify_code_screen.dart';
 import '../../utils/preferences/user_preference.dart';
@@ -19,9 +21,12 @@ class MyNumberInnerScreenController extends GetxController {
 
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   TextEditingController phoneNumberController = TextEditingController();
+  TextEditingController countryCodeController = TextEditingController();
+  TextEditingController searchController = TextEditingController();
 
-  List<String> countryCodeList = [];
-  RxString selectCountryCodeValue = "BD 880".obs;
+  List<CountryData> searchCountryCodeList = [];
+  List<CountryData> countryCodeList = [];
+  CountryData selectCountryCodeValue = CountryData();
 
   String finalMobileNumber = "";
   UserPreference userPreference = UserPreference();
@@ -32,10 +37,14 @@ class MyNumberInnerScreenController extends GetxController {
     log('Country Code List Api Url :$url');
 
     try {
-      http.Response response = await http.get(Uri.parse(url));
-      // log('response : ${response.body}');
 
-      if (response.statusCode == 200) {
+      CountryListModel countryListModel = CountryListModel.fromJson(json.decode(CountryModel.countryList));
+      countryCodeList.addAll(countryListModel.countryList);
+      searchCountryCodeList = countryCodeList;
+      selectCountryCodeValue = countryCodeList[0];
+      countryCodeController.text = "${selectCountryCodeValue.emoji} "
+          "${selectCountryCodeValue.dialCode} ${selectCountryCodeValue.code}";
+      /*if (response.statusCode == 200) {
         String mainResponse = response.body.toString();
         // Json Response convert into List
         List<String> singleObjectList =
@@ -53,9 +62,10 @@ class MyNumberInnerScreenController extends GetxController {
           countryCodeList.add("$fString $lString");
         }
         log('countryCodeList : ${countryCodeList.length}');
-      } else {
-        log('Status code : ${response.statusCode}');
       }
+      else {
+        log('Status code : ${response.statusCode}');
+      }*/
     } catch (e) {
       log('getCountryCodesFunction Error :$e');
       rethrow;
@@ -70,11 +80,11 @@ class MyNumberInnerScreenController extends GetxController {
     log('loginUsingMobileNumberFunction Api Url : $url');
 
     try {
-      String countryCode = selectCountryCodeValue.split(" ")[1];
+      // String countryCode = selectCountryCodeValue.split(" ")[1];
       var request = http.MultipartRequest('POST', Uri.parse(url));
 
       // request.fields['phone'] = "$countryCode${phoneNumberController.text}";
-      request.fields['phone'] = "$countryCode${phoneNumberController.text}";
+      request.fields['phone'] = "${selectCountryCodeValue.dialCode}${phoneNumberController.text}";
 
       log('Fields : ${request.fields}');
 
@@ -99,7 +109,7 @@ class MyNumberInnerScreenController extends GetxController {
           Get.to(
             () => VerifyCodeScreen(),
             arguments: [
-              countryCode,
+              selectCountryCodeValue.dialCode,
               phoneNumberController.text.trim(),
               authAs,
             ],
@@ -123,15 +133,14 @@ class MyNumberInnerScreenController extends GetxController {
     if (formKey.currentState!.validate()) {
       // String finalMobileNumber = "";
 
-      List<String> countryNameAndCodeList =
-          selectCountryCodeValue.value.split(" ");
-      String countryCode =
-          countryNameAndCodeList[1].replaceAll("+", "").replaceAll("-", "");
-      log('countryCode :$countryCode');
+      // List<String> countryNameAndCodeList = selectCountryCodeValue.value.split(" ");
+      // String countryCode =
+      //     countryNameAndCodeList[1].replaceAll("+", "").replaceAll("-", "");
+      // log('countryCode :$countryCode');
 
       log('Mobile Number :${phoneNumberController.text.trim()}');
 
-      finalMobileNumber = "$countryCode${phoneNumberController.text.trim()}";
+      finalMobileNumber = "${selectCountryCodeValue.dialCode}${phoneNumberController.text.trim()}";
       log('finalMobileNumber : $finalMobileNumber');
 
       if (authAs == AuthAs.register) {

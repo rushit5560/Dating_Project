@@ -72,12 +72,7 @@ class VerifyCodeScreen extends StatelessWidget {
           onPressed: () async {
 
             if(verifyCodeScreenController.controller.text.length == 4) {
-              // log('Controller Text : ${verifyCodeScreenController.controller.text}');
-              if(verifyCodeScreenController.authAs == AuthAs.register) {
-                await verifyCodeScreenController.activateAccountFunction();
-              } else if(verifyCodeScreenController.authAs == AuthAs.login) {
-                // Going to index screen
-              }
+              await verifyCodeScreenController.activateAccountFunction();
             } else {
               Fluttertoast.showToast(msg: AppMessages.enterValidCode);
             }

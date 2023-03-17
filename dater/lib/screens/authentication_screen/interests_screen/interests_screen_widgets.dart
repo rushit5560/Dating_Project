@@ -17,6 +17,7 @@ class InterestsWidgetModule extends StatelessWidget {
   InterestsWidgetModule({Key? key}) : super(key: key);
 
   final interestsScreenController = Get.find<InterestsScreenController>();
+
   // var selectedVal = 0;
   // bool  value = true;
 
@@ -55,17 +56,23 @@ class InterestsWidgetModule extends StatelessWidget {
                   return Transform(
                     transform: Matrix4.identity()..scale(0.9),
                     child: ChoiceChip(
+                      avatar:const CircleAvatar(
+                        backgroundImage: AssetImage(AppImages.ballImage),
+                      ),
                       label: Text(
-                        interestsScreenController.categoryList[i].options[index].name,
+                        interestsScreenController
+                            .categoryList[i].options[index].name,
                         style: TextStyleConfig.textStyle(
                           fontFamily: FontFamilyText.sFProDisplaySemibold,
-                          textColor: interestsScreenController.categoryList[i].options[index].isSelected
+                          textColor: interestsScreenController
+                                  .categoryList[i].options[index].isSelected
                               ? AppColors.blackDarkColor
                               : AppColors.grey600Color,
                           fontSize: 16,
                         ),
                       ),
-                      selected: interestsScreenController.categoryList[i].options[index].isSelected,
+                      selected: interestsScreenController
+                          .categoryList[i].options[index].isSelected,
                       selectedColor: AppColors.darkOrangeColor,
                       backgroundColor: Colors.white,
                       shape: const StadiumBorder(
@@ -75,17 +82,26 @@ class InterestsWidgetModule extends StatelessWidget {
                         ),
                       ),
                       onSelected: (bool value) {
-                        value == false ? interestsScreenController.selectedItemCount.value-- : null;
+                        value == false
+                            ? interestsScreenController
+                                .selectedItemCount.value--
+                            : null;
 
-                        if(interestsScreenController.selectedItemCount.value >= 8) {
-                          Fluttertoast.showToast(msg: "You select only 8 Interest");
+                        if (interestsScreenController.selectedItemCount.value >=
+                            8) {
+                          Fluttertoast.showToast(
+                              msg: "You select only 8 Interest");
                         } else {
                           value == true
-                              ? interestsScreenController.selectedItemCount.value++
+                              ? interestsScreenController
+                                  .selectedItemCount.value++
                               : null;
-                          int selectedOptionId = int.parse(interestsScreenController.categoryList[i].options[index].id);
+                          int selectedOptionId = int.parse(
+                              interestsScreenController
+                                  .categoryList[i].options[index].id);
 
-                          interestsScreenController.selectChoiceOnSelectFunction(
+                          interestsScreenController
+                              .selectChoiceOnSelectFunction(
                             value: value,
                             categoryIndex: i,
                             categoryOptionIndex: index,
@@ -96,7 +112,7 @@ class InterestsWidgetModule extends StatelessWidget {
                         interestsScreenController.isLoading(false);
                       },
                     ),
-                  );
+                  ).commonSymmetricPadding(horizontal: 10);
                 },
               ).toList(),
             ),
@@ -111,65 +127,67 @@ class InterestsWidgetModule extends StatelessWidget {
       },
     );
   }
-
-
 }
 
 class SkipAndNextButtonModule extends StatelessWidget {
   SkipAndNextButtonModule({super.key});
+
   final interestsScreenController = Get.find<InterestsScreenController>();
 
   @override
   Widget build(BuildContext context) {
     return Obx(
-      ()=> interestsScreenController.isLoading.value
-      ? Container()
-      : Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Expanded(
-            child: ButtonCustom(
-              text: AppMessages.skip,
-              textFontFamily: FontFamilyText.sFProDisplayBold,
-              textsize: 15,
-              backgroundColor: AppColors.darkOrangeColor,
-              textColor: AppColors.whiteColor2,
-              onPressed: () async {
-                await interestsScreenController.completeSignUpFunction();
-              },
-            ),
-          ),
-          const SizedBox(width: 30),
-          Expanded(
-            child: Obx(
-              () => Text(
-                "${interestsScreenController.selectedItemCount.value}/8 Selected",
-                style: TextStyleConfig.textStyle(
-                    fontFamily: FontFamilyText.sFProDisplayRegular,
-                    textColor: AppColors.grey500Color,
-                    fontSize: 12.sp),
-              ),
-            ),
-          ),
-          const SizedBox(width: 30),
-          Expanded(
-            child: ButtonCustom(
-              text: AppMessages.next,
-              textFontFamily: FontFamilyText.sFProDisplayBold,
-              textsize: 15,
-              backgroundColor: AppColors.darkOrangeColor,
-              textColor: AppColors.whiteColor2,
-              onPressed: () async {
-                if(interestsScreenController.selectedItemCount.value == 0) {
-                  Fluttertoast.showToast(msg: "Please select at least one interest!");
-                } else {
-                  await interestsScreenController.nextButtonClickFunction();
-                }
-              },
-            ),
-          ),
-        ],
-      ).commonSymmetricPadding(horizontal: 25, vertical: 10),
+      () => interestsScreenController.isLoading.value
+          ? Container()
+          : Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Expanded(
+                  child: ButtonCustom(
+                    text: AppMessages.skip,
+                    textFontFamily: FontFamilyText.sFProDisplayBold,
+                    textsize: 15,
+                    backgroundColor: AppColors.darkOrangeColor,
+                    textColor: AppColors.whiteColor2,
+                    onPressed: () async {
+                      await interestsScreenController.completeSignUpFunction();
+                    },
+                  ),
+                ),
+                const SizedBox(width: 30),
+                Expanded(
+                  child: Obx(
+                    () => Text(
+                      "${interestsScreenController.selectedItemCount.value}/8 Selected",
+                      style: TextStyleConfig.textStyle(
+                          fontFamily: FontFamilyText.sFProDisplayRegular,
+                          textColor: AppColors.grey500Color,
+                          fontSize: 12.sp),
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 30),
+                Expanded(
+                  child: ButtonCustom(
+                    text: AppMessages.next,
+                    textFontFamily: FontFamilyText.sFProDisplayBold,
+                    textsize: 15,
+                    backgroundColor: AppColors.darkOrangeColor,
+                    textColor: AppColors.whiteColor2,
+                    onPressed: () async {
+                      if (interestsScreenController.selectedItemCount.value ==
+                          0) {
+                        Fluttertoast.showToast(
+                            msg: "Please select at least one interest!");
+                      } else {
+                        await interestsScreenController
+                            .nextButtonClickFunction();
+                      }
+                    },
+                  ),
+                ),
+              ],
+            ).commonSymmetricPadding(horizontal: 25, vertical: 10),
     );
   }
 }

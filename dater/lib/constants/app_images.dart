@@ -26,4 +26,6 @@ class AppImages {
   static const rightImage = '$rootPath/right.png';
   static const lightorange1 = '$rootPath/lightorange1.png';
   static const lightorange2 = '$rootPath/lightorange2.png';
+  static const ballImage = '$rootPath/ball.png';
+
 }

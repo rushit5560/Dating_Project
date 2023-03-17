@@ -38,8 +38,8 @@ class InterestsScreenController extends GetxController {
       // InterestModel getInterestModel = InterestModel.fromJson(json.decode(Demo.demoString));
 
       if (response.statusCode == 200) {
-        // log("getInterestFunction.statusCode: ${response.statusCode}");
-        // log("getInterestFunction.body: ${response.body}");
+        log("getInterestFunction.statusCode: ${response.statusCode}");
+        log("getInterestFunction.body: ${response.body}");
         getInterestModel.msg.length;
         interestsData = getInterestModel.msg;
 

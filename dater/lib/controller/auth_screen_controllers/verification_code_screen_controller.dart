@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'package:dater/constants/messages.dart';
+import 'package:dater/screens/index_screen/index_screen_screen.dart';
 import 'package:dater/utils/preferences/user_preference.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
@@ -75,7 +76,19 @@ class VerifyCodeScreenController extends GetxController {
             key: UserPreference.userVerifyTokenKey,
             value: accountActiveModel.token,
           );
-          Get.off(() => SignUpEmailScreen());
+          if(authAs == AuthAs.register) {
+            Get.off(() => SignUpEmailScreen());
+          } else if(authAs == AuthAs.login) {
+            await userPreference.setBoolValueInPrefs(
+              key: UserPreference.isUserCreatedKey,
+              value: true,
+            );
+            Get.offAll(() => IndexScreen());
+          }
+
+
+          // todo
+
         } else if(accountActiveModel.statusCode == 400) {
           Fluttertoast.showToast(msg: accountActiveModel.msg);
         } else {

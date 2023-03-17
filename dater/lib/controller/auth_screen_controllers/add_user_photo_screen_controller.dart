@@ -54,6 +54,7 @@ class AddUserPhotoScreenController extends GetxController {
 
   // Photo Save button function
   Future<void> doneButtonFunction() async {
+    isLoading(true);
     if(image1.path.isEmpty && image2.path.isEmpty && image3.path.isEmpty) {
       Fluttertoast.showToast(msg: "Please select at least one photo");
     } else {
@@ -88,6 +89,8 @@ class AddUserPhotoScreenController extends GetxController {
 
       // Get.to(() => DobSelectScreen());
     }
+    isLoading(false);
+
   }
 
   // Upload Image function

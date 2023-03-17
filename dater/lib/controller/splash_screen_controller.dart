@@ -1,6 +1,8 @@
 import 'dart:async';
 
 import 'package:dater/screens/authentication_screen/login_screen/login_screen.dart';
+import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 
 class SplashScreencontroller extends GetxController {
@@ -10,6 +12,9 @@ class SplashScreencontroller extends GetxController {
       () {
         Get.off(
           () {
+
+
+            
             return LoginInScreen();
           },
         );
@@ -17,9 +22,11 @@ class SplashScreencontroller extends GetxController {
     );
   }
 
+
   @override
   void onInit() {
     startTimer();
+
     super.onInit();
   }
 }

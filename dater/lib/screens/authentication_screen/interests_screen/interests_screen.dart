@@ -5,9 +5,11 @@ import 'package:dater/constants/font_family.dart';
 import 'package:dater/constants/messages.dart';
 import 'package:dater/controller/auth_screen_controllers/interests%20_screen_controller.dart';
 import 'package:dater/screens/authentication_screen/interests_screen/interests_screen_widgets.dart';
+import 'package:dater/utils/extensions.dart';
 import 'package:dater/utils/style.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:sizer/sizer.dart';
 
 class InterestsScreen extends StatelessWidget {
   InterestsScreen({Key? key}) : super(key: key);
@@ -26,28 +28,25 @@ class InterestsScreen extends StatelessWidget {
       body: Obx(
         ()=> interestsScreenController.isLoading.value
         ? const CustomLoader()
-        : SingleChildScrollView(
-          // scrollDirection: Axis.vertical,
-          child: SafeArea(
-                    child: Column(
-                      children: [
-                        Text(
-                          textAlign: TextAlign.center,
-                          AppMessages.chooseChatText,
-                          style: TextStyleConfig.textStyle(
-                            fontFamily: FontFamilyText.sFProDisplayRegular,
-                            textColor: AppColors.grey500Color,
-                          ),
+        : SafeArea(
+                  child: Column(
+                    children: [
+                      Text(
+                        textAlign: TextAlign.center,
+                        AppMessages.chooseChatText,
+                        style: TextStyleConfig.textStyle(
+                          fontFamily: FontFamilyText.sFProDisplayRegular,
+                          textColor: AppColors.grey500Color,
+                          fontSize: 14.sp
                         ),
-                        // const SizedBox(height: 12),
-                        InterestsWidgetModule(),
-                        // SizedBox(height: 3.h,),
-                        // SportsWidgetsModule(),
-                      ],
-                    ),
-                  ),
-
-        ),
+                      ).commonSymmetricPadding(horizontal: 6.w),
+                      // const SizedBox(height: 12),
+                      Expanded(child: InterestsWidgetModule()),
+                      // SizedBox(height: 3.h,),
+                      // SportsWidgetsModule(),
+                    ],
+                  ).commonOnlyPadding(bottom: 10),
+                ),
       ),
       bottomNavigationBar:  SkipAndNextButtonModule(),
     );
