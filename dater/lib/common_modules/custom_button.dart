@@ -16,6 +16,7 @@ class ButtonCustom extends StatelessWidget {
   Function() onPressed;
   Color backgroundColor;
   String textFontFamily;
+  EdgeInsetsGeometry? padding;
 
   ButtonCustom({
     Key? key,
@@ -23,6 +24,7 @@ class ButtonCustom extends StatelessWidget {
     this.textColor = AppColors.blackColor,
     this.fontWeight = FontWeight.normal,
     this.textsize = 12,
+    this.padding,
     this.backgroundColor = AppColors.whiteColor,
     this.size = const Size(double.infinity, 0),
     required this.onPressed,
@@ -34,6 +36,7 @@ class ButtonCustom extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
+        padding: padding,
         shadowColor: shadowColor,
         backgroundColor: backgroundColor,
         elevation: 6,

@@ -4,7 +4,6 @@ class AppColors {
   static const Color blackColor = Colors.black;
   static const Color whiteColor = Color(0xffFFF6F6);
   static const Color whiteColor2 = Color(0xffFFFFFF);
-
   static const Color pinkPrimaryColor = Color(0xffFE877C);
   static const Color pinkGradientColor1 = Color(0xffFF7074);
   static const Color pinkGradientColor2 = Color(0xffFEA085);

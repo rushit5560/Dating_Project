@@ -84,7 +84,7 @@ class WidgetsBalanceModule extends StatelessWidget {
           textsize: 14.sp,
           textFontFamily: FontFamilyText.sFProDisplayHeavy,
           textColor: AppColors.whiteColor2,
-          backgroundColor: AppColors.gray100Color,
+          backgroundColor: AppColors.grey200Color,
         ).commonSymmetricPadding(horizontal: 30),
       ],
     );

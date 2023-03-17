@@ -13,14 +13,6 @@ final yourDailyRateScreenController = Get.put(YourDailyRateScreenController());
     return  Scaffold(
       backgroundColor: AppColors.whiteColor2,
       appBar: commonAppBarModule(text: AppMessages.yourDailyRate),
-      body: SafeArea(
-        child: Column(
-          children: [
-            Center(
-                child: Text('nkjwdnwkjgmrtkjhm')),
-          ],
-        ),
-      ),
     );
   }
 }

@@ -10,7 +10,6 @@ import '../../../controller/auth_screen_controllers/add_user_photo_screen_contro
 class UserImageSelectModule extends StatelessWidget {
   UserImageSelectModule({Key? key}) : super(key: key);
   final screenController = Get.find<AddUserPhotoScreenController>();
-
   @override
   Widget build(BuildContext context) {
     return GridView.builder(

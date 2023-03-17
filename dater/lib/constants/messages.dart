@@ -104,4 +104,21 @@ class AppMessages {
   static String increaseRate = "increase rate";
   static String inviteFriends = "invite friends";
   static String yourDailyRate = "Your daily rate";
+  static String cookiePolicy = "Cookie Policy";
+  static String takePhoto = "Take photo";
+  static String done = "Done";
+  static String termsOfYouUse = "Terms of you use";
+  static String verifyYourAccount = "Verify Your Account";
+  static String settings = "Settings";
+  static String copy = "Copy";
+  static String yourReferralNumber = "Your referral number";
+  static String verified = "Not Verified";
+  static String personalInfo = "Personal Info";
+  static String email = "Email";
+  static String showMe = "Show Me";
+  static String women = "Women";
+  static String logout = "Logout";
+  static String deleteAccount = "Delete account";
+  static String addANewLocation = "Add a new location";
+  static String countryAndRegion = "Country / Region";
 }
