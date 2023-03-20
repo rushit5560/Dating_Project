@@ -177,6 +177,11 @@ class InterestsScreenController extends GetxController {
             value: false,
           );
 
+          await userPreference.setBoolValueInPrefs(
+            key: UserPreference.isUserLoggedInKey,
+            value: true,
+          );
+
           Get.offAll(()=> IndexScreen());
         } else if(completeSignupModel.statusCode == 400) {
           Fluttertoast.showToast(msg: completeSignupModel.msg);

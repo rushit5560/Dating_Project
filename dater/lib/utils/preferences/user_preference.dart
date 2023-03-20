@@ -8,6 +8,7 @@ class UserPreference {
   static String userTokenKey = "userTokenKey"; // This is temp token
   static String userVerifyTokenKey = "userVerifyTokenKey"; // This is main token
   static String isUserCreatedKey = "isUserCreatedKey";
+  static String isUserLoggedInKey = "isUserLoggedInKey";
 
 
 
