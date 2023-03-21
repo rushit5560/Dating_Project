@@ -1,5 +1,6 @@
 import 'package:dater/constants/app_images.dart';
 import 'package:dater/constants/font_family.dart';
+import 'package:dater/constants/messages.dart';
 import 'package:dater/utils/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -98,9 +99,7 @@ class CardSwipeModule extends StatelessWidget {
             ),
           ],
         ).commonOnlyPadding(left: 15.w, right: 15.w),
-        SizedBox(
-          height: 2.h,
-        ),
+        SizedBox(height: 2.h),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -148,6 +147,343 @@ class CardSwipeModule extends StatelessWidget {
             ],
           ),
         ),
+        SizedBox(height: 3.h),
+        Container(
+          height: 56.h,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(15),
+            image: const DecorationImage(
+              image: AssetImage(
+                AppImages.swiper1Image,
+              ),
+              fit: BoxFit.cover,
+            ),
+          ),
+        ),
+        SizedBox(height: 3.h),
+        Row(
+          children: [
+            Text(
+              AppMessages.aboutMe,
+              style: TextStyleConfig.textStyle(
+                fontSize: 16.sp,
+                fontFamily: FontFamilyText.sFProDisplaySemibold,
+                textColor: AppColors.grey800Color,
+              ),
+            ),
+          ],
+        ),
+        SizedBox(height: 0.5.h),
+        Row(
+          children: [
+            Text(
+              "Life is simple Don't overthink it",
+              style: TextStyleConfig.textStyle(
+                fontSize: 13.sp,
+                fontFamily: FontFamilyText.sFProDisplaySemibold,
+                textColor: AppColors.grey600Color,
+              ),
+            ),
+          ],
+        ),
+        SizedBox(height: 4.h),
+        BasicinformationModule(),
+        SizedBox(height: 4.h),
+        InterestsInformationModule(),
+        SizedBox(height: 7.h),
+        Container(
+          height: 56.h,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(15),
+            image: const DecorationImage(
+              image: AssetImage(
+                AppImages.swiper1Image,
+              ),
+              fit: BoxFit.cover,
+            ),
+          ),
+        ),
+        SizedBox(height: 5.h),
+        LanguagesInformationModule(),
+        SizedBox(height: 7.h),
+        Container(
+          height: 56.h,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(15),
+            image: const DecorationImage(
+              image: AssetImage(
+                AppImages.swiper1Image,
+              ),
+              fit: BoxFit.cover,
+            ),
+          ),
+        ),
+        SizedBox(height: 5.h),
+        LocationInformationModule(),
+      ],
+    );
+  }
+}
+
+class BasicinformationModule extends StatelessWidget {
+  BasicinformationModule({super.key});
+  final homeScreenController = Get.find<HomeScreenController>();
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          children: [
+            Text(
+              AppMessages.basics,
+              style: TextStyleConfig.textStyle(
+                fontSize: 16.sp,
+                fontFamily: FontFamilyText.sFProDisplayBold,
+                textColor: AppColors.grey800Color,
+              ),
+            ),
+          ],
+        ),
+        SizedBox(height: 2.h),
+        Wrap(
+          spacing: 3.0,
+          children: List.generate(
+            7,
+            (int index) {
+              return Transform(
+                transform: Matrix4.identity()..scale(0.9),
+                child: ChoiceChip(
+                  avatar: const CircleAvatar(
+                    backgroundImage: AssetImage(AppImages.ballImage),
+                  ).commonOnlyPadding(left: 2),
+                  label: Text(
+                    'Socially',
+                    style: TextStyleConfig.textStyle(
+                      fontFamily: FontFamilyText.sFProDisplaySemibold,
+                      textColor: AppColors.grey600Color,
+                      fontSize: 16,
+                    ),
+                  ),
+                  selected: homeScreenController.selected.value,
+                  selectedColor: AppColors.darkOrangeColor,
+                  backgroundColor: Colors.white,
+                  shape: const StadiumBorder(
+                    side: BorderSide(
+                      color: AppColors.grey400Color,
+                      width: 1.5,
+                    ),
+                  ),
+                  onSelected: (bool value) {},
+                ),
+              );
+            },
+          ).toList(),
+        )
+      ],
+    );
+  }
+}
+
+class InterestsInformationModule extends StatelessWidget {
+  InterestsInformationModule({super.key});
+  final homeScreenController = Get.find<HomeScreenController>();
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          children: [
+            Text(
+              AppMessages.interests,
+              style: TextStyleConfig.textStyle(
+                fontSize: 16.sp,
+                fontFamily: FontFamilyText.sFProDisplayBold,
+                textColor: AppColors.grey800Color,
+              ),
+            ),
+          ],
+        ),
+        SizedBox(height: 2.h),
+        Wrap(
+          spacing: 3.0,
+          children: List.generate(
+            5,
+            (int index) {
+              return Transform(
+                transform: Matrix4.identity()..scale(0.9),
+                child: ChoiceChip(
+                  avatar: const CircleAvatar(
+                    backgroundImage: AssetImage(AppImages.ballImage),
+                  ).commonOnlyPadding(left: 2),
+                  label: Text(
+                    'Photography',
+                    style: TextStyleConfig.textStyle(
+                      fontFamily: FontFamilyText.sFProDisplaySemibold,
+                      textColor: AppColors.grey600Color,
+                      fontSize: 16,
+                    ),
+                  ),
+                  selected: homeScreenController.selected.value,
+                  selectedColor: AppColors.darkOrangeColor,
+                  backgroundColor: Colors.white,
+                  shape: const StadiumBorder(
+                    side: BorderSide(
+                      color: AppColors.grey400Color,
+                      width: 1.5,
+                    ),
+                  ),
+                  onSelected: (bool value) {},
+                ),
+              );
+            },
+          ).toList(),
+        )
+      ],
+    );
+  }
+}
+
+class LanguagesInformationModule extends StatelessWidget {
+  LanguagesInformationModule({super.key});
+  final homeScreenController = Get.find<HomeScreenController>();
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          children: [
+            Text(
+              AppMessages.languagesIknow,
+              style: TextStyleConfig.textStyle(
+                fontSize: 16.sp,
+                fontFamily: FontFamilyText.sFProDisplayBold,
+                textColor: AppColors.grey800Color,
+              ),
+            ),
+          ],
+        ),
+        SizedBox(height: 2.h),
+        Wrap(
+          spacing: 3.0,
+          children: List.generate(
+            3,
+            (int index) {
+              return Transform(
+                transform: Matrix4.identity()..scale(0.9),
+                child: ChoiceChip(
+                  avatar: const CircleAvatar(
+                    backgroundImage: AssetImage(AppImages.ballImage),
+                  ).commonOnlyPadding(left: 2),
+                  label: Text(
+                    'Japanese',
+                    style: TextStyleConfig.textStyle(
+                      fontFamily: FontFamilyText.sFProDisplaySemibold,
+                      textColor: AppColors.grey600Color,
+                      fontSize: 16,
+                    ),
+                  ),
+                  selected: homeScreenController.selected.value,
+                  selectedColor: AppColors.darkOrangeColor,
+                  backgroundColor: Colors.white,
+                  shape: const StadiumBorder(
+                    side: BorderSide(
+                      color: AppColors.grey400Color,
+                      width: 1.5,
+                    ),
+                  ),
+                  onSelected: (bool value) {},
+                ),
+              );
+            },
+          ).toList(),
+        )
+      ],
+    );
+  }
+}
+
+class LocationInformationModule extends StatelessWidget {
+  LocationInformationModule({super.key});
+  final homeScreenController = Get.find<HomeScreenController>();
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          children: [
+            Image.asset(
+              AppImages.location2Image,
+              height: 3.h,
+              width: 3.h,
+            ),
+            SizedBox(width: 1.w),
+            Text(
+              AppMessages.locationtext,
+              style: TextStyleConfig.textStyle(
+                fontSize: 16.sp,
+                fontFamily: FontFamilyText.sFProDisplayBold,
+                textColor: AppColors.grey800Color,
+              ),
+            ),
+          ],
+        ),
+        SizedBox(height: 2.h),
+        Row(
+          children: [
+            Text(
+              textAlign: TextAlign.start,
+              "New South Wales, Sydney \n3 km away",
+              style: TextStyleConfig.textStyle(
+                fontFamily: FontFamilyText.sFProDisplaySemibold,
+                textColor: AppColors.grey600Color,
+                fontSize: 12.sp,
+              ),
+            ),
+          ],
+        ),
+        SizedBox(height: 2.h),
+        Wrap(
+          spacing: 3.0,
+          children: List.generate(
+            2,
+            (int index) {
+              return Transform(
+                transform: Matrix4.identity()..scale(0.9),
+                child: ChoiceChip(
+                  avatar: const CircleAvatar(
+                    backgroundImage: AssetImage(AppImages.ballImage),
+                  ).commonOnlyPadding(left: 2),
+                  label: Text(
+                    'Live in New  ',
+                    style: TextStyleConfig.textStyle(
+                      fontFamily: FontFamilyText.sFProDisplaySemibold,
+                      textColor: AppColors.grey600Color,
+                      fontSize: 16,
+                    ),
+                  ),
+                  selected: homeScreenController.selected.value,
+                  selectedColor: AppColors.darkOrangeColor,
+                  backgroundColor: Colors.white,
+                  shape: const StadiumBorder(
+                    side: BorderSide(
+                      color: AppColors.grey400Color,
+                      width: 1.5,
+                    ),
+                  ),
+                  onSelected: (bool value) {},
+                ),
+              );
+            },
+          ).toList(),
+        )
       ],
     );
   }

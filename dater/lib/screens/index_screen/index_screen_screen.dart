@@ -1,6 +1,6 @@
 import 'package:dater/controller/auth_screen_controllers/index_screen_controller.dart';
 import 'package:dater/screens/balance_screen/balance_screen.dart';
-import 'package:dater/screens/chat_screen/chat_sreen.dart';
+import 'package:dater/screens/chat_screen/chat_list_screen/all_chat_list_screen.dart';
 import 'package:dater/screens/home_screen/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -15,7 +15,7 @@ class IndexScreen extends StatelessWidget {
   final screen = [
      BalanceScreen(),
      FavoriteScreen(),
-     ChatScreen(),
+     AllChatListScreen(),
      ProfileScreen(),
   ];
 

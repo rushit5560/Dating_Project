@@ -20,19 +20,20 @@ class HomeScreen extends StatelessWidget {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              SizedBox(
-                height: 2.h,
-              ),
+              SizedBox(height: 2.h),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Image.asset(AppImages.refreshImage),
                   Image.asset(AppImages.hardImage),
                   GestureDetector(
-                      onTap: () {
-                        Get.to(() => FilterScreen());
-                      },
-                      child: Image.asset(AppImages.menuImage)),
+                    onTap: () {
+                      Get.to(
+                        () => FilterScreen(),
+                      );
+                    },
+                    child: Image.asset(AppImages.menuImage),
+                  ),
                 ],
               ),
               SizedBox(height: 2.h),
