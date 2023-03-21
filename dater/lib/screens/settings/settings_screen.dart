@@ -2,19 +2,16 @@ import 'package:dater/constants/colors.dart';
 import 'package:dater/screens/settings/settings_screen_widgets.dart';
 import 'package:dater/utils/extensions.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../common_modules/custom_appbar.dart';
 import '../../constants/messages.dart';
-import '../../controller/auth_screen_controllers/settings_screen_controller.dart';
 
 class SettingsScreen extends StatelessWidget {
-  SettingsScreen({Key? key}) : super(key: key);
-  final settingsScreenController = Get.put(SettingsScreenController());
+  const SettingsScreen({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
+    return Scaffold(
       backgroundColor: AppColors.whiteColor2,
       appBar: commonAppBarModule(text: AppMessages.settings),
       body: SafeArea(
@@ -23,23 +20,23 @@ class SettingsScreen extends StatelessWidget {
           child: Column(
             children: [
               SizedBox(height: 4.h),
-              ReferralNumberModule(),
+              const ReferralNumberModule(),
               SizedBox(height: 4.h),
-              VerifyAccountModule(),
+              const VerifyAccountModule(),
               SizedBox(height: 2.h),
-              PersonalInfoModule(),
+              const PersonalInfoModule(),
               SizedBox(height: 3.h),
-              LocationModule(),
-              SizedBox(height:3.h),
-              ShowMeModule(),
+              const LocationModule(),
               SizedBox(height: 3.h),
-              CookiePolicyModule(),
+              const ShowMeModule(),
+              SizedBox(height: 3.h),
+              const CookiePolicyModule(),
               SizedBox(height: 3.5.h),
-              TermsOfYouUseModule(),
+              const TermsOfYouUseModule(),
               SizedBox(height: 3.5.h),
-              PrivacyPolicyModule(),
+              const PrivacyPolicyModule(),
               SizedBox(height: 3.5.h),
-              BothButtonModule(),
+              const BothButtonModule(),
               SizedBox(height: 4.h),
             ],
           ).commonSymmetricPadding(horizontal: 30),

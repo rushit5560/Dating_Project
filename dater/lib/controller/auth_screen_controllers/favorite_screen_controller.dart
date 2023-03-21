@@ -1,9 +1,9 @@
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/get_state_manager.dart';
 
-class FavoriteScreenController extends GetxController{
-  var selected = "".obs;
-  change (index){
-    selected.value = index;
+class FavoriteScreenController extends GetxController {
+  var selected = "sdsd".obs;
+  RxBool isloading = true.obs;
+  change(value) {
+    selected.value = value;
   }
 }

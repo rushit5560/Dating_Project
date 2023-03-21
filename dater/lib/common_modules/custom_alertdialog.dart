@@ -8,19 +8,19 @@ import '../utils/style.dart';
 import 'custom_button.dart';
 
 class CustomAlertDialog extends StatelessWidget {
-   String text;
-   String content;
-   String value;
-   String groupValue;
-   String buttonText;
-   Function() onPressed;
-   String radioButtonText;
-   Function(String?)? onChanged;
-   Color? activeColor;
-   EdgeInsetsGeometry? titlePadding;
-   EdgeInsetsGeometry? contentPadding;
-   CustomAlertDialog({
-     Key? key,
+  String text;
+  String content;
+  String value;
+  String groupValue;
+  String buttonText;
+  Function() onPressed;
+  String radioButtonText;
+  Function(String?)? onChanged;
+  Color? activeColor;
+  EdgeInsetsGeometry? titlePadding;
+  EdgeInsetsGeometry? contentPadding;
+  CustomAlertDialog({
+    Key? key,
     required this.text,
     required this.content,
     required this.value,
@@ -30,9 +30,9 @@ class CustomAlertDialog extends StatelessWidget {
     required this.buttonText,
     required this.activeColor,
     required this.radioButtonText,
-     this.titlePadding,
-     this.contentPadding,
-  })  : super(key: key);
+    this.titlePadding,
+    this.contentPadding,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -41,49 +41,57 @@ class CustomAlertDialog extends StatelessWidget {
         borderRadius: BorderRadius.all(Radius.circular(20)),
       ),
       titlePadding: titlePadding,
-      title: Text(text,
-          style: TextStyleConfig.textStyle(
-            fontFamily: FontFamilyText.sFProDisplayRegular,
-            textColor: AppColors.blackColor,
-            fontSize: 14.sp,
-            fontWeight: FontWeight.bold,
-          ),
+      title: Text(
+        text,
+        style: TextStyleConfig.textStyle(
+          fontFamily: FontFamilyText.sFProDisplayBold,
+          textColor: AppColors.blackColor,
+          fontSize: 14.sp,
+          // fontWeight: FontWeight.bold,
+        ),
       ),
       contentPadding: contentPadding,
-      content: Text(content,
+      content: Text(
+        content,
         style: TextStyleConfig.textStyle(
           fontFamily: FontFamilyText.sFProDisplayRegular,
-          textColor: AppColors.grey500Color,
+          textColor: AppColors.grey600Color,
           fontSize: 14.sp,
-          fontWeight: FontWeight.bold,
+          // fontWeight: FontWeight.bold,
         ),
       ),
       actions: [
-        const Divider(
-          thickness: 2,
-        ),
+        const Divider(thickness: 2),
         ButtonCustom(
-        text: buttonText,
-        onPressed:onPressed,
-        fontWeight: FontWeight.bold,
-        textsize: 14.sp,
-        textFontFamily: FontFamilyText.sFProDisplayHeavy,
-        textColor: AppColors.whiteColor2,
-        backgroundColor: AppColors.darkOrangeColor,
-          ).commonSymmetricPadding(horizontal: 35),
-        Row(
-          children: [
-            Radio(
-                activeColor: activeColor,
-                value: value, groupValue: groupValue, onChanged: onChanged),
-            Text(radioButtonText) ,
+          text: buttonText,
+          onPressed: onPressed,
+          // fontWeight: FontWeight.bold,
+          textsize: 14.sp,
+          textFontFamily: FontFamilyText.sFProDisplayBold,
+          textColor: AppColors.whiteColor2,
+          backgroundColor: AppColors.darkOrangeColor,
+        ).commonSymmetricPadding(horizontal: 35),
+        Row(children: [
+          Radio(
+            activeColor: activeColor,
+            value: value,
+            groupValue: groupValue,
+            onChanged: onChanged,
+          ),
+          Text(
+            radioButtonText,
+            style: TextStyleConfig.textStyle(
+              fontFamily: FontFamilyText.sFProDisplayRegular,
+              textColor: AppColors.darkOrangeColor,
+            ),
+          ),
         ]),
       ],
     );
   }
 }
 
-
+// ignore: must_be_immutable
 class CustomAlertDialogWithoutRadioButton extends StatelessWidget {
   String text;
   String content;
@@ -107,7 +115,7 @@ class CustomAlertDialogWithoutRadioButton extends StatelessWidget {
     required this.activeColor,
     this.titlePadding,
     this.contentPadding,
-  })  : super(key: key);
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -116,7 +124,8 @@ class CustomAlertDialogWithoutRadioButton extends StatelessWidget {
         borderRadius: BorderRadius.all(Radius.circular(20)),
       ),
       titlePadding: titlePadding,
-      title: Text(text,
+      title: Text(
+        text,
         style: TextStyleConfig.textStyle(
           fontFamily: FontFamilyText.sFProDisplayRegular,
           textColor: AppColors.blackColor,
@@ -125,7 +134,8 @@ class CustomAlertDialogWithoutRadioButton extends StatelessWidget {
         ),
       ),
       contentPadding: contentPadding,
-      content: Text(content,
+      content: Text(
+        content,
         style: TextStyleConfig.textStyle(
           fontFamily: FontFamilyText.sFProDisplayRegular,
           textColor: AppColors.grey500Color,
@@ -139,7 +149,7 @@ class CustomAlertDialogWithoutRadioButton extends StatelessWidget {
         ),
         ButtonCustom(
           text: buttonText,
-          onPressed:onPressed,
+          onPressed: onPressed,
           fontWeight: FontWeight.bold,
           textsize: 14.sp,
           textFontFamily: FontFamilyText.sFProDisplayHeavy,
@@ -150,4 +160,3 @@ class CustomAlertDialogWithoutRadioButton extends StatelessWidget {
     );
   }
 }
-

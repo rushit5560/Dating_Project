@@ -13,81 +13,82 @@ import '../earn_more_coins_screen/earn_more_coins_screen.dart';
 import '../your_daily_rate_screen/your_daily_rate_screen.dart';
 
 class WidgetsBalanceModule extends StatelessWidget {
-   WidgetsBalanceModule({Key? key}) : super(key: key);
-   final balanceScreenController = Get.find<BalanceScreenController>();
+  WidgetsBalanceModule({Key? key}) : super(key: key);
+  final balanceScreenController = Get.find<BalanceScreenController>();
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Text(AppMessages.yourBalance,
+        Text(
+          AppMessages.yourBalance,
           style: TextStyleConfig.textStyle(
-            fontFamily: FontFamilyText.sFProDisplayRegular,
+            fontFamily: FontFamilyText.sFProDisplayBold,
             textColor: AppColors.blackColor,
             fontSize: 18.sp,
-            fontWeight: FontWeight.bold,
+            // fontWeight: FontWeight.bold,
           ),
-        ).commonSymmetricPadding(vertical: 15),
-        SizedBox(height: 7.h,),
-        Text(AppMessages.coinsBalance,
+        ),
+        SizedBox(height: 7.h),
+        Text(
+          AppMessages.coinsBalance,
           style: TextStyleConfig.textStyle(
-            fontFamily: FontFamilyText.sFProDisplayRegular,
-            textColor: AppColors.blackColor,
+            fontFamily: FontFamilyText.sFProDisplaySemibold,
+            textColor: AppColors.grey800Color,
             fontSize: 18.sp,
-            fontWeight: FontWeight.w500,
           ),
-        ).commonSymmetricPadding(vertical: 15),
+        ),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Image(
-              fit: BoxFit.cover,
+                fit: BoxFit.cover,
                 width: 12.h,
                 image: const AssetImage(AppImages.balance2Image)),
             //Image.asset(AppImages.balance2Image),
-            Text('0',
+            Text(
+              '0',
               style: TextStyleConfig.textStyle(
                 fontFamily: FontFamilyText.sFProDisplayHeavy,
-                textColor: AppColors.grey900Color,
-                fontSize: 100.sp,
-                fontWeight: FontWeight.bold,
+                textColor: AppColors.grey800Color,
+                fontSize: 100,
               ),
             ),
           ],
         ),
-        SizedBox(height: 12.h,),
+        SizedBox(height: 27.h),
         ButtonCustom(
           text: AppMessages.earnMoreCoins,
           onPressed: () {
             Get.to(EarnMoreCoinsScreen());
           },
-          fontWeight: FontWeight.bold,
           textsize: 14.sp,
-          textFontFamily: FontFamilyText.sFProDisplayHeavy,
+          textFontFamily: FontFamilyText.sFProDisplayBold,
           textColor: AppColors.whiteColor2,
           backgroundColor: AppColors.darkOrangeColor,
-        ).commonSymmetricPadding(horizontal: 35),
-        SizedBox(height: 5.h,),
-        Text('Your daily rate of coins : 20',
+        ),
+        SizedBox(height: 5.h),
+        Text(
+          'Your daily rate of coins : 20',
           style: TextStyleConfig.textStyle(
             fontFamily: FontFamilyText.sFProDisplayRegular,
-            textColor: AppColors.blackColor,
-            fontSize: 18.sp,
-            fontWeight: FontWeight.w500,
+            textColor: AppColors.grey600Color,
+            fontSize: 16.sp,
+            // fontWeight: FontWeight.w500,
           ),
-        ).commonSymmetricPadding(vertical: 15),
-        //SizedBox(height: 1.h,),
+        ),
+        SizedBox(height: 1.h),
         ButtonCustom(
           size: const Size(40, 0),
-          text:  AppMessages.learnMore,
-          onPressed: () {Get.to( YourDailyRateScreen());},
-          fontWeight: FontWeight.bold,
+          text: AppMessages.learnMore,
+          onPressed: () {
+            Get.to(YourDailyRateScreen());
+          },
           textsize: 14.sp,
-          textFontFamily: FontFamilyText.sFProDisplayHeavy,
+          textFontFamily: FontFamilyText.sFProDisplayBold,
           textColor: AppColors.whiteColor2,
-          backgroundColor: AppColors.grey200Color,
-        ).commonSymmetricPadding(horizontal: 30),
+          backgroundColor: AppColors.greyColor,
+        ),
       ],
     );
   }
 }
-

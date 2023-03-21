@@ -1,4 +1,5 @@
 import 'package:dater/common_modules/custom_button.dart';
+import 'package:dater/constants/font_family.dart';
 import 'package:dater/utils/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -10,7 +11,7 @@ import '../../utils/style.dart';
 import 'favorite_screen_widgets.dart';
 
 class FavoriteScreen extends StatelessWidget {
-   FavoriteScreen({Key? key}) : super(key: key);
+  FavoriteScreen({Key? key}) : super(key: key);
   final favoriteScreenController = Get.put(FavoriteScreenController());
   @override
   Widget build(BuildContext context) {
@@ -29,9 +30,9 @@ class FavoriteScreen extends StatelessWidget {
                 shadowColor: Colors.blueGrey,
                 text: AppMessages.skipButton,
                 textColor: AppColors.gray50Color,
-                fontWeight: FontWeight.bold,
                 size: const Size(150, 0),
                 textsize: 14.sp,
+                textFontFamily: FontFamilyText.sFProDisplaySemibold,
                 onPressed: () {
                   //Get.to(() => LocationScreen());
                 },
@@ -43,16 +44,14 @@ class FavoriteScreen extends StatelessWidget {
             Text(
               'See people who have already liked you',
               style: TextStyleConfig.textStyle(
-                textColor: AppColors.grey700Color,
+                textColor: AppColors.grey800Color,
                 fontSize: 12.sp,
-                fontFamily: "SFProDisplayBlack",
-                fontWeight: FontWeight.normal,
+                fontFamily: FontFamilyText.sFProDisplaySemibold,
+                // fontWeight: FontWeight.normal,
               ),
             ),
-            SizedBox(
-              height: 4.h,
-            ),
-             FavoriteGridViewBuilderModule(),
+            SizedBox(height: 4.h),
+            FavoriteGridViewBuilderModule(),
           ],
         ).commonSymmetricPadding(horizontal: 20),
       ),
