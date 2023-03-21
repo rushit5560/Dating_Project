@@ -8,9 +8,7 @@ import 'package:dater/utils/style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-
 import 'package:sizer/sizer.dart';
-
 class VerificationCodeFieldModule extends StatelessWidget {
   VerificationCodeFieldModule({super.key});
   final verifyCodeScreenController = Get.find<VerifyCodeScreenController>();
