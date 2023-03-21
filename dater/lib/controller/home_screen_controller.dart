@@ -1,10 +1,11 @@
 import 'package:dater/constants/app_images.dart';
 import 'package:get/get.dart';
 import 'package:swipable_stack/swipable_stack.dart';
+
 class HomeScreenController extends GetxController {
   RxBool isLoading = false.obs;
-  SwipableStackController cardController =
-      SwipableStackController();
+  SwipableStackController cardController = SwipableStackController();
+  RxBool selected = false.obs;
 
   List<String> images = [
     AppImages.swiper1Image,

@@ -3,8 +3,7 @@ import 'dart:async';
 import 'package:dater/constants/enums.dart';
 import 'package:dater/screens/authentication_screen/login_screen/login_screen.dart';
 import 'package:dater/screens/index_screen/index_screen_screen.dart';
-import 'package:flutter/material.dart';
-import 'package:geolocator/geolocator.dart';
+
 import 'package:get/get.dart';
 
 import '../utils/preferences/user_preference.dart';
@@ -18,9 +17,10 @@ class SplashScreencontroller extends GetxController {
     Timer(
       const Duration(milliseconds: 1500),
       () async {
-        bool isUserLoggedIn = await userPreference.getUserLoggedInFromPrefs(key: UserPreference.isUserLoggedInKey);
-        if(isUserLoggedIn == true) {
-          Get.offAll(()=> IndexScreen());
+        bool isUserLoggedIn = await userPreference.getUserLoggedInFromPrefs(
+            key: UserPreference.isUserLoggedInKey);
+        if (isUserLoggedIn == true) {
+          Get.offAll(() => IndexScreen());
         } else {
           Get.off(() => LoginInScreen());
         }

@@ -187,7 +187,7 @@ class CardSwipeModule extends StatelessWidget {
           ],
         ),
         SizedBox(height: 4.h),
-        BasicinformationModule(),
+        BasicInFormationModule(),
         SizedBox(height: 4.h),
         InterestsInformationModule(),
         SizedBox(height: 7.h),
@@ -225,8 +225,8 @@ class CardSwipeModule extends StatelessWidget {
   }
 }
 
-class BasicinformationModule extends StatelessWidget {
-  BasicinformationModule({super.key});
+class BasicInFormationModule extends StatelessWidget {
+  BasicInFormationModule({super.key});
   final homeScreenController = Get.find<HomeScreenController>();
 
   @override
