@@ -3,8 +3,10 @@ import 'package:dater/constants/app_images.dart';
 import 'package:dater/constants/colors.dart';
 import 'package:dater/constants/font_family.dart';
 import 'package:dater/constants/messages.dart';
+import 'package:dater/screens/settings/settings_screen.dart';
 import 'package:dater/utils/extensions.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -55,6 +57,15 @@ class ProfileScreen extends StatelessWidget {
                   ),
                 ),
               ],
+            ),
+
+            GestureDetector(
+              onTap: () {
+                Get.to(()=> SettingsScreen());
+              },
+              child: Image.asset(AppImages.settingImage,
+              height: 50,
+              width: 50,),
             ),
           ],
         ).commonOnlyPadding(top: 4.h),

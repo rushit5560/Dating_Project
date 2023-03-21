@@ -4,11 +4,25 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class UserPreference {
 
-  static String userMobileNoKey = "userMobileNoKey";
-  static String userTokenKey = "userTokenKey"; // This is temp token
-  static String userVerifyTokenKey = "userVerifyTokenKey"; // This is main token
-  static String isUserCreatedKey = "isUserCreatedKey";
-  static String isUserLoggedInKey = "isUserLoggedInKey";
+  static String userMobileNoKey = "userMobileNoKey"; // String
+  static String userTokenKey = "userTokenKey"; // This is temp token // String
+  static String userVerifyTokenKey = "userVerifyTokenKey"; // This is main token // String
+  static String isUserCreatedKey = "isUserCreatedKey"; // bool
+  static String isUserLoggedInKey = "isUserLoggedInKey"; // bool
+
+
+  Future<void> clearUserAllDataFromPrefs() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.remove(userMobileNoKey);
+    prefs.remove(userTokenKey);
+    prefs.remove(userVerifyTokenKey);
+    prefs.remove(isUserLoggedInKey);
+
+    prefs.setString(userMobileNoKey, '');
+    prefs.setString(userTokenKey, '');
+    prefs.setString(userVerifyTokenKey, '');
+    prefs.setBool(isUserLoggedInKey, false);
+  }
 
 
 
@@ -33,6 +47,12 @@ class UserPreference {
   Future<bool> getBoolFromPrefs({required String key}) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     bool value = prefs.getBool(key) ?? true;
+    return value;
+  }
+
+  Future<bool> getUserLoggedInFromPrefs({required String key}) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    bool value = prefs.getBool(key) ?? false;
     return value;
   }
 

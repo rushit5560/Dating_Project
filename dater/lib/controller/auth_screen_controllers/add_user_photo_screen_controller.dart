@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
@@ -79,15 +80,19 @@ class AddUserPhotoScreenController extends GetxController {
         );
         await uploadImageFunction(image3);
       }
+      log('Image upload Status final :$isImageUploadInApiSuccess');
+      log('Image upload Status 1 :$isImageUploadInApiSuccess');
 
-      if(isImageUploadInApiSuccess == true) {
-        Get.to(() => DobSelectScreen());
-      } else {
-        Fluttertoast.showToast(msg: AppMessages.apiCallWrong);
-      }
-
-
-      // Get.to(() => DobSelectScreen());
+      Timer(
+        const Duration(milliseconds: 500),
+        () {
+          if (isImageUploadInApiSuccess == true) {
+            Get.to(() => DobSelectScreen());
+          } else {
+            Fluttertoast.showToast(msg: AppMessages.apiCallWrong);
+          }
+        },
+      );
     }
     isLoading(false);
 
@@ -112,13 +117,19 @@ class AddUserPhotoScreenController extends GetxController {
       request.fields['token'] = verifyToken;
       request.files.add(await http.MultipartFile.fromPath("file", image.path));
 
+      log('All Fields : ${request.fields}');
+      log('All files : ${request.files}');
+      log('All headers : ${request.headers}');
       var response = await request.send();
 
       response.stream.transform(utf8.decoder).listen((value) async {
+        log('value :$value');
         UserPhotoUploadModel userPhotoUploadModel = UserPhotoUploadModel.fromJson(json.decode(value));
 
         if(userPhotoUploadModel.statusCode == 200) {
+          log('Image upload Status 1 :$isImageUploadInApiSuccess');
           isImageUploadInApiSuccess = true;
+          log('Image upload Status 2 :$isImageUploadInApiSuccess');
         } else if(userPhotoUploadModel.statusCode == 400) {
           Fluttertoast.showToast(msg: userPhotoUploadModel.msg);
         } else {

@@ -171,7 +171,7 @@ class InterestsScreenController extends GetxController {
         if(completeSignupModel.statusCode == 200) {
           Fluttertoast.showToast(msg: completeSignupModel.msg);
 
-          // Here set user now is old
+          // Here set user is old
           await signUpPreference.setBoolValueInPrefs(
             key: SignUpPreference.isUserFirstTimeKey,
             value: false,

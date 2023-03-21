@@ -13,6 +13,7 @@ import '../../constants/enums.dart';
 import '../../model/authentication_model/verify_code_screen_model/account_active_model.dart';
 import '../../model/authentication_model/verify_code_screen_model/resend_code_model.dart';
 import '../../screens/authentication_screen/sign_up_email_screen/sign_up_email_screen.dart';
+import '../../utils/preferences/signup_preference.dart';
 
 class VerifyCodeScreenController extends GetxController {
   String countryCode = Get.arguments[0] ?? "";
@@ -32,6 +33,7 @@ class VerifyCodeScreenController extends GetxController {
   var userOutput = "";
 
   UserPreference userPreference = UserPreference();
+  SignUpPreference signUpPreference = SignUpPreference();
 
   final List<String> buttons = [
     "1",
@@ -72,23 +74,40 @@ class VerifyCodeScreenController extends GetxController {
 
         if(accountActiveModel.statusCode == 200) {
           log('Msg : ${accountActiveModel.msg}');
-          await userPreference.setStringValueInPrefs(
-            key: UserPreference.userVerifyTokenKey,
-            value: accountActiveModel.token,
-          );
-          if(authAs == AuthAs.register) {
-            Get.off(() => SignUpEmailScreen());
-          } else if(authAs == AuthAs.login) {
+
+          if(accountActiveModel.msg.toLowerCase() == "Account already activated".toLowerCase()) {
             await userPreference.setBoolValueInPrefs(
               key: UserPreference.isUserCreatedKey,
               value: true,
+            );
+            await signUpPreference.setBoolValueInPrefs(
+              key: SignUpPreference.isUserFirstTimeKey,
+              value: false,
             );
             await userPreference.setBoolValueInPrefs(
               key: UserPreference.isUserLoggedInKey,
               value: true,
             );
+
+
             Get.offAll(() => IndexScreen());
           }
+          else {
+            await userPreference.setStringValueInPrefs(
+              key: UserPreference.userVerifyTokenKey,
+              value: accountActiveModel.token,
+            );
+            if(authAs == AuthAs.register) {
+              Get.off(() => SignUpEmailScreen());
+            } else if(authAs == AuthAs.login) {
+              await userPreference.setBoolValueInPrefs(
+                key: UserPreference.isUserCreatedKey,
+                value: true,
+              );
+              Get.offAll(() => IndexScreen());
+            }
+          }
+
 
 
           // todo

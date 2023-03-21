@@ -3,19 +3,53 @@ import 'dart:developer';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SignUpPreference {
-  static String signUpEmailKey = "signUpEmailKey";
-  static String signUpLocationKey = "signUpLocationKey";
-  static String signUpFNameKey = "signUpFNameKey";
-  static String userImage1Key = "userImage1Key";
-  static String userImage2Key = "userImage2Key";
-  static String userImage3Key = "userImage3Key";
-  static String userDobKey = "userDobKey";
-  static String userSexualityKey = "userSexualityKey";
-  static String userGenderKey = "userGenderKey";
-  static String targetGenderKey = "targetGenderKey";
-  static String userGoalKey = "userGoalKey";
-  static String userInterestKey = "userInterestKey";
-  static String isUserFirstTimeKey = "isUserFirstTimeKey";
+  static String signUpEmailKey = "signUpEmailKey"; // String
+  static String signUpLocationKey = "signUpLocationKey"; // String
+  static String signUpFNameKey = "signUpFNameKey"; // String
+  static String userImage1Key = "userImage1Key"; // String
+  static String userImage2Key = "userImage2Key"; // String
+  static String userImage3Key = "userImage3Key"; // String
+  static String userDobKey = "userDobKey"; // String
+  static String userSexualityKey = "userSexualityKey"; // String
+  static String userGenderKey = "userGenderKey"; // String
+  static String targetGenderKey = "targetGenderKey"; // String
+  static String userGoalKey = "userGoalKey"; // String
+  static String userInterestKey = "userInterestKey"; // String
+  static String isUserFirstTimeKey = "isUserFirstTimeKey"; // bool
+
+  Future<void> clearSignUpDataFromPrefs() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.remove(signUpEmailKey);
+    prefs.remove(signUpLocationKey);
+    prefs.remove(signUpFNameKey);
+    prefs.remove(userImage1Key);
+    prefs.remove(userImage2Key);
+    prefs.remove(userImage3Key);
+    prefs.remove(userDobKey);
+    prefs.remove(userSexualityKey);
+    prefs.remove(userGenderKey);
+    prefs.remove(targetGenderKey);
+    prefs.remove(userGoalKey);
+    prefs.remove(userInterestKey);
+
+    prefs.setString(signUpEmailKey, "");
+    prefs.setString(signUpLocationKey, "");
+    prefs.setString(signUpFNameKey, "");
+    prefs.setString(userImage1Key, "");
+    prefs.setString(userImage2Key, "");
+    prefs.setString(userImage3Key, "");
+    prefs.setString(userDobKey, "");
+    prefs.setString(userSexualityKey, "");
+    prefs.setString(userGenderKey, "");
+    prefs.setString(targetGenderKey, "");
+    prefs.setString(userGoalKey, "");
+    prefs.setString(userInterestKey, "");
+
+    log("signUpEmailKey : ${prefs.getString(signUpEmailKey)}");
+    log("signUpFNameKey : ${prefs.getString(signUpFNameKey)}");
+
+
+  }
 
   Future<void> setStringValueInPrefs({required String key, required String value}) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();

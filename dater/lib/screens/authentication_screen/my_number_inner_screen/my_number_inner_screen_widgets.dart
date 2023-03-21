@@ -139,111 +139,121 @@ class TextFormFiledModule extends StatelessWidget {
     showModalBottomSheet(
         context: Get.context!,
         isDismissible: false,
+        backgroundColor: Colors.transparent,
         builder: (context) {
-          return Column(
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              Row(
-                children: [
-                  Expanded(
-                    child: TextField(
-                      controller: screenController.searchController,
-                      cursorColor: AppColors.darkOrangeColor,
-                      onChanged: (value) {
-                        screenController.isLoading(true);
+          return Container(
+            decoration: const BoxDecoration(
+              color: AppColors.whiteColor,
+              borderRadius: BorderRadius.only(
+                topRight: Radius.circular(10),
+                topLeft: Radius.circular(10),
+              ),
+            ),
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                Row(
+                  children: [
+                    Expanded(
+                      child: TextField(
+                        controller: screenController.searchController,
+                        cursorColor: AppColors.darkOrangeColor,
+                        onChanged: (value) {
+                          screenController.isLoading(true);
+                          screenController.searchCountryCodeList =
+                              screenController.countryCodeList
+                                  .where((element) =>
+                                      element.dialCode!
+                                          .toLowerCase()
+                                          .contains(value.toLowerCase()) ||
+                                      element.name!
+                                          .toLowerCase()
+                                          .contains(value.toLowerCase()) ||
+                                      element.code!
+                                          .toLowerCase()
+                                          .contains(value.toLowerCase()))
+                                  .toList();
+                          screenController.isLoading(false);
+                        },
+                        decoration: InputDecoration(
+                          focusColor: AppColors.darkOrangeColor,
+                          focusedErrorBorder: const UnderlineInputBorder(
+                            borderSide:
+                                BorderSide(color: AppColors.darkOrangeColor),
+                          ),
+                          enabledBorder: const UnderlineInputBorder(
+                            borderSide: BorderSide(color: AppColors.grey500Color),
+                          ),
+                          focusedBorder: const UnderlineInputBorder(
+                            borderSide:
+                                BorderSide(color: AppColors.darkOrangeColor),
+                          ),
+                          isDense: true,
+                          hintText: AppMessages.countryAndRegion,
+                          hintStyle: TextStyle(
+                            color: AppColors.grey500Color,
+                            fontSize: 14,
+                            fontFamily: FontFamilyText.sFProDisplayRegular,
+                          ),
+                        ),
+                      ),
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        Get.back();
                         screenController.searchCountryCodeList =
-                            screenController.countryCodeList
-                                .where((element) =>
-                                    element.dialCode!
-                                        .toLowerCase()
-                                        .contains(value.toLowerCase()) ||
-                                    element.name!
-                                        .toLowerCase()
-                                        .contains(value.toLowerCase()) ||
-                                    element.code!
-                                        .toLowerCase()
-                                        .contains(value.toLowerCase()))
-                                .toList();
-                        screenController.isLoading(false);
+                            screenController.countryCodeList;
+                        screenController.searchController.clear();
                       },
-                      decoration: InputDecoration(
-                        focusColor: AppColors.darkOrangeColor,
-                        focusedErrorBorder: const UnderlineInputBorder(
-                          borderSide:
-                              BorderSide(color: AppColors.darkOrangeColor),
-                        ),
-                        enabledBorder: const UnderlineInputBorder(
-                          borderSide: BorderSide(color: AppColors.grey500Color),
-                        ),
-                        focusedBorder: const UnderlineInputBorder(
-                          borderSide:
-                              BorderSide(color: AppColors.darkOrangeColor),
-                        ),
-                        isDense: true,
-                        hintText: AppMessages.countryAndRegion,
-                        hintStyle: TextStyle(
-                          color: AppColors.grey500Color,
-                          fontSize: 14,
+                      child: Text(
+                        'Cancel',
+                        style: TextStyle(
+                          color: AppColors.darkOrangeColor,
                           fontFamily: FontFamilyText.sFProDisplayRegular,
                         ),
                       ),
                     ),
+                  ],
+                ).commonSymmetricPadding(horizontal: 8, vertical: 5),
+                Expanded(
+                  child: Obx(
+                    () => screenController.isLoading.value
+                        ? Container()
+                        : ListView.builder(
+                            itemCount: screenController.searchCountryCodeList.length,
+                            shrinkWrap: true,
+                            physics: const AlwaysScrollableScrollPhysics(),
+                            itemBuilder: (context, i) {
+                              // log("screenController.searchCountryCodeList.length, ${screenController.searchCountryCodeList.length}");
+                              CountryData singleItem =
+                                  screenController.searchCountryCodeList[i];
+                              return GestureDetector(
+                                onTap: () {
+                                  screenController.isLoading(true);
+                                  screenController.countryCodeController.text =
+                                      "${singleItem.emoji} ${singleItem.dialCode} ${singleItem.code}";
+                                  screenController.selectCountryCodeValue = singleItem;
+                                  screenController.isLoading(false);
+                                  Get.back();
+                                  screenController.searchCountryCodeList =
+                                      screenController.countryCodeList;
+                                  screenController.searchController.clear();
+                                },
+                                child: Text(
+                                  "${singleItem.emoji} ${singleItem.dialCode} ${singleItem.code}",
+                                  style: TextStyle(
+                                    fontFamily:
+                                        FontFamilyText.sFProDisplayRegular,
+                                  ),
+                                ).commonSymmetricPadding(
+                                    horizontal: 8, vertical: 10),
+                              );
+                            },
+                          ),
                   ),
-                  TextButton(
-                    onPressed: () {
-                      Get.back();
-                      screenController.searchCountryCodeList =
-                          screenController.countryCodeList;
-                      screenController.searchController.clear();
-                    },
-                    child: Text(
-                      'Cancel',
-                      style: TextStyle(
-                        color: AppColors.darkOrangeColor,
-                        fontFamily: FontFamilyText.sFProDisplayRegular,
-                      ),
-                    ),
-                  ),
-                ],
-              ).commonSymmetricPadding(horizontal: 8, vertical: 5),
-              Expanded(
-                child: Obx(
-                  () => screenController.isLoading.value
-                      ? Container()
-                      : ListView.builder(
-                          itemCount:
-                              screenController.searchCountryCodeList.length,
-                          shrinkWrap: true,
-                          physics: const AlwaysScrollableScrollPhysics(),
-                          itemBuilder: (context, i) {
-                            log("screenController.searchCountryCodeList.length, ${screenController.searchCountryCodeList.length}");
-                            CountryData singleItem =
-                                screenController.searchCountryCodeList[i];
-                            return GestureDetector(
-                              onTap: () {
-                                screenController.isLoading(true);
-                                screenController.countryCodeController.text =
-                                    "${singleItem.emoji} ${singleItem.dialCode} ${singleItem.code}";
-                                screenController.isLoading(false);
-                                Get.back();
-                                screenController.searchCountryCodeList =
-                                    screenController.countryCodeList;
-                                screenController.searchController.clear();
-                              },
-                              child: Text(
-                                "${singleItem.emoji} ${singleItem.dialCode} ${singleItem.code}",
-                                style: TextStyle(
-                                  fontFamily:
-                                      FontFamilyText.sFProDisplayRegular,
-                                ),
-                              ).commonSymmetricPadding(
-                                  horizontal: 8, vertical: 10),
-                            );
-                          },
-                        ),
                 ),
-              ),
-            ],
+              ],
+            ),
           );
         });
   }
