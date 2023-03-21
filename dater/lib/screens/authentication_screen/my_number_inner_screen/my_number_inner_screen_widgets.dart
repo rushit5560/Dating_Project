@@ -227,7 +227,25 @@ class TextFormFiledModule extends StatelessWidget {
                               // log("screenController.searchCountryCodeList.length, ${screenController.searchCountryCodeList.length}");
                               CountryData singleItem =
                                   screenController.searchCountryCodeList[i];
-                              return GestureDetector(
+                              return ListTile(
+                                dense: true,
+                                onTap: () => screenController.onCountrySelectFunction(singleItem),
+                                leading: Text(
+                                    "${singleItem.emoji}",
+                                  style: TextStyle(
+                                    fontFamily:
+                                    FontFamilyText.sFProDisplayRegular,
+                                  ),
+                                ),
+                                title: Text(
+                                  "${singleItem.dialCode} ${singleItem.code}",
+                                  style: TextStyle(
+                                    fontFamily:
+                                    FontFamilyText.sFProDisplayRegular,
+                                  ),
+                                ),
+                              );
+                              /*return GestureDetector(
                                 onTap: () {
                                   screenController.isLoading(true);
                                   screenController.countryCodeController.text =
@@ -245,9 +263,8 @@ class TextFormFiledModule extends StatelessWidget {
                                     fontFamily:
                                         FontFamilyText.sFProDisplayRegular,
                                   ),
-                                ).commonSymmetricPadding(
-                                    horizontal: 8, vertical: 10),
-                              );
+                                ).commonSymmetricPadding(horizontal: 8, vertical: 10),
+                              );*/
                             },
                           ),
                   ),

@@ -9,14 +9,14 @@ class LoginInScreenController extends GetxController {
   SignUpPreference signUpPreference = SignUpPreference();
 
 
-
-
   Future<void> getUserFirstTimeOrNot() async {
     isLoading(true);
+
+    // If user already signup then show only signIn Button
     isUserFirstTime.value = await signUpPreference.getBoolFromPrefs(key: SignUpPreference.isUserFirstTimeKey);
     // isUserFirstTime.value = false;
     isLoading(false);
-    handleLocationPermission();
+    await handleLocationPermission();
   }
 
 

@@ -1,5 +1,7 @@
 import 'package:dater/constants/colors.dart';
-import 'package:dater/screens/settings/settings_screen_widgets.dart';
+import 'package:get/get.dart';
+import '../../controller/settings_screen_controller.dart';
+import 'settings_screen_widgets.dart';
 import 'package:dater/utils/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
@@ -8,7 +10,10 @@ import '../../common_modules/custom_appbar.dart';
 import '../../constants/messages.dart';
 
 class SettingsScreen extends StatelessWidget {
-  const SettingsScreen({Key? key}) : super(key: key);
+  SettingsScreen({Key? key}) : super(key: key);
+
+  final settingsScreenController = Get.put(SettingsScreenController());
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,7 +41,7 @@ class SettingsScreen extends StatelessWidget {
               SizedBox(height: 3.5.h),
               const PrivacyPolicyModule(),
               SizedBox(height: 3.5.h),
-              const BothButtonModule(),
+              BothButtonModule(),
               SizedBox(height: 4.h),
             ],
           ).commonSymmetricPadding(horizontal: 30),

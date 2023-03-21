@@ -13,12 +13,12 @@ class UserPreference {
 
   Future<void> clearUserAllDataFromPrefs() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.remove(userMobileNoKey);
+    // prefs.remove(userMobileNoKey);
     prefs.remove(userTokenKey);
     prefs.remove(userVerifyTokenKey);
     prefs.remove(isUserLoggedInKey);
 
-    prefs.setString(userMobileNoKey, '');
+    // prefs.setString(userMobileNoKey, '');
     prefs.setString(userTokenKey, '');
     prefs.setString(userVerifyTokenKey, '');
     prefs.setBool(isUserLoggedInKey, false);

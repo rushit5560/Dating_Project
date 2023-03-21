@@ -15,7 +15,7 @@ class SignUpPreference {
   static String targetGenderKey = "targetGenderKey"; // String
   static String userGoalKey = "userGoalKey"; // String
   static String userInterestKey = "userInterestKey"; // String
-  static String isUserFirstTimeKey = "isUserFirstTimeKey"; // bool
+  static String isUserFirstTimeKey = "isUserFirstTimeKey"; // bool - Show SignUp & SignIn Button
 
   Future<void> clearSignUpDataFromPrefs() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();

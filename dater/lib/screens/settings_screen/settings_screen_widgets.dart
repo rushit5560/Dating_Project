@@ -9,10 +9,12 @@ import 'package:dater/utils/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
+import '../../common_modules/custom_alertdialog.dart';
 import '../../common_modules/custom_button.dart';
 import '../../constants/app_images.dart';
 import '../../constants/colors.dart';
 import '../../constants/font_family.dart';
+import '../../controller/settings_screen_controller.dart';
 import '../../utils/style.dart';
 
 class ReferralNumberModule extends StatelessWidget {
@@ -508,7 +510,8 @@ class PrivacyPolicyModule extends StatelessWidget {
 }
 
 class BothButtonModule extends StatelessWidget {
-  const BothButtonModule({Key? key}) : super(key: key);
+  BothButtonModule({Key? key}) : super(key: key);
+  final screenController = Get.find<SettingsScreenController>();
 
   @override
   Widget build(BuildContext context) {
@@ -521,9 +524,19 @@ class BothButtonModule extends StatelessWidget {
           textColor: AppColors.gray50Color,
           textFontFamily: FontFamilyText.sFProDisplaySemibold,
           textsize: 14.sp,
-          onPressed: () {
-            //Get.to(() => LocationScreen());
-          },
+          onPressed: () => showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return CustomLogoutAlertDialog(
+                  text: "Logout",
+                  content: "Are you sure you want logout ?",
+                  yesButtonText: "Yes",
+                  onYesPressed: () async  => await screenController.logOutButtonFunction(),
+                  noButtonText: "No",
+                  onNoPressed: ()=> Get.back(),
+                );
+              }),
+
         ),
         SizedBox(height: 1.h),
         ButtonCustom(

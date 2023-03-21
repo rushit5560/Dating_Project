@@ -1,3 +1,4 @@
+import 'package:dater/screens/settings_screen/settings_screen.dart';
 import 'package:dater/utils/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -105,7 +106,14 @@ class ProfileTextModule extends StatelessWidget {
       children: [Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          IconButton(onPressed: (){}, icon: const Icon(Icons.settings_outlined,color: AppColors.darkOrangeColor,size: 30,)),
+          IconButton(
+            onPressed: () => Get.to(()=> SettingsScreen()),
+            icon: const Icon(
+              Icons.settings_outlined,
+              color: AppColors.darkOrangeColor,
+              size: 30,
+            ),
+          ),
           RichText(
             textAlign: TextAlign.center,
             text: TextSpan(

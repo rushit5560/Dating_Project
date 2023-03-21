@@ -31,13 +31,13 @@ class MyNumberInnerScreenController extends GetxController {
   String finalMobileNumber = "";
   UserPreference userPreference = UserPreference();
 
+  // When select on country
   Future<void> getCountryCodesFunction() async {
     isLoading(true);
-    String url = ApiUrl.getCountryCodeApi;
-    log('Country Code List Api Url :$url');
+    // String url = ApiUrl.getCountryCodeApi;
+    // log('Country Code List Api Url :$url');
 
     try {
-
       CountryListModel countryListModel = CountryListModel.fromJson(json.decode(CountryModel.countryList));
       countryCodeList.addAll(countryListModel.countryList);
       searchCountryCodeList = countryCodeList;
@@ -151,6 +151,17 @@ class MyNumberInnerScreenController extends GetxController {
     }
   }
 
+  onCountrySelectFunction(CountryData singleItem) {
+    isLoading(true);
+    countryCodeController.text =
+    "${singleItem.emoji} ${singleItem.dialCode} ${singleItem.code}";
+    selectCountryCodeValue = singleItem;
+    isLoading(false);
+    Get.back();
+    searchCountryCodeList = countryCodeList;
+    searchController.clear();
+  }
+
   @override
   void onInit() {
     initMethod();
@@ -158,6 +169,7 @@ class MyNumberInnerScreenController extends GetxController {
   }
 
   initMethod() async {
+    phoneNumberController.text = await userPreference.getStringFromPrefs(key: UserPreference.userMobileNoKey);
     await getCountryCodesFunction();
   }
 }
