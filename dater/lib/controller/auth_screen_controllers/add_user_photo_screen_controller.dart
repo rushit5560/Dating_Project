@@ -10,7 +10,6 @@ import 'package:dater/screens/authentication_screen/dob_select_screen/dob_select
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-
 import '../../model/authentication_model/add_user_photo_screen_model/user_photo_upload_screen.dart';
 import '../../utils/preferences/signup_preference.dart';
 
@@ -21,9 +20,7 @@ class AddUserPhotoScreenController extends GetxController {
   File image1 = File("");
   File image2 = File("");
   File image3 = File("");
-
   bool isImageUploadInApiSuccess = false;
-
   SignUpPreference signUpPreference = SignUpPreference();
   UserPreference userPreference = UserPreference();
 

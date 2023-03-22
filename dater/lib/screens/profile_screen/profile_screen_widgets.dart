@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:dater/screens/settings_screen/settings_screen.dart';
 import 'package:dater/utils/extensions.dart';
 import 'package:flutter/material.dart';
@@ -9,91 +11,103 @@ import '../../constants/colors.dart';
 import '../../constants/font_family.dart';
 import '../../controller/auth_screen_controllers/profile_screen_controller.dart';
 import '../../utils/style.dart';
+import '../edit_profile_screen/edit_profile_screen.dart';
+
 
 class ProfileModule extends StatelessWidget {
    ProfileModule({Key? key}) : super(key: key);
  final profileScreenController = Get.find<ProfileScreenController>();
-  @override
+ @override
   Widget build(BuildContext context) {
-    return Center(
-          child: Stack(
-            fit: StackFit.loose,
-            children: [
-              SizedBox(
-                height: 17.5.h,
-                width: 17.5.h,
-                child: SfRadialGauge(
-                    axes: [
-                      RadialAxis(
-                        minimum: 0,
-                        maximum: 100,
-                        showLabels: false,
-                        showTicks: false,
-                        startAngle: 30,
-                        endAngle: 385,
-                        axisLineStyle: const AxisLineStyle(
-                          thickness: 0.06,
-                          cornerStyle: CornerStyle.bothCurve,
-                          color: AppColors.darkOrangeColor,
-                          thicknessUnit: GaugeSizeUnit.factor,
-                        ),
-                        pointers: <GaugePointer>[
-                          RangePointer(
-                              value: profileScreenController.progressValue.value,
-                              width: 0.05,
-                              sizeUnit: GaugeSizeUnit.factor,
-                              enableAnimation: true,
-                              animationDuration: 100,
-                              animationType: AnimationType.linear)
+    return
+       Center(
+            child: Stack(
+              fit: StackFit.loose,
+              children: [
+                SizedBox(
+                  //height: 17.5.h,
+                  height: 170,
+                  width: 150,
+                  child:
+                     SfRadialGauge(
+                        axes: [
+                          RadialAxis(
+                            minimum: 0,
+                            maximum: 100,
+                            showLabels: false,
+                            showTicks: false,
+                            startAngle: 45,
+                            endAngle: 405,
+                            axisLineStyle: const AxisLineStyle(
+                              thickness: 0.09,
+                              cornerStyle: CornerStyle.bothCurve,
+                              color:  AppColors.grey700Color,
+                              thicknessUnit: GaugeSizeUnit.factor,
+                            ),
+                            pointers: <GaugePointer>[
+                              RangePointer(
+                                  value: profileScreenController.progressValue,
+                                  width: 0.06,
+                                  color: AppColors.darkOrangeColor,
+                                  sizeUnit: GaugeSizeUnit.factor,
+                                  enableAnimation: true,
+                                  animationDuration: 100,
+                                  animationType: AnimationType.linear)
+                            ],
+                          ),
                         ],
-                      ),
-                    ],
-                ),
-              ),
-              Positioned(
-                left: 7,
-                top: 7,
-                child: Container(
-                  height: 15.7.h,
-                  width: 15.7.h,
-                  decoration:  const BoxDecoration(
-                    color: AppColors.grey500Color,
-                    shape: BoxShape.circle,
-                    image:  DecorationImage(
-                      image: AssetImage(
-                        AppImages.swiper2Image,
-                      ),
-                      fit: BoxFit.fitWidth,
                     ),
-                  ),
+
                 ),
-              ),
-              Positioned(
-                right: 2,
-                bottom: 15,
-                child: Container(
-                  decoration: const BoxDecoration(
+                Positioned(
+                  //left: 8.5,
+                  //top: 8.8,
+                  top: 20,
+                  left: 10,
+                  child: Container(
+                     //height: 15.3.h,
+                    // width: 30.5.w,
+                    height: 130,
+                    width: 130,
+                    decoration:  const BoxDecoration(
+                      color: AppColors.grey700Color,
                       shape: BoxShape.circle,
-                      color: AppColors.whiteColor,
-                      boxShadow: [
-                        BoxShadow(
-                            blurRadius: 5.0,
-                            offset: Offset(-0, 2),
-                            color: AppColors.grey800Color
-                        )]
-                  ),
-                  child: Text(
-                    '${profileScreenController.progressValue.toStringAsFixed(0)}%',
-                    style: TextStyle(
-                      fontFamily: FontFamilyText.sFProDisplaySemibold,
-                      fontSize: 11,
+                      image:  DecorationImage(
+                        image: AssetImage(
+                          AppImages.swiper2Image,
+                        ),
+                        fit: BoxFit.fitWidth,
+                      ),
                     ),
-                  ).commonAllSidePadding(10),
+                  ),
                 ),
-              ),
-            ],
-          ),
-        );
+                Positioned(
+                  right: 4,
+                  bottom: 25,
+                  child: Container(
+                    decoration: const BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: AppColors.whiteColor,
+                        boxShadow: [
+                          BoxShadow(
+                              blurRadius: 5.0,
+                              offset: Offset(-0, 2),
+                              color: AppColors.grey800Color
+                          )]
+                    ),
+                    child: Text(
+                      '${profileScreenController.progressValue.toStringAsFixed(0)}%',
+                      style: TextStyle(
+                        fontFamily: FontFamilyText.sFProDisplaySemibold,
+                        fontSize: 11,
+                      ),
+                    ).commonAllSidePadding(10),
+                  ),
+                ),
+              ],
+            ),
+
+    );
   }
 }
 
@@ -130,7 +144,9 @@ class ProfileTextModule extends StatelessWidget {
               ],
             ),
           ),
-          IconButton(onPressed: (){}, icon: const Icon(Icons.edit_outlined,color: AppColors.darkOrangeColor,size: 20,))
+          IconButton(
+              onPressed: ()=> Get.to(()=>  EditProfileScreen()),
+              icon: const Icon(Icons.edit_outlined,color: AppColors.darkOrangeColor,size: 20,))
         ],
       ),
         RichText(
@@ -157,6 +173,7 @@ class ProfileTextModule extends StatelessWidget {
             ],
           ),
         ),
+        SizedBox(height: 2.h),
         RichText(
           textAlign: TextAlign.center,
           text: TextSpan(
@@ -172,6 +189,7 @@ class ProfileTextModule extends StatelessWidget {
             ],
           ),
         ),
+        SizedBox(height: 1.h),
         RichText(
           textAlign: TextAlign.center,
           text: TextSpan(
@@ -461,7 +479,7 @@ class AboutMeAllModule extends StatelessWidget {
           ).toList(),
         ),
       ],
-    ).commonSymmetricPadding(horizontal: 20);
+    ).commonSymmetricPadding(horizontal: 25,vertical: 20);
   }
 }
 
