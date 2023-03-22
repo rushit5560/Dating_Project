@@ -127,6 +127,9 @@ class AppMessages {
   static String locationtext = "Eliza's Location";
   static String chat = "Chat";
 
+  static String locatinpermission = "Apply location permission";
+  static String editProfile = "Edit Profile";
+
 
 
 

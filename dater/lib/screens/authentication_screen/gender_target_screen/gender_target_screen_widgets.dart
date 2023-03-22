@@ -1,10 +1,8 @@
-import 'dart:developer';
 import 'package:dater/constants/messages.dart';
 import 'package:dater/controller/auth_screen_controllers/gender_target_screen_controller.dart';
 import 'package:dater/utils/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 import 'package:sizer/sizer.dart';
 import '../../../constants/colors.dart';
 import '../../../constants/font_family.dart';
@@ -19,7 +17,7 @@ class GenderTargetRadioButtonModule extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
-        color: Colors.grey.shade200,
+        color: Colors.grey.shade200,  
         border: Border.all(
           color: AppColors.grey300Color,
           width: 2,
@@ -56,14 +54,14 @@ class GenderTargetRadioButtonModule extends StatelessWidget {
                       ),
                     ),
                   ),
-                   Radio<Msg>(
-                      activeColor: AppColors.darkOrangeColor,
-                      value: genderTargetScreenController.targetGenderList[index],
-                      groupValue:
-                          genderTargetScreenController.targetGenderSelectedValue,
-                      onChanged: (val) =>genderTargetScreenController.radioButtonOnChangeFunction(val!),
-                    ),
-
+                  Radio<Msg>(
+                    activeColor: AppColors.darkOrangeColor,
+                    value: genderTargetScreenController.targetGenderList[index],
+                    groupValue:
+                        genderTargetScreenController.targetGenderSelectedValue,
+                    onChanged: (val) => genderTargetScreenController
+                        .radioButtonOnChangeFunction(val!),
+                  ),
                 ],
               );
             },

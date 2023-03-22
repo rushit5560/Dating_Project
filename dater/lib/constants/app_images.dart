@@ -28,5 +28,9 @@ class AppImages {
   static const lightorange2 = '$rootPath/lightorange2.png';
   static const ballImage = '$rootPath/ball.png';
   static const settingImage = '$rootPath/setting.png';
-
+  static const chatimage = '$rootPath/chat_image.png';
+  static const rightimage = '$rootPath/right_chat.png';
+  static const activeImage = '$rootPath/active_chat_image.png';
+    static const cancel2 = '$rootPath/cancel2.png';
+  static const add = '$rootPath/add.png';
 }

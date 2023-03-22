@@ -6,6 +6,7 @@ import 'package:dater/screens/chat_screen/chat_list_screen/all_chat_list_screen_
 import 'package:dater/utils/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:sizer/sizer.dart';
 
 class AllChatListScreen extends StatelessWidget {
   AllChatListScreen({super.key});
@@ -18,7 +19,11 @@ class AllChatListScreen extends StatelessWidget {
       backgroundColor: AppColors.whiteColor2,
       appBar: commonAppBarModule(text: AppMessages.chat),
       body: Column(
-        children: [SearchTextfiledModule(), ChatListModule()],
+        children: [
+          SearchTextfiledModule(),
+          SizedBox(height: 3.h),
+          ChatListModule(),
+        ],
       ).commonSymmetricPadding(horizontal: 25, vertical: 10),
     );
   }

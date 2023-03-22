@@ -133,30 +133,37 @@ class VerifyAccountModule extends StatelessWidget {
             ),
           ),
           //SizedBox(height: 1.h,),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                AppMessages.verified,
-                style: TextStyleConfig.textStyle(
-                  fontFamily: FontFamilyText.sFProDisplaySemibold,
-                  textColor: AppColors.grey600Color,
-                  fontSize: 14.sp,
+          GestureDetector(
+            onTap: () {
+              Get.to(
+                () => VerifyYourAccountScreen(),
+              );
+            },
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  AppMessages.verified,
+                  style: TextStyleConfig.textStyle(
+                    fontFamily: FontFamilyText.sFProDisplaySemibold,
+                    textColor: AppColors.grey600Color,
+                    fontSize: 14.sp,
+                  ),
                 ),
-              ),
-              IconButton(
-                onPressed: () {
-                  Get.to(
-                    () => VerifyYourAccountScreen(),
-                  );
-                },
-                icon: const Icon(
-                  Icons.arrow_forward_ios_outlined,
-                  color: AppColors.grey600Color,
-                  size: 20,
+                IconButton(
+                  onPressed: () {
+                    //   Get.to(
+                    //   () => VerifyYourAccountScreen(),
+                    // );
+                  },
+                  icon: const Icon(
+                    Icons.arrow_forward_ios_outlined,
+                    color: AppColors.grey600Color,
+                    size: 20,
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ],
       ).commonOnlyPadding(right: 6.w, left: 6.w, top: 2.h, bottom: 2.h),
@@ -376,42 +383,49 @@ class CookiePolicyModule extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: AppColors.gray50Color,
-        borderRadius: BorderRadius.circular(15),
-        boxShadow: const [
-          BoxShadow(
-            blurRadius: 5.0,
-            offset: Offset(-0, 3),
-            color: AppColors.grey800Color,
-          )
-        ],
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(
-            AppMessages.cookiePolicy,
-            style: TextStyleConfig.textStyle(
-              fontFamily: FontFamilyText.sFProDisplaySemibold,
-              textColor: AppColors.darkOrangeColor,
-              fontSize: 14.sp,
+    return GestureDetector(
+      onTap: () {
+        Get.to(
+          () => CookiePolicyScreen(),
+        );
+      },
+      child: Container(
+        decoration: BoxDecoration(
+          color: AppColors.gray50Color,
+          borderRadius: BorderRadius.circular(15),
+          boxShadow: const [
+            BoxShadow(
+              blurRadius: 5.0,
+              offset: Offset(-0, 3),
+              color: AppColors.grey800Color,
+            )
+          ],
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              AppMessages.cookiePolicy,
+              style: TextStyleConfig.textStyle(
+                fontFamily: FontFamilyText.sFProDisplaySemibold,
+                textColor: AppColors.darkOrangeColor,
+                fontSize: 14.sp,
+              ),
+            ).commonSymmetricPadding(horizontal: 6.w),
+            IconButton(
+              onPressed: () {
+                // Get.to(
+                //   () => CookiePolicyScreen(),
+                // );
+              },
+              icon: const Icon(
+                Icons.arrow_forward_ios_outlined,
+                color: AppColors.grey600Color,
+                size: 20,
+              ),
             ),
-          ).commonSymmetricPadding(horizontal: 6.w),
-          IconButton(
-            onPressed: () {
-              Get.to(
-                () => CookiePolicyScreen(),
-              );
-            },
-            icon: const Icon(
-              Icons.arrow_forward_ios_outlined,
-              color: AppColors.grey600Color,
-              size: 20,
-            ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -531,12 +545,12 @@ class BothButtonModule extends StatelessWidget {
                   text: "Logout",
                   content: "Are you sure you want logout ?",
                   yesButtonText: "Yes",
-                  onYesPressed: () async  => await screenController.logOutButtonFunction(),
+                  onYesPressed: () async =>
+                      await screenController.logOutButtonFunction(),
                   noButtonText: "No",
-                  onNoPressed: ()=> Get.back(),
+                  onNoPressed: () => Get.back(),
                 );
               }),
-
         ),
         SizedBox(height: 1.h),
         ButtonCustom(

@@ -13,10 +13,10 @@ class IndexScreen extends StatelessWidget {
   IndexScreen({Key? key}) : super(key: key);
   final indexScreenController = Get.put(IndexScreenController());
   final screen = [
-     BalanceScreen(),
-     FavoriteScreen(),
-     AllChatListScreen(),
-     ProfileScreen(),
+    BalanceScreen(),
+    HomeScreen(),
+    AllChatListScreen(),
+    ProfileScreen(),
   ];
 
   Future<bool> willPopCallback() async {
