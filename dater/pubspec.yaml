@@ -52,6 +52,7 @@ dependencies:
   # app_settings: ^4.2.0
   location: ^4.4.0
   #flutter_card_swiper: ^2.0.1
+  emoji_picker_flutter: ^1.5.2
 
 dev_dependencies:
   flutter_test:

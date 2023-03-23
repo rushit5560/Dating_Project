@@ -1,9 +1,10 @@
 import 'package:dater/constants/app_images.dart';
 import 'package:dater/constants/colors.dart';
 import 'package:dater/constants/font_family.dart';
+import 'package:dater/constants/messages.dart';
+import 'package:dater/utils/extensions.dart';
 import 'package:dater/utils/style.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:sizer/sizer.dart';
 
 class ChatScreenWidgets extends StatelessWidget {
@@ -65,8 +66,8 @@ class ChatScreenWidgets extends StatelessWidget {
             fontSize: 13.sp,
           ),
         ),
-        const Spacer(),
-        const TextFormFieldModule()
+
+        // const Spacer(),
       ],
     );
   }
@@ -78,15 +79,62 @@ class TextFormFieldModule extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 60,
+      height: 70,
       decoration: const BoxDecoration(
-        color: AppColors.grey500Color,
+        color: AppColors.whiteColor2,
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(20),
           topRight: Radius.circular(20),
         ),
+        boxShadow: [
+          BoxShadow(
+            blurRadius: 4.0,
+            offset: Offset(12, 0),
+            color: AppColors.grey600Color,
+          )
+        ],
       ),
-      child: Container(),
+      child: Row(
+        children: [
+          Expanded(
+            child: Container(
+              height: 50,
+              decoration: BoxDecoration(
+                color: AppColors.grey200Color,
+                borderRadius: BorderRadius.circular(25),
+              ),
+              child: TextFormField(
+                decoration: InputDecoration(
+                  enabledBorder: const OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(30)),
+                    borderSide: BorderSide(color: Colors.transparent),
+                  ),
+                  focusedBorder: const OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(30)),
+                    borderSide: BorderSide(color: Colors.transparent),
+                  ),
+                  errorBorder: const OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(30)),
+                    borderSide: BorderSide(color: Colors.transparent),
+                  ),
+                  focusedErrorBorder: const OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(30)),
+                    borderSide: BorderSide(color: Colors.transparent),
+                  ),
+                  hintText: AppMessages.typeAMessage,
+                  hintStyle: TextStyleConfig.textStyle(
+                    fontFamily: FontFamilyText.sFProDisplayRegular,
+                    textColor: AppColors.grey400Color,
+                  ),
+                  prefix: Image.asset(
+                    AppImages.emojiImage,
+                  ).commonOnlyPadding(top: 10, right: 10),
+                ),
+              ).commonSymmetricPadding(horizontal: 4.w),
+            ).commonSymmetricPadding(horizontal: 10.w),
+          ),
+        ],
+      ),
     );
   }
 }

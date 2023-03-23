@@ -60,80 +60,138 @@ class ChatListModule extends StatelessWidget {
           return GestureDetector(
             onTap: () {
               Get.to(
-                () => ChatScreen(),
+                () => const ChatScreen(),
               );
             },
-            child: Row(
-              children: [
-                Stack(
-                  alignment: Alignment.bottomRight,
+            child: ListTile(
+              leading: const CircleAvatar(
+                backgroundImage: AssetImage(AppImages.chatimage),
+              ),
+              title: RichText(
+                text: TextSpan(
                   children: [
-                    const CircleAvatar(
-                      backgroundImage: AssetImage(AppImages.chatimage),
+                    TextSpan(
+                      text: "Dennis Steele",
+                      style: TextStyleConfig.textStyle(
+                        fontFamily: FontFamilyText.sFProDisplaySemibold,
+                        textColor: AppColors.grey800Color,
+                        fontSize: 14.sp,
+                      ),
                     ),
-                    allChatListScreenController.activeSelected.value
-                        ? Container(
-                            height: 15,
-                            width: 15,
-                            decoration: const BoxDecoration(
-                              shape: BoxShape.circle,
-                              image: DecorationImage(
-                                image: AssetImage(AppImages.activeImage),
-                              ),
-                            ),
-                          )
-                        : Container(),
-                  ],
-                ),
-                SizedBox(width: 2.w),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Text(
-                          "Dennis Steele",
-                          style: TextStyleConfig.textStyle(
-                            fontFamily: FontFamilyText.sFProDisplaySemibold,
-                            textColor: AppColors.grey800Color,
-                            fontSize: 14.sp,
-                          ),
-                        ),
-                        allChatListScreenController.rightSelected.value
-                            ? Image.asset(AppImages.rightimage)
-                            : Container(),
-                        allChatListScreenController.panddingMess.value
-                            ? Container(
-                                height: 10,
-                                width: 10,
-                                decoration: const BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  color: AppColors.darkOrangeColor,
-                                ),
-                              )
-                            : Container(),
-                      ],
-                    ),
-                    // SizedBox(height: 0.5.h),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          "Hey, how’s life going.",
-                          style: TextStyleConfig.textStyle(
-                            fontFamily: FontFamilyText.sFProDisplayRegular,
-                            textColor: AppColors.grey800Color,
-                            fontSize: 12.sp,
-                          ),
-                        ),
-                        Text("9:27 AM")
-                      ],
+                    WidgetSpan(
+                      alignment: PlaceholderAlignment.middle,
+                      child: Image.asset(AppImages.rightimage),
                     ),
                   ],
                 ),
-              ],
-            ).commonOnlyPadding(bottom: 4.h),
+              ),
+              subtitle: Text(
+                "Hey, how’s life going.",
+                style: TextStyleConfig.textStyle(
+                  fontFamily: FontFamilyText.sFProDisplayRegular,
+                  textColor: AppColors.grey800Color,
+                  fontSize: 12.sp,
+                ),
+              ),
+              trailing: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    height: 7,
+                    width: 7,
+                    decoration: const BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: AppColors.darkOrangeColor,
+                    ),
+                  ),
+                  Text(
+                    "9:27 AM",
+                    style: TextStyleConfig.textStyle(
+                      fontFamily: FontFamilyText.sFProDisplayRegular,
+                      textColor: AppColors.grey500Color,
+                    ),
+                  ).commonOnlyPadding(top: 3),
+                ],
+              ),
+            ),
           );
+          // return GestureDetector(
+          //   onTap: () {
+          //     Get.to(
+          //       () => ChatScreen(),
+          //     );
+          //   },
+          //   child: Row(
+          //     children: [
+          //       Stack(
+          //         alignment: Alignment.bottomRight,
+          //         children: [
+          //           const CircleAvatar(
+          //             backgroundImage: AssetImage(AppImages.chatimage),
+          //           ),
+          //           allChatListScreenController.activeSelected.value
+          //               ? Container(
+          //                   height: 15,
+          //                   width: 15,
+          //                   decoration: const BoxDecoration(
+          //                     shape: BoxShape.circle,
+          //                     image: DecorationImage(
+          //                       image: AssetImage(AppImages.activeImage),
+          //                     ),
+          //                   ),
+          //                 )
+          //               : Container(),
+          //         ],
+          //       ),
+          //       SizedBox(width: 2.w),
+          //       Column(
+          //         crossAxisAlignment: CrossAxisAlignment.start,
+          //         children: [
+          //           Row(
+          //             children: [
+          //               Text(
+          //                 "Dennis Steele",
+          //                 style: TextStyleConfig.textStyle(
+          //                   fontFamily: FontFamilyText.sFProDisplaySemibold,
+          //                   textColor: AppColors.grey800Color,
+          //                   fontSize: 14.sp,
+          //                 ),
+          //               ),
+          //               allChatListScreenController.rightSelected.value
+          //                   ? Image.asset(AppImages.rightimage)
+          //                   : Container(),
+          //               allChatListScreenController.panddingMess.value
+          //                   ? Container(
+          //                       height: 10,
+          //                       width: 10,
+          //                       decoration: const BoxDecoration(
+          //                         shape: BoxShape.circle,
+          //                         color: AppColors.darkOrangeColor,
+          //                       ),
+          //                     )
+          //                   : Container(),
+          //             ],
+          //           ),
+          //           // SizedBox(height: 0.5.h),
+          //           Row(
+          //             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          //             children: [
+          //               Text(
+          //                 "Hey, how’s life going.",
+          //                 style: TextStyleConfig.textStyle(
+          //                   fontFamily: FontFamilyText.sFProDisplayRegular,
+          //                   textColor: AppColors.grey800Color,
+          //                   fontSize: 12.sp,
+          //                 ),
+          //               ),
+          //               Text("9:27 AM")
+          //             ],
+          //           ),
+          //         ],
+          //       ),
+          //     ],
+          //   ).commonOnlyPadding(bottom: 4.h),
+          // );
         },
       ),
     );
