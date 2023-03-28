@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'dart:developer';
 import 'package:dater/constants/messages.dart';
 import 'package:dater/model/home_screen_model/matches_model.dart';
+import 'package:dater/model/home_screen_model/super_love_model.dart';
 import 'package:http/http.dart' as http;
 import 'package:dater/constants/api_url.dart';
 import 'package:dater/constants/app_images.dart';
@@ -27,8 +28,6 @@ class HomeScreenController extends GetxController {
     AppImages.swiper1Image,
     AppImages.swiper2Image,
   ];
-
-
 
   fetchMobileLocation() async {
     Location location = Location();
@@ -63,7 +62,7 @@ class HomeScreenController extends GetxController {
     isLoading(true);
     String url = ApiUrl.matchesApi;
     log('Matches Api Url :$url');
-    
+
     try {
       var request = http.MultipartRequest('POST', Uri.parse(url));
       request.fields['token'] = AppMessages.token;
@@ -75,10 +74,8 @@ class HomeScreenController extends GetxController {
         matchesList.clear();
         matchesList.addAll(matchesModel.msg);
         log('matchesList : ${matchesList.length}');
-
       });
-
-    } catch(e) {
+    } catch (e) {
       log('getMatchesFunction Error :$e');
       rethrow;
     }
@@ -86,8 +83,9 @@ class HomeScreenController extends GetxController {
     isLoading(false);
   }
 
-  /// Like Or Super like function
-  Future<void> likeProfileFunction({required String likedId, required LikeType likeType}) async {
+  /// Like   function
+  Future<void> likeProfileFunction(
+      {required String likedId, required LikeType likeType}) async {
     isLoading(true);
     String url = ApiUrl.likeProfileApi;
 
@@ -105,9 +103,10 @@ class HomeScreenController extends GetxController {
 
       log('Like Profile Response Function : ${response.body}');
 
-      LikeProfileModel likeProfileModel = LikeProfileModel.fromJson(json.decode(response.body));
+      LikeProfileModel likeProfileModel =
+          LikeProfileModel.fromJson(json.decode(response.body));
 
-      if(likeProfileModel.statusCode == 200) {
+      if (likeProfileModel.statusCode == 200) {
         /// Card Swipe right
         cardController.next(
           swipeDirection: SwipeDirection.right,
@@ -115,9 +114,47 @@ class HomeScreenController extends GetxController {
       } else {
         log('likeProfileFunction Else');
       }
-
     } catch (e) {
       log('likeProfileFunction Error : $e');
+      rethrow;
+    } finally {
+      isLoading(false);
+    }
+  }
+
+  /// superLove function
+  Future<void> superLoveProfileFunction(
+      {required String likedId, required LikeType likeType}) async {
+    isLoading(true);
+    String url = ApiUrl.superLoveProfileApi;
+
+    try {
+      Map<String, dynamic> bodyData = {
+        "token": AppMessages.token,
+        "type": likeType.name,
+        "liked_id": likedId
+      };
+
+      http.Response response = await http.post(
+        Uri.parse(url),
+        body: bodyData,
+      );
+
+      log('superLove ProfileFunction Response Function : ${response.body}');
+
+      SuperLoveModel superLoveModel =
+          SuperLoveModel.fromJson(json.decode(response.body));
+
+      if (superLoveModel.statusCode == 200) {
+        /// Card Swipe right
+        cardController.next(
+          swipeDirection: SwipeDirection.right,
+        );
+      } else {
+        log('superLoveProfileFunction Else');
+      }
+    } catch (e) {
+      log('superLoveProfileFunction Error : $e');
       rethrow;
     } finally {
       isLoading(false);

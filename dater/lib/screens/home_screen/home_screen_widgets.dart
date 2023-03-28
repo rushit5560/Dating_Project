@@ -108,7 +108,6 @@ class CardSwipeModule extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-
             // Cancel Button
             IconButton(
               onPressed: () {
@@ -122,8 +121,15 @@ class CardSwipeModule extends StatelessWidget {
 
             // Star Button
             IconButton(
-              onPressed: () {
-                // homeScreenController.cardController.currentIndex = 0;
+              onPressed: () async {
+                homeScreenController.cardController.next(
+                  swipeDirection: SwipeDirection.up,
+                  duration: const Duration(milliseconds: 600),
+                );
+                await homeScreenController.superLoveProfileFunction(
+                  likedId: "4",
+                  likeType: LikeType.super_love,
+                );
               },
               icon: Image.asset(AppImages.starImage),
             ),
@@ -131,6 +137,10 @@ class CardSwipeModule extends StatelessWidget {
             // Like Button
             IconButton(
               onPressed: () async {
+                homeScreenController.cardController.next(
+                  swipeDirection: SwipeDirection.right,
+                  duration: const Duration(milliseconds: 600),
+                );
                 await homeScreenController.likeProfileFunction(
                   likedId: "4",
                   likeType: LikeType.like,

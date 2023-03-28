@@ -18,6 +18,8 @@ class ApiUrl {
 
   //home screen api's
   static const likeProfileApi="${apiMainPath}api/like";
+  static const superLoveProfileApi="${apiMainPath}api/like";
+
   static const matchesApi="${apiMainPath}api/matches";
 
 }
