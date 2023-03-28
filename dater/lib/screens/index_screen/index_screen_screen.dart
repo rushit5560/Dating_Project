@@ -1,4 +1,4 @@
-import 'package:dater/controller/auth_screen_controllers/index_screen_controller.dart';
+import 'package:dater/controller/index_screen_controller.dart';
 import 'package:dater/screens/balance_screen/balance_screen.dart';
 import 'package:dater/screens/chat_screen/chat_list_screen/all_chat_list_screen.dart';
 import 'package:dater/screens/home_screen/home_screen.dart';
@@ -19,76 +19,70 @@ class IndexScreen extends StatelessWidget {
     ProfileScreen(),
   ];
 
-  Future<bool> willPopCallback() async {
+  /*Future<bool> willPopCallback() async {
     if (indexScreenController.homeScreenShow.value == false) {
       indexScreenController.homeScreenShow.value = true;
       return false;
     } else {
       return true;
     }
-  }
+  }*/
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () => willPopCallback(),
-      child: Scaffold(
-        body: Obx(
-          () => indexScreenController.homeScreenShow.value
-              ? HomeScreen()
-              : Obx(
-                  () => IndexedStack(
-                    index: indexScreenController.selectedIndex.value,
-                    children: screen,
-                  ),
+    return Scaffold(
+      body: Obx(
+                () => IndexedStack(
+                  index: indexScreenController.selectedIndex.value,
+                  children: screen,
                 ),
-        ),
+              ),
 
-        //  Obx(
-        //   () => IndexedStack(
-        //     index: indexScreenController.selectedIndex.value,
-        //     children: screen,
-        //   ),
-        // ),
-        bottomNavigationBar: Obx(
-          () => BottomNavigationBar(
-            type: BottomNavigationBarType.fixed,
-            selectedItemColor: AppColors.gray50Color,
-            unselectedItemColor: AppColors.blackColor,
-            showSelectedLabels: true,
-            showUnselectedLabels: false,
-            onTap: (index) {
-              indexScreenController.homeScreenShow.value = false;
-              indexScreenController.changeIndex(index);
-            },
-            currentIndex: indexScreenController.selectedIndex.value,
-            items: [
-              BottomNavigationBarItem(
-                icon: Image.asset(
-                  AppImages.balanceImage,
-                ),
-                label: '',
+
+      //  Obx(
+      //   () => IndexedStack(
+      //     index: indexScreenController.selectedIndex.value,
+      //     children: screen,
+      //   ),
+      // ),
+      bottomNavigationBar: Obx(
+        () => BottomNavigationBar(
+          type: BottomNavigationBarType.fixed,
+          selectedItemColor: AppColors.gray50Color,
+          unselectedItemColor: AppColors.blackColor,
+          showSelectedLabels: false,
+          showUnselectedLabels: false,
+          onTap: (index) {
+            // indexScreenController.homeScreenShow.value = false;
+            indexScreenController.changeIndex(index);
+          },
+          currentIndex: indexScreenController.selectedIndex.value,
+          items: [
+            BottomNavigationBarItem(
+              icon: Image.asset(
+                AppImages.balanceImage,
               ),
-              BottomNavigationBarItem(
-                icon: Image.asset(
-                  AppImages.favoriteImage,
-                ),
-                label: '',
+              label: '',
+            ),
+            BottomNavigationBarItem(
+              icon: Image.asset(
+                AppImages.favoriteImage,
               ),
-              BottomNavigationBarItem(
-                icon: Image.asset(
-                  AppImages.messageImage,
-                ),
-                label: '',
+              label: '',
+            ),
+            BottomNavigationBarItem(
+              icon: Image.asset(
+                AppImages.messageImage,
               ),
-              BottomNavigationBarItem(
-                icon: Image.asset(
-                  AppImages.personImage,
-                ),
-                label: '',
+              label: '',
+            ),
+            BottomNavigationBarItem(
+              icon: Image.asset(
+                AppImages.personImage,
               ),
-            ],
-          ),
+              label: '',
+            ),
+          ],
         ),
       ),
     );

@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:dater/constants/app_images.dart';
 import 'package:dater/constants/font_family.dart';
 import 'package:dater/constants/messages.dart';
@@ -7,12 +9,14 @@ import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 import 'package:swipable_stack/swipable_stack.dart';
 import '../../constants/colors.dart';
+import '../../constants/enums.dart';
 import '../../controller/home_screen_controller.dart';
 import '../../utils/style.dart';
 
 class CardSwipeModule extends StatelessWidget {
   CardSwipeModule({Key? key}) : super(key: key);
   final homeScreenController = Get.find<HomeScreenController>();
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -56,20 +60,40 @@ class CardSwipeModule extends StatelessWidget {
             SizedBox(
               height: 50.h,
               child: SwipableStack(
-                // allowVerticalSwipe: false,
+                allowVerticalSwipe: false,
                 swipeAnchor: SwipeAnchor.bottom,
-
                 cancelAnimationCurve: Curves.bounceIn,
+                overlayBuilder: (context, properties) {
+                  final opacity = min(properties.swipeProgress, 1.0);
+                  final isRight = properties.direction == SwipeDirection.right;
+
+                  return Container(
+                    decoration: const BoxDecoration(color: Colors.white24),
+                    child: Opacity(
+                      opacity: opacity,
+                      child: Center(
+                        child: isRight
+                            ? const Icon(
+                                Icons.favorite,
+                                color: AppColors.lightOrangeColor,
+                                size: 70,
+                              )
+                            : const Icon(
+                                Icons.close_rounded,
+                                color: AppColors.whiteColor,
+                                size: 70,
+                              ),
+                      ),
+                    ),
+                  );
+                },
                 // overlayBuilder: (context, swipeProperty) {
                 //   re
                 // },
                 controller: homeScreenController.cardController,
-                itemCount: 5,
+                itemCount: 15,
                 //itemCount: imageList.length,
-                builder: (
-                  context,
-                  index,
-                ) {
+                builder: (context, index) {
                   return Image.asset(
                     AppImages.swiper1Image,
                     width: double.infinity,
@@ -84,17 +108,34 @@ class CardSwipeModule extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
+
+            // Cancel Button
             IconButton(
-              onPressed: () => homeScreenController.cardController.rewind(),
+              onPressed: () {
+                homeScreenController.cardController.next(
+                  swipeDirection: SwipeDirection.left,
+                  duration: const Duration(milliseconds: 600),
+                );
+              },
               icon: Image.asset(AppImages.cancelImage),
             ),
+
+            // Star Button
             IconButton(
-              onPressed: () =>
-                  homeScreenController.cardController.currentIndex = 0,
+              onPressed: () {
+                // homeScreenController.cardController.currentIndex = 0;
+              },
               icon: Image.asset(AppImages.starImage),
             ),
+
+            // Like Button
             IconButton(
-              onPressed: () {},
+              onPressed: () async {
+                await homeScreenController.likeProfileFunction(
+                  likedId: "4",
+                  likeType: LikeType.like,
+                );
+              },
               icon: Image.asset(AppImages.likeImage),
             ),
           ],
@@ -112,9 +153,7 @@ class CardSwipeModule extends StatelessWidget {
                 fontWeight: FontWeight.w500,
               ),
             ),
-            SizedBox(
-              width: 1.w,
-            ),
+            SizedBox(width: 1.w),
             Image.asset(AppImages.rightImage),
           ],
         ),
@@ -227,6 +266,7 @@ class CardSwipeModule extends StatelessWidget {
 
 class BasicInFormationModule extends StatelessWidget {
   BasicInFormationModule({super.key});
+
   final homeScreenController = Get.find<HomeScreenController>();
 
   @override
@@ -288,6 +328,7 @@ class BasicInFormationModule extends StatelessWidget {
 
 class InterestsInformationModule extends StatelessWidget {
   InterestsInformationModule({super.key});
+
   final homeScreenController = Get.find<HomeScreenController>();
 
   @override
@@ -349,6 +390,7 @@ class InterestsInformationModule extends StatelessWidget {
 
 class LanguagesInformationModule extends StatelessWidget {
   LanguagesInformationModule({super.key});
+
   final homeScreenController = Get.find<HomeScreenController>();
 
   @override
@@ -410,6 +452,7 @@ class LanguagesInformationModule extends StatelessWidget {
 
 class LocationInformationModule extends StatelessWidget {
   LocationInformationModule({super.key});
+
   final homeScreenController = Get.find<HomeScreenController>();
 
   @override

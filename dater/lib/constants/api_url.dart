@@ -15,4 +15,9 @@ class ApiUrl {
 
   // Country Code List API
   static const getCountryCodeApi = "http://country.io/phone.json";
+
+  //home screen api's
+  static const likeProfileApi="${apiMainPath}api/like";
+  static const matchesApi="${apiMainPath}api/matches";
+
 }
