@@ -16,7 +16,7 @@ final editProfileScreenController = Get.put(EditProfileScreenController());
       appBar: commonAppBarModule(text: AppMessages.editProfile),
       body: Column(
         children: [
-          PhotosModule(),
+          // PhotosModule(),
         ],
       ),
     );

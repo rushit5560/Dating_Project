@@ -6,6 +6,11 @@ import 'package:image_picker/image_picker.dart';
 class EditProfileScreenController extends GetxController{
   RxBool isLoading = false.obs;
   final ImagePicker picker = ImagePicker();
+  List<String> image = [
+    'assets/images/swiper1.png',
+    'assets/images/swiper2.png',
+    'assets/images/swiper3.png',
+  ];
 /*  var  imagePath1 = ''.obs;
   var  imagePath2 = ''.obs;
   var  imagePath3 = ''.obs;

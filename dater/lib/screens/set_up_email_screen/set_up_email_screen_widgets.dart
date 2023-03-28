@@ -15,10 +15,11 @@ import 'package:sizer/sizer.dart';
 import '../../../common_modules/custom_button.dart';
 import '../../../utils/field_validator.dart';
 import '../../../utils/preferences/signup_preference.dart';
+import '../../controller/set_up_email_screen_controller.dart';
 
-class SignUpEmailScreenWidgets extends StatelessWidget {
-  SignUpEmailScreenWidgets({super.key});
-  final signUpEmailScreenController = Get.find<SignUpEmailScreenController>();
+class SetUpEmailScreenWidgets extends StatelessWidget {
+  SetUpEmailScreenWidgets({super.key});
+  final setUpEmailScreenController = Get.find<SetUpEmailScreenController>();
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -59,42 +60,17 @@ class SignUpEmailScreenWidgets extends StatelessWidget {
         ),
         SizedBox(height: 2.h),
         Form(
-          key: signUpEmailScreenController.formKey,
+          key: setUpEmailScreenController.formKey,
           child: noShadowTextFormFiledCustom(
-            fieldController: signUpEmailScreenController.emailTextFieldController,
+            fieldController: setUpEmailScreenController.emailTextFieldController,
             hintText: AppMessages.enterYourEmail,
             keyboardType: TextInputType.text,
+            fillColor: AppColors.whiteColor2,
             validate: (value)=> FieldValidator().validateEmail(value!),
           ).commonSymmetricPadding(horizontal: 10),
         ),
         SizedBox(height: 2.h),
 
-        /// Skip Button
-        ButtonCustom(
-          backgroundColor: AppColors.lightOrangeColor,
-          shadowColor: Colors.blueGrey,
-          text: AppMessages.skipButton,
-          textColor: AppColors.gray50Color,
-          fontWeight: FontWeight.bold,
-          size: const Size(150, 0),
-          textsize: 14.sp,
-          onPressed: () {
-            Get.to(() => LocationScreen());
-          },
-        ),
-        SizedBox(height: 2.h),
-
-        /// Continue Button
-        ButtonCustom(
-          backgroundColor: AppColors.lightOrangeColor,
-          shadowColor: Colors.blueGrey,
-          text: AppMessages.continueButton,
-          textColor: AppColors.gray50Color,
-          fontWeight: FontWeight.bold,
-          size: const Size(150, 0),
-          textsize: 14.sp,
-          onPressed: () async => await signUpEmailScreenController.continueButtonClickFunction(),
-        ),
       ],
     );
   }

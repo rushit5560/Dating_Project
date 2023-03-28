@@ -19,7 +19,6 @@ class GenderSelectScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.whiteColor2,
-
       appBar: commonAppBarModule(
         text: "What's your gender !",
         backGroundColor: Colors.transparent,

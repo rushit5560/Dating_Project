@@ -60,7 +60,7 @@ class ChatListModule extends StatelessWidget {
           return GestureDetector(
             onTap: () {
               Get.to(
-                () => const ChatScreen(),
+                () =>  ChatScreen(),
               );
             },
             child: ListTile(

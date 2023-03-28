@@ -16,6 +16,9 @@ import '../../constants/colors.dart';
 import '../../constants/font_family.dart';
 import '../../controller/settings_screen_controller.dart';
 import '../../utils/style.dart';
+import '../personal_info_screen/personal_info_screen.dart';
+import '../set_up_email_screen/set_up_email_screen.dart';
+import '../show_me_gender_screen/show_me_gender_screen.dart';
 
 class ReferralNumberModule extends StatelessWidget {
   const ReferralNumberModule({Key? key}) : super(key: key);
@@ -212,7 +215,9 @@ class PersonalInfoModule extends StatelessWidget {
                 ),
               ),
               IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  Get.to(PersonalInfoScreen());
+                },
                 icon: const Icon(
                   Icons.arrow_forward_ios_outlined,
                   color: AppColors.grey600Color,
@@ -233,7 +238,7 @@ class PersonalInfoModule extends StatelessWidget {
                 ),
               ),
               IconButton(
-                onPressed: () {},
+                onPressed: ()=> Get.to(SetUpEmailScreen()),
                 icon: const Icon(Icons.arrow_forward_ios_outlined,
                     color: AppColors.grey600Color, size: 20),
               ),
@@ -266,7 +271,7 @@ class LocationModule extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            AppMessages.personalInfo,
+            AppMessages.location,
             style: TextStyleConfig.textStyle(
               fontFamily: FontFamilyText.sFProDisplayBold,
               textColor: AppColors.grey800Color,
@@ -297,7 +302,7 @@ class LocationModule extends StatelessWidget {
                 ),
               ),
               IconButton(
-                onPressed: () {},
+                onPressed:() => Get.to(LocationScreen()),
                 icon: const Icon(Icons.check_circle_rounded,
                     color: AppColors.darkOrangeColor, size: 20),
               )
@@ -363,7 +368,7 @@ class ShowMeModule extends StatelessWidget {
                 ),
               ),
               IconButton(
-                onPressed: () {},
+                onPressed: () {Get.to(ShowMeGenderScreen());},
                 icon: const Icon(
                   Icons.arrow_forward_ios_outlined,
                   color: AppColors.grey600Color,

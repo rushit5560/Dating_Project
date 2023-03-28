@@ -16,9 +16,11 @@ class AppMessages {
   static String whatsYourEmail = '''What's Your email?''';
   static String skipButton = "Skip";
   static String continueButton = "Continue";
+  static String nextButton = "Next";
   static String enterYourEmail = "Enter your email";
   static String myNumberIs = "My number is";
   static String phoneNumber = "Phone Number";
+  static String newPhoneNumber = " New Phone Number";
   static String location = "Location";
   static String search = "Search";
   static String confirm = "Confirm";
@@ -61,7 +63,7 @@ class AppMessages {
   static String goalSelectedNumber = '1- ';
   static String goal = 'Goal ';
   static String donTLoseAccessToYourAccount =
-      '''Don't lose access to Your account ''';
+      '''Don't lose access to Your account so we can contact you, But its optional !''';
   static String soWeCanContactYouButItsOptional =
       '''so We can contact you, But its optional ! ''';
   static String goalScreenNoteText =
@@ -114,7 +116,8 @@ class AppMessages {
   static String verified = "Not Verified";
   static String personalInfo = "Personal Info";
   static String email = "Email";
-  static String showMe = "Show Me";
+  static String showMe = "Show me";
+  static String setUpEmail = "Set up email ";
   static String women = "Women";
   static String logout = "Logout";
   static String deleteAccount = "Delete account";
@@ -126,7 +129,7 @@ class AppMessages {
   static String languagesIknow = "Languages I know";
   static String locationtext = "Eliza's Location";
   static String chat = "Chat";
-
+  static String typeAMessage = "Type a message";
   static String locatinpermission = "Apply location permission";
   static String editProfile = "Edit Profile";
 

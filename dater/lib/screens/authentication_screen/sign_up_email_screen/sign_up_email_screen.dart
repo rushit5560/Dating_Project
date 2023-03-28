@@ -32,7 +32,6 @@ class SignUpEmailScreen extends StatelessWidget {
                   ),
                 ),
               ),
-
               SignUpEmailScreenWidgets(),
               // const WhatsYourNameEmailModule(),
             ],
