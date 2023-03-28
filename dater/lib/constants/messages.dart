@@ -134,7 +134,16 @@ class AppMessages {
   static String editProfile = "Edit Profile";
 
 
-
+  static String holdAndDragtext = "Hold & drag photos to change their order";
+  static String myInterests = "My Interests";
+  static String prifilePrompts = "Profile Prompts";
+  static String myBio = "My bio";
+  static String myBasics = "My Basics";
+  static String moreAboutMe = "More about me";
+  static String height = "Height";
+  static String exercise = "Exercise";
+  static String languages = "Languages I know";
+static String token = "96e8451a018e5558d9af7979302cc85b";
 
 
 }
