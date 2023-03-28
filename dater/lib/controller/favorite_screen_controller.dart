@@ -6,4 +6,10 @@ class FavoriteScreenController extends GetxController {
   change(value) {
     selected.value = value;
   }
+
+
+  @override
+  void onInit() {
+    super.onInit();
+  }
 }

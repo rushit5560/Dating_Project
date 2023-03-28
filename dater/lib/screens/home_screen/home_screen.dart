@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 import '../../constants/app_images.dart';
+import '../favorite_screen/favorite_screen.dart';
 import 'home_screen_widgets.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -25,7 +26,12 @@ class HomeScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Image.asset(AppImages.refreshImage),
-                  Image.asset(AppImages.hardImage),
+                  GestureDetector(
+                    onTap: () {
+                      Get.to(() => FavoriteScreen());
+                    },
+                    child: Image.asset(AppImages.hardImage),
+                  ),
                   GestureDetector(
                     onTap: () {
                       Get.to(

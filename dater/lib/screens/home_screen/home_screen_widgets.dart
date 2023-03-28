@@ -1,5 +1,4 @@
 import 'dart:math';
-
 import 'package:dater/constants/app_images.dart';
 import 'package:dater/constants/font_family.dart';
 import 'package:dater/constants/messages.dart';
@@ -21,16 +20,6 @@ class CardSwipeModule extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        // SizedBox(
-        //   height: 50.h,
-        //   child: SwipeableCardsSection(
-        //     cardController: homeScreenController.cardController,
-        //     context: context,
-        //     items: List.generate(homeScreenController.images.length, (index) {
-        //       return Image.asset(homeScreenController.images[index]);
-        //     })
-        //   ),
-        // )
         Stack(
           alignment: Alignment.bottomCenter,
           clipBehavior: Clip.none,
@@ -87,12 +76,8 @@ class CardSwipeModule extends StatelessWidget {
                     ),
                   );
                 },
-                // overlayBuilder: (context, swipeProperty) {
-                //   re
-                // },
                 controller: homeScreenController.cardController,
                 itemCount: 15,
-                //itemCount: imageList.length,
                 builder: (context, index) {
                   return Image.asset(
                     AppImages.swiper1Image,
