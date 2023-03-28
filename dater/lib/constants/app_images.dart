@@ -34,4 +34,23 @@ class AppImages {
   static const cancel2 = '$rootPath/cancel2.png';
   static const add = '$rootPath/add.png';
   static const emojiImage = '$rootPath/emoji.png';
+  static const workImage = '$rootPath/work.png';
+  static const educationImage = '$rootPath/education.png';
+  static const covedImage = '$rootPath/coved.png';
+
+  static const genderImage = '$rootPath/gender.png';
+  static const location3Image = '$rootPath/location_3.png';
+
+  static const homeTownImage = '$rootPath/home_town.png';
+  static const heightImage = '$rootPath/height.png';
+
+  static const exerciseImage = '$rootPath/exercise.png';
+  static const drinkingImage = '$rootPath/drinking.png';
+  static const smokingImage = '$rootPath/smoking.png';
+  static const kidsImage = '$rootPath/kids.png';
+
+  static const starsignImage = '$rootPath/star_sign.png';
+  static const politicsImage = '$rootPath/politics.png';
+  static const religionImage = '$rootPath/religion.png';
+  static const lookingForImage = '$rootPath/looking_for.png';
 }
