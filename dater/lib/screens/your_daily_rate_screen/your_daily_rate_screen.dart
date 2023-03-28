@@ -1,4 +1,4 @@
-import 'package:dater/controller/auth_screen_controllers/your_daily_rate_screen_controller.dart';
+import 'package:dater/controller/your_daily_rate_screen_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../common_modules/custom_appbar.dart';

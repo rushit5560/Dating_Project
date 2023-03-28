@@ -7,7 +7,7 @@ import 'package:sizer/sizer.dart';
 import '../../common_modules/custom_button.dart';
 import '../../constants/colors.dart';
 import '../../constants/font_family.dart';
-import '../../controller/auth_screen_controllers/balance_screen_controller.dart';
+import '../../controller/balance_screen_controller.dart';
 import '../../utils/style.dart';
 import '../earn_more_coins_screen/earn_more_coins_screen.dart';
 import '../your_daily_rate_screen/your_daily_rate_screen.dart';

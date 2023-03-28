@@ -2,7 +2,7 @@ import 'dart:developer';
 
 import 'package:dater/constants/colors.dart';
 import 'package:dater/constants/font_family.dart';
-import 'package:dater/controller/auth_screen_controllers/favorite_screen_controller.dart';
+import 'package:dater/controller/favorite_screen_controller.dart';
 import 'package:dater/screens/home_screen/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

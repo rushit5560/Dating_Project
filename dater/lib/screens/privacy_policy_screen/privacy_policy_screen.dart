@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import '../../common_modules/custom_appbar.dart';
 import '../../constants/colors.dart';
 import '../../constants/messages.dart';
-import '../../controller/auth_screen_controllers/privacy_policy_screen_controller.dart';
+import '../../controller/privacy_policy_screen_controller.dart';
 
 class PrivacyPolicyScreen extends StatelessWidget {
   PrivacyPolicyScreen({Key? key}) : super(key: key);

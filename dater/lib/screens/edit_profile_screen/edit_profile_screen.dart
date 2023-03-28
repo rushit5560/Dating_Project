@@ -10,7 +10,7 @@ import '../../common_modules/custom_appbar.dart';
 import '../../common_modules/custom_loader.dart';
 import '../../constants/colors.dart';
 import '../../constants/messages.dart';
-import '../../controller/auth_screen_controllers/edit_profile_screen_controller.dart';
+import '../../controller/edit_profile_screen_controller.dart';
 import 'edit_profile_screen_widgets.dart';
 
 class EditProfileScreen extends StatelessWidget {
@@ -29,7 +29,7 @@ class EditProfileScreen extends StatelessWidget {
                   children: [
                     RecodebleGridViewModule(),
                     SizedBox(height: 2.h),
-                    EditprofileScreenWidgets()
+                    EditProfileScreenWidgets()
                   ],
                 ).commonSymmetricPadding(horizontal: 25, vertical: 20),
               ),

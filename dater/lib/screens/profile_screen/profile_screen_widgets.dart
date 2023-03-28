@@ -9,7 +9,7 @@ import 'package:syncfusion_flutter_gauges/gauges.dart';
 import '../../constants/app_images.dart';
 import '../../constants/colors.dart';
 import '../../constants/font_family.dart';
-import '../../controller/auth_screen_controllers/profile_screen_controller.dart';
+import '../../controller/profile_screen_controller.dart';
 import '../../utils/style.dart';
 import '../edit_profile_screen/edit_profile_screen.dart';
 

@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 
-import '../../controller/auth_screen_controllers/profile_screen_controller.dart';
+import '../../controller/profile_screen_controller.dart';
 class ProfileScreen extends StatelessWidget {
    ProfileScreen({super.key});
    final profileScreenController = Get.put(ProfileScreenController());

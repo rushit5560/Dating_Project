@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import '../../common_modules/custom_appbar.dart';
 import '../../constants/colors.dart';
 import '../../constants/messages.dart';
-import '../../controller/auth_screen_controllers/terms_of_you_use_screen_controller.dart';
+import '../../controller/terms_of_you_use_screen_controller.dart';
 
 class TermsOfYouUseScreen extends StatelessWidget {
   TermsOfYouUseScreen({Key? key}) : super(key: key);

@@ -1,4 +1,4 @@
-import 'package:dater/controller/auth_screen_controllers/earn_more_coins_screen_controller.dart';
+import 'package:dater/controller/earn_more_coins_screen_controller.dart';
 import 'package:dater/utils/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

@@ -1,5 +1,5 @@
 import 'package:dater/constants/colors.dart';
-import 'package:dater/controller/auth_screen_controllers/balance_screen_controller.dart';
+import 'package:dater/controller/balance_screen_controller.dart';
 import 'package:dater/utils/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

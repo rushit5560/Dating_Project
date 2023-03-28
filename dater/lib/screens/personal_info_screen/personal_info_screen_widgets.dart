@@ -6,7 +6,7 @@ import 'package:sizer/sizer.dart';
 import '../../constants/colors.dart';
 import '../../constants/font_family.dart';
 import '../../constants/messages.dart';
-import '../../controller/auth_screen_controllers/personal_info_screen_controller.dart';
+import '../../controller/personal_info_screen_controller.dart';
 import '../../model/authentication_model/country_code_list_model/country_code_list_model.dart';
 import '../../utils/field_validator.dart';
 import '../../utils/style.dart';

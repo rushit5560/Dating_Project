@@ -17,7 +17,7 @@ import 'package:dater/constants/messages.dart';
 import 'package:dater/utils/extensions.dart';
 import 'package:dater/utils/style.dart';
 
-import '../../controller/auth_screen_controllers/edit_profile_screen_controller.dart';
+import '../../controller/edit_profile_screen_controller.dart';
 
 class RecodebleGridViewModule extends StatelessWidget {
   RecodebleGridViewModule({super.key});
@@ -136,8 +136,8 @@ class RecodebleGridViewModule extends StatelessWidget {
   }
 }
 
-class EditprofileScreenWidgets extends StatelessWidget {
-  EditprofileScreenWidgets({super.key});
+class EditProfileScreenWidgets extends StatelessWidget {
+  EditProfileScreenWidgets({super.key});
   final editProfileScreenController = Get.find<EditProfileScreenController>();
 
   @override
@@ -601,17 +601,6 @@ class EditprofileScreenWidgets extends StatelessWidget {
               ? AppColors.lightOrangeColor
               : AppColors.grey500Color,
         ),
-        // FilterRowmodule(
-        //   image: AppImages.smokingImage,
-        //   lableText: "Smoking",
-        //   text1: "No",
-        //   gesOnTap1: () {},
-        //   text2: "Socially",
-        //   gesOnTap2: () {},
-        //   text3: "Yes",
-        //   gesOnTap3: () {},
-        // ),
-
         FilterRowmodule(
           image: AppImages.smokingImage,
           lableText: "Smoking",
@@ -650,17 +639,6 @@ class EditprofileScreenWidgets extends StatelessWidget {
               ? AppColors.lightOrangeColor
               : AppColors.grey500Color,
         ),
-        // FilterRowmodule(
-        //   image: AppImages.kidsImage,
-        //   lableText: "Kids",
-        //   text1: "No",
-        //   gesOnTap1: () {},
-        //   text2: "Want someday",
-        //   gesOnTap2: () {},
-        //   text3: "Yes",
-        //   gesOnTap3: () {},
-        // ),
-
         FilterRowmodule(
           image: AppImages.kidsImage,
           lableText: "Kids",

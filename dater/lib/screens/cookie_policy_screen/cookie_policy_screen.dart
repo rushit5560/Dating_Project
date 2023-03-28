@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import '../../common_modules/custom_appbar.dart';
 import '../../constants/colors.dart';
 import '../../constants/messages.dart';
-import '../../controller/auth_screen_controllers/cookie_policy_screen_controller.dart';
+import '../../controller/cookie_policy_screen_controller.dart';
 
 class CookiePolicyScreen extends StatelessWidget {
    CookiePolicyScreen({Key? key}) : super(key: key);

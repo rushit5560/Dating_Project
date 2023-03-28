@@ -8,7 +8,7 @@ import '../../common_modules/custom_button.dart';
 import '../../common_modules/custom_loader.dart';
 import '../../constants/colors.dart';
 import '../../constants/messages.dart';
-import '../../controller/auth_screen_controllers/personal_info_screen_controller.dart';
+import '../../controller/personal_info_screen_controller.dart';
 
 class PersonalInfoScreen extends StatelessWidget {
    PersonalInfoScreen({Key? key}) : super(key: key);

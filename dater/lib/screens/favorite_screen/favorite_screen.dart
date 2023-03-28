@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 import '../../constants/colors.dart';
 import '../../constants/messages.dart';
-import '../../controller/auth_screen_controllers/favorite_screen_controller.dart';
+import '../../controller/favorite_screen_controller.dart';
 import '../../utils/style.dart';
 import 'favorite_screen_widgets.dart';
 

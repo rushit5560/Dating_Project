@@ -4,14 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
-import '../../constants/api_url.dart';
-import '../../constants/enums.dart';
-import '../../constants/messages.dart';
-import '../../model/authentication_model/country_code_list_model/country_code_list.dart';
-import '../../model/authentication_model/country_code_list_model/country_code_list_model.dart';
-import '../../model/authentication_model/login_screen_model/login_model.dart';
-import '../../screens/authentication_screen/verify_code_screen/verify_code_screen.dart';
-import '../../utils/preferences/user_preference.dart';
+import '../constants/api_url.dart';
+import '../constants/enums.dart';
+import '../constants/messages.dart';
+import '../model/authentication_model/country_code_list_model/country_code_list.dart';
+import '../model/authentication_model/country_code_list_model/country_code_list_model.dart';
+import '../model/authentication_model/login_screen_model/login_model.dart';
+import '../screens/authentication_screen/verify_code_screen/verify_code_screen.dart';
+import '../utils/preferences/user_preference.dart';
 
 class PersonalInfoScreenController extends GetxController{
   //AuthAs authAs = Get.arguments[0];
