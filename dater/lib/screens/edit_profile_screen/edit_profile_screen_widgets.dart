@@ -483,84 +483,221 @@ class EditprofileScreenWidgets extends StatelessWidget {
                 fontSize: 15.sp,
               ),
             ),
-            const Spacer(),
-            Column(
+            // const Spacer(),
+            Expanded(
+                child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                Text(
-                  textAlign: TextAlign.end,
-                  "${editProfileScreenController.endVal.value.toStringAsFixed(0)} cm",
-                  style: TextStyleConfig.textStyle(
-                    fontFamily: FontFamilyText.sFProDisplayRegular,
-                    textColor: AppColors.grey600Color,
-                    fontSize: 13.sp,
-                  ),
-                ),
-                SliderTheme(
-                  data: const SliderThemeData(trackHeight: 1),
-                  child: RangeSlider(
-                    min: 0,
-                    max: 180,
-                    activeColor: AppColors.lightOrangeColor,
-                    inactiveColor: AppColors.darkGreyColor,
-                    values: RangeValues(
-                      editProfileScreenController.startVal.value,
-                      editProfileScreenController.endVal.value,
-                    ),
-                    onChanged: (RangeValues value) {
-                      editProfileScreenController.isLoading(true);
-                      editProfileScreenController.startVal.value = value.start;
-                      editProfileScreenController.endVal.value = value.end;
-                      editProfileScreenController.isLoading(false);
-                    },
-                  ),
-                ),
-              ],
-            )
-          ],
-        ),
-        Row(
-          children: [
-            Image.asset(
-              AppImages.exerciseImage,
-            ),
-            SizedBox(width: 3.w),
-            Text(
-              AppMessages.exercise,
-              style: TextStyleConfig.textStyle(
-                fontFamily: FontFamilyText.sFProDisplayRegular,
-                textColor: AppColors.grey600Color,
-                fontSize: 15.sp,
-              ),
-            ),
-            Column(
-              children: [
-                const Text("No"),
-                Obx(
-                  () => InkWell(
-                    onTap: () {
-                      editProfileScreenController.isLoading(true);
-                      editProfileScreenController.exerciseNoSelected.value =
-                          true;
-                      log("editProfileScreenController.exerciseNoSelected.value ${editProfileScreenController.exerciseNoSelected.value}");
-
-                      editProfileScreenController.isLoading(false);
-                    },
-                    child: Container(
-                      height: 15,
-                      width: 15,
-                      decoration: BoxDecoration(
-                        color:
-                            editProfileScreenController.exerciseNoSelected.value
-                                ? AppColors.lightOrangeColor
-                                : AppColors.grey700Color,
-                        shape: BoxShape.circle,
+                Column(
+                  children: [
+                    Text(
+                      textAlign: TextAlign.end,
+                      "${editProfileScreenController.endVal.value.toStringAsFixed(0)} cm",
+                      style: TextStyleConfig.textStyle(
+                        fontFamily: FontFamilyText.sFProDisplayRegular,
+                        textColor: AppColors.grey600Color,
+                        fontSize: 13.sp,
                       ),
                     ),
-                  ),
-                ),
+                    SliderTheme(
+                      data: const SliderThemeData(trackHeight: 1),
+                      child: RangeSlider(
+                        min: 0,
+                        max: 180,
+                        activeColor: AppColors.lightOrangeColor,
+                        inactiveColor: AppColors.darkGreyColor,
+                        values: RangeValues(
+                          editProfileScreenController.startVal.value,
+                          editProfileScreenController.endVal.value,
+                        ),
+                        onChanged: (RangeValues value) {
+                          editProfileScreenController.isLoading(true);
+                          editProfileScreenController.startVal.value =
+                              value.start;
+                          editProfileScreenController.endVal.value = value.end;
+                          editProfileScreenController.isLoading(false);
+                        },
+                      ),
+                    ),
+                  ],
+                )
               ],
-            )
+            ))
           ],
+        ),
+        FilterRowmodule(
+          image: AppImages.exerciseImage,
+          lableText: "Exercise",
+          text1: "No",
+          gesOnTap1: () {
+            editProfileScreenController.isLoading(true);
+
+            editProfileScreenController.exerciseNoSelected.value =
+                !editProfileScreenController.exerciseNoSelected.value;
+            editProfileScreenController.isLoading(false);
+          },
+          containerColor1: editProfileScreenController.exerciseNoSelected.value
+              ? AppColors.lightOrangeColor
+              : AppColors.grey500Color,
+          text2: "Sometimes",
+          gesOnTap2: () {
+            editProfileScreenController.isLoading(true);
+
+            editProfileScreenController.exerciseSometimesSelected.value =
+                !editProfileScreenController.exerciseSometimesSelected.value;
+            editProfileScreenController.isLoading(false);
+          },
+          containerColor2:
+              editProfileScreenController.exerciseSometimesSelected.value
+                  ? AppColors.lightOrangeColor
+                  : AppColors.grey500Color,
+          text3: "Yes",
+          gesOnTap3: () {
+            editProfileScreenController.isLoading(true);
+
+            editProfileScreenController.exerciseYesSelected.value =
+                !editProfileScreenController.exerciseYesSelected.value;
+            editProfileScreenController.isLoading(false);
+          },
+          containerColor3: editProfileScreenController.exerciseYesSelected.value
+              ? AppColors.lightOrangeColor
+              : AppColors.grey500Color,
+        ),
+        FilterRowmodule(
+          image: AppImages.drinkingImage,
+          lableText: "Drinking",
+          text1: "No",
+          gesOnTap1: () {
+            editProfileScreenController.isLoading(true);
+
+            editProfileScreenController.drinkingNoSelected.value =
+                !editProfileScreenController.drinkingNoSelected.value;
+            editProfileScreenController.isLoading(false);
+          },
+          containerColor1: editProfileScreenController.drinkingNoSelected.value
+              ? AppColors.lightOrangeColor
+              : AppColors.grey500Color,
+          text2: "Socially",
+          gesOnTap2: () {
+            editProfileScreenController.isLoading(true);
+
+            editProfileScreenController.exerciseSociallySelected.value =
+                !editProfileScreenController.exerciseSociallySelected.value;
+            editProfileScreenController.isLoading(false);
+          },
+          containerColor2:
+              editProfileScreenController.exerciseSociallySelected.value
+                  ? AppColors.lightOrangeColor
+                  : AppColors.grey500Color,
+          text3: "Yes",
+          gesOnTap3: () {
+            editProfileScreenController.isLoading(true);
+
+            editProfileScreenController.drinkingYesSelected.value =
+                !editProfileScreenController.drinkingYesSelected.value;
+            editProfileScreenController.isLoading(false);
+          },
+          containerColor3: editProfileScreenController.drinkingYesSelected.value
+              ? AppColors.lightOrangeColor
+              : AppColors.grey500Color,
+        ),
+        // FilterRowmodule(
+        //   image: AppImages.smokingImage,
+        //   lableText: "Smoking",
+        //   text1: "No",
+        //   gesOnTap1: () {},
+        //   text2: "Socially",
+        //   gesOnTap2: () {},
+        //   text3: "Yes",
+        //   gesOnTap3: () {},
+        // ),
+
+        FilterRowmodule(
+          image: AppImages.smokingImage,
+          lableText: "Smoking",
+          text1: "No",
+          gesOnTap1: () {
+            editProfileScreenController.isLoading(true);
+
+            editProfileScreenController.smokingNoSelected.value =
+                !editProfileScreenController.smokingNoSelected.value;
+            editProfileScreenController.isLoading(false);
+          },
+          containerColor1: editProfileScreenController.smokingNoSelected.value
+              ? AppColors.lightOrangeColor
+              : AppColors.grey500Color,
+          text2: "Socially",
+          gesOnTap2: () {
+            editProfileScreenController.isLoading(true);
+
+            editProfileScreenController.smokingSociallySelected.value =
+                !editProfileScreenController.smokingSociallySelected.value;
+            editProfileScreenController.isLoading(false);
+          },
+          containerColor2:
+              editProfileScreenController.smokingSociallySelected.value
+                  ? AppColors.lightOrangeColor
+                  : AppColors.grey500Color,
+          text3: "Yes",
+          gesOnTap3: () {
+            editProfileScreenController.isLoading(true);
+
+            editProfileScreenController.smokingYesSelected.value =
+                !editProfileScreenController.smokingYesSelected.value;
+            editProfileScreenController.isLoading(false);
+          },
+          containerColor3: editProfileScreenController.smokingYesSelected.value
+              ? AppColors.lightOrangeColor
+              : AppColors.grey500Color,
+        ),
+        // FilterRowmodule(
+        //   image: AppImages.kidsImage,
+        //   lableText: "Kids",
+        //   text1: "No",
+        //   gesOnTap1: () {},
+        //   text2: "Want someday",
+        //   gesOnTap2: () {},
+        //   text3: "Yes",
+        //   gesOnTap3: () {},
+        // ),
+
+        FilterRowmodule(
+          image: AppImages.kidsImage,
+          lableText: "Kids",
+          text1: "No",
+          gesOnTap1: () {
+            editProfileScreenController.isLoading(true);
+
+            editProfileScreenController.kidsgNoSelected.value =
+                !editProfileScreenController.kidsgNoSelected.value;
+            editProfileScreenController.isLoading(false);
+          },
+          containerColor1: editProfileScreenController.kidsgNoSelected.value
+              ? AppColors.lightOrangeColor
+              : AppColors.grey500Color,
+          text2: "Want someday",
+          gesOnTap2: () {
+            editProfileScreenController.isLoading(true);
+
+            editProfileScreenController.kidsSociallySelected.value =
+                !editProfileScreenController.kidsSociallySelected.value;
+            editProfileScreenController.isLoading(false);
+          },
+          containerColor2:
+              editProfileScreenController.kidsSociallySelected.value
+                  ? AppColors.lightOrangeColor
+                  : AppColors.grey500Color,
+          text3: "Yes",
+          gesOnTap3: () {
+            editProfileScreenController.isLoading(true);
+
+            editProfileScreenController.kidsYesSelected.value =
+                !editProfileScreenController.kidsYesSelected.value;
+            editProfileScreenController.isLoading(false);
+          },
+          containerColor3: editProfileScreenController.kidsYesSelected.value
+              ? AppColors.lightOrangeColor
+              : AppColors.grey500Color,
         ),
         MyBasicRowmodule(
           gesOnTap: () {},
@@ -715,6 +852,140 @@ class MyBasicRowmodule extends StatelessWidget {
           ),
         ],
       ),
+    ).commonOnlyPadding(bottom: 2.h);
+  }
+}
+
+class FilterRowmodule extends StatelessWidget {
+  String lableText;
+  String image;
+  String text1;
+  String text2;
+  String text3;
+  Function() gesOnTap1;
+  Function() gesOnTap2;
+  Function() gesOnTap3;
+  Color containerColor1;
+  Color containerColor2;
+  Color containerColor3;
+
+  FilterRowmodule({
+    Key? key,
+    required this.lableText,
+    required this.image,
+    required this.text1,
+    required this.text2,
+    required this.text3,
+    required this.gesOnTap1,
+    required this.gesOnTap2,
+    required this.gesOnTap3,
+    required this.containerColor1,
+    required this.containerColor2,
+    required this.containerColor3,
+  }) : super(key: key);
+  final editProfileScreenController = Get.find<EditProfileScreenController>();
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Image.asset(
+          image,
+        ),
+        SizedBox(width: 3.w),
+        Text(
+          lableText,
+          style: TextStyleConfig.textStyle(
+            fontFamily: FontFamilyText.sFProDisplayRegular,
+            textColor: AppColors.grey600Color,
+            fontSize: 15.sp,
+          ),
+        ),
+        const Spacer(),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            SizedBox(
+              width: 12.w,
+              child: Column(
+                children: [
+                  Text(
+                    text1,
+                    style: TextStyleConfig.textStyle(
+                      fontFamily: FontFamilyText.sFProDisplayRegular,
+                      textColor: AppColors.grey600Color,
+                      fontSize: 12.sp,
+                    ),
+                  ),
+                  InkWell(
+                    onTap: gesOnTap1,
+                    child: Container(
+                      height: 15,
+                      width: 15,
+                      decoration: BoxDecoration(
+                        color: containerColor1,
+                        shape: BoxShape.circle,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(
+              width: 27.w,
+              child: Column(
+                children: [
+                  Text(
+                    text2,
+                    style: TextStyleConfig.textStyle(
+                      fontFamily: FontFamilyText.sFProDisplayRegular,
+                      textColor: AppColors.grey600Color,
+                      fontSize: 12.sp,
+                    ),
+                  ),
+                  InkWell(
+                    onTap: gesOnTap2,
+                    child: Container(
+                      height: 15,
+                      width: 15,
+                      decoration: BoxDecoration(
+                        color: containerColor2,
+                        shape: BoxShape.circle,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(
+              width: 12.w,
+              child: Column(
+                children: [
+                  Text(
+                    text3,
+                    style: TextStyleConfig.textStyle(
+                      fontFamily: FontFamilyText.sFProDisplayRegular,
+                      textColor: AppColors.grey600Color,
+                      fontSize: 12.sp,
+                    ),
+                  ),
+                  InkWell(
+                    onTap: gesOnTap3,
+                    child: Container(
+                      height: 15,
+                      width: 15,
+                      decoration: BoxDecoration(
+                        color: containerColor3,
+                        shape: BoxShape.circle,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            )
+          ],
+        )
+      ],
     ).commonOnlyPadding(bottom: 2.h);
   }
 }

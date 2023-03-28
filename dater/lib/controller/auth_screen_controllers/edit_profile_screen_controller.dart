@@ -20,8 +20,22 @@ class EditProfileScreenController extends GetxController {
   File? file;
 
   RxBool onSelected = false.obs;
+  //exercise value
   RxBool exerciseNoSelected = false.obs;
-
+  RxBool exerciseSometimesSelected = false.obs;
+  RxBool exerciseYesSelected = false.obs;
+  //drinking value
+  RxBool drinkingNoSelected = false.obs;
+  RxBool exerciseSociallySelected = false.obs;
+  RxBool drinkingYesSelected = false.obs;
+  //Smoking value
+  RxBool smokingNoSelected = false.obs;
+  RxBool smokingSociallySelected = false.obs;
+  RxBool smokingYesSelected = false.obs;
+//kids value
+  RxBool kidsgNoSelected = false.obs;
+  RxBool kidsSociallySelected = false.obs;
+  RxBool kidsYesSelected = false.obs;
   getImageFromGallery() async {
     XFile? pickedFile =
         await ImagePicker().pickImage(source: ImageSource.gallery);
