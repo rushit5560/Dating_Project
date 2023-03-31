@@ -1,3 +1,4 @@
+import 'package:dater/screens/index_screen/index_screen_screen.dart';
 import 'package:dater/screens/splash_screen/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -17,7 +18,7 @@ class MyApp extends StatelessWidget {
         return GetMaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'Dating App',
-          home: SplashScreen(),
+          home: IndexScreen(),
         );
       },
     );

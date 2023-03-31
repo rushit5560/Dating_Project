@@ -143,7 +143,10 @@ class AppMessages {
   static String height = "Height";
   static String exercise = "Exercise";
   static String languages = "Languages I know";
-static String token = "96e8451a018e5558d9af7979302cc85b";
+
+
+  // This is client token - don't remove it
+  static String token = "96e8451a018e5558d9af7979302cc85b";
 
 
 }

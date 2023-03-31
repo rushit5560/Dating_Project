@@ -21,5 +21,8 @@ class ApiUrl {
   static const superLoveProfileApi="${apiMainPath}api/like";
 
   static const matchesApi="${apiMainPath}api/matches";
+  static const getLikerApi = "${apiMainPath}api/likers";
+
+  static const getUserDetailsApi = "${apiMainPath}api/get_user_full_details";
 
 }

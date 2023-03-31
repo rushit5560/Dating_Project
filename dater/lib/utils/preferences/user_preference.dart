@@ -9,6 +9,7 @@ class UserPreference {
   static String userVerifyTokenKey = "userVerifyTokenKey"; // This is main token // String
   static String isUserCreatedKey = "isUserCreatedKey"; // bool
   static String isUserLoggedInKey = "isUserLoggedInKey"; // bool
+  static String isSeeWhoLikesYouKey = "isSeeWhoLikesYouKey"; // String
 
 
   Future<void> clearUserAllDataFromPrefs() async {

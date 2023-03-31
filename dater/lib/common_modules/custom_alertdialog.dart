@@ -72,12 +72,30 @@ class CustomAlertDialog extends StatelessWidget {
           backgroundColor: AppColors.darkOrangeColor,
         ).commonSymmetricPadding(horizontal: 35),
         Row(children: [
-          Radio(
+          // Checkbox(
+          //     value: isShowAgain.value,
+          //     shape: RoundedRectangleBorder(
+          //       borderRadius: BorderRadius.circular(25),
+          //     ),
+          //     activeColor: AppColors.darkOrangeColor,
+          //     checkColor: AppColors.darkOrangeColor,
+          //     onChanged: (value) {
+          //       log('value : $value');
+          //       if(value == true) {
+          //         isShowAgain.value = false;
+          //       } else if(value == false) {
+          //         isShowAgain.value = true;
+          //       }
+          //
+          //     },
+          //   ),
+
+          /*Radio(
             activeColor: activeColor,
             value: value,
             groupValue: groupValue,
             onChanged: onChanged,
-          ),
+          ),*/
           Text(
             radioButtonText,
             style: TextStyleConfig.textStyle(

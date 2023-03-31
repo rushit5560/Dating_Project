@@ -4,6 +4,7 @@ import 'dart:developer';
 import 'package:dater/constants/messages.dart';
 import 'package:dater/model/home_screen_model/matches_model.dart';
 import 'package:dater/model/home_screen_model/super_love_model.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 import 'package:dater/constants/api_url.dart';
 import 'package:dater/constants/app_images.dart';
@@ -11,9 +12,8 @@ import 'package:dater/screens/location_permission_sreen/location_permission%20sc
 import 'package:get/get.dart';
 import 'package:location/location.dart';
 import 'package:swipable_stack/swipable_stack.dart';
-
 import '../constants/enums.dart';
-import '../model/home_screen_model/like_profile_model.dart';
+
 
 class HomeScreenController extends GetxController {
   RxBool isLoading = false.obs;
@@ -21,6 +21,7 @@ class HomeScreenController extends GetxController {
   RxBool selected = false.obs;
 
   List<MatchPersonData> matchesList = [];
+  MatchPersonData singlePersonData = MatchPersonData();
 
   List<String> images = [
     AppImages.swiper1Image,
@@ -58,6 +59,7 @@ class HomeScreenController extends GetxController {
     );
   }
 
+  /// Get Matches Function
   Future<void> getMatchesFunction() async {
     isLoading(true);
     String url = ApiUrl.matchesApi;
@@ -70,9 +72,13 @@ class HomeScreenController extends GetxController {
       var response = await request.send();
 
       response.stream.transform(utf8.decoder).listen((value) async {
+        log("value :$value");
         MatchesModel matchesModel = MatchesModel.fromJson(json.decode(value));
         matchesList.clear();
         matchesList.addAll(matchesModel.msg);
+        if(matchesList.isNotEmpty) {
+          singlePersonData = matchesList[0];
+        }
         log('matchesList : ${matchesList.length}');
       });
     } catch (e) {
@@ -83,7 +89,7 @@ class HomeScreenController extends GetxController {
     isLoading(false);
   }
 
-  /// Like   function
+  /*/// Like   function
   Future<void> likeProfileFunction(
       {required String likedId, required LikeType likeType}) async {
     isLoading(true);
@@ -120,12 +126,11 @@ class HomeScreenController extends GetxController {
     } finally {
       isLoading(false);
     }
-  }
+  }*/
 
-  /// superLove function
+  /// Like & SuperLove function
   Future<void> superLoveProfileFunction(
       {required String likedId, required LikeType likeType}) async {
-    isLoading(true);
     String url = ApiUrl.superLoveProfileApi;
 
     try {
@@ -134,6 +139,7 @@ class HomeScreenController extends GetxController {
         "type": likeType.name,
         "liked_id": likedId
       };
+      log('bodyData : $bodyData');
 
       http.Response response = await http.post(
         Uri.parse(url),
@@ -142,22 +148,51 @@ class HomeScreenController extends GetxController {
 
       log('superLove ProfileFunction Response Function : ${response.body}');
 
-      SuperLoveModel superLoveModel =
-          SuperLoveModel.fromJson(json.decode(response.body));
+      SuperLoveModel superLoveModel = SuperLoveModel.fromJson(json.decode(response.body));
 
       if (superLoveModel.statusCode == 200) {
-        /// Card Swipe right
-        cardController.next(
-          swipeDirection: SwipeDirection.right,
-        );
+
+        if (likeType == LikeType.like) {
+          cardController.next(
+            swipeDirection: SwipeDirection.right,
+          );
+        } else if (likeType == LikeType.super_love) {
+          cardController.next(
+            swipeDirection: SwipeDirection.up,
+            duration: const Duration(milliseconds: 600),
+          );
+        }
+
+        matchesList.removeAt(0);
+        if(matchesList.isEmpty) {
+          loadUI();
+        }
+
+      } else if (superLoveModel.statusCode == 400) {
+        Fluttertoast.showToast(msg: superLoveModel.msg);
+        if(superLoveModel.msg.toLowerCase() == "You already liked this account") {
+          if (likeType == LikeType.like) {
+            cardController.next(
+              swipeDirection: SwipeDirection.right,
+            );
+          } else if (likeType == LikeType.super_love) {
+            cardController.next(
+              swipeDirection: SwipeDirection.up,
+              duration: const Duration(milliseconds: 600),
+            );
+          }
+
+          matchesList.removeAt(0);
+          if(matchesList.isEmpty) {
+            loadUI();
+          }
+        }
       } else {
         log('superLoveProfileFunction Else');
       }
     } catch (e) {
       log('superLoveProfileFunction Error : $e');
       rethrow;
-    } finally {
-      isLoading(false);
     }
   }
 
@@ -171,4 +206,10 @@ class HomeScreenController extends GetxController {
     await getLocation();
     await getMatchesFunction();
   }
+
+  loadUI() {
+    isLoading(true);
+    isLoading(false);
+  }
+
 }

@@ -18,244 +18,260 @@ class CardSwipeModule extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Stack(
-          alignment: Alignment.bottomCenter,
-          clipBehavior: Clip.none,
-          children: [
-            Container(
-              height: 56.h,
-              decoration: const BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage(
-                    AppImages.lightorange1,
-                  ),
-                  fit: BoxFit.fill,
-                ),
-              ),
-            ).commonSymmetricPadding(horizontal: 16.w),
-            Container(
-              height: 53.h,
-              decoration: const BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage(
-                    AppImages.lightorange2,
-                  ),
-                  fit: BoxFit.fill,
-                ),
-              ),
-            ).commonSymmetricPadding(horizontal: 8.w),
-            SizedBox(
-              height: 50.h,
-              child: SwipableStack(
-                allowVerticalSwipe: false,
-                swipeAnchor: SwipeAnchor.bottom,
-                cancelAnimationCurve: Curves.bounceIn,
-                overlayBuilder: (context, properties) {
-                  final opacity = min(properties.swipeProgress, 1.0);
-                  final isRight = properties.direction == SwipeDirection.right;
-
-                  return Container(
-                    decoration: const BoxDecoration(color: Colors.white24),
-                    child: Opacity(
-                      opacity: opacity,
-                      child: Center(
-                        child: isRight
-                            ? const Icon(
-                                Icons.favorite,
-                                color: AppColors.lightOrangeColor,
-                                size: 70,
-                              )
-                            : const Icon(
-                                Icons.close_rounded,
-                                color: AppColors.whiteColor,
-                                size: 70,
-                              ),
+    return homeScreenController.matchesList.isEmpty
+        ? SizedBox(
+            height: Get.height * 0.70,
+            child: const Center(child: Text('No Matches Found')))
+        : Column(
+            children: [
+              Stack(
+                alignment: Alignment.bottomCenter,
+                clipBehavior: Clip.none,
+                children: [
+                  Container(
+                    height: 56.h,
+                    decoration: const BoxDecoration(
+                      image: DecorationImage(
+                        image: AssetImage(
+                          AppImages.lightorange1,
+                        ),
+                        fit: BoxFit.fill,
                       ),
                     ),
-                  );
-                },
-                controller: homeScreenController.cardController,
-                itemCount: 15,
-                builder: (context, index) {
-                  return Image.asset(
-                    AppImages.swiper1Image,
-                    width: double.infinity,
-                    fit: BoxFit.fill,
-                  );
-                },
-              ),
-            ),
-          ],
-        ),
-        SizedBox(height: 1.5.h),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            // Cancel Button
-            IconButton(
-              onPressed: () {
-                homeScreenController.cardController.next(
-                  swipeDirection: SwipeDirection.left,
-                  duration: const Duration(milliseconds: 600),
-                );
-              },
-              icon: Image.asset(AppImages.cancelImage),
-            ),
+                  ).commonSymmetricPadding(horizontal: 16.w),
+                  Container(
+                    height: 53.h,
+                    decoration: const BoxDecoration(
+                      image: DecorationImage(
+                        image: AssetImage(
+                          AppImages.lightorange2,
+                        ),
+                        fit: BoxFit.fill,
+                      ),
+                    ),
+                  ).commonSymmetricPadding(horizontal: 8.w),
+                  SizedBox(
+                    height: 50.h,
+                    child: SwipableStack(
+                      allowVerticalSwipe: false,
+                      swipeAnchor: SwipeAnchor.bottom,
+                      cancelAnimationCurve: Curves.bounceIn,
+                      onSwipeCompleted: (index, swipeDirection) async {
+                        if(swipeDirection == SwipeDirection.right) {
+                          await homeScreenController.superLoveProfileFunction(
+                            likedId: "${homeScreenController.matchesList[index].id}",
+                            likeType: LikeType.like,
+                          );
+                        } else if(swipeDirection == SwipeDirection.up) {
+                          await homeScreenController.superLoveProfileFunction(
+                            likedId: "${homeScreenController.matchesList[index].id}",
+                            likeType: LikeType.super_love,
+                          );
+                        } else if(swipeDirection == SwipeDirection.left) {
+                          //todo - when user swipe left
+                        }
+                      },
+                      overlayBuilder: (context, properties) {
+                        final opacity = min(properties.swipeProgress, 1.0);
+                        final isRight =
+                            properties.direction == SwipeDirection.right;
 
-            // Star Button
-            IconButton(
-              onPressed: () async {
-                homeScreenController.cardController.next(
-                  swipeDirection: SwipeDirection.up,
-                  duration: const Duration(milliseconds: 600),
-                );
-                await homeScreenController.superLoveProfileFunction(
-                  likedId: "4",
-                  likeType: LikeType.super_love,
-                );
-              },
-              icon: Image.asset(AppImages.starImage),
-            ),
+                        return Container(
+                          decoration:
+                              const BoxDecoration(color: Colors.white24),
+                          child: Opacity(
+                            opacity: opacity,
+                            child: Center(
+                              child: isRight
+                                  ? const Icon(
+                                      Icons.favorite,
+                                      color: AppColors.lightOrangeColor,
+                                      size: 70,
+                                    )
+                                  : const Icon(
+                                      Icons.close_rounded,
+                                      color: AppColors.whiteColor,
+                                      size: 70,
+                                    ),
+                            ),
+                          ),
+                        );
+                      },
+                      controller: homeScreenController.cardController,
+                      itemCount: homeScreenController.matchesList.length,
+                      builder: (context, sp) {
+                        // MatchPersonData singleItem = homeScreenController.matchesList[sp.index];
 
-            // Like Button
-            IconButton(
-              onPressed: () async {
-                homeScreenController.cardController.next(
-                  swipeDirection: SwipeDirection.right,
-                  duration: const Duration(milliseconds: 600),
-                );
-                await homeScreenController.likeProfileFunction(
-                  likedId: "4",
-                  likeType: LikeType.like,
-                );
-              },
-              icon: Image.asset(AppImages.likeImage),
-            ),
-          ],
-        ).commonOnlyPadding(left: 15.w, right: 15.w),
-        SizedBox(height: 2.h),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              'Eliza Williams, 23',
-              style: TextStyleConfig.textStyle(
-                textColor: AppColors.grey800Color,
-                fontSize: 18.sp,
-                fontFamily: FontFamilyText.sFProDisplaySemibold,
-                fontWeight: FontWeight.w500,
+                        return Image.asset(
+                          AppImages.swiper1Image,
+                          width: double.infinity,
+                          fit: BoxFit.fill,
+                        );
+                      },
+                    ),
+                  ),
+                ],
               ),
-            ),
-            SizedBox(width: 1.w),
-            Image.asset(AppImages.rightImage),
-          ],
-        ),
-        SizedBox(height: 1.h),
-        RichText(
-          textAlign: TextAlign.center,
-          text: TextSpan(
-            children: [
-              TextSpan(
-                text: "Art Manager ",
-                style: TextStyleConfig.textStyle(
-                  textColor: AppColors.grey600Color,
-                  fontSize: 16,
-                  fontFamily: FontFamilyText.sFProDisplayRegular,
-                  // fontWeight: FontWeight.normal,
+              SizedBox(height: 1.5.h),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  // Cancel Button
+                  IconButton(
+                    onPressed: () {
+                      //todo - when user swipe left
+                      // homeScreenController.cardController.next(
+                      //   swipeDirection: SwipeDirection.left,
+                      //   duration: const Duration(milliseconds: 600),
+                      // );
+                    },
+                    icon: Image.asset(AppImages.cancelImage),
+                  ),
+
+                  // Star Button
+                  IconButton(
+                    onPressed: () async {
+                      await homeScreenController.superLoveProfileFunction(
+                        likedId: "${homeScreenController.singlePersonData.id}",
+                        likeType: LikeType.super_love,
+                      );
+                    },
+                    icon: Image.asset(AppImages.starImage),
+                  ),
+
+                  // Like Button
+                  IconButton(
+                    onPressed: () async {
+                      await homeScreenController.superLoveProfileFunction(
+                        likedId: "${homeScreenController.singlePersonData.id}",
+                        likeType: LikeType.like,
+                      );
+                    },
+                    icon: Image.asset(AppImages.likeImage),
+                  ),
+                ],
+              ).commonOnlyPadding(left: 15.w, right: 15.w),
+              SizedBox(height: 2.h),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    '${homeScreenController.singlePersonData.name}, 23',
+                    style: TextStyleConfig.textStyle(
+                      textColor: AppColors.grey800Color,
+                      fontSize: 18.sp,
+                      fontFamily: FontFamilyText.sFProDisplaySemibold,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                  SizedBox(width: 1.w),
+                  Image.asset(AppImages.rightImage),
+                ],
+              ),
+              SizedBox(height: 1.h),
+              RichText(
+                textAlign: TextAlign.center,
+                text: TextSpan(
+                  children: [
+                    TextSpan(
+                      text: "Art Manager ",
+                      style: TextStyleConfig.textStyle(
+                        textColor: AppColors.grey600Color,
+                        fontSize: 16,
+                        fontFamily: FontFamilyText.sFProDisplayRegular,
+                        // fontWeight: FontWeight.normal,
+                      ),
+                    ),
+                    WidgetSpan(
+                      child: Image.asset(AppImages.location2Image, height: 2.h),
+                    ),
+                    TextSpan(
+                      text:
+                          " 10 miles Feminist. Cats. Other Stuff that's mildly interesting",
+                      style: TextStyleConfig.textStyle(
+                        textColor: AppColors.grey600Color,
+                        fontSize: 16,
+                        fontFamily: FontFamilyText.sFProDisplayRegular,
+                      ),
+                    ),
+                  ],
                 ),
               ),
-              WidgetSpan(
-                child: Image.asset(AppImages.location2Image, height: 2.h),
-              ),
-              TextSpan(
-                text:
-                    " 10 miles Feminist. Cats. Other Stuff that's mildly interesting",
-                style: TextStyleConfig.textStyle(
-                  textColor: AppColors.grey600Color,
-                  fontSize: 16,
-                  fontFamily: FontFamilyText.sFProDisplayRegular,
+              SizedBox(height: 3.h),
+              Container(
+                height: 56.h,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(15),
+                  image: const DecorationImage(
+                    image: AssetImage(
+                      AppImages.swiper1Image,
+                    ),
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
+              SizedBox(height: 3.h),
+              Row(
+                children: [
+                  Text(
+                    AppMessages.aboutMe,
+                    style: TextStyleConfig.textStyle(
+                      fontSize: 16.sp,
+                      fontFamily: FontFamilyText.sFProDisplaySemibold,
+                      textColor: AppColors.grey800Color,
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 0.5.h),
+              Row(
+                children: [
+                  Text(
+                    "Life is simple Don't overthink it",
+                    style: TextStyleConfig.textStyle(
+                      fontSize: 13.sp,
+                      fontFamily: FontFamilyText.sFProDisplaySemibold,
+                      textColor: AppColors.grey600Color,
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 4.h),
+              BasicInFormationModule(),
+              SizedBox(height: 4.h),
+              InterestsInformationModule(),
+              SizedBox(height: 7.h),
+              Container(
+                height: 56.h,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(15),
+                  image: const DecorationImage(
+                    image: AssetImage(
+                      AppImages.swiper1Image,
+                    ),
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
+              SizedBox(height: 5.h),
+              LanguagesInformationModule(),
+              SizedBox(height: 7.h),
+              Container(
+                height: 56.h,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(15),
+                  image: const DecorationImage(
+                    image: AssetImage(
+                      AppImages.swiper1Image,
+                    ),
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
+              SizedBox(height: 5.h),
+              LocationInformationModule(),
             ],
-          ),
-        ),
-        SizedBox(height: 3.h),
-        Container(
-          height: 56.h,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(15),
-            image: const DecorationImage(
-              image: AssetImage(
-                AppImages.swiper1Image,
-              ),
-              fit: BoxFit.cover,
-            ),
-          ),
-        ),
-        SizedBox(height: 3.h),
-        Row(
-          children: [
-            Text(
-              AppMessages.aboutMe,
-              style: TextStyleConfig.textStyle(
-                fontSize: 16.sp,
-                fontFamily: FontFamilyText.sFProDisplaySemibold,
-                textColor: AppColors.grey800Color,
-              ),
-            ),
-          ],
-        ),
-        SizedBox(height: 0.5.h),
-        Row(
-          children: [
-            Text(
-              "Life is simple Don't overthink it",
-              style: TextStyleConfig.textStyle(
-                fontSize: 13.sp,
-                fontFamily: FontFamilyText.sFProDisplaySemibold,
-                textColor: AppColors.grey600Color,
-              ),
-            ),
-          ],
-        ),
-        SizedBox(height: 4.h),
-        BasicInFormationModule(),
-        SizedBox(height: 4.h),
-        InterestsInformationModule(),
-        SizedBox(height: 7.h),
-        Container(
-          height: 56.h,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(15),
-            image: const DecorationImage(
-              image: AssetImage(
-                AppImages.swiper1Image,
-              ),
-              fit: BoxFit.cover,
-            ),
-          ),
-        ),
-        SizedBox(height: 5.h),
-        LanguagesInformationModule(),
-        SizedBox(height: 7.h),
-        Container(
-          height: 56.h,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(15),
-            image: const DecorationImage(
-              image: AssetImage(
-                AppImages.swiper1Image,
-              ),
-              fit: BoxFit.cover,
-            ),
-          ),
-        ),
-        SizedBox(height: 5.h),
-        LocationInformationModule(),
-      ],
-    );
+          );
   }
 }
 

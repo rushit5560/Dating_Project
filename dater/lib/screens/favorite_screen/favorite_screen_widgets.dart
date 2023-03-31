@@ -1,15 +1,18 @@
 import 'dart:developer';
-
 import 'package:dater/constants/colors.dart';
 import 'package:dater/constants/font_family.dart';
 import 'package:dater/controller/favorite_screen_controller.dart';
-import 'package:dater/screens/home_screen/home_screen.dart';
+import 'package:dater/utils/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 import '../../common_modules/custom_alertdialog.dart';
 import '../../constants/app_images.dart';
+import '../../constants/enums.dart';
+import '../../model/favorite_screen_model/liker_model.dart';
 import '../../utils/style.dart';
+import '../liker_details_screen/liker_details_screen.dart';
+
 
 class FavoriteGridViewBuilderModule extends StatelessWidget {
   FavoriteGridViewBuilderModule({Key? key}) : super(key: key);
@@ -18,40 +21,50 @@ class FavoriteGridViewBuilderModule extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       child: GridView.builder(
-        itemCount: 4,
+        itemCount: favoriteScreenController.likerList.length,
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisSpacing: 19,
-            mainAxisSpacing: 19,
-            crossAxisCount: 2,
-            childAspectRatio: 0.8),
+          crossAxisSpacing: 19,
+          mainAxisSpacing: 19,
+          crossAxisCount: 2,
+          childAspectRatio: 0.8,
+        ),
         itemBuilder: (BuildContext context, int index) {
+
+          LikerData singleData = favoriteScreenController.likerList[index];
+
           return InkWell(
-            onTap: () => showDialog(
-                context: context,
-                builder: (BuildContext context) {
-                  return Obx(
-                    () => CustomAlertDialog(
-                      text: 'See who likes you',
-                      content: 'Every profile will cost 1 coin',
-                      buttonText: 'UnderStand',
-                      value: "1",
-                      groupValue: favoriteScreenController.selected.value,
-                      onPressed: () {
-                        Get.to(HomeScreen());
-                      },
-                      onChanged: (value) {
-                        log("value 111 : $value");
-                        favoriteScreenController.isloading(true);
-                        // favoriteScreenController.change(index)
-                        favoriteScreenController.selected.value = value!;
-                        favoriteScreenController.isloading(false);
-                        log("value 222 : $value");
-                      },
-                      activeColor: AppColors.darkOrangeColor,
-                      radioButtonText: "don't show again",
-                    ),
-                  );
-                }),
+            // onT ap: () => showDialog(
+            //     context: context,
+            //     builder: (BuildContext context) {
+            //       return Obx(
+            //         () => CustomAlertDialog(
+            //           text: 'See who likes you',
+            //           content: 'Every profile will cost 1 coin',
+            //           buttonText: 'UnderStand',
+            //           value: favoriteScreenController.isShowAgain.value == "no" ? LikesDialogShow.no.name : LikesDialogShow.yes.name,
+            //           groupValue: favoriteScreenController.isShowAgain.value.toString(),
+            //           onPressed: () {
+            //             Get.back();
+            //           },
+            //           onChanged: (value) {
+            //             log("value 111 : $value");
+            //             favoriteScreenController.isLoading(true);
+            //             if(favoriteScreenController.isShowAgain.value == "no") {
+            //               favoriteScreenController.isShowAgain.value = "yes";
+            //             } else {
+            //               favoriteScreenController.isShowAgain.value = "no";
+            //             }
+            //             // favoriteScreenController.isShowAgain.value = value!;
+            //             favoriteScreenController.isLoading(false);
+            //             log("value 222 : $value");
+            //           },
+            //           activeColor: AppColors.darkOrangeColor,
+            //           radioButtonText: "don't show again",
+            //         ),
+            //       );
+            //     }),
+            onTap: () => Get.to(()=> LikerDetailsScreen(),
+            arguments: [favoriteScreenController.likerList[index].id]),
             child: Container(
               // height: 30.h,
               decoration: const BoxDecoration(
@@ -64,18 +77,21 @@ class FavoriteGridViewBuilderModule extends StatelessWidget {
                     height: 22.h,
                     decoration: const BoxDecoration(
                       color: AppColors.whiteColor2,
-                      image: DecorationImage(
-                        image: AssetImage(AppImages.swiper2Image),
-                        fit: BoxFit.cover,
-                      ),
+                      // image: DecorationImage(
+                      //   image: singleData.images.isNotEmpty
+                      //     ? NetworkImage(singleData.images[0].imageUrl)
+                      //   : Image.asset(AppImages.locationImage),
+                      //   fit: BoxFit.cover,
+                      // ),
                       borderRadius: BorderRadius.only(
                           topLeft: Radius.circular(20),
                           topRight: Radius.circular(20)),
                     ),
+                    child: singleData.images.isNotEmpty
+                        ? Image.network(singleData.images[0].imageUrl)
+                        : Image.asset(AppImages.locationImage).commonAllSidePadding(30),
                   ),
-                  SizedBox(
-                    height: 1.h,
-                  ),
+                  SizedBox(height: 1.h),
                   Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                     AnimatedContainer(
                       width: 2.8.w,
@@ -87,11 +103,9 @@ class FavoriteGridViewBuilderModule extends StatelessWidget {
                       duration: const Duration(seconds: 0),
                       //curve: Curves.bounceIn,
                     ),
-                    SizedBox(
-                      width: 1.w,
-                    ),
+                    SizedBox(width: 1.w),
                     Text(
-                      'Recently active',
+                      singleData.activeTime,
                       //textAlign: TextAlign.right,
                       style: TextStyleConfig.textStyle(
                         textColor: AppColors.grey800Color,
