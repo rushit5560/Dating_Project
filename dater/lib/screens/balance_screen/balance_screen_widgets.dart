@@ -41,16 +41,18 @@ class WidgetsBalanceModule extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Image(
-                fit: BoxFit.cover,
-                width: 12.h,
+                fit: BoxFit.contain,
+                width: 10.h,
                 image: const AssetImage(AppImages.balance2Image)),
             //Image.asset(AppImages.balance2Image),
             Text(
-              '0',
+              balanceScreenController.coinValue.value,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
               style: TextStyleConfig.textStyle(
                 fontFamily: FontFamilyText.sFProDisplayHeavy,
                 textColor: AppColors.grey800Color,
-                fontSize: 100,
+                fontSize: 90,
               ),
             ),
           ],

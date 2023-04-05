@@ -1,62 +1,99 @@
-// import 'package:flutter/material.dart';
-// import 'package:flutter_card_swiper/flutter_card_swiper.dart';
-//
-// class DemoScreen extends StatelessWidget {
-//   DemoScreen({Key? key}) : super(key: key);
-//
-//   final CardSwiperController controller = CardSwiperController();
-//
-//   // final cards = candidates.map((candidate) => ExampleCard(candidate)).toList();
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Sca
-//     ffold(
-//       body: Column(
-//         children: [
-//           Flexible(
-//             child: CardSwiper(
-//               controller: controller,
-//               cards: cards,
-//               onSwipe: _swipe,
-//               padding: const EdgeInsets.all(24.0),
-//             ),
-//           ),
-//           Padding(
-//             padding: const EdgeInsets.symmetric(vertical: 16.0),
-//             child: Row(
-//               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-//               children: [
-//                 FloatingActionButton(
-//                   onPressed: controller.swipe,
-//                   child: const Icon(Icons.rotate_right),
-//                 ),
-//                 FloatingActionButton(
-//                   onPressed: controller.swipeLeft,
-//                   child: const Icon(Icons.keyboard_arrow_left),
-//                 ),
-//                 FloatingActionButton(
-//                   onPressed: controller.swipeRight,
-//                   child: const Icon(Icons.keyboard_arrow_right),
-//                 ),
-//                 FloatingActionButton(
-//                   onPressed: controller.swipeTop,
-//                   child: const Icon(Icons.keyboard_arrow_up),
-//                 ),
-//                 FloatingActionButton(
-//                   onPressed: controller.swipeBottom,
-//                   child: const Icon(Icons.keyboard_arrow_down),
-//                 ),
-//               ],
-//             ),
-//           )
-//         ],
-//       ),
-//     );
-//   }
-//
-//   void _swipe(int index, CardSwiperDirection direction) {
-//     debugPrint('the card $index was swiped to the: ${direction.name}');
-//   }
-//
-// }
+import 'dart:convert';
+import 'dart:developer';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:http/http.dart' as http;
+import 'package:dater/constants/api_url.dart';
+import 'package:get/get.dart';
+
+import 'constants/messages.dart';
+import 'models.dart';
+
+class DemoController extends GetxController {
+  RxBool isLoading = false.obs;
+  RxInt successStatus = 0.obs;
+
+
+  /// Update User Location
+  Future<void> updateUserLocationFunction() async {
+    isLoading(true);
+    String url = ApiUrl.updateUserLocationApi;
+    log('updateUserLocationFunction Api Url : $url');
+
+    try {
+      var request = http.MultipartRequest('POST', Uri.parse(url));
+      request.fields['token'] = AppMessages.token;
+
+      var response = await request.send();
+
+      response.stream.transform(utf8.decoder).listen((value) async {
+        log('value : $value');
+        UpdateLocationModel updateLocationModel = UpdateLocationModel.fromJson(json.decode(value));
+        successStatus.value = updateLocationModel.statusCode;
+
+        if(successStatus.value == 200) {
+          Fluttertoast.showToast(msg: updateLocationModel.msg);
+        } else {
+         log('updateUserLocationFunction Else');
+        }
+
+      });
+
+    } catch(e) {
+      log('updateUserLocationFunction Error :$e');
+      rethrow;
+    }
+    isLoading(false);
+  }
+
+
+  /// Get User Age
+  Future<void> getUserAgeFunction() async {
+    isLoading(true);
+    String url = ApiUrl.getUserAgeApi;
+    log('getUserAgeFunction Api Url : $url');
+
+    try {
+      var request = http.MultipartRequest('POST', Uri.parse(url));
+      request.fields['token'] = AppMessages.token;
+
+      var response = await request.send();
+
+      response.stream.transform(utf8.decoder).listen((value) async {
+        log('value : $value');
+
+        UserAgeModel userAgeModel = UserAgeModel.fromJson(json.decode(value));
+        successStatus.value = userAgeModel.statusCode;
+
+        if(successStatus.value == 200) {
+          Fluttertoast.showToast(msg: userAgeModel.msg);
+        } else {
+          log('getUserAgeFunction Else');
+        }
+      });
+
+    } catch(e) {
+      log('getUserAgeFunction Error :$e');
+      rethrow;
+    }
+    isLoading(false);
+  }
+
+  /// Send Message
+  Future<void> sendChatMessageFunction() async {
+    isLoading(true);
+    String url = ApiUrl.sendMessageApi;
+    log('sendChatMessageFunction Api Url : $url');
+
+    try {
+      var request = http.MultipartRequest('POST', Uri.parse(url));
+      request.fields['token'] = AppMessages.token;
+
+      var response = await request.send();
+    } catch(e) {
+      log('sendChatMessageFunction Error :$e');
+      rethrow;
+    }
+
+  }
+
+}

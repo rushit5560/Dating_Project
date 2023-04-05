@@ -7,13 +7,15 @@ import '../constants/colors.dart';
 
 PreferredSizeWidget commonAppBarModule(
     {required String text,
+      bool isLeadingShow = true,
     Color iconColor = AppColors.lightOrangeColor,
     String textFontFamily = "SFProDisplayRegular",
     Color textColor = AppColors.grey800Color,
     Color backGroundColor = AppColors.whiteColor2}) {
   return AppBar(
     backgroundColor: backGroundColor,
-    leading: Builder(
+    leading: isLeadingShow== true
+      ? Builder(
       builder: (BuildContext context) {
         return IconButton(
           onPressed: () {
@@ -26,7 +28,7 @@ PreferredSizeWidget commonAppBarModule(
           ),
         );
       },
-    ),
+    ) : null,
     centerTitle: true,
     elevation: 0,
     title: Text(

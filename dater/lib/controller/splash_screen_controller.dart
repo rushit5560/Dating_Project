@@ -8,7 +8,7 @@ import 'package:get/get.dart';
 
 import '../utils/preferences/user_preference.dart';
 
-class SplashScreencontroller extends GetxController {
+class SplashScreenController extends GetxController {
   AuthAs authAs = AuthAs.login;
 
   UserPreference userPreference = UserPreference();
@@ -17,8 +17,10 @@ class SplashScreencontroller extends GetxController {
     Timer(
       const Duration(milliseconds: 1500),
       () async {
+        // Get User loggedIn or not
         bool isUserLoggedIn = await userPreference.getUserLoggedInFromPrefs(
-            key: UserPreference.isUserLoggedInKey);
+          key: UserPreference.isUserLoggedInKey,
+        );
         if (isUserLoggedIn == true) {
           Get.offAll(() => IndexScreen());
         } else {

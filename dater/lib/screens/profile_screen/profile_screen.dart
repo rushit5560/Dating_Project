@@ -16,7 +16,8 @@ class ProfileScreen extends StatelessWidget {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: AppColors.whiteColor2,
-      appBar: commonAppBarModule(text: AppMessages.myProfile),
+      appBar: commonAppBarModule(text: AppMessages.myProfile,
+      isLeadingShow: false),
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
         child: Column(

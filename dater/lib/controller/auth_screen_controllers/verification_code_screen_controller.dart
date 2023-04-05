@@ -104,13 +104,13 @@ class VerifyCodeScreenController extends GetxController {
                 key: UserPreference.isUserCreatedKey,
                 value: true,
               );
+              await userPreference.setBoolValueInPrefs(
+                key: UserPreference.isUserLoggedInKey,
+                value: true,
+              );
               Get.offAll(() => IndexScreen());
             }
           }
-
-
-
-          // todo
 
         } else if(accountActiveModel.statusCode == 400) {
           Fluttertoast.showToast(msg: accountActiveModel.msg);

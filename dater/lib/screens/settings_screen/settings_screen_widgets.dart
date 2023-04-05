@@ -21,7 +21,8 @@ import '../set_up_email_screen/set_up_email_screen.dart';
 import '../show_me_gender_screen/show_me_gender_screen.dart';
 
 class ReferralNumberModule extends StatelessWidget {
-  const ReferralNumberModule({Key? key}) : super(key: key);
+  ReferralNumberModule({Key? key}) : super(key: key);
+  final screenController = Get.find<SettingsScreenController>();
 
   @override
   Widget build(BuildContext context) {
@@ -59,7 +60,7 @@ class ReferralNumberModule extends StatelessWidget {
             ),
             child: Center(
               child: Text(
-                '51278223',
+                screenController.referralNumber.value,
                 style: TextStyleConfig.textStyle(
                   fontFamily: FontFamilyText.sFProDisplaySemibold,
                   textColor: AppColors.grey600Color,
@@ -71,9 +72,7 @@ class ReferralNumberModule extends StatelessWidget {
           SizedBox(height: 1.5.h),
           Center(
             child: InkWell(
-              onTap: () {
-                log('message');
-              },
+              onTap: () async => await screenController.copyTextFunction(),
               child: Container(
                 // height: 3.1.h,
                 width: 20.w,
@@ -565,9 +564,18 @@ class BothButtonModule extends StatelessWidget {
           textColor: AppColors.gray50Color,
           textFontFamily: FontFamilyText.sFProDisplaySemibold,
           textsize: 14.sp,
-          onPressed: () {
-            //Get.to(() => LocationScreen());
-          },
+          onPressed: () => showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return CustomLogoutAlertDialog(
+                  text: "Delete Account",
+                  content: "Are you sure you want delete your account ?",
+                  yesButtonText: "Yes",
+                  onYesPressed: () async => await screenController.deleteAccountFunction(),
+                  noButtonText: "No",
+                  onNoPressed: () => Get.back(),
+                );
+              }),
         ),
       ],
     );

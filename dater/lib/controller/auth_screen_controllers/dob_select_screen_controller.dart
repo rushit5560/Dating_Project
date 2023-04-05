@@ -1,12 +1,19 @@
+import 'dart:convert';
+import 'dart:developer';
+import 'package:http/http.dart' as http;
+import 'package:dater/constants/api_url.dart';
 import 'package:dater/utils/preferences/signup_preference.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
+import '../../constants/messages.dart';
+import '../../model/dob_select_screen_model/dob_save_model.dart';
 import '../../screens/authentication_screen/gender_select_screen/gender_select_screen.dart';
 
 class DobSelectScreenController extends GetxController {
-
+  RxBool isLoading = false.obs;
+  RxInt successStatus = 0.obs;
   RxString dobString = "YYYY".obs;
   DateTime tempDobString = DateTime.now();
 
@@ -32,9 +39,43 @@ class DobSelectScreenController extends GetxController {
       Fluttertoast.showToast(msg: "Your age must be +18");
     }
     else {
-      await signUpPreference.setStringValueInPrefs(key: SignUpPreference.userDobKey, value: dobString.value);
-      Get.to(() => GenderSelectScreen());
+      await saveDobFunction();
     }
+  }
+
+
+  /// Save Dob Function
+  Future<void> saveDobFunction() async {
+    isLoading(true);
+    String url = ApiUrl.saveBirthYearApi;
+    log('saveDobFunction Api Url : $url');
+
+    try {
+      var request = http.MultipartRequest('POST', Uri.parse(url));
+      request.fields['token'] = AppMessages.token;
+      request.fields['year'] = dobString.value;
+
+      var response = await request.send();
+
+      response.stream.transform(utf8.decoder).listen((value) async {
+        log('value : $value');
+        DobSaveModel dobSaveModel = DobSaveModel.fromJson(json.decode(value));
+        successStatus.value = dobSaveModel.statusCode;
+
+        if(successStatus.value == 200) {
+          Fluttertoast.showToast(msg: dobSaveModel.msg);
+          await signUpPreference.setStringValueInPrefs(key: SignUpPreference.userDobKey, value: dobString.value);
+          Get.to(() => GenderSelectScreen());
+        } else {
+          log('saveDobFunction Else');
+        }
+
+      });
+    } catch(e) {
+      log('saveDobFunction Error :$e');
+      rethrow;
+    }
+    isLoading(false);
   }
 
 }
