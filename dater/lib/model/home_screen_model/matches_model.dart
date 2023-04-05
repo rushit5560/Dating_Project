@@ -80,7 +80,9 @@ class MatchesModel {
 
   factory MatchesModel.fromJson(Map<String, dynamic> json) => MatchesModel(
     response: json["response"] ?? "",
-    msg: List<MatchPersonData>.from((json["msg"] ?? []).map((x) => MatchPersonData.fromJson(x ?? {}))),
+    msg: json["msg"].toString().toLowerCase() == "No data".toLowerCase()
+        ? []
+        : List<MatchPersonData>.from((json["msg"] ?? []).map((x) => MatchPersonData.fromJson(x ?? {}))),
     token: json["token"] ?? "",
     statusCode: json["status_code"] ?? 0,
   );

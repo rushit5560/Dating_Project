@@ -88,15 +88,15 @@ class AppMessages {
   static String regather = "Regather";
   static String seewholikesyou = "See who likes you";
   static String youdonthaveenoughcoins1 = "You don't have enough coins";
-  static String youdonthaveenoughcoins2 =
+  static String youDontHaveEnoughCoins2 =
       "try to get new coins or come back tomorrow !";
-  static String everysuperlovewillcostyou4coins =
+  static String everySuperLoveWillCostYou4Coins =
       "Every super love will cost you 4 coins";
-  static String everyprofilewillcostyou1coins =
+  static String everyProfileWillCostYou1Coins =
       "Every profile will cost you 1 coins";
-  static String everyregatherwillcostyou1coins =
+  static String everyRegatherWillCostYou1Coins =
       "Every regather  will cost you 1 coins";
-  static String filterScreentext = "You can add one or all filters";
+  static String filterScreenText = "You can add one or all filters";
   static String yourBalance = "Your Balance";
   static String coinsBalance = "coins Balance";
   static String earnMoreCoins = "Earn more coins";
@@ -126,17 +126,17 @@ class AppMessages {
   static String aboutMe = "About me";
   static String basics = "Basics";
   static String interests = "Interests";
-  static String languagesIknow = "Languages I know";
-  static String locationtext = "Eliza's Location";
+  static String languagesIKnow = "Languages I know";
+  static String locationText = "Eliza's Location";
   static String chat = "Chat";
   static String typeAMessage = "Type a message";
-  static String locatinpermission = "Apply location permission";
+  static String locationPermission = "Apply location permission";
   static String editProfile = "Edit Profile";
 
 
-  static String holdAndDragtext = "Hold & drag photos to change their order";
+  static String holdAndDragText = "Hold & drag photos to change their order";
   static String myInterests = "My Interests";
-  static String prifilePrompts = "Profile Prompts";
+  static String profilePrompts = "Profile Prompts";
   static String myBio = "My bio";
   static String myBasics = "My Basics";
   static String moreAboutMe = "More about me";
@@ -146,7 +146,10 @@ class AppMessages {
 
 
   // This is client token - don't remove it
-  static String token = "96e8451a018e5558d9af7979302cc85b";
+  // static String token = "96e8451a018e5558d9af7979302cc85b";
+  static String token = "46848b9868ab080b9180fba089b04032"; //+619662298453
+  // static String token = "7366d4dbee942e86ed458944f78f5f9a"; //+619662298450
+  // static String token = "215ee6698e6a2493bda820f60f3258a1"; //+619662298451
 
 
 }

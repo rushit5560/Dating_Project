@@ -145,7 +145,7 @@ class EditProfileScreenWidgets extends StatelessWidget {
     return Column(
       children: [
         Text(
-          AppMessages.holdAndDragtext,
+          AppMessages.holdAndDragText,
           style: TextStyleConfig.textStyle(
             fontFamily: FontFamilyText.sFProDisplayRegular,
             textColor: AppColors.grey600Color,
@@ -227,7 +227,7 @@ class EditProfileScreenWidgets extends StatelessWidget {
         Row(
           children: [
             Text(
-              AppMessages.prifilePrompts,
+              AppMessages.profilePrompts,
               style: TextStyleConfig.textStyle(
                 fontFamily: FontFamilyText.sFProDisplaySemibold,
                 textColor: AppColors.grey800Color,

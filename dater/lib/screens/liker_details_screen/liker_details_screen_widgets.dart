@@ -414,7 +414,7 @@ class LikerLanguagesInformationModule extends StatelessWidget {
         Row(
           children: [
             Text(
-              AppMessages.languagesIknow,
+              AppMessages.languagesIKnow,
               style: TextStyleConfig.textStyle(
                 fontSize: 16.sp,
                 fontFamily: FontFamilyText.sFProDisplayBold,
@@ -482,7 +482,7 @@ class LikerLocationInformationModule extends StatelessWidget {
             ),
             SizedBox(width: 1.w),
             Text(
-              AppMessages.locationtext,
+              AppMessages.locationText,
               style: TextStyleConfig.textStyle(
                 fontSize: 16.sp,
                 fontFamily: FontFamilyText.sFProDisplayBold,

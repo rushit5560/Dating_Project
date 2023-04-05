@@ -26,7 +26,7 @@ class FilterScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    AppMessages.filterScreentext,
+                    AppMessages.filterScreenText,
                     style: TextStyleConfig.textStyle(
                       fontFamily: FontFamilyText.sFProDisplayRegular,
                       fontSize: 15.sp,

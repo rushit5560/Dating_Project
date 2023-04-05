@@ -33,14 +33,14 @@ class HomeScreenController extends GetxController {
   fetchMobileLocation() async {
     Location location = Location();
 
-    bool _serviceEnabled;
+    bool serviceEnabled;
 
-    _serviceEnabled = await location.serviceEnabled();
-    if (!_serviceEnabled) {
+    serviceEnabled = await location.serviceEnabled();
+    if (!serviceEnabled) {
       log("111");
       Get.to(() => LocationPermissionScreen());
 
-      if (!_serviceEnabled) {
+      if (!serviceEnabled) {
         return;
       }
     }
@@ -75,11 +75,23 @@ class HomeScreenController extends GetxController {
         log("value :$value");
         MatchesModel matchesModel = MatchesModel.fromJson(json.decode(value));
         matchesList.clear();
-        matchesList.addAll(matchesModel.msg);
-        if(matchesList.isNotEmpty) {
-          singlePersonData = matchesList[0];
+
+        if(matchesModel.msg.isNotEmpty) {
+          matchesList.addAll(matchesModel.msg);
+          if(matchesList.isNotEmpty) {
+            singlePersonData = matchesList[0];
+          }
+          log('matchesList : ${matchesList.length}');
         }
-        log('matchesList : ${matchesList.length}');
+
+        // if(matchesModel.msg.toString() != "No data") {
+        //   matchesList.addAll(matchesModel.msg);
+        //   if(matchesList.isNotEmpty) {
+        //     singlePersonData = matchesList[0];
+        //   }
+        //   log('matchesList : ${matchesList.length}');
+        // }
+
       });
     } catch (e) {
       log('getMatchesFunction Error :$e');
@@ -163,10 +175,12 @@ class HomeScreenController extends GetxController {
           );
         }
 
+        /// Remove Data at 0 Index & set new data in variable
         matchesList.removeAt(0);
-        if(matchesList.isEmpty) {
-          loadUI();
+        if(matchesList.isNotEmpty) {
+          singlePersonData = matchesList[0];
         }
+        loadUI();
 
       } else if (superLoveModel.statusCode == 400) {
         Fluttertoast.showToast(msg: superLoveModel.msg);
@@ -182,10 +196,12 @@ class HomeScreenController extends GetxController {
             );
           }
 
+          /// Remove Data at 0 Index & set new data in variable
           matchesList.removeAt(0);
-          if(matchesList.isEmpty) {
-            loadUI();
+          if(matchesList.isNotEmpty) {
+            singlePersonData = matchesList[0];
           }
+          loadUI();
         }
       } else {
         log('superLoveProfileFunction Else');

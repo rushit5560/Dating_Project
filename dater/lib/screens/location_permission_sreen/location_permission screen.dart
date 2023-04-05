@@ -41,7 +41,7 @@ class LocationPermissionScreen extends StatelessWidget {
         ),
         bottomNavigationBar: ButtonCustom(
           backgroundColor: AppColors.darkOrangeColor,
-          text: AppMessages.locatinpermission,
+          text: AppMessages.locationPermission,
           fontWeight: FontWeight.bold,
           textsize: 14.sp,
           textColor: AppColors.gray50Color,
