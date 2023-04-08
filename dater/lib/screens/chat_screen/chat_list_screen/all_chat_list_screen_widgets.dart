@@ -3,7 +3,7 @@ import 'package:dater/constants/app_images.dart';
 import 'package:dater/constants/colors.dart';
 import 'package:dater/constants/font_family.dart';
 import 'package:dater/constants/messages.dart';
-import 'package:dater/controller/all_chat_list_screen.dart';
+import 'package:dater/controller/all_chat_list_screen_controller.dart';
 import 'package:dater/screens/chat_screen/chat_screen/chat_screen.dart';
 import 'package:dater/utils/extensions.dart';
 import 'package:dater/utils/style.dart';

@@ -1,3 +1,4 @@
+/// New Model - Update User Location Model - api/update_location
 import 'dart:convert';
 
 UpdateLocationModel updateLocationModelFromJson(String str) => UpdateLocationModel.fromJson(json.decode(str));
@@ -34,7 +35,7 @@ class UpdateLocationModel {
 
 
 
-/// New model
+/// New model - User Get Age Model - api/get_birth_year
 
 UserAgeModel userAgeModelFromJson(String str) => UserAgeModel.fromJson(json.decode(str));
 
@@ -64,7 +65,7 @@ class UserAgeModel {
   };
 }
 
-/// New model
+/// New model - Message Send Model - api/messages/send (POST)
 
 MessageSendModel messageSendModelFromJson(String str) => MessageSendModel.fromJson(json.decode(str));
 
@@ -91,5 +92,203 @@ class MessageSendModel {
     "response": response,
     "msg": msg,
     "status_code": statusCode,
+  };
+}
+
+
+/// New Model - ChatList Model - api/messages/open (POST)
+
+MessageListModel messageListModelFromJson(String str) => MessageListModel.fromJson(json.decode(str));
+
+String messageListModelToJson(MessageListModel data) => json.encode(data.toJson());
+
+class MessageListModel {
+  MessageListModel({
+    required this.response,
+    required this.msg,
+    required this.statusCode,
+  });
+
+  String response;
+  List<ChatData> msg;
+  int statusCode;
+
+  factory MessageListModel.fromJson(Map<String, dynamic> json) => MessageListModel(
+    response: json["response"] ?? "",
+    msg: List<ChatData>.from((json["msg"] ?? []).map((x) => ChatData.fromJson(x ?? {}))),
+    statusCode: json["status_code"],
+  );
+
+  Map<String, dynamic> toJson() => {
+    "response": response,
+    "msg": List<dynamic>.from(msg.map((x) => x.toJson())),
+    "status_code": statusCode,
+  };
+}
+
+class ChatData {
+  ChatData({
+    required this.messageText,
+    required this.clientMessage,
+  });
+
+  String messageText;
+  bool clientMessage;
+
+  factory ChatData.fromJson(Map<String, dynamic> json) => ChatData(
+    messageText: json["message_text"] ?? "",
+    clientMessage: json["client_message"] ?? false,
+  );
+
+  Map<String, dynamic> toJson() => {
+    "message_text": messageText,
+    "client_message": clientMessage,
+  };
+}
+
+
+/// New Model - Suggestions Model - api/suggestions
+
+SuggestionsModel suggestionsModelFromJson(String str) => SuggestionsModel.fromJson(json.decode(str));
+
+String suggestionsModelToJson(SuggestionsModel data) => json.encode(data.toJson());
+
+class SuggestionsModel {
+  SuggestionsModel({
+    required this.response,
+    required this.msg,
+    required this.statusCode,
+  });
+
+  String response;
+  List<SuggestionData> msg;
+  int statusCode;
+
+  factory SuggestionsModel.fromJson(Map<String, dynamic> json) => SuggestionsModel(
+    response: json["response"] ?? "",
+    msg: List<SuggestionData>.from((json["msg"] ?? []).map((x) => SuggestionData.fromJson(x ?? {}))),
+    statusCode: json["status_code"] ?? 0,
+  );
+
+  Map<String, dynamic> toJson() => {
+    "response": response,
+    "msg": List<dynamic>.from(msg.map((x) => x.toJson())),
+    "status_code": statusCode,
+  };
+}
+
+class SuggestionData {
+  SuggestionData({
+    required this.id,
+    required this.name,
+    required this.genderGet,
+    required this.sexualityGet,
+    required this.targetGenderGet,
+    required this.profilePrompts,
+    required this.bio,
+    required this.work,
+    required this.education,
+    required this.homeTown,
+    required this.height,
+    required this.exercise,
+    required this.smoking,
+    required this.drinking,
+    required this.kids,
+    required this.politics,
+    required this.religion,
+    required this.verified,
+    required this.distance,
+    required this.age,
+    required this.activeTime,
+    required this.interest,
+  });
+
+  String id;
+  String name;
+  String genderGet;
+  String sexualityGet;
+  String targetGenderGet;
+  String profilePrompts;
+  String bio;
+  String work;
+  String education;
+  String homeTown;
+  String height;
+  String exercise;
+  String smoking;
+  String drinking;
+  String kids;
+  String politics;
+  String religion;
+  String verified;
+  String distance;
+  String age;
+  String activeTime;
+  List<Interest> interest;
+
+  factory SuggestionData.fromJson(Map<String, dynamic> json) => SuggestionData(
+    id: json["id"] ?? "",
+    name: json["name"] ?? "",
+    genderGet: json["gender_get"] ?? "",
+    sexualityGet: json["sexuality_get"] ?? "",
+    targetGenderGet: json["target_gender_get"] ?? "",
+    profilePrompts: json["profile_prompts"] ?? "",
+    bio: json["bio"] ?? "",
+    work: json["work"] ?? "",
+    education: json["education"] ?? "",
+    homeTown: json["home_town"] ?? "",
+    height: json["height"] ?? "",
+    exercise: json["exercise"] ?? "",
+    smoking: json["smoking"] ?? "",
+    drinking: json["drinking"] ?? "",
+    kids: json["kids"] ?? "",
+    politics: json["politics"] ?? "",
+    religion: json["religion"] ?? "",
+    verified: json["verified"] ?? "",
+    distance: json["distance"] ?? "",
+    age: json["age"] ?? "",
+    activeTime: json["active_time"] ?? "",
+    interest: List<Interest>.from((json["interest"] ?? []).map((x) => x ?? {})),
+  );
+
+  Map<String, dynamic> toJson() => {
+    "id": id,
+    "name": name,
+    "gender_get": genderGet,
+    "sexuality_get": sexualityGet,
+    "target_gender_get": targetGenderGet,
+    "profile_prompts": profilePrompts,
+    "bio": bio,
+    "work": work,
+    "education": education,
+    "home_town": homeTown,
+    "height": height,
+    "exercise": exercise,
+    "smoking": smoking,
+    "drinking": drinking,
+    "kids": kids,
+    "politics": politics,
+    "religion": religion,
+    "verified": verified,
+    "distance": distance,
+    "age": age,
+    "active_time": activeTime,
+    "interest": List<dynamic>.from(interest.map((x) => x)),
+  };
+}
+
+class Interest {
+  Interest({
+    required this.name,
+  });
+
+  String name;
+
+  factory Interest.fromJson(Map<String, dynamic> json) => Interest(
+    name: json["name"] ?? "",
+  );
+
+  Map<String, dynamic> toJson() => {
+    "name": name,
   };
 }

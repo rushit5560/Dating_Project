@@ -1,4 +1,3 @@
-import 'package:dater/screens/index_screen/index_screen_screen.dart';
 import 'package:dater/screens/splash_screen/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

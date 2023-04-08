@@ -30,9 +30,7 @@ class SignUpNameScreenWidgets extends StatelessWidget {
             ),
           ),
         ]),
-        SizedBox(
-          height: 5.h,
-        ),
+        SizedBox(height: 5.h),
         Row(mainAxisAlignment: MainAxisAlignment.center, children: [
           Text(
             AppMessages.userName1,
@@ -43,9 +41,7 @@ class SignUpNameScreenWidgets extends StatelessWidget {
             ),
           ),
         ]),
-        SizedBox(
-          height: 2.6.h,
-        ),
+        SizedBox(height: 2.6.h),
         Row(mainAxisAlignment: MainAxisAlignment.center, children: [
           Text(
             AppMessages.userName2,
@@ -56,9 +52,7 @@ class SignUpNameScreenWidgets extends StatelessWidget {
             ),
           ),
         ]),
-        SizedBox(
-          height: 15.h,
-        ),
+        SizedBox(height: 15.h),
         Form(
           key: userNameScreenController.formKey,
           child: noShadowTextFormFiledCustom(

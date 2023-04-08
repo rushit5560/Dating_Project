@@ -1,6 +1,5 @@
 import 'package:dater/constants/app_images.dart';
 import 'package:dater/constants/messages.dart';
-import 'package:dater/utils/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
@@ -11,6 +10,7 @@ import '../../controller/balance_screen_controller.dart';
 import '../../utils/style.dart';
 import '../earn_more_coins_screen/earn_more_coins_screen.dart';
 import '../your_daily_rate_screen/your_daily_rate_screen.dart';
+
 
 class WidgetsBalanceModule extends StatelessWidget {
   WidgetsBalanceModule({Key? key}) : super(key: key);
@@ -61,7 +61,7 @@ class WidgetsBalanceModule extends StatelessWidget {
         ButtonCustom(
           text: AppMessages.earnMoreCoins,
           onPressed: () {
-            Get.to(EarnMoreCoinsScreen());
+            Get.to(()=> EarnMoreCoinsScreen());
           },
           textsize: 14.sp,
           textFontFamily: FontFamilyText.sFProDisplayBold,

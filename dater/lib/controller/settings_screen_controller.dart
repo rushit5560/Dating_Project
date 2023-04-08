@@ -29,8 +29,9 @@ class SettingsScreenController extends GetxController{
     log('getUserReferralCodeFunction Api Url : $url');
 
     try {
+      String verifyToken = await userPreference.getStringFromPrefs(key: UserPreference.userVerifyTokenKey);
       var request = http.MultipartRequest('POST', Uri.parse(url));
-      request.fields['token'] = AppMessages.token;
+      request.fields['token'] = verifyToken;
 
       var response = await request.send();
 
@@ -73,8 +74,9 @@ class SettingsScreenController extends GetxController{
     log('deleteAccountFunction Api Url : $url');
 
     try {
+      String verifyToken = await userPreference.getStringFromPrefs(key: UserPreference.userVerifyTokenKey);
       var request = http.MultipartRequest('POST', Uri.parse(url));
-      request.fields['token'] = AppMessages.token;
+      request.fields['token'] = verifyToken;
 
       var response = await request.send();
 
@@ -85,6 +87,10 @@ class SettingsScreenController extends GetxController{
         successStatus.value = deleteAccountModel.statusCode;
 
         if(successStatus.value == 200) {
+          Fluttertoast.showToast(msg: deleteAccountModel.msg);
+          await logOutButtonFunction();
+        } else if(successStatus.value == 400) {
+          Get.back();
           Fluttertoast.showToast(msg: deleteAccountModel.msg);
           await logOutButtonFunction();
         } else {

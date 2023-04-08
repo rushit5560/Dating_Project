@@ -1,4 +1,5 @@
 import 'package:dater/controller/earn_more_coins_screen_controller.dart';
+import 'package:dater/screens/your_daily_rate_screen/your_daily_rate_screen.dart';
 import 'package:dater/utils/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -41,7 +42,9 @@ final earnMoreCoinsScreenController = Get.find<EarnMoreCoinsScreenController>();
         ButtonCustom(
           text: AppMessages.increaseRate,
           shadowColor: AppColors.grey900Color,
-          onPressed: () {},
+          onPressed: () {
+            Get.to(()=> YourDailyRateScreen());
+          },
           fontWeight: FontWeight.bold,
           textsize: 14.sp,
           textFontFamily: FontFamilyText.sFProDisplayHeavy,

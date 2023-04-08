@@ -17,6 +17,7 @@ import 'package:dater/constants/messages.dart';
 import 'package:dater/utils/extensions.dart';
 import 'package:dater/utils/style.dart';
 
+import '../../constants/enums.dart';
 import '../../controller/edit_profile_screen_controller.dart';
 
 class RecodebleGridViewModule extends StatelessWidget {
@@ -94,16 +95,15 @@ class RecodebleGridViewModule extends StatelessWidget {
                                 ),
                               ),
                               GestureDetector(
-                                onTap: () {
-                                  editProfileScreenController.captureImageList
-                                      .removeAt(i);
-                                },
+                                onTap: () async =>
+                                    await editProfileScreenController
+                                        .deleteUserImageFunction(i),
                                 child: Image.asset(
                                   AppImages.cancel2,
                                   height: 20,
                                   width: 20,
                                 ).commonOnlyPadding(bottom: 10, right: 10),
-                              )
+                              ),
                             ],
                           ),
                         ),
@@ -501,20 +501,17 @@ class EditProfileScreenWidgets extends StatelessWidget {
                     ),
                     SliderTheme(
                       data: const SliderThemeData(trackHeight: 1),
-                      child: RangeSlider(
+                      child: Slider(
                         min: 0,
-                        max: 180,
+                        max: 220,
                         activeColor: AppColors.lightOrangeColor,
                         inactiveColor: AppColors.darkGreyColor,
-                        values: RangeValues(
-                          editProfileScreenController.startVal.value,
-                          editProfileScreenController.endVal.value,
-                        ),
-                        onChanged: (RangeValues value) {
+                        value: editProfileScreenController.endVal.value,
+                        onChanged: (double value) {
                           editProfileScreenController.isLoading(true);
-                          editProfileScreenController.startVal.value =
-                              value.start;
-                          editProfileScreenController.endVal.value = value.end;
+                          // editProfileScreenController.startVal.value = value.start;
+                          // editProfileScreenController.startVal.value = 0;
+                          editProfileScreenController.endVal.value = value;
                           editProfileScreenController.isLoading(false);
                         },
                       ),
@@ -525,121 +522,80 @@ class EditProfileScreenWidgets extends StatelessWidget {
             ))
           ],
         ),
+        // Exercise
         FilterRowmodule(
           image: AppImages.exerciseImage,
           lableText: "Exercise",
           text1: "No",
-          gesOnTap1: () {
-            editProfileScreenController.isLoading(true);
-
-            editProfileScreenController.exerciseNoSelected.value =
-                !editProfileScreenController.exerciseNoSelected.value;
-            editProfileScreenController.isLoading(false);
-          },
-          containerColor1: editProfileScreenController.exerciseNoSelected.value
-              ? AppColors.lightOrangeColor
-              : AppColors.grey500Color,
           text2: "Sometimes",
-          gesOnTap2: () {
-            editProfileScreenController.isLoading(true);
-
-            editProfileScreenController.exerciseSometimesSelected.value =
-                !editProfileScreenController.exerciseSometimesSelected.value;
-            editProfileScreenController.isLoading(false);
-          },
-          containerColor2:
-              editProfileScreenController.exerciseSometimesSelected.value
-                  ? AppColors.lightOrangeColor
-                  : AppColors.grey500Color,
           text3: "Yes",
-          gesOnTap3: () {
-            editProfileScreenController.isLoading(true);
-
-            editProfileScreenController.exerciseYesSelected.value =
-                !editProfileScreenController.exerciseYesSelected.value;
-            editProfileScreenController.isLoading(false);
+          containerColor1: editProfileScreenController.exerciseValue == MoreAboutMe.no ? AppColors.lightOrangeColor : AppColors.grey500Color,
+          containerColor2: editProfileScreenController.exerciseValue == MoreAboutMe.sometimes ? AppColors.lightOrangeColor : AppColors.grey500Color,
+          containerColor3: editProfileScreenController.exerciseValue == MoreAboutMe.yes ? AppColors.lightOrangeColor : AppColors.grey500Color,
+          gesOnTap1: () {
+            editProfileScreenController.exerciseValue = MoreAboutMe.no;
+            editProfileScreenController.loadUI();
           },
-          containerColor3: editProfileScreenController.exerciseYesSelected.value
-              ? AppColors.lightOrangeColor
-              : AppColors.grey500Color,
+          gesOnTap2: () {
+            editProfileScreenController.exerciseValue = MoreAboutMe.sometimes;
+            editProfileScreenController.loadUI();
+          },
+          gesOnTap3: () {
+            editProfileScreenController.exerciseValue = MoreAboutMe.yes;
+            editProfileScreenController.loadUI();
+          },
         ),
+
+        // Drinking
         FilterRowmodule(
           image: AppImages.drinkingImage,
           lableText: "Drinking",
           text1: "No",
-          gesOnTap1: () {
-            editProfileScreenController.isLoading(true);
-
-            editProfileScreenController.drinkingNoSelected.value =
-                !editProfileScreenController.drinkingNoSelected.value;
-            editProfileScreenController.isLoading(false);
-          },
-          containerColor1: editProfileScreenController.drinkingNoSelected.value
-              ? AppColors.lightOrangeColor
-              : AppColors.grey500Color,
           text2: "Socially",
-          gesOnTap2: () {
-            editProfileScreenController.isLoading(true);
-
-            editProfileScreenController.exerciseSociallySelected.value =
-                !editProfileScreenController.exerciseSociallySelected.value;
-            editProfileScreenController.isLoading(false);
-          },
-          containerColor2:
-              editProfileScreenController.exerciseSociallySelected.value
-                  ? AppColors.lightOrangeColor
-                  : AppColors.grey500Color,
           text3: "Yes",
-          gesOnTap3: () {
-            editProfileScreenController.isLoading(true);
-
-            editProfileScreenController.drinkingYesSelected.value =
-                !editProfileScreenController.drinkingYesSelected.value;
-            editProfileScreenController.isLoading(false);
+          containerColor1: editProfileScreenController.drinkingValue == MoreAboutMe.no ? AppColors.lightOrangeColor : AppColors.grey500Color,
+          containerColor2: editProfileScreenController.drinkingValue == MoreAboutMe.sometimes ? AppColors.lightOrangeColor : AppColors.grey500Color,
+          containerColor3: editProfileScreenController.drinkingValue == MoreAboutMe.yes ? AppColors.lightOrangeColor : AppColors.grey500Color,
+          gesOnTap1: () {
+            editProfileScreenController.drinkingValue = MoreAboutMe.no;
+            editProfileScreenController.loadUI();
           },
-          containerColor3: editProfileScreenController.drinkingYesSelected.value
-              ? AppColors.lightOrangeColor
-              : AppColors.grey500Color,
+          gesOnTap2: () {
+            editProfileScreenController.drinkingValue = MoreAboutMe.sometimes;
+            editProfileScreenController.loadUI();
+          },
+          gesOnTap3: () {
+            editProfileScreenController.drinkingValue = MoreAboutMe.yes;
+            editProfileScreenController.loadUI();
+          },
         ),
+
+        // Smoking
         FilterRowmodule(
           image: AppImages.smokingImage,
           lableText: "Smoking",
           text1: "No",
-          gesOnTap1: () {
-            editProfileScreenController.isLoading(true);
-
-            editProfileScreenController.smokingNoSelected.value =
-                !editProfileScreenController.smokingNoSelected.value;
-            editProfileScreenController.isLoading(false);
-          },
-          containerColor1: editProfileScreenController.smokingNoSelected.value
-              ? AppColors.lightOrangeColor
-              : AppColors.grey500Color,
           text2: "Socially",
-          gesOnTap2: () {
-            editProfileScreenController.isLoading(true);
-
-            editProfileScreenController.smokingSociallySelected.value =
-                !editProfileScreenController.smokingSociallySelected.value;
-            editProfileScreenController.isLoading(false);
-          },
-          containerColor2:
-              editProfileScreenController.smokingSociallySelected.value
-                  ? AppColors.lightOrangeColor
-                  : AppColors.grey500Color,
           text3: "Yes",
-          gesOnTap3: () {
-            editProfileScreenController.isLoading(true);
-
-            editProfileScreenController.smokingYesSelected.value =
-                !editProfileScreenController.smokingYesSelected.value;
-            editProfileScreenController.isLoading(false);
+          containerColor1: editProfileScreenController.smokingValue == MoreAboutMe.no ? AppColors.lightOrangeColor : AppColors.grey500Color,
+          containerColor2: editProfileScreenController.smokingValue == MoreAboutMe.sometimes ? AppColors.lightOrangeColor : AppColors.grey500Color,
+          containerColor3: editProfileScreenController.smokingValue == MoreAboutMe.yes ? AppColors.lightOrangeColor : AppColors.grey500Color,
+          gesOnTap1: () {
+            editProfileScreenController.smokingValue = MoreAboutMe.no;
+            editProfileScreenController.loadUI();
           },
-          containerColor3: editProfileScreenController.smokingYesSelected.value
-              ? AppColors.lightOrangeColor
-              : AppColors.grey500Color,
+          gesOnTap2: () {
+            editProfileScreenController.smokingValue = MoreAboutMe.sometimes;
+            editProfileScreenController.loadUI();
+          },
+          gesOnTap3: () {
+            editProfileScreenController.smokingValue = MoreAboutMe.yes;
+            editProfileScreenController.loadUI();
+          },
         ),
-        FilterRowmodule(
+
+        // Kids
+        /*FilterRowmodule(
           image: AppImages.kidsImage,
           lableText: "Kids",
           text1: "No",
@@ -676,7 +632,30 @@ class EditProfileScreenWidgets extends StatelessWidget {
           containerColor3: editProfileScreenController.kidsYesSelected.value
               ? AppColors.lightOrangeColor
               : AppColors.grey500Color,
+        ),*/
+        FilterRowmodule(
+          image: AppImages.kidsImage,
+          lableText: "Kids",
+          text1: "No",
+          text2: "Want someday",
+          text3: "Yes",
+          containerColor1: editProfileScreenController.kidsValue == MoreAboutMe.no ? AppColors.lightOrangeColor : AppColors.grey500Color,
+          containerColor2: editProfileScreenController.kidsValue == MoreAboutMe.sometimes ? AppColors.lightOrangeColor : AppColors.grey500Color,
+          containerColor3: editProfileScreenController.kidsValue == MoreAboutMe.yes ? AppColors.lightOrangeColor : AppColors.grey500Color,
+          gesOnTap1: () {
+            editProfileScreenController.kidsValue = MoreAboutMe.no;
+            editProfileScreenController.loadUI();
+          },
+          gesOnTap2: () {
+            editProfileScreenController.kidsValue = MoreAboutMe.sometimes;
+            editProfileScreenController.loadUI();
+          },
+          gesOnTap3: () {
+            editProfileScreenController.kidsValue = MoreAboutMe.yes;
+            editProfileScreenController.loadUI();
+          },
         ),
+
         MyBasicRowmodule(
           gesOnTap: () {},
           image: AppImages.educationImage,

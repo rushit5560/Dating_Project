@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../constants/app_images.dart';
 import '../../constants/colors.dart';
-import '../favorite_screen/favorite_screen.dart';
 import '../profile_screen/profile_screen.dart';
 
 class IndexScreen extends StatelessWidget {

@@ -13,6 +13,7 @@ import 'package:get/get.dart';
 import 'package:location/location.dart';
 import 'package:swipable_stack/swipable_stack.dart';
 import '../constants/enums.dart';
+import '../utils/preferences/user_preference.dart';
 
 
 class HomeScreenController extends GetxController {
@@ -22,6 +23,7 @@ class HomeScreenController extends GetxController {
 
   List<MatchPersonData> matchesList = [];
   MatchPersonData singlePersonData = MatchPersonData();
+  UserPreference userPreference = UserPreference();
 
   List<String> images = [
     AppImages.swiper1Image,
@@ -66,8 +68,9 @@ class HomeScreenController extends GetxController {
     log('Matches Api Url :$url');
 
     try {
+      String verifyToken = await userPreference.getStringFromPrefs(key: UserPreference.userVerifyTokenKey);
       var request = http.MultipartRequest('POST', Uri.parse(url));
-      request.fields['token'] = AppMessages.token;
+      request.fields['token'] = verifyToken;
 
       var response = await request.send();
 
@@ -146,8 +149,9 @@ class HomeScreenController extends GetxController {
     String url = ApiUrl.superLoveProfileApi;
 
     try {
+      String verifyToken = await userPreference.getStringFromPrefs(key: UserPreference.userVerifyTokenKey);
       Map<String, dynamic> bodyData = {
-        "token": AppMessages.token,
+        "token": verifyToken,
         "type": likeType.name,
         "liked_id": likedId
       };

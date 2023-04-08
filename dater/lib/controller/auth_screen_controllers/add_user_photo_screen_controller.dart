@@ -53,9 +53,10 @@ class AddUserPhotoScreenController extends GetxController {
   // Photo Save button function
   Future<void> doneButtonFunction() async {
     isLoading(true);
-    if(image1.path.isEmpty && image2.path.isEmpty && image3.path.isEmpty) {
-      Fluttertoast.showToast(msg: "Please select at least one photo");
+    if(image1.path.isEmpty || image2.path.isEmpty || image3.path.isEmpty) {
+      Fluttertoast.showToast(msg: "Please select three photo");
     } else {
+      log('asasasasasa');
       if(image1.path != "") {
         await signUpPreference.setStringValueInPrefs(
           key: SignUpPreference.userImage1Key,

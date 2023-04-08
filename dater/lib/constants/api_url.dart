@@ -31,5 +31,7 @@ class ApiUrl {
   static const updateUserLocationApi = "${apiMainPath}api/update_location";
   static const getUserAgeApi = "${apiMainPath}api/get_birth_year";
   static const sendMessageApi = "${apiMainPath}api/messages/send";
+  static const getChatListApi = "${apiMainPath}api/messages/open";
+  static const getSuggestionApi = "${apiMainPath}api/suggestions";
 
 }

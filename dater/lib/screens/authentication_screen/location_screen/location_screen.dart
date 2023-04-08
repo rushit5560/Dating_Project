@@ -26,7 +26,7 @@ class LocationScreen extends StatelessWidget {
           fontWeight: FontWeight.bold,
           textsize: 14.sp,
           textColor: AppColors.gray50Color,
-          onPressed: () {Get.to(UserNameScreen());},
+          onPressed: () {Get.to(()=> UserNameScreen());},
         shadowColor: AppColors.grey900Color).commonSymmetricPadding(horizontal: 25,vertical: 30),
       body: SafeArea(
         child: Column(

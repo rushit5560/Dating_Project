@@ -10,7 +10,7 @@ import '../../model/authentication_model/complete signup_screen_model/complete s
 import '../../model/authentication_model/interests screen_model/cateory_item_model.dart';
 import '../../model/authentication_model/interests screen_model/get_interests _model.dart';
 import '../../model/authentication_model/interests screen_model/save_interests_model.dart';
-import '../../screens/index_screen/index_screen_screen.dart';
+import '../../screens/index_screen/index_screen.dart';
 import '../../utils/preferences/signup_preference.dart';
 
 

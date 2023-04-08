@@ -11,14 +11,15 @@ import '../constants/messages.dart';
 // import '../model/favorite_screen_model/liker_model.dart';
 // import '../model/home_screen_model/matches_model.dart';
 import '../model/home_screen_model/super_love_model.dart';
-import '../model/liker_details_screen_model/likder_user_details_model.dart';
+import '../model/liker_details_screen_model/liker_user_details_model.dart';
+import '../utils/preferences/user_preference.dart';
 
 class LikerDetailsScreenController extends GetxController {
   String likerId = Get.arguments[0];
   RxBool isLoading = false.obs;
 
   SwipableStackController cardController = SwipableStackController();
-
+  UserPreference userPreference = UserPreference();
   // MatchPersonData singlePersonData = MatchPersonData();
   UserDetails userDetails = UserDetails();
   RxBool selected = false.obs;
@@ -29,8 +30,9 @@ class LikerDetailsScreenController extends GetxController {
     String url = ApiUrl.superLoveProfileApi;
 
     try {
+      String verifyToken = await userPreference.getStringFromPrefs(key: UserPreference.userVerifyTokenKey);
       Map<String, dynamic> bodyData = {
-        "token": AppMessages.token,
+        "token": verifyToken,
         "type": likeType.name,
         "liked_id": likedId
       };
@@ -90,8 +92,9 @@ class LikerDetailsScreenController extends GetxController {
     log('getLikerDetailsFunction Api Url : $url');
 
     try {
+      String verifyToken = await userPreference.getStringFromPrefs(key: UserPreference.userVerifyTokenKey);
       var request = http.MultipartRequest('POST', Uri.parse(url));
-      request.fields['token'] = AppMessages.token;
+      request.fields['token'] = verifyToken;
       request.fields['user_id'] = likerId;
 
       var response = await request.send();

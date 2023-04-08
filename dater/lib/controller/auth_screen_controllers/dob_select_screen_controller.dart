@@ -10,6 +10,7 @@ import 'package:intl/intl.dart';
 import '../../constants/messages.dart';
 import '../../model/dob_select_screen_model/dob_save_model.dart';
 import '../../screens/authentication_screen/gender_select_screen/gender_select_screen.dart';
+import '../../utils/preferences/user_preference.dart';
 
 class DobSelectScreenController extends GetxController {
   RxBool isLoading = false.obs;
@@ -18,6 +19,7 @@ class DobSelectScreenController extends GetxController {
   DateTime tempDobString = DateTime.now();
 
   SignUpPreference signUpPreference = SignUpPreference();
+  UserPreference userPreference = UserPreference();
 
   setDobInStringFunction() {
     dobString.value = DateFormat("yyyy").format(tempDobString);
@@ -51,8 +53,10 @@ class DobSelectScreenController extends GetxController {
     log('saveDobFunction Api Url : $url');
 
     try {
+      String verifyToken = await userPreference.getStringFromPrefs(key: UserPreference.userVerifyTokenKey);
+
       var request = http.MultipartRequest('POST', Uri.parse(url));
-      request.fields['token'] = AppMessages.token;
+      request.fields['token'] = verifyToken;
       request.fields['year'] = dobString.value;
 
       var response = await request.send();
@@ -66,7 +70,10 @@ class DobSelectScreenController extends GetxController {
           Fluttertoast.showToast(msg: dobSaveModel.msg);
           await signUpPreference.setStringValueInPrefs(key: SignUpPreference.userDobKey, value: dobString.value);
           Get.to(() => GenderSelectScreen());
-        } else {
+        } else if(successStatus.value == 400) {
+          Fluttertoast.showToast(msg: dobSaveModel.msg);
+        }
+        else {
           log('saveDobFunction Else');
         }
 
