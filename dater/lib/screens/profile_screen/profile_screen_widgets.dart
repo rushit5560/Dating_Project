@@ -60,13 +60,10 @@ class ProfileModule extends StatelessWidget {
 
                 ),
                 Positioned(
-                  //left: 8.5,
-                  //top: 8.8,
                   top: 20,
                   left: 10,
-                  child: Container(
-                     //height: 15.3.h,
-                    // width: 30.5.w,
+                  child: profileScreenController.userImages.isEmpty
+                  ? Container(
                     height: 130,
                     width: 130,
                     decoration:  const BoxDecoration(
@@ -76,6 +73,18 @@ class ProfileModule extends StatelessWidget {
                         image: AssetImage(
                           AppImages.swiper2Image,
                         ),
+                        fit: BoxFit.fitWidth,
+                      ),
+                    ),
+                  )
+                  : Container(
+                    height: 130,
+                    width: 130,
+                    decoration:  BoxDecoration(
+                      color: AppColors.grey700Color,
+                      shape: BoxShape.circle,
+                      image:  DecorationImage(
+                        image: NetworkImage(profileScreenController.userImages[0]),
                         fit: BoxFit.fitWidth,
                       ),
                     ),
@@ -112,7 +121,8 @@ class ProfileModule extends StatelessWidget {
 }
 
 class ProfileTextModule extends StatelessWidget {
-  const ProfileTextModule({Key? key}) : super(key: key);
+  ProfileTextModule({Key? key}) : super(key: key);
+  final screenController = Get.find<ProfileScreenController>();
 
   @override
   Widget build(BuildContext context) {
@@ -133,19 +143,23 @@ class ProfileTextModule extends StatelessWidget {
             text: TextSpan(
               children: [
                 TextSpan(
-                  text: 'Eliza Williams,23 ',
+                  text: '${screenController.userName.value},${screenController.userAge.value} ',
                   style: TextStyleConfig.textStyle(
                     textColor: AppColors.grey800Color,
                     fontFamily: FontFamilyText.sFProDisplayRegular,
                     fontSize: 14.sp,
                   ),
                 ),
-                WidgetSpan(child: Image.asset(AppImages.rightImage))
+                screenController.userVerified.value == "0"
+                    ? WidgetSpan(child: Container())
+                    : WidgetSpan(child: Image.asset(AppImages.rightImage))
               ],
             ),
           ),
           IconButton(
-              onPressed: ()=> Get.to(()=>  EditProfileScreen()),
+              onPressed: ()=> Get.to(()=>  EditProfileScreen(), arguments: [screenController.userDetails])!.then((value) async {
+                await screenController.setDataInUserVariablesFunction();
+              }),
               icon: const Icon(Icons.edit_outlined,color: AppColors.darkOrangeColor,size: 20,))
         ],
       ),
@@ -163,7 +177,7 @@ class ProfileTextModule extends StatelessWidget {
               ),
               WidgetSpan(child: Image.asset(AppImages.location2Image,height: 2.h,)),
               TextSpan(
-                text: ' 10 miles  ',
+                text: ' 10 miles',
                 style: TextStyleConfig.textStyle(
                   textColor: AppColors.grey800Color,
                   fontFamily: FontFamilyText.sFProDisplayRegular,
@@ -179,7 +193,7 @@ class ProfileTextModule extends StatelessWidget {
           text: TextSpan(
             children: [
               TextSpan(
-                text: "Feminist Cats. Other stuff that's mildly interesting.",
+                text: screenController.userProfilePrompts.value,
                 style: TextStyleConfig.textStyle(
                   textColor: AppColors.grey800Color,
                   fontFamily: FontFamilyText.sFProDisplayRegular,
@@ -195,7 +209,7 @@ class ProfileTextModule extends StatelessWidget {
           text: TextSpan(
             children: [
               TextSpan(
-                text: "Gender",
+                text: "Gender: ",
                 style: TextStyleConfig.textStyle(
                   textColor: AppColors.grey800Color,
                   fontFamily: FontFamilyText.sFProDisplayRegular,
@@ -203,7 +217,7 @@ class ProfileTextModule extends StatelessWidget {
                 ),
               ),
               TextSpan(
-                text: "Woman",
+                text: screenController.userGender.value,
                 style: TextStyleConfig.textStyle(
                   textColor: AppColors.darkOrangeColor,
                   fontFamily: FontFamilyText.sFProDisplayRegular,
@@ -219,7 +233,8 @@ class ProfileTextModule extends StatelessWidget {
 
 
 class AboutMeAllModule extends StatelessWidget {
-  const AboutMeAllModule({Key? key}) : super(key: key);
+  AboutMeAllModule({Key? key}) : super(key: key);
+  final screenController = Get.find<ProfileScreenController>();
 
   @override
   Widget build(BuildContext context) {
@@ -227,17 +242,17 @@ class AboutMeAllModule extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Container(
+        screenController.userImages.length < 2
+        ? Container()
+        : Container(
           height: 50.h,
-          decoration:  const BoxDecoration(
+          decoration: BoxDecoration(
             color: AppColors.grey500Color,
             image:  DecorationImage(
-              image: AssetImage(
-                AppImages.swiper1Image,
-              ),
+              image: NetworkImage(screenController.userImages[1]),
               fit: BoxFit.cover,
             ),
-            borderRadius: BorderRadius.all(Radius.circular(20))
+            borderRadius: const BorderRadius.all(Radius.circular(20))
           ),
         ),
         SizedBox(height: 2.h),
@@ -250,7 +265,7 @@ class AboutMeAllModule extends StatelessWidget {
           ),
         ),
         SizedBox(height: 1.h),
-        Text("Life is simple Don't overthink it",
+        Text(screenController.userBio.value,
           style: TextStyleConfig.textStyle(
             fontFamily: FontFamilyText.sFProDisplayBold,
             textColor: AppColors.grey800Color,
@@ -271,16 +286,19 @@ class AboutMeAllModule extends StatelessWidget {
         Wrap(
           spacing: 3.0,
           children: List.generate(
-            4,
+            screenController.basicList.length,
                 (int index) {
               return Transform(
                 transform: Matrix4.identity()..scale(0.9),
                 child: ChoiceChip(
-                  avatar:const CircleAvatar(
-                    backgroundImage: AssetImage(AppImages.ballImage),
+                  avatar:CircleAvatar(
+                    backgroundColor: Colors.transparent,
+                    backgroundImage: AssetImage(screenController.basicList[index].image),
                   ),
                   label: Text(
-                    'wfg',
+                    screenController.basicList[index].name,
+                    // "${screenController.userHeight.value.split('.')[0]} cm",
+
                     style: TextStyleConfig.textStyle(
                       fontFamily: FontFamilyText.sFProDisplaySemibold,
                       textColor: AppColors.grey600Color,
@@ -314,16 +332,16 @@ class AboutMeAllModule extends StatelessWidget {
         Wrap(
           spacing: 3.0,
           children: List.generate(
-            4,
+            screenController.interestList.length,
                 (int index) {
               return Transform(
                 transform: Matrix4.identity()..scale(0.9),
                 child: ChoiceChip(
-                  avatar:const CircleAvatar(
-                    backgroundImage: AssetImage(AppImages.ballImage),
+                  avatar:CircleAvatar(
+                    backgroundImage: AssetImage(screenController.interestList[index].image),
                   ),
                   label: Text(
-                    'wfg',
+                    screenController.interestList[index].name,
                     style: TextStyleConfig.textStyle(
                       fontFamily: FontFamilyText.sFProDisplaySemibold,
                       textColor: AppColors.grey600Color,
@@ -346,17 +364,19 @@ class AboutMeAllModule extends StatelessWidget {
           ).toList(),
         ),
         SizedBox(height: 2.h),
-        Container(
+        screenController.userImages.length < 3
+        ? Container()
+        : Container(
           height: 50.h,
-          decoration:  const BoxDecoration(
+          decoration:  BoxDecoration(
               color: AppColors.grey500Color,
               image:  DecorationImage(
-                image: AssetImage(
-                  AppImages.swiper1Image,
+                image: NetworkImage(
+                  screenController.userImages[2],
                 ),
                 fit: BoxFit.cover,
               ),
-              borderRadius: BorderRadius.all(Radius.circular(20))
+              borderRadius: const BorderRadius.all(Radius.circular(20))
           ),
         ),
         SizedBox(height: 2.h),
@@ -378,7 +398,8 @@ class AboutMeAllModule extends StatelessWidget {
                 transform: Matrix4.identity()..scale(0.9),
                 child: ChoiceChip(
                   avatar:const CircleAvatar(
-                    backgroundImage: AssetImage(AppImages.ballImage),
+                    backgroundImage: AssetImage(AppImages.languageImage),
+                    backgroundColor: Colors.transparent,
                   ),
                   label: Text(
                     'wfg',
@@ -404,13 +425,15 @@ class AboutMeAllModule extends StatelessWidget {
           ).toList(),
         ),
         SizedBox(height: 2.h),
-        Container(
+        screenController.userImages.length < 3
+        ? Container()
+        : Container(
           height: 50.h,
-          decoration:  const BoxDecoration(
+          decoration:  BoxDecoration(
               color: AppColors.grey500Color,
               image:  DecorationImage(
-                image: AssetImage(
-                  AppImages.swiper1Image,
+                image: NetworkImage(
+                  screenController.userImages[2],
                 ),
                 fit: BoxFit.cover,
               ),
@@ -418,7 +441,7 @@ class AboutMeAllModule extends StatelessWidget {
           ),
         ),
         SizedBox(height: 2.h),
-        Text("Eliza's Location",
+        Text("${screenController.userName}'s Location",
           style: TextStyleConfig.textStyle(
             fontFamily: FontFamilyText.sFProDisplayBold,
             textColor: AppColors.grey800Color,

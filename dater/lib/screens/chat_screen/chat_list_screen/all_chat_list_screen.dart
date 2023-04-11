@@ -19,11 +19,11 @@ class AllChatListScreen extends StatelessWidget {
       resizeToAvoidBottomInset: false,
       backgroundColor: AppColors.whiteColor2,
       appBar: commonAppBarModule(text: AppMessages.chat),
-      body: allChatListScreenController.matchesList.isEmpty
+      body: /*allChatListScreenController.matchesList.isEmpty
           ? const Center(
               child: Text('No Matches Found!'),
             )
-          : Column(
+          : */Column(
               children: [
                 SearchTextfiledModule(),
                 SizedBox(height: 3.h),

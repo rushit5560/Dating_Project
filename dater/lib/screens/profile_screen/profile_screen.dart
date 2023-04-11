@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 
+import '../../common_modules/custom_loader.dart';
 import '../../controller/profile_screen_controller.dart';
 class ProfileScreen extends StatelessWidget {
    ProfileScreen({super.key});
@@ -18,19 +19,23 @@ class ProfileScreen extends StatelessWidget {
       backgroundColor: AppColors.whiteColor2,
       appBar: commonAppBarModule(text: AppMessages.myProfile,
       isLeadingShow: false),
-      body: SingleChildScrollView(
-        scrollDirection: Axis.vertical,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
+      body: Obx(
+        ()=> profileScreenController.isLoading.value
+        ? const CustomLoader()
+        : SingleChildScrollView(
+          scrollDirection: Axis.vertical,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
 
-            ProfileModule(),
-            ProfileTextModule(),
-            SizedBox(height: 3.h),
-            AboutMeAllModule(),
+              ProfileModule(),
+              ProfileTextModule(),
+              SizedBox(height: 3.h),
+              AboutMeAllModule(),
 
-          ],
-        ).commonSymmetricPadding(horizontal: 10),
+            ],
+          ).commonSymmetricPadding(horizontal: 10),
+        ),
       ),
     );
   }

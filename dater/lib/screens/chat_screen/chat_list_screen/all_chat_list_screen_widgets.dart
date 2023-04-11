@@ -11,6 +11,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 
+import '../../../model/home_screen_model/matches_model.dart';
+
 class SearchTextfiledModule extends StatelessWidget {
   const SearchTextfiledModule({Key? key}) : super(key: key);
   @override
@@ -57,10 +59,12 @@ class ChatListModule extends StatelessWidget {
       child: ListView.builder(
         itemCount: 10,
         itemBuilder: (context, index) {
+          MatchPersonData person = allChatListScreenController.searchMatchesList[index];
           return GestureDetector(
             onTap: () {
               Get.to(
                 () =>  ChatScreen(),
+                arguments: [person]
               );
             },
             child: ListTile(
@@ -71,7 +75,7 @@ class ChatListModule extends StatelessWidget {
                 text: TextSpan(
                   children: [
                     TextSpan(
-                      text: "Dennis Steele",
+                      text: person.name,
                       style: TextStyleConfig.textStyle(
                         fontFamily: FontFamilyText.sFProDisplaySemibold,
                         textColor: AppColors.grey800Color,

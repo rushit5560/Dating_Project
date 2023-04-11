@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:developer';
+import 'package:dater/constants/messages.dart';
 import 'package:http/http.dart' as http;
 import 'package:dater/utils/preferences/user_preference.dart';
 import 'package:flutter/material.dart';
@@ -19,6 +20,7 @@ class AllChatListScreenController extends GetxController {
 
 
   List<MatchPersonData> matchesList = [];
+  List<MatchPersonData> searchMatchesList = [];
   UserPreference userPreference = UserPreference();
 
   /// Get Matches Function
@@ -30,16 +32,18 @@ class AllChatListScreenController extends GetxController {
     try {
       String verifyToken = await userPreference.getStringFromPrefs(key: UserPreference.userVerifyTokenKey);
       var request = http.MultipartRequest('POST', Uri.parse(url));
-      request.fields['token'] = verifyToken;
+      request.fields['token'] = AppMessages.token;
 
       var response = await request.send();
 
       response.stream.transform(utf8.decoder).listen((value) async {
-        log("value :$value");
+        log("Matches value :$value");
         MatchesModel matchesModel = MatchesModel.fromJson(json.decode(value));
         matchesList.clear();
+        searchMatchesList.clear();
         if(matchesModel.msg.isNotEmpty) {
           matchesList.addAll(matchesModel.msg);
+          searchMatchesList = matchesList;
           log('matchesList : ${matchesList.length}');
         }
       });
@@ -51,5 +55,15 @@ class AllChatListScreenController extends GetxController {
     isLoading(false);
   }
 
+
+  @override
+  void onInit() {
+    initMethod();
+    super.onInit();
+  }
+
+  Future<void> initMethod() async {
+    await getMatchesFunction();
+  }
 
 }

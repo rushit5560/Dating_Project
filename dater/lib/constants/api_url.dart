@@ -33,5 +33,6 @@ class ApiUrl {
   static const sendMessageApi = "${apiMainPath}api/messages/send";
   static const getChatListApi = "${apiMainPath}api/messages/open";
   static const getSuggestionApi = "${apiMainPath}api/suggestions";
+  static const getLoggedInUserProfileApi = "${apiMainPath}api/get_logged_full_details";
 
 }

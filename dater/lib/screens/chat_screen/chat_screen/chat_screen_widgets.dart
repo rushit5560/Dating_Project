@@ -1,4 +1,3 @@
-
 import 'package:dater/constants/app_images.dart';
 import 'package:dater/constants/colors.dart';
 import 'package:dater/constants/font_family.dart';
@@ -9,9 +8,10 @@ import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
-import 'dart:io';
-
 import '../../../controller/chat_screen_controller.dart';
+import '../../../model/chat_screens_models/chat_list_model.dart';
+
+
 class ChatScreenWidgets extends StatelessWidget {
   const ChatScreenWidgets({super.key});
 
@@ -81,6 +81,7 @@ class ChatScreenWidgets extends StatelessWidget {
 class TextFormFieldModule extends StatelessWidget {
    TextFormFieldModule({super.key});
 final chatScreenController = Get.find<ChatScreenController>();
+
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -140,7 +141,11 @@ final chatScreenController = Get.find<ChatScreenController>();
           ),
         ),
         IconButton(
-            onPressed: () {},
+            onPressed: () async {
+              if(chatScreenController.textEditingController.text.trim().isNotEmpty) {
+                await chatScreenController.sendChatMessageFunction();
+              }
+            },
             icon: Image.asset(AppImages.locationImage),
         ),
       ],
@@ -149,26 +154,28 @@ final chatScreenController = Get.find<ChatScreenController>();
 }
 
 class MessageAllModule extends StatelessWidget {
-  const MessageAllModule({Key? key}) : super(key: key);
+  MessageAllModule({Key? key}) : super(key: key);
+  final screenController = Get.find<ChatScreenController>();
 
   @override
   Widget build(BuildContext context) {
-    bool isMe = false;
+    // bool isMe = false;
     return ListView.separated(
       physics: const NeverScrollableScrollPhysics(),
       shrinkWrap: true,
-      itemCount: 10,
+      itemCount: screenController.chatList.length,
       scrollDirection: Axis.vertical,
       itemBuilder: (BuildContext context, int index) {
+        ChatData singleChat = screenController.chatList[index];
         return Container(
           margin: const EdgeInsets.only(top: 8),
             child: Column(
               children: [
                 Row(
-                mainAxisAlignment: isMe? MainAxisAlignment.end:MainAxisAlignment.start,
+                mainAxisAlignment: singleChat.clientMessage == false ? MainAxisAlignment.end : MainAxisAlignment.start,
                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    if(!isMe)const CircleAvatar(
+                    if(singleChat.clientMessage)const CircleAvatar(
                       radius: 15,
                       backgroundImage: AssetImage(AppImages.swiper1Image),
                     ).commonOnlyPadding(top: 12),
@@ -179,7 +186,7 @@ class MessageAllModule extends StatelessWidget {
                           maxWidth: MediaQuery.of(context).size.width*0.6,
                         ),
                       decoration: BoxDecoration(
-                          color: isMe ?AppColors.lightOrangeColor : AppColors.whiteColor2,
+                          color: singleChat.clientMessage == false ?AppColors.lightOrangeColor : AppColors.whiteColor2,
                         borderRadius: const BorderRadius.only(
                             topLeft: Radius.circular(15),
                           topRight: Radius.circular(15),
@@ -187,29 +194,22 @@ class MessageAllModule extends StatelessWidget {
                           //bottomRight: Radius.circular(20),
                         )
                       ),
-                      child: Container(
-                          child:  Text('Hey!! How are you qukrjhnuetrnhkrjt'
-                              'jgkhnjktnhkrtjh'
-                              'jgkhnjrtkhntkhntkhjkh'
-                              'hjrtkhtknhkjhnm'
-                              'gjkrhrkjhnjkhnjkh'
-                              'jkhrntjhntjk',
-                            style: TextStyleConfig.textStyle(
-                              fontFamily: FontFamilyText.sFProDisplayMedium,
-                              textColor: isMe ? AppColors.whiteColor2 : AppColors.grey600Color,
-                              fontWeight: FontWeight.w500,
-                              fontSize: 12.sp,
-                            ),
-                          ),
+                      child: Text(singleChat.messageText,
+                        style: TextStyleConfig.textStyle(
+                          fontFamily: FontFamilyText.sFProDisplayMedium,
+                          textColor: singleChat.clientMessage == false ? AppColors.whiteColor2 : AppColors.grey600Color,
+                          fontWeight: FontWeight.w500,
+                          fontSize: 12.sp,
+                        ),
                       ),
                     ),
                   ],
               ),
                 SizedBox(height: 1.h),
                 Row(
-                  mainAxisAlignment: isMe? MainAxisAlignment.end : MainAxisAlignment.start,
+                  mainAxisAlignment: singleChat.clientMessage == false ? MainAxisAlignment.end : MainAxisAlignment.start,
                   children: [
-                    if(!isMe)
+                    if(singleChat.clientMessage)
                       SizedBox(width: 10.w),
                      Text('10.00 AM',
                       style: TextStyleConfig.textStyle(

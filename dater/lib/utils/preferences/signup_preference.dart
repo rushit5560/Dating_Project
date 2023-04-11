@@ -54,7 +54,7 @@ class SignUpPreference {
   Future<void> setStringValueInPrefs({required String key, required String value}) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString(key, value);
-    log('prefs value :${prefs.getString(key)}');
+    log('prefs value string value:${prefs.getString(key)}');
   }
 
   Future<void> setListValueInPrefs({required String key, required List<String> value}) async {
@@ -72,7 +72,7 @@ class SignUpPreference {
   Future<void> setBoolValueInPrefs({required String key, required bool value}) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setBool(key, value);
-    log('prefs value :${prefs.getBool(key)}');
+    log('prefs value bool val :${prefs.getBool(key)}');
   }
 
   Future<bool> getBoolFromPrefs({required String key}) async {

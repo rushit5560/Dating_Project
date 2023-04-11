@@ -14,7 +14,7 @@ PreferredSizeWidget commonAppBarModule(
     Color backGroundColor = AppColors.whiteColor2}) {
   return AppBar(
     backgroundColor: backGroundColor,
-    leading: isLeadingShow== true
+    leading: isLeadingShow == true
       ? Builder(
       builder: (BuildContext context) {
         return IconButton(

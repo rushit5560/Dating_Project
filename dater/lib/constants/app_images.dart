@@ -53,4 +53,5 @@ class AppImages {
   static const politicsImage = '$rootPath/politics.png';
   static const religionImage = '$rootPath/religion.png';
   static const lookingForImage = '$rootPath/looking_for.png';
+  static const languageImage = '$rootPath/language.png';
 }

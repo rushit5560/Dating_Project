@@ -11,6 +11,32 @@ class UserPreference {
   static String isUserLoggedInKey = "isUserLoggedInKey"; // bool
   static String isSeeWhoLikesYouKey = "isSeeWhoLikesYouKey"; // String
 
+  /// For Profile Section
+  static String nameKey = "nameKey"; // String
+  static String userIdKey = "userIdKey"; // String
+  static String profilePromptsKey = "profilePromptsKey"; // String
+  static String bioKey = "bioKey"; // String
+  static String verifiedKey = "verifiedKey"; // String
+  static String homeTownKey = "homeTownKey"; // String
+  static String distanceKey = "distanceKey"; // String
+  static String ageKey = "ageKey"; // String
+  static String activeTimeKey = "activeTimeKey"; // String
+  static String genderKey = "genderKey"; // String
+  static String workKey = "workKey"; // String
+  static String educationKey = "educationKey"; // String
+  static String heightKey = "heightKey"; // String
+  static String exerciseKey = "exerciseKey"; // String
+  static String smokingKey = "smokingKey"; // String
+  static String drinkingKey = "drinkingKey"; // String
+  static String politicsKey = "politicsKey"; // String
+  static String religionKey = "religionKey"; // String
+  static String kidsKey = "kidsKey"; // String
+  static String interestKey = "interestKey"; // String
+  static String imagesKey = "imagesKey"; // String
+  static String editImagesKey = "editImagesKey"; // String
+  static String listOfImageKey = "listOfImageKey";
+
+
 
   Future<void> clearUserAllDataFromPrefs() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -25,13 +51,19 @@ class UserPreference {
     prefs.setBool(isUserLoggedInKey, false);
   }
 
+  // Set String Type List
+  Future<void> setListOfStringInPrefs({required List<String> value}) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setStringList(listOfImageKey, value);
+  }
+
 
 
   // Set String value
   Future<void> setStringValueInPrefs({required String key, required String value}) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString(key, value);
-    log('prefs value :${prefs.getString(key)}');
+    log('prefs value signup :${prefs.getString(key)}');
   }
 
   // Get String value

@@ -79,40 +79,8 @@ class DemoController extends GetxController {
     isLoading(false);
   }
 
-  /// Send Message
-  Future<void> sendChatMessageFunction() async {
-    isLoading(true);
-    String url = ApiUrl.sendMessageApi;
-    log('sendChatMessageFunction Api Url : $url');
-
-    try {
-      String verifyToken = await userPreference.getStringFromPrefs(key: UserPreference.userVerifyTokenKey);
-      var request = http.MultipartRequest('POST', Uri.parse(url));
-      request.fields['token'] = verifyToken;
-
-      var response = await request.send();
-
-      response.stream.transform(utf8.decoder).listen((value) async {
-        log('sendChatMessageFunction Value : $value');
-        MessageSendModel messageSendModel = MessageSendModel.fromJson(json.decode(value));
-        successStatus.value = messageSendModel.statusCode;
-
-        if(successStatus.value == 200) {
-          Fluttertoast.showToast(msg: messageSendModel.msg);
-        } else {
-          log('sendChatMessageFunction Else');
-        }
-
-      });
-    } catch(e) {
-      log('sendChatMessageFunction Error :$e');
-      rethrow;
-    }
-    isLoading(false);
-  }
-
   /// Get Chat List Function
-  Future<void> getChatListFunction() async {
+  /*Future<void> getChatListFunction() async {
     isLoading(true);
     String url = ApiUrl.getChatListApi;
     log('getChatListFunction Api Url : $url');
@@ -143,7 +111,7 @@ class DemoController extends GetxController {
       rethrow;
     }
     isLoading(false);
-  }
+  }*/
 
   /// Get Suggestion Function
   Future<void> getSuggestionFunction() async {

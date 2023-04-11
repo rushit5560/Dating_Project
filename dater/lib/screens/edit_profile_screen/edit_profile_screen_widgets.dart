@@ -1,15 +1,12 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:developer';
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:get/get.dart';
 import 'package:reorderable_grid_view/reorderable_grid_view.dart';
 import 'package:sizer/sizer.dart';
-
 import 'package:dater/common_modules/custom_loader.dart';
-import 'package:dater/common_modules/switch_and_slider.dart';
 import 'package:dater/constants/app_images.dart';
 import 'package:dater/constants/colors.dart';
 import 'package:dater/constants/font_family.dart';
@@ -19,9 +16,10 @@ import 'package:dater/utils/style.dart';
 
 import '../../constants/enums.dart';
 import '../../controller/edit_profile_screen_controller.dart';
+import '../../model/profile_screen_models/upload_image_model.dart';
 
-class RecodebleGridViewModule extends StatelessWidget {
-  RecodebleGridViewModule({super.key});
+class ReorderableGridViewModule extends StatelessWidget {
+  ReorderableGridViewModule({super.key});
   final editProfileScreenController = Get.find<EditProfileScreenController>();
 
   @override
@@ -40,20 +38,13 @@ class RecodebleGridViewModule extends StatelessWidget {
                 log('newIndex : $newIndex');
                 editProfileScreenController.isLoading(true);
                 if (editProfileScreenController.captureImageList.length < 9) {
-                  if (oldIndex !=
-                          editProfileScreenController.captureImageList.length &&
-                      newIndex !=
-                          editProfileScreenController.captureImageList.length) {
-                    File path = editProfileScreenController.captureImageList
-                        .removeAt(oldIndex);
-                    editProfileScreenController.captureImageList
-                        .insert(newIndex, path);
+                  if (oldIndex != editProfileScreenController.captureImageList.length && newIndex != editProfileScreenController.captureImageList.length) {
+                    UploadUserImage path = editProfileScreenController.captureImageList.removeAt(oldIndex);
+                    editProfileScreenController.captureImageList.insert(newIndex, path);
                   }
                 } else {
-                  File path = editProfileScreenController.captureImageList
-                      .removeAt(oldIndex);
-                  editProfileScreenController.captureImageList
-                      .insert(newIndex, path);
+                  UploadUserImage path = editProfileScreenController.captureImageList.removeAt(oldIndex);
+                  editProfileScreenController.captureImageList.insert(newIndex, path);
                 }
                 editProfileScreenController.isLoading(false);
               }),
@@ -79,7 +70,9 @@ class RecodebleGridViewModule extends StatelessWidget {
                           child: Stack(
                             alignment: Alignment.bottomRight,
                             children: [
-                              Container(
+                              editProfileScreenController
+                                  .captureImageList[i].isImageFromNetwork == false
+                              ? Container(
                                 decoration: BoxDecoration(
                                   color: AppColors.grey200Color,
                                   borderRadius: BorderRadius.circular(15),
@@ -87,9 +80,20 @@ class RecodebleGridViewModule extends StatelessWidget {
                                     image: FileImage(
                                       File(
                                         editProfileScreenController
-                                            .captureImageList[i].path,
+                                            .captureImageList[i].imageUrl,
                                       ),
                                     ),
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                              )
+                              : Container(
+                                decoration: BoxDecoration(
+                                  color: AppColors.grey200Color,
+                                  borderRadius: BorderRadius.circular(15),
+                                  image: DecorationImage(
+                                    image: NetworkImage(editProfileScreenController
+                                        .captureImageList[i].imageUrl),
                                     fit: BoxFit.cover,
                                   ),
                                 ),
@@ -179,6 +183,7 @@ class EditProfileScreenWidgets extends StatelessWidget {
         ),
         SizedBox(height: 5.h),
         Container(
+          width: Get.width,
           padding: const EdgeInsets.all(10),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(15),
@@ -190,7 +195,7 @@ class EditProfileScreenWidgets extends StatelessWidget {
           child: Wrap(
             spacing: 3.0,
             children: List.generate(
-              4,
+              editProfileScreenController.interestList.length,
               (int index) {
                 bool selected = true;
                 return Transform(
@@ -200,7 +205,7 @@ class EditProfileScreenWidgets extends StatelessWidget {
                       backgroundImage: AssetImage(AppImages.ballImage),
                     ),
                     label: Text(
-                      'wfg',
+                      editProfileScreenController.interestList[index],
                       style: TextStyleConfig.textStyle(
                         fontFamily: FontFamilyText.sFProDisplaySemibold,
                         textColor: AppColors.grey600Color,
@@ -250,7 +255,7 @@ class EditProfileScreenWidgets extends StatelessWidget {
         ),
         SizedBox(height: 2.h),
         Container(
-          height: 50,
+          // height: 50,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(30),
             border: Border.all(
@@ -266,7 +271,13 @@ class EditProfileScreenWidgets extends StatelessWidget {
                     readOnly: editProfileScreenController.onSelected.value
                         ? false
                         : true,
+                    controller: editProfileScreenController.profilePromptsController,
                     cursorColor: AppColors.lightOrangeColor,
+                    onChanged: (value) async {
+                      await editProfileScreenController.setProfilePromptsFunction();
+                    },
+                    maxLines: 1,
+                    maxLength: 65,
                     decoration: InputDecoration(
                       hintText: "Life is simple Don't overthink it",
                       hintStyle: TextStyleConfig.textStyle(
@@ -274,6 +285,8 @@ class EditProfileScreenWidgets extends StatelessWidget {
                         textColor: AppColors.grey600Color,
                         fontSize: 15.sp,
                       ),
+                      contentPadding: const EdgeInsets.symmetric(horizontal: 10),
+                      counterText: "",
                       enabledBorder: const OutlineInputBorder(
                         borderRadius: BorderRadius.all(Radius.circular(30)),
                         borderSide: BorderSide(color: Colors.transparent),
@@ -364,6 +377,10 @@ class EditProfileScreenWidgets extends StatelessWidget {
           child: TextFormField(
             cursorColor: AppColors.lightOrangeColor,
             maxLines: 3,
+            controller: editProfileScreenController.myBioController,
+            onChanged: (value) async {
+              await editProfileScreenController.setUserBioFunction();
+            },
             decoration: InputDecoration(
               hintText: "A little bit about you ...",
               hintStyle: TextStyleConfig.textStyle(
@@ -507,12 +524,13 @@ class EditProfileScreenWidgets extends StatelessWidget {
                         activeColor: AppColors.lightOrangeColor,
                         inactiveColor: AppColors.darkGreyColor,
                         value: editProfileScreenController.endVal.value,
-                        onChanged: (double value) {
-                          editProfileScreenController.isLoading(true);
-                          // editProfileScreenController.startVal.value = value.start;
-                          // editProfileScreenController.startVal.value = 0;
+                        onChanged: (double value) async {
                           editProfileScreenController.endVal.value = value;
-                          editProfileScreenController.isLoading(false);
+                          await editProfileScreenController.setUserHeightFunction();
+                          editProfileScreenController.loadUI();
+                          // editProfileScreenController.isLoading(true);
+                          // editProfileScreenController.isLoading(false);
+
                         },
                       ),
                     ),
@@ -532,16 +550,21 @@ class EditProfileScreenWidgets extends StatelessWidget {
           containerColor1: editProfileScreenController.exerciseValue == MoreAboutMe.no ? AppColors.lightOrangeColor : AppColors.grey500Color,
           containerColor2: editProfileScreenController.exerciseValue == MoreAboutMe.sometimes ? AppColors.lightOrangeColor : AppColors.grey500Color,
           containerColor3: editProfileScreenController.exerciseValue == MoreAboutMe.yes ? AppColors.lightOrangeColor : AppColors.grey500Color,
-          gesOnTap1: () {
+          gesOnTap1: () async {
             editProfileScreenController.exerciseValue = MoreAboutMe.no;
+            await editProfileScreenController.setExerciseFunction(editProfileScreenController.exerciseValue);
             editProfileScreenController.loadUI();
+
+
           },
-          gesOnTap2: () {
+          gesOnTap2: () async {
             editProfileScreenController.exerciseValue = MoreAboutMe.sometimes;
+            await editProfileScreenController.setExerciseFunction(editProfileScreenController.exerciseValue);
             editProfileScreenController.loadUI();
           },
-          gesOnTap3: () {
+          gesOnTap3: () async {
             editProfileScreenController.exerciseValue = MoreAboutMe.yes;
+            await editProfileScreenController.setExerciseFunction(editProfileScreenController.exerciseValue);
             editProfileScreenController.loadUI();
           },
         ),
@@ -556,16 +579,19 @@ class EditProfileScreenWidgets extends StatelessWidget {
           containerColor1: editProfileScreenController.drinkingValue == MoreAboutMe.no ? AppColors.lightOrangeColor : AppColors.grey500Color,
           containerColor2: editProfileScreenController.drinkingValue == MoreAboutMe.sometimes ? AppColors.lightOrangeColor : AppColors.grey500Color,
           containerColor3: editProfileScreenController.drinkingValue == MoreAboutMe.yes ? AppColors.lightOrangeColor : AppColors.grey500Color,
-          gesOnTap1: () {
+          gesOnTap1: () async {
             editProfileScreenController.drinkingValue = MoreAboutMe.no;
+            await editProfileScreenController.setDrinkingFunction(editProfileScreenController.drinkingValue);
             editProfileScreenController.loadUI();
           },
-          gesOnTap2: () {
+          gesOnTap2: () async {
             editProfileScreenController.drinkingValue = MoreAboutMe.sometimes;
+            await editProfileScreenController.setDrinkingFunction(editProfileScreenController.drinkingValue);
             editProfileScreenController.loadUI();
           },
-          gesOnTap3: () {
+          gesOnTap3: () async {
             editProfileScreenController.drinkingValue = MoreAboutMe.yes;
+            await editProfileScreenController.setDrinkingFunction(editProfileScreenController.drinkingValue);
             editProfileScreenController.loadUI();
           },
         ),
@@ -580,59 +606,24 @@ class EditProfileScreenWidgets extends StatelessWidget {
           containerColor1: editProfileScreenController.smokingValue == MoreAboutMe.no ? AppColors.lightOrangeColor : AppColors.grey500Color,
           containerColor2: editProfileScreenController.smokingValue == MoreAboutMe.sometimes ? AppColors.lightOrangeColor : AppColors.grey500Color,
           containerColor3: editProfileScreenController.smokingValue == MoreAboutMe.yes ? AppColors.lightOrangeColor : AppColors.grey500Color,
-          gesOnTap1: () {
+          gesOnTap1: () async {
             editProfileScreenController.smokingValue = MoreAboutMe.no;
+            await editProfileScreenController.setSmokingFunction(editProfileScreenController.smokingValue);
             editProfileScreenController.loadUI();
           },
-          gesOnTap2: () {
+          gesOnTap2: () async {
             editProfileScreenController.smokingValue = MoreAboutMe.sometimes;
+            await editProfileScreenController.setSmokingFunction(editProfileScreenController.smokingValue);
             editProfileScreenController.loadUI();
           },
-          gesOnTap3: () {
+          gesOnTap3: () async {
             editProfileScreenController.smokingValue = MoreAboutMe.yes;
+            await editProfileScreenController.setSmokingFunction(editProfileScreenController.smokingValue);
             editProfileScreenController.loadUI();
           },
         ),
 
         // Kids
-        /*FilterRowmodule(
-          image: AppImages.kidsImage,
-          lableText: "Kids",
-          text1: "No",
-          gesOnTap1: () {
-            editProfileScreenController.isLoading(true);
-
-            editProfileScreenController.kidsgNoSelected.value =
-                !editProfileScreenController.kidsgNoSelected.value;
-            editProfileScreenController.isLoading(false);
-          },
-          containerColor1: editProfileScreenController.kidsgNoSelected.value
-              ? AppColors.lightOrangeColor
-              : AppColors.grey500Color,
-          text2: "Want someday",
-          gesOnTap2: () {
-            editProfileScreenController.isLoading(true);
-
-            editProfileScreenController.kidsSociallySelected.value =
-                !editProfileScreenController.kidsSociallySelected.value;
-            editProfileScreenController.isLoading(false);
-          },
-          containerColor2:
-              editProfileScreenController.kidsSociallySelected.value
-                  ? AppColors.lightOrangeColor
-                  : AppColors.grey500Color,
-          text3: "Yes",
-          gesOnTap3: () {
-            editProfileScreenController.isLoading(true);
-
-            editProfileScreenController.kidsYesSelected.value =
-                !editProfileScreenController.kidsYesSelected.value;
-            editProfileScreenController.isLoading(false);
-          },
-          containerColor3: editProfileScreenController.kidsYesSelected.value
-              ? AppColors.lightOrangeColor
-              : AppColors.grey500Color,
-        ),*/
         FilterRowmodule(
           image: AppImages.kidsImage,
           lableText: "Kids",
@@ -642,16 +633,19 @@ class EditProfileScreenWidgets extends StatelessWidget {
           containerColor1: editProfileScreenController.kidsValue == MoreAboutMe.no ? AppColors.lightOrangeColor : AppColors.grey500Color,
           containerColor2: editProfileScreenController.kidsValue == MoreAboutMe.sometimes ? AppColors.lightOrangeColor : AppColors.grey500Color,
           containerColor3: editProfileScreenController.kidsValue == MoreAboutMe.yes ? AppColors.lightOrangeColor : AppColors.grey500Color,
-          gesOnTap1: () {
+          gesOnTap1: () async {
             editProfileScreenController.kidsValue = MoreAboutMe.no;
+            await editProfileScreenController.setKidsFunction(editProfileScreenController.kidsValue);
             editProfileScreenController.loadUI();
           },
-          gesOnTap2: () {
+          gesOnTap2: () async {
             editProfileScreenController.kidsValue = MoreAboutMe.sometimes;
+            await editProfileScreenController.setKidsFunction(editProfileScreenController.kidsValue);
             editProfileScreenController.loadUI();
           },
-          gesOnTap3: () {
+          gesOnTap3: () async {
             editProfileScreenController.kidsValue = MoreAboutMe.yes;
+            await editProfileScreenController.setKidsFunction(editProfileScreenController.kidsValue);
             editProfileScreenController.loadUI();
           },
         ),

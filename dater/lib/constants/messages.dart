@@ -132,24 +132,41 @@ class AppMessages {
   static String typeAMessage = "Type a message";
   static String locationPermission = "Apply location permission";
   static String editProfile = "Edit Profile";
-
-
   static String holdAndDragText = "Hold & drag photos to change their order";
   static String myInterests = "My Interests";
-  static String profilePrompts = "Profile Prompts";
   static String myBio = "My bio";
   static String myBasics = "My Basics";
   static String moreAboutMe = "More about me";
   static String height = "Height";
   static String exercise = "Exercise";
   static String languages = "Languages I know";
-
+  static String profilePrompts = "Profile Prompts";
 
   // This is client token - don't remove it
-  // static String token = "96e8451a018e5558d9af7979302cc85b";
+  static String token = "96e8451a018e5558d9af7979302cc85b";
   // static String token = "46848b9868ab080b9180fba089b04032"; //+619662298453
   // static String token = "7366d4dbee942e86ed458944f78f5f9a"; //+619662298450
   // static String token = "215ee6698e6a2493bda820f60f3258a1"; //+619662298451
 
+  // API Parameter name
+  static String fNameApiText = "f_name";
+  static String lNameApiText = "l_name";
+  static String sexualityApiText = "sexuality";
+  static String genderApiText = "gender";
+  static String tokenApiText = "token";
 
+  static String bioApiText = "bio";
+  static String targetGenderApiText = "target_gender";
+  static String emailApiText = "email";
+  static String profilePromptsApiText = "profile_prompts";
+  static String workApiText = "Work";
+  static String educationApiText = "education";
+  static String homeTownApiText = "home_town";
+  static String heightApiText = "height";
+  static String exerciseApiText = "exercise";
+  static String smokingApiText = "smoking";
+  static String drinkingApiText = "drinking";
+  static String kidsApiText = "kids";
+  static String politicsApiText = "politics";
+  static String religionApiText = "religion";
 }
