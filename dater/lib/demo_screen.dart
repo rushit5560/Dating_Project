@@ -114,7 +114,7 @@ class DemoController extends GetxController {
   }*/
 
   /// Get Suggestion Function
-  Future<void> getSuggestionFunction() async {
+  /*Future<void> getSuggestionFunction() async {
     isLoading(true);
     String url = ApiUrl.getSuggestionApi;
     log('getSuggestionFunction Api Url : $url');
@@ -142,7 +142,7 @@ class DemoController extends GetxController {
       rethrow;
     }
     isLoading(false);
-  }
+  }*/
 
 
 }

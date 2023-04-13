@@ -14,8 +14,8 @@ import '../utils/preferences/user_preference.dart';
 
 
 class ChatScreenController extends GetxController{
-  // MatchPersonData personData = Get.arguments[0];
-  MatchPersonData? personData = MatchPersonData(id: "2");
+  MatchPersonData personData = Get.arguments[0];
+  // MatchPersonData? personData = MatchPersonData(id: "2");
   RxBool isLoading = false.obs;
   RxInt successStatus = 0.obs;
 
@@ -39,7 +39,7 @@ class ChatScreenController extends GetxController{
       var request = http.MultipartRequest('POST', Uri.parse(url));
 
       request.fields['token'] = AppMessages.token;
-      request.fields['sender_id'] = "${personData!.id}";
+      request.fields['sender_id'] = "${personData.id}";
 
       var response = await request.send();
 
@@ -74,7 +74,7 @@ class ChatScreenController extends GetxController{
       String verifyToken = await userPreference.getStringFromPrefs(key: UserPreference.userVerifyTokenKey);
       var request = http.MultipartRequest('POST', Uri.parse(url));
       request.fields['token'] = AppMessages.token;
-      request.fields['recipient_id'] = "${personData!.id}";
+      request.fields['recipient_id'] = "${personData.id}";
       request.fields['text'] = textEditingController.text.trim();
 
       var response = await request.send();

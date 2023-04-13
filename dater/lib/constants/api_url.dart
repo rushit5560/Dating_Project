@@ -34,5 +34,7 @@ class ApiUrl {
   static const getChatListApi = "${apiMainPath}api/messages/open";
   static const getSuggestionApi = "${apiMainPath}api/suggestions";
   static const getLoggedInUserProfileApi = "${apiMainPath}api/get_logged_full_details";
+  static const setUserLanguageApi = "${apiMainPath}api/set_language";
+  static const deleteUserPhotoApi = "${apiMainPath}api/delete_photo";
 
 }

@@ -18,7 +18,7 @@ class CardSwipeModule extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return homeScreenController.matchesList.isEmpty
+    return homeScreenController.suggestionList.isEmpty
         ? SizedBox(
             height: Get.height * 0.70,
             child: const Center(child: Text('No Matches Found')))
@@ -59,12 +59,12 @@ class CardSwipeModule extends StatelessWidget {
                       onSwipeCompleted: (index, swipeDirection) async {
                         if(swipeDirection == SwipeDirection.right) {
                           await homeScreenController.superLoveProfileFunction(
-                            likedId: "${homeScreenController.matchesList[index].id}",
+                            likedId: "${homeScreenController.suggestionList[index].id}",
                             likeType: LikeType.like,
                           );
                         } else if(swipeDirection == SwipeDirection.up) {
                           await homeScreenController.superLoveProfileFunction(
-                            likedId: "${homeScreenController.matchesList[index].id}",
+                            likedId: "${homeScreenController.suggestionList[index].id}",
                             likeType: LikeType.super_love,
                           );
                         } else if(swipeDirection == SwipeDirection.left) {
@@ -98,7 +98,7 @@ class CardSwipeModule extends StatelessWidget {
                         );
                       },
                       controller: homeScreenController.cardController,
-                      itemCount: homeScreenController.matchesList.length,
+                      itemCount: homeScreenController.suggestionList.length,
                       builder: (context, sp) {
                         // MatchPersonData singleItem = homeScreenController.matchesList[sp.index];
 

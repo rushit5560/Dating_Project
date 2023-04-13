@@ -58,7 +58,7 @@ class AllChatListScreenController extends GetxController {
 
   @override
   void onInit() {
-    initMethod();
+    // initMethod();
     super.onInit();
   }
 

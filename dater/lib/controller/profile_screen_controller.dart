@@ -8,6 +8,7 @@ import 'package:get/get.dart';
 
 import '../constants/app_images.dart';
 import '../model/profile_screen_models/basic_model.dart';
+import '../model/profile_screen_models/language_save_model.dart';
 import '../model/profile_screen_models/logged_in_user_details_model.dart';
 import '../utils/preferences/user_preference.dart';
 
@@ -53,13 +54,15 @@ class ProfileScreenController extends GetxController {
     log('getUserDetailsFunction Api Url : $url');
 
     try {
-      // String verifyToken = await userPreference.getStringFromPrefs(key: UserPreference.userVerifyTokenKey);
+      String verifyToken = await userPreference.getStringFromPrefs(key: UserPreference.userVerifyTokenKey);
       var request = http.MultipartRequest('POST', Uri.parse(url));
       request.fields['token'] = AppMessages.token;
 
       var response = await request.send();
-      response.stream.transform(utf8.decoder).listen((value) async {
-        log("value :$value");
+      response.stream
+          .transform(utf8.decoder)
+          .listen((value) async {
+        log("getUserDetailsFunction Api value :$value");
 
         LoggedInUserDetailsModel loggedInUserDetailsModel =
             LoggedInUserDetailsModel.fromJson(json.decode(value));
@@ -214,9 +217,41 @@ class ProfileScreenController extends GetxController {
     // log('Prefs age : $age');
   }
 
+  /// Set User language
+  Future<void> setUserLanguageFunction() async {
+    String url = ApiUrl.setUserLanguageApi;
+    log('setUserLanguageFunction Api Url : $url');
+
+    try {
+      String verifyToken = await userPreference.getStringFromPrefs(key: UserPreference.userVerifyTokenKey);
+      var request = http.MultipartRequest('POST', Uri.parse(url));
+      request.fields['token'] = AppMessages.token;
+      request.fields['language'] = "";
+
+      var response = await request.send();
+      response.stream.transform(utf8.decoder).listen((value) async {
+        log('setUserLanguageFunction Value : $value');
+
+        LanguageSaveModel languageSaveModel = LanguageSaveModel.fromJson(json.decode(value));
+        successStatus.value = languageSaveModel.statusCode;
+
+        if(successStatus.value == 200) {
+          log('setUserLanguageFunction successStatus :${successStatus.value}');
+        } else {
+          log('setUserLanguageFunction Else Else');
+        }
+
+      });
+    } catch(e) {
+      log('setUserLanguageFunction Error :$e');
+      rethrow;
+    }
+
+  }
+
   @override
   void onInit() {
-    initMethod();
+    // initMethod();
     super.onInit();
   }
 
@@ -230,46 +265,57 @@ class ProfileScreenController extends GetxController {
     userBio.value = await userPreference.getStringFromPrefs(key: UserPreference.bioKey);
     // Set Height Value in Parameter & Add in list
     userHeight.value = await userPreference.getStringFromPrefs(key: UserPreference.heightKey);
-    basicList.removeAt(0);
-    basicList.insert(
-      0,
-      BasicModel(
-          image: AppImages.heightImage,
-          name: "${userHeight.value.split('.')[0]} cm"),
-    );
+    if(basicList.isNotEmpty) {
+      basicList.removeAt(0);
+      basicList.insert(
+        0,
+        BasicModel(
+            image: AppImages.heightImage,
+            name: "${userHeight.value.split('.')[0]} cm"),
+      );
+    }
 
     // Set Exercise Value in Parameter & Add in list
-    userExercise.value = await userPreference.getStringFromPrefs(key: UserPreference.exerciseKey);
-    basicList.removeAt(1);
-    basicList.insert(
-      1,
-      BasicModel(image: AppImages.exerciseImage, name: userExercise.value),
-    );
+    if(basicList.isNotEmpty) {
+      userExercise.value =
+      await userPreference.getStringFromPrefs(key: UserPreference.exerciseKey);
+      basicList.removeAt(1);
+      basicList.insert(
+        1,
+        BasicModel(image: AppImages.exerciseImage, name: userExercise.value),
+      );
+    }
 
     // Set Drinking Value in Parameter & Add in list
-    userDrinking.value = await userPreference.getStringFromPrefs(key: UserPreference.drinkingKey);
-    basicList.removeAt(2);
-    basicList.insert(
-      2,
-      BasicModel(image: AppImages.drinkingImage, name: userDrinking.value),
-    );
+    if(basicList.isNotEmpty) {
+      userDrinking.value =
+      await userPreference.getStringFromPrefs(key: UserPreference.drinkingKey);
+      basicList.removeAt(2);
+      basicList.insert(
+        2,
+        BasicModel(image: AppImages.drinkingImage, name: userDrinking.value),
+      );
+    }
 
     // Set Smoking Value in Parameter & Add in list
-    userSmoking.value = await userPreference.getStringFromPrefs(key: UserPreference.smokingKey);
-    basicList.removeAt(3);
-    basicList.insert(
-      3,
-      BasicModel(image: AppImages.smokingImage, name: userSmoking.value),
-    );
+    if(basicList.isNotEmpty) {
+      userSmoking.value =
+      await userPreference.getStringFromPrefs(key: UserPreference.smokingKey);
+      basicList.removeAt(3);
+      basicList.insert(
+        3,
+        BasicModel(image: AppImages.smokingImage, name: userSmoking.value),
+      );
+    }
 
     // Set Kids Value in Parameter & Add in list
-    userKids.value = await userPreference.getStringFromPrefs(key: UserPreference.kidsKey);
-    basicList.removeAt(4);
-    basicList.insert(
-        4, BasicModel(image: AppImages.kidsImage, name: userKids.value));
-
-
-
+    if(basicList.isNotEmpty) {
+      userKids.value =
+      await userPreference.getStringFromPrefs(key: UserPreference.kidsKey);
+      basicList.removeAt(4);
+      basicList.insert(
+          4, BasicModel(image: AppImages.kidsImage, name: userKids.value));
+    }
 
     isLoading(false);
   }

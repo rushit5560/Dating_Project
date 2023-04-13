@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:developer';
 import 'package:dater/constants/messages.dart';
-import 'package:dater/model/home_screen_model/matches_model.dart';
 import 'package:dater/model/home_screen_model/super_love_model.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
@@ -13,16 +12,18 @@ import 'package:get/get.dart';
 import 'package:location/location.dart';
 import 'package:swipable_stack/swipable_stack.dart';
 import '../constants/enums.dart';
+import '../model/home_screen_model/suggestions_model.dart';
 import '../utils/preferences/user_preference.dart';
 
 
 class HomeScreenController extends GetxController {
   RxBool isLoading = false.obs;
+  RxInt successStatus = 0.obs;
   SwipableStackController cardController = SwipableStackController();
   RxBool selected = false.obs;
 
-  List<MatchPersonData> matchesList = [];
-  MatchPersonData singlePersonData = MatchPersonData();
+  List<SuggestionData> suggestionList = [];
+  SuggestionData singlePersonData = SuggestionData();
   UserPreference userPreference = UserPreference();
 
   List<String> images = [
@@ -61,39 +62,39 @@ class HomeScreenController extends GetxController {
     );
   }
 
-  /// Get Matches Function
-  Future<void> getMatchesFunction() async {
+  /// Get Suggestions Function
+  Future<void> getUserSuggestionsFunction() async {
     isLoading(true);
-    String url = ApiUrl.matchesApi;
-    log('Matches Api Url :$url');
+    String url = ApiUrl.getSuggestionApi;
+    log('Suggestion Api Url :$url');
 
     try {
       String verifyToken = await userPreference.getStringFromPrefs(key: UserPreference.userVerifyTokenKey);
       var request = http.MultipartRequest('POST', Uri.parse(url));
-      request.fields['token'] = verifyToken;
+      request.fields['token'] = AppMessages.token;
 
       var response = await request.send();
 
-      response.stream.transform(utf8.decoder).listen((value) async {
-        log("value :$value");
-        MatchesModel matchesModel = MatchesModel.fromJson(json.decode(value));
-        matchesList.clear();
-
-        if(matchesModel.msg.isNotEmpty) {
-          matchesList.addAll(matchesModel.msg);
-          if(matchesList.isNotEmpty) {
-            singlePersonData = matchesList[0];
+      response.stream
+          .transform(const Utf8Decoder())
+          .transform(const LineSplitter())
+          .listen((value) async {
+        // log("Suggestion Api value :$value");
+        SuggestionListModel suggestionListModel = SuggestionListModel.fromJson(json.decode(value));
+        successStatus.value = suggestionListModel.statusCode;
+        if(successStatus.value == 200) {
+          suggestionList.clear();
+          if(suggestionListModel.msg.isNotEmpty) {
+            suggestionList.addAll(suggestionListModel.msg);
+            singlePersonData = suggestionList[0];
+            // for(var element in suggestionList) {
+            //   log('suggestionList Id : ${element.id}');
+            // }
+            log('suggestionList : ${suggestionList.length}');
           }
-          log('matchesList : ${matchesList.length}');
+        } else {
+          log('getUserSuggestionsFunction Else');
         }
-
-        // if(matchesModel.msg.toString() != "No data") {
-        //   matchesList.addAll(matchesModel.msg);
-        //   if(matchesList.isNotEmpty) {
-        //     singlePersonData = matchesList[0];
-        //   }
-        //   log('matchesList : ${matchesList.length}');
-        // }
 
       });
     } catch (e) {
@@ -101,7 +102,9 @@ class HomeScreenController extends GetxController {
       rethrow;
     }
 
-    isLoading(false);
+    Timer(const Duration(seconds: 1), () => isLoading(false));
+
+    // isLoading(false);
   }
 
   /*/// Like   function
@@ -180,9 +183,9 @@ class HomeScreenController extends GetxController {
         }
 
         /// Remove Data at 0 Index & set new data in variable
-        matchesList.removeAt(0);
-        if(matchesList.isNotEmpty) {
-          singlePersonData = matchesList[0];
+        suggestionList.removeAt(0);
+        if(suggestionList.isNotEmpty) {
+          singlePersonData = suggestionList[0];
         }
         loadUI();
 
@@ -201,9 +204,9 @@ class HomeScreenController extends GetxController {
           }
 
           /// Remove Data at 0 Index & set new data in variable
-          matchesList.removeAt(0);
-          if(matchesList.isNotEmpty) {
-            singlePersonData = matchesList[0];
+          suggestionList.removeAt(0);
+          if(suggestionList.isNotEmpty) {
+            singlePersonData = suggestionList[0];
           }
           loadUI();
         }
@@ -224,7 +227,7 @@ class HomeScreenController extends GetxController {
 
   initMethod() async {
     await getLocation();
-    await getMatchesFunction();
+    await getUserSuggestionsFunction();
   }
 
   loadUI() {

@@ -207,10 +207,10 @@ class EditProfileScreenController extends GetxController {
       log('Request Field : ${request.fields}');
       var response = await request.send();
 
-      response.stream.transform(utf8.decoder).listen((value) async {
-        log('value : $value');
+      response.stream.transform(utf8.decoder).listen((value1) async {
+        log('value : $value1');
         CompleteSignupModel completeSignupModel =
-            CompleteSignupModel.fromJson(json.decode(value));
+            CompleteSignupModel.fromJson(json.decode(value1));
         successStatus.value = completeSignupModel.statusCode;
 
         if (successStatus.value == 200) {

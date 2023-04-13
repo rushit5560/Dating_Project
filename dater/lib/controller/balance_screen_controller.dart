@@ -23,12 +23,14 @@ class BalanceScreenController extends GetxController{
     try {
       String verifyToken = await userPreference.getStringFromPrefs(key: UserPreference.userVerifyTokenKey);
       var request = http.MultipartRequest('POST', Uri.parse(url));
-      request.fields['token'] = verifyToken;
+      request.fields['token'] = AppMessages.token;
 
       var response = await request.send();
 
-      response.stream.transform(utf8.decoder).listen((value) async {
-        log('value : $value');
+      response.stream
+          .transform(utf8.decoder)
+          .listen((value) async  {
+        log('getMyCoinsFunction Api value : $value');
         CoinModel coinModel = CoinModel.fromJson(json.decode(value));
         successStatus.value = coinModel.statusCode;
 
@@ -52,7 +54,7 @@ class BalanceScreenController extends GetxController{
 
   @override
   void onInit() {
-    initMethod();
+    // initMethod();
     super.onInit();
   }
 
