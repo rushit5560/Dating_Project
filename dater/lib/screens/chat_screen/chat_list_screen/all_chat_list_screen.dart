@@ -23,13 +23,21 @@ class AllChatListScreen extends StatelessWidget {
           ? const Center(
               child: Text('No Matches Found!'),
             )
-          : */Column(
-              children: [
-                SearchTextfiledModule(),
-                SizedBox(height: 3.h),
-                ChatListModule(),
-              ],
-            ).commonSymmetricPadding(horizontal: 25, vertical: 10),
+          : */
+          Column(
+        children: [
+          const SearchTextfiledModule(),
+          SizedBox(height: 3.h),
+          allChatListScreenController.searchMatchesList.isEmpty
+              ? SizedBox(
+                  height: 50.h,
+                  child: const Center(
+                    child: Text('No Matches Found'),
+                  ),
+                )
+              : ChatListModule(),
+        ],
+      ).commonSymmetricPadding(horizontal: 25, vertical: 10),
     );
   }
 }

@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'dart:developer';
 import 'package:dater/constants/messages.dart';
 import 'package:dater/model/home_screen_model/super_love_model.dart';
+import 'package:dater/model/profile_screen_models/basic_model.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 import 'package:dater/constants/api_url.dart';
@@ -15,16 +16,29 @@ import '../constants/enums.dart';
 import '../model/home_screen_model/suggestions_model.dart';
 import '../utils/preferences/user_preference.dart';
 
-
 class HomeScreenController extends GetxController {
   RxBool isLoading = false.obs;
   RxInt successStatus = 0.obs;
   SwipableStackController cardController = SwipableStackController();
   RxBool selected = false.obs;
+  String name = '';
+  String age = '';
+  String profilePrompts = '';
 
+  String gender = '';
+  String work = '';
+  String education = '';
+  String height = '';
+  String exercise = '';
+  String smoking = '';
+  String drinking = '';
+  String politics = '';
+  String religion = '';
+  String kids = '';
   List<SuggestionData> suggestionList = [];
   SuggestionData singlePersonData = SuggestionData();
   UserPreference userPreference = UserPreference();
+  List<BasicModel> basicList = [];
 
   List<String> images = [
     AppImages.swiper1Image,
@@ -69,7 +83,8 @@ class HomeScreenController extends GetxController {
     log('Suggestion Api Url :$url');
 
     try {
-      String verifyToken = await userPreference.getStringFromPrefs(key: UserPreference.userVerifyTokenKey);
+      String verifyToken = await userPreference.getStringFromPrefs(
+          key: UserPreference.userVerifyTokenKey);
       var request = http.MultipartRequest('POST', Uri.parse(url));
       request.fields['token'] = AppMessages.token;
 
@@ -79,14 +94,17 @@ class HomeScreenController extends GetxController {
           .transform(const Utf8Decoder())
           .transform(const LineSplitter())
           .listen((value) async {
-        // log("Suggestion Api value :$value");
-        SuggestionListModel suggestionListModel = SuggestionListModel.fromJson(json.decode(value));
+        log("Suggestion Api value :$value");
+        SuggestionListModel suggestionListModel =
+            SuggestionListModel.fromJson(json.decode(value));
         successStatus.value = suggestionListModel.statusCode;
-        if(successStatus.value == 200) {
+        if (successStatus.value == 200) {
           suggestionList.clear();
-          if(suggestionListModel.msg.isNotEmpty) {
+
+          if (suggestionListModel.msg.isNotEmpty) {
             suggestionList.addAll(suggestionListModel.msg);
             singlePersonData = suggestionList[0];
+
             // for(var element in suggestionList) {
             //   log('suggestionList Id : ${element.id}');
             // }
@@ -95,7 +113,6 @@ class HomeScreenController extends GetxController {
         } else {
           log('getUserSuggestionsFunction Else');
         }
-
       });
     } catch (e) {
       log('getMatchesFunction Error :$e');
@@ -105,6 +122,21 @@ class HomeScreenController extends GetxController {
     Timer(const Duration(seconds: 1), () => isLoading(false));
 
     // isLoading(false);
+  }
+
+  /// Set Basic Details
+  setBasicListFunction() {
+    basicList.add(BasicModel(image: AppImages.genderImage, name: gender));
+    basicList.add(BasicModel(image: AppImages.workImage, name: work));
+    basicList.add(BasicModel(image: AppImages.educationImage, name: education));
+    basicList.add(BasicModel(image: AppImages.heightImage, name: height));
+    basicList.add(BasicModel(image: AppImages.exerciseImage, name: exercise));
+    basicList.add(BasicModel(image: AppImages.smokingImage, name: smoking));
+
+    basicList.add(BasicModel(image: AppImages.drinkingImage, name: drinking));
+    basicList.add(BasicModel(image: AppImages.politicsImage, name: politics));
+    basicList.add(BasicModel(image: AppImages.refreshImage, name: religion));
+    basicList.add(BasicModel(image: AppImages.kidsImage, name: kids));
   }
 
   /*/// Like   function
@@ -152,7 +184,8 @@ class HomeScreenController extends GetxController {
     String url = ApiUrl.superLoveProfileApi;
 
     try {
-      String verifyToken = await userPreference.getStringFromPrefs(key: UserPreference.userVerifyTokenKey);
+      String verifyToken = await userPreference.getStringFromPrefs(
+          key: UserPreference.userVerifyTokenKey);
       Map<String, dynamic> bodyData = {
         "token": verifyToken,
         "type": likeType.name,
@@ -167,10 +200,10 @@ class HomeScreenController extends GetxController {
 
       log('superLove ProfileFunction Response Function : ${response.body}');
 
-      SuperLoveModel superLoveModel = SuperLoveModel.fromJson(json.decode(response.body));
+      SuperLoveModel superLoveModel =
+          SuperLoveModel.fromJson(json.decode(response.body));
 
       if (superLoveModel.statusCode == 200) {
-
         if (likeType == LikeType.like) {
           cardController.next(
             swipeDirection: SwipeDirection.right,
@@ -184,14 +217,14 @@ class HomeScreenController extends GetxController {
 
         /// Remove Data at 0 Index & set new data in variable
         suggestionList.removeAt(0);
-        if(suggestionList.isNotEmpty) {
+        if (suggestionList.isNotEmpty) {
           singlePersonData = suggestionList[0];
         }
         loadUI();
-
       } else if (superLoveModel.statusCode == 400) {
         Fluttertoast.showToast(msg: superLoveModel.msg);
-        if(superLoveModel.msg.toLowerCase() == "You already liked this account") {
+        if (superLoveModel.msg.toLowerCase() ==
+            "You already liked this account") {
           if (likeType == LikeType.like) {
             cardController.next(
               swipeDirection: SwipeDirection.right,
@@ -205,7 +238,7 @@ class HomeScreenController extends GetxController {
 
           /// Remove Data at 0 Index & set new data in variable
           suggestionList.removeAt(0);
-          if(suggestionList.isNotEmpty) {
+          if (suggestionList.isNotEmpty) {
             singlePersonData = suggestionList[0];
           }
           loadUI();
@@ -219,6 +252,22 @@ class HomeScreenController extends GetxController {
     }
   }
 
+  getUserData() {
+    name = suggestionList[0].name.toString();
+    age = suggestionList[0].age.toString();
+    profilePrompts = suggestionList[0].profilePrompts.toString();
+    work = suggestionList[0].basic!.work;
+    gender = suggestionList[0].basic!.gender;
+    education = suggestionList[0].basic!.education;
+    height = suggestionList[0].basic!.height;
+    exercise = suggestionList[0].basic!.exercise;
+    smoking = suggestionList[0].basic!.smoking;
+    drinking = suggestionList[0].basic!.drinking;
+    politics = suggestionList[0].basic!.politics;
+    religion = suggestionList[0].basic!.religion;
+    kids = suggestionList[0].basic!.kids;
+  }
+
   @override
   void onInit() {
     initMethod();
@@ -228,11 +277,11 @@ class HomeScreenController extends GetxController {
   initMethod() async {
     await getLocation();
     await getUserSuggestionsFunction();
+    await setBasicListFunction();
   }
 
   loadUI() {
     isLoading(true);
     isLoading(false);
   }
-
 }

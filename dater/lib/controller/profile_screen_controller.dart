@@ -114,7 +114,7 @@ class ProfileScreenController extends GetxController {
   }
 
   /// Set Basic Details
-  void setBasicListFunction() {
+  void  setBasicListFunction() {
     basicList.add(BasicModel(
         image: AppImages.heightImage, name: "${userHeight.value} cm"));
     basicList.add(
