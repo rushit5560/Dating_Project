@@ -32,7 +32,7 @@ class AllChatListScreenController extends GetxController {
     try {
       String verifyToken = await userPreference.getStringFromPrefs(key: UserPreference.userVerifyTokenKey);
       var request = http.MultipartRequest('POST', Uri.parse(url));
-      request.fields['token'] = AppMessages.token;
+      request.fields['token'] = verifyToken;
 
       var response = await request.send();
 
@@ -58,7 +58,7 @@ class AllChatListScreenController extends GetxController {
 
   @override
   void onInit() {
-    // initMethod();
+    initMethod();
     super.onInit();
   }
 

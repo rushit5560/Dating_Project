@@ -86,7 +86,7 @@ class HomeScreenController extends GetxController {
       String verifyToken = await userPreference.getStringFromPrefs(
           key: UserPreference.userVerifyTokenKey);
       var request = http.MultipartRequest('POST', Uri.parse(url));
-      request.fields['token'] = AppMessages.token;
+      request.fields['token'] = verifyToken;
 
       var response = await request.send();
 

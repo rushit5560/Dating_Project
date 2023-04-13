@@ -40,6 +40,7 @@ class UserDetails {
     required this.bio,
     required this.verified,
     required this.homeTown,
+    required this.languages,
     required this.images,
     required this.distance,
     required this.age,
@@ -54,6 +55,7 @@ class UserDetails {
   String bio;
   String verified;
   String homeTown;
+  List<String> languages;
   List<UserImages> images;
   String distance;
   String age;
@@ -68,6 +70,7 @@ class UserDetails {
     bio: json["bio"] ?? "",
     verified: json["verified"] ?? "",
     homeTown: json["home_town"] ?? "",
+    languages: List<String>.from((json["languages"] ?? []).map((x) => x ?? "")),
     images: List<UserImages>.from((json["images"] ?? []).map((x) => UserImages.fromJson(x ?? {}))),
     distance: json["distance"] ?? "",
     age: json["age"].toString(),
@@ -83,6 +86,7 @@ class UserDetails {
     "bio": bio,
     "verified": verified,
     "home_town": homeTown,
+    "languages": List<dynamic>.from(languages.map((x) => x)),
     "images": List<dynamic>.from(images.map((x) => x.toJson())),
     "distance": distance,
     "age": age,
@@ -146,16 +150,20 @@ class Basic {
 
 class UserImages {
   UserImages({
+    required this.id,
     required this.imageUrl,
   });
 
+  String id;
   String imageUrl;
 
   factory UserImages.fromJson(Map<String, dynamic> json) => UserImages(
+    id: json["id"] ?? "",
     imageUrl: json["image_url"] ?? "",
   );
 
   Map<String, dynamic> toJson() => {
+    "id": id,
     "image_url": imageUrl,
   };
 }

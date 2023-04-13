@@ -37,6 +37,7 @@ class ReorderableGridViewModule extends StatelessWidget {
                 log('oldIndex : $oldIndex');
                 log('newIndex : $newIndex');
                 editProfileScreenController.isLoading(true);
+                /// When you reorder the user images that time calling this
                 if (editProfileScreenController.captureImageList.length < 9) {
                   if (oldIndex != editProfileScreenController.captureImageList.length && newIndex != editProfileScreenController.captureImageList.length) {
                     UploadUserImage path = editProfileScreenController.captureImageList.removeAt(oldIndex);
@@ -92,16 +93,27 @@ class ReorderableGridViewModule extends StatelessWidget {
                                   color: AppColors.grey200Color,
                                   borderRadius: BorderRadius.circular(15),
                                   image: DecorationImage(
-                                    image: NetworkImage(editProfileScreenController
-                                        .captureImageList[i].imageUrl),
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
+                                          image: NetworkImage(
+                                            editProfileScreenController
+                                                .captureImageList[i].imageUrl,
+                                          ),
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
                               ),
                               GestureDetector(
-                                onTap: () async =>
-                                    await editProfileScreenController
-                                        .deleteUserImageFunction(i),
+                                onTap: () async {
+                                  /// If image from network then call api
+                                  if(editProfileScreenController.captureImageList[i].id != "") {
+                                    await editProfileScreenController.deleteUserImagesFunction(
+                                      id: editProfileScreenController.captureImageList[i].id,
+                                      index: i,
+                                    );
+                                  }  else {
+                                    /// Local image remove only from local ist only
+                                    editProfileScreenController.deleteUserImageFunction(i);
+                                  }
+                                },
                                 child: Image.asset(
                                   AppImages.cancel2,
                                   height: 20,
@@ -707,6 +719,7 @@ class EditProfileScreenWidgets extends StatelessWidget {
         ),
         SizedBox(height: 3.h),
         Container(
+          width: Get.width,
           padding: const EdgeInsets.all(10),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(15),
@@ -718,17 +731,17 @@ class EditProfileScreenWidgets extends StatelessWidget {
           child: Wrap(
             spacing: 3.0,
             children: List.generate(
-              4,
+              editProfileScreenController.languageList.length,
               (int index) {
                 bool selected = true;
                 return Transform(
                   transform: Matrix4.identity()..scale(0.9),
                   child: ChoiceChip(
                     avatar: const CircleAvatar(
-                      backgroundImage: AssetImage(AppImages.ballImage),
+                      backgroundImage: AssetImage(AppImages.languageImage),
                     ),
                     label: Text(
-                      'wfg',
+                      editProfileScreenController.languageList[index],
                       style: TextStyleConfig.textStyle(
                         fontFamily: FontFamilyText.sFProDisplaySemibold,
                         textColor: AppColors.grey600Color,

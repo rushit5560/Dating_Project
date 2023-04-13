@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:dater/screens/settings_screen/settings_screen.dart';
 import 'package:dater/utils/extensions.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +10,7 @@ import '../../constants/font_family.dart';
 import '../../controller/profile_screen_controller.dart';
 import '../../utils/style.dart';
 import '../edit_profile_screen/edit_profile_screen.dart';
+
 
 
 class ProfileModule extends StatelessWidget {
@@ -84,8 +83,8 @@ class ProfileModule extends StatelessWidget {
                       color: AppColors.grey700Color,
                       shape: BoxShape.circle,
                       image:  DecorationImage(
-                        image: NetworkImage(profileScreenController.userImages[0]),
-                        fit: BoxFit.fitWidth,
+                        image: NetworkImage(profileScreenController.userImages[0].imageUrl),
+                        fit: BoxFit.fill,
                       ),
                     ),
                   ),
@@ -158,7 +157,9 @@ class ProfileTextModule extends StatelessWidget {
           ),
           IconButton(
               onPressed: ()=> Get.to(()=>  EditProfileScreen(), arguments: [screenController.userDetails])!.then((value) async {
-                await screenController.setDataInUserVariablesFunction();
+                // await screenController.setDataInUserVariablesFunction();
+                screenController.clearOldUserDataFunction();
+                await screenController.getUserDetailsFunction();
               }),
               icon: const Icon(Icons.edit_outlined,color: AppColors.darkOrangeColor,size: 20,))
         ],
@@ -249,7 +250,7 @@ class AboutMeAllModule extends StatelessWidget {
           decoration: BoxDecoration(
             color: AppColors.grey500Color,
             image:  DecorationImage(
-              image: NetworkImage(screenController.userImages[1]),
+              image: NetworkImage(screenController.userImages[1].imageUrl),
               fit: BoxFit.cover,
             ),
             borderRadius: const BorderRadius.all(Radius.circular(20))
@@ -288,7 +289,8 @@ class AboutMeAllModule extends StatelessWidget {
           children: List.generate(
             screenController.basicList.length,
                 (int index) {
-              return Transform(
+              return screenController.basicList[index].name != ""
+              ? Transform(
                 transform: Matrix4.identity()..scale(0.9),
                 child: ChoiceChip(
                   avatar:CircleAvatar(
@@ -316,7 +318,8 @@ class AboutMeAllModule extends StatelessWidget {
                   ),
                   onSelected: (bool value) {},
                 ),
-              ).commonSymmetricPadding(horizontal: 10);
+              ).commonSymmetricPadding(horizontal: 10)
+              : Container();
             },
           ).toList(),
         ),
@@ -372,7 +375,7 @@ class AboutMeAllModule extends StatelessWidget {
               color: AppColors.grey500Color,
               image:  DecorationImage(
                 image: NetworkImage(
-                  screenController.userImages[2],
+                  screenController.userImages[2].imageUrl,
                 ),
                 fit: BoxFit.cover,
               ),
@@ -392,7 +395,7 @@ class AboutMeAllModule extends StatelessWidget {
         Wrap(
           spacing: 3.0,
           children: List.generate(
-            4,
+            screenController.languageList.length,
                 (int index) {
               return Transform(
                 transform: Matrix4.identity()..scale(0.9),
@@ -402,7 +405,7 @@ class AboutMeAllModule extends StatelessWidget {
                     backgroundColor: Colors.transparent,
                   ),
                   label: Text(
-                    'wfg',
+                    screenController.languageList[index],
                     style: TextStyleConfig.textStyle(
                       fontFamily: FontFamilyText.sFProDisplaySemibold,
                       textColor: AppColors.grey600Color,
@@ -433,7 +436,7 @@ class AboutMeAllModule extends StatelessWidget {
               color: AppColors.grey500Color,
               image:  DecorationImage(
                 image: NetworkImage(
-                  screenController.userImages[2],
+                  screenController.userImages[2].imageUrl,
                 ),
                 fit: BoxFit.cover,
               ),

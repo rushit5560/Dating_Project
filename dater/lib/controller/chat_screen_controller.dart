@@ -38,7 +38,7 @@ class ChatScreenController extends GetxController{
       String verifyToken = await userPreference.getStringFromPrefs(key: UserPreference.userVerifyTokenKey);
       var request = http.MultipartRequest('POST', Uri.parse(url));
 
-      request.fields['token'] = AppMessages.token;
+      request.fields['token'] = verifyToken;
       request.fields['sender_id'] = "${personData.id}";
 
       var response = await request.send();
@@ -73,7 +73,7 @@ class ChatScreenController extends GetxController{
     try {
       String verifyToken = await userPreference.getStringFromPrefs(key: UserPreference.userVerifyTokenKey);
       var request = http.MultipartRequest('POST', Uri.parse(url));
-      request.fields['token'] = AppMessages.token;
+      request.fields['token'] = verifyToken;
       request.fields['recipient_id'] = "${personData.id}";
       request.fields['text'] = textEditingController.text.trim();
 

@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
-import 'package:dater/controller/profile_screen_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
@@ -12,9 +11,11 @@ import '../constants/enums.dart';
 import '../constants/messages.dart';
 import '../model/authentication_model/add_user_photo_screen_model/user_photo_upload_screen.dart';
 import '../model/authentication_model/complete signup_screen_model/complete signup_model.dart';
+import '../model/profile_screen_models/delete_image_model.dart';
 import '../model/profile_screen_models/logged_in_user_details_model.dart';
 import '../model/profile_screen_models/upload_image_model.dart';
 import '../utils/preferences/user_preference.dart';
+
 
 class EditProfileScreenController extends GetxController {
   // UserDetails userDetails = Get.arguments[0];
@@ -32,6 +33,7 @@ class EditProfileScreenController extends GetxController {
   MoreAboutMe kidsValue = MoreAboutMe.no;
 
   List<String> interestList = [];
+  List<String> languageList = [];
   TextEditingController profilePromptsController = TextEditingController();
   TextEditingController myBioController = TextEditingController();
 
@@ -51,6 +53,7 @@ class EditProfileScreenController extends GetxController {
         await ImagePicker().pickImage(source: ImageSource.gallery);
     if (pickedFile != null) {
       captureImageList.add(UploadUserImage(
+        id: "",
           imageUrl: pickedFile.path, isImageFromNetwork: false));
       File selectedFile = File(pickedFile.path);
       await uploadImageFunction(selectedFile);
@@ -99,7 +102,7 @@ class EditProfileScreenController extends GetxController {
   }
 
   /// Delete User Image Function
-  Future<void> deleteUserImageFunction(int i) async {
+  void deleteUserImageFunction(int i) {
     captureImageList.removeAt(i);
   }
 
@@ -201,7 +204,7 @@ class EditProfileScreenController extends GetxController {
       String verifyToken = await userPreference.getStringFromPrefs(
           key: UserPreference.userVerifyTokenKey);
       var request = http.MultipartRequest('POST', Uri.parse(url));
-      request.fields['token'] = AppMessages.token;
+      request.fields['token'] = verifyToken;
       request.fields[key] = value;
 
       log('Request Field : ${request.fields}');
@@ -250,7 +253,9 @@ class EditProfileScreenController extends GetxController {
           /// Set User Network Images
           for (var value in userDetails!.images) {
             captureImageList.add(
-                UploadUserImage(imageUrl: value.imageUrl, isImageFromNetwork: true));
+                UploadUserImage(
+                    id: value.id,
+                    imageUrl: value.imageUrl, isImageFromNetwork: true));
           }
 
           /// Set User Interest
@@ -260,6 +265,11 @@ class EditProfileScreenController extends GetxController {
           profilePromptsController.text = userDetails!.profilePrompts!;
           myBioController.text = userDetails!.bio;
           endVal.value = double.parse(userDetails!.basic.height);
+
+          if(loggedInUserDetailsModel.msg[0].languages.isNotEmpty) {
+            languageList.addAll(loggedInUserDetailsModel.msg[0].languages);
+          }
+
           getAndSetExerciseValue(); // Getting from mobile screen
           getAndSetDrinkingValue();
           getAndSetSmokingValue();
@@ -306,6 +316,42 @@ class EditProfileScreenController extends GetxController {
       rethrow;
     }
     isLoading(false);
+  }
+
+  /// Delete User Photo
+  Future<void> deleteUserImagesFunction({required String id, required int index}) async {
+    String url = ApiUrl.deleteUserPhotoApi;
+    log('deleteUserImagesFunction Api Url : $url');
+
+    try {
+      String verifyToken = await userPreference.getStringFromPrefs(
+          key: UserPreference.userVerifyTokenKey);
+      var request = http.MultipartRequest('POST', Uri.parse(url));
+      request.fields['token'] = verifyToken;
+      request.fields['image_id'] = id;
+
+      log('Request Field : ${request.fields}');
+      var response = await request.send();
+
+      response.stream.transform(utf8.decoder).listen((value1) async {
+        log('value1 : $value1');
+
+        DeleteImageModel deleteImageModel = DeleteImageModel.fromJson(json.decode(value1));
+
+        successStatus.value = deleteImageModel.statusCode;
+        if(successStatus.value == 200) {
+          Fluttertoast.showToast(msg: deleteImageModel.msg);
+          captureImageList.removeAt(index);
+        } else {
+          log('deleteUserImagesFunction Else');
+        }
+      });
+
+    } catch(e) {
+      log('deleteUserImagesFunction Error :$e');
+      rethrow;
+    }
+    loadUI();
   }
 
   @override
@@ -356,6 +402,7 @@ class EditProfileScreenController extends GetxController {
 
     for (var value in captureImageList) {
       Map<String, dynamic> singleData = {
+        "id": value.id,
         "image": value.imageUrl,
         "isImageFromNetwork": value.isImageFromNetwork
       };

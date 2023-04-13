@@ -45,7 +45,8 @@ class ProfileScreenController extends GetxController {
 
   List<BasicModel> basicList = [];
   List<BasicModel> interestList = [];
-  List<String> userImages = [];
+  List<UserImages> userImages = [];
+  List<String> languageList = [];
 
   // Get User Profile
   Future<void> getUserDetailsFunction() async {
@@ -56,7 +57,7 @@ class ProfileScreenController extends GetxController {
     try {
       String verifyToken = await userPreference.getStringFromPrefs(key: UserPreference.userVerifyTokenKey);
       var request = http.MultipartRequest('POST', Uri.parse(url));
-      request.fields['token'] = AppMessages.token;
+      request.fields['token'] = verifyToken;
 
       var response = await request.send();
       response.stream
@@ -65,7 +66,7 @@ class ProfileScreenController extends GetxController {
         log("getUserDetailsFunction Api value :$value");
 
         LoggedInUserDetailsModel loggedInUserDetailsModel =
-            LoggedInUserDetailsModel.fromJson(json.decode(value));
+        LoggedInUserDetailsModel.fromJson(json.decode(value));
         successStatus.value = loggedInUserDetailsModel.statusCode;
 
         if (successStatus.value == 200) {
@@ -73,7 +74,7 @@ class ProfileScreenController extends GetxController {
 
           userName.value = loggedInUserDetailsModel.msg[0].name;
           userProfilePrompts.value =
-              loggedInUserDetailsModel.msg[0].profilePrompts!;
+          loggedInUserDetailsModel.msg[0].profilePrompts!;
           userBio.value = loggedInUserDetailsModel.msg[0].bio;
           userVerified.value = loggedInUserDetailsModel.msg[0].verified;
           userHomeTown.value = loggedInUserDetailsModel.msg[0].homeTown;
@@ -97,9 +98,14 @@ class ProfileScreenController extends GetxController {
 
           /// Set User Images in local list
           for (var element in loggedInUserDetailsModel.msg[0].images) {
-            userImages.add(element.imageUrl);
+            userImages.add(element);
           }
           log('userImages Length : ${userImages.length}');
+
+          /// Set Language in local list
+          if(loggedInUserDetailsModel.msg[0].languages.isNotEmpty) {
+            languageList.addAll(loggedInUserDetailsModel.msg[0].languages);
+          }
 
           await setLoggedInUserDetailsInPrefs(loggedInUserDetailsModel.msg[0]);
         } else {
@@ -113,20 +119,42 @@ class ProfileScreenController extends GetxController {
     isLoading(false);
   }
 
+  /// Clear All Things - When coming from edit profile screen
+  void clearOldUserDataFunction() {
+    basicList.clear();
+    interestList.clear();
+    userImages.clear();
+    languageList.clear();
+  }
+
   /// Set Basic Details
-  void  setBasicListFunction() {
+  void setBasicListFunction() {
+    // if (userHeight.value != "") {
     basicList.add(BasicModel(
         image: AppImages.heightImage, name: "${userHeight.value} cm"));
+    // }
+    // if(userDrinking.value != "") {
     basicList.add(
         BasicModel(image: AppImages.drinkingImage, name: userDrinking.value));
+    // }
+    // if(userSmoking.value != "") {
     basicList.add(
         BasicModel(image: AppImages.smokingImage, name: userSmoking.value));
+    // }
+    // if(userGender.value != "") {
     basicList
-        .add(BasicModel(image: AppImages.genderImage, name: userGender.value));
+        .add(
+        BasicModel(image: AppImages.genderImage, name: userGender.value));
+    // }
+    // if(userStarSign.value != "") {
     basicList.add(
         BasicModel(image: AppImages.starsignImage, name: userStarSign.value));
+    // }
+    // if(userEducation.value != "") {
     basicList.add(
-        BasicModel(image: AppImages.educationImage, name: userEducation.value));
+        BasicModel(
+            image: AppImages.educationImage, name: userEducation.value));
+    // }
   }
 
   /// Set Interest in local & Prefs
@@ -225,7 +253,7 @@ class ProfileScreenController extends GetxController {
     try {
       String verifyToken = await userPreference.getStringFromPrefs(key: UserPreference.userVerifyTokenKey);
       var request = http.MultipartRequest('POST', Uri.parse(url));
-      request.fields['token'] = AppMessages.token;
+      request.fields['token'] = verifyToken;
       request.fields['language'] = "";
 
       var response = await request.send();
@@ -251,7 +279,7 @@ class ProfileScreenController extends GetxController {
 
   @override
   void onInit() {
-    // initMethod();
+    initMethod();
     super.onInit();
   }
 
