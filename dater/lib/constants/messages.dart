@@ -136,14 +136,14 @@ class AppMessages {
   static String myInterests = "My Interests";
   static String myBio = "My bio";
   static String myBasics = "My Basics";
-  static String moreAboutMe = "More about me";
+  static String moreAboutMe = "More Basics";
   static String height = "Height";
   static String exercise = "Exercise";
   static String languages = "Languages I know";
   static String profilePrompts = "Profile Prompts";
 
   // This is client token - don't remove it
-  // static String token = "96e8451a018e5558d9af7979302cc85b";
+  static String token = "96e8451a018e5558d9af7979302cc85b";
   // static String token = "46848b9868ab080b9180fba089b04032"; //+619662298453
   // static String token = "7366d4dbee942e86ed458944f78f5f9a"; //+619662298450
   // static String token = "215ee6698e6a2493bda820f60f3258a1"; //+619662298451

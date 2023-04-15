@@ -40,6 +40,10 @@ class HomeScreenController extends GetxController {
   UserPreference userPreference = UserPreference();
   List<BasicModel> basicList = [];
 
+  RxBool isCancelButtonClick = false.obs;
+  RxBool isStarButtonClick = false.obs;
+  RxBool isLikeButtonClick = false.obs;
+
   List<String> images = [
     AppImages.swiper1Image,
     AppImages.swiper2Image,
@@ -86,7 +90,7 @@ class HomeScreenController extends GetxController {
       String verifyToken = await userPreference.getStringFromPrefs(
           key: UserPreference.userVerifyTokenKey);
       var request = http.MultipartRequest('POST', Uri.parse(url));
-      request.fields['token'] = verifyToken;
+      request.fields['token'] = AppMessages.token;
 
       var response = await request.send();
 
@@ -179,15 +183,14 @@ class HomeScreenController extends GetxController {
   }*/
 
   /// Like & SuperLove function
-  Future<void> superLoveProfileFunction(
-      {required String likedId, required LikeType likeType}) async {
+  Future<void> superLoveProfileFunction({required String likedId, required LikeType likeType, swipeCard = false}) async {
     String url = ApiUrl.superLoveProfileApi;
 
     try {
       String verifyToken = await userPreference.getStringFromPrefs(
           key: UserPreference.userVerifyTokenKey);
       Map<String, dynamic> bodyData = {
-        "token": verifyToken,
+        "token": AppMessages.token,
         "type": likeType.name,
         "liked_id": likedId
       };
@@ -200,48 +203,65 @@ class HomeScreenController extends GetxController {
 
       log('superLove ProfileFunction Response Function : ${response.body}');
 
-      SuperLoveModel superLoveModel =
-          SuperLoveModel.fromJson(json.decode(response.body));
+      SuperLoveModel superLoveModel = SuperLoveModel.fromJson(json.decode(response.body));
 
       if (superLoveModel.statusCode == 200) {
-        if (likeType == LikeType.like) {
-          cardController.next(
-            swipeDirection: SwipeDirection.right,
-          );
-        } else if (likeType == LikeType.super_love) {
-          cardController.next(
-            swipeDirection: SwipeDirection.up,
-            duration: const Duration(milliseconds: 600),
-          );
-        }
-
-        /// Remove Data at 0 Index & set new data in variable
-        suggestionList.removeAt(0);
-        if (suggestionList.isNotEmpty) {
-          singlePersonData = suggestionList[0];
-        }
-        loadUI();
-      } else if (superLoveModel.statusCode == 400) {
-        Fluttertoast.showToast(msg: superLoveModel.msg);
-        if (superLoveModel.msg.toLowerCase() ==
-            "You already liked this account") {
+        /// If Coming from card swipe that time not call this if condition because double time swipe the card
+        if(swipeCard == false) {
           if (likeType == LikeType.like) {
+            log('Log Type 200 -1 : $likeType');
             cardController.next(
               swipeDirection: SwipeDirection.right,
             );
           } else if (likeType == LikeType.super_love) {
+            log('Log Type 200 -2 : $likeType');
             cardController.next(
               swipeDirection: SwipeDirection.up,
               duration: const Duration(milliseconds: 600),
             );
           }
+        }
+
+        /// Remove Data at 0 Index & set new data in variable
+        suggestionList.removeAt(0);
+        if (suggestionList.isNotEmpty) {
+          /// When Swipe complete that time set new user data in display variable
+          // singlePersonData = suggestionList[0];
+          setChangedUserData();
+        } else {
+          suggestionList = [];
+        }
+
+        // loadUI();
+      } else if (superLoveModel.statusCode == 400) {
+        Fluttertoast.showToast(msg: superLoveModel.msg);
+        if (superLoveModel.msg.toLowerCase() == "You already liked this account".toLowerCase()) {
+          log('Log Type 400 -1 : $likeType');
+          /// If Coming from card swipe that time not call this if condition because double time swipe the card
+          if(swipeCard == false) {
+            if (likeType == LikeType.like) {
+              cardController.next(
+                swipeDirection: SwipeDirection.right,
+              );
+            } else if (likeType == LikeType.super_love) {
+              log('Log Type 400 -2 : $likeType');
+              cardController.next(
+                swipeDirection: SwipeDirection.up,
+                duration: const Duration(milliseconds: 600),
+              );
+            }
+          }
 
           /// Remove Data at 0 Index & set new data in variable
           suggestionList.removeAt(0);
           if (suggestionList.isNotEmpty) {
-            singlePersonData = suggestionList[0];
+            /// When Swipe complete that time set new user data in display variable
+            // singlePersonData = suggestionList[0];
+            setChangedUserData();
+          } else {
+            suggestionList = [];
           }
-          loadUI();
+
         }
       } else {
         log('superLoveProfileFunction Else');
@@ -250,9 +270,11 @@ class HomeScreenController extends GetxController {
       log('superLoveProfileFunction Error : $e');
       rethrow;
     }
+    loadUI();
   }
 
-  getUserData() {
+  /// When swipe complete that time user data change
+  setChangedUserData() {
     name = suggestionList[0].name.toString();
     age = suggestionList[0].age.toString();
     profilePrompts = suggestionList[0].profilePrompts.toString();
@@ -266,6 +288,8 @@ class HomeScreenController extends GetxController {
     politics = suggestionList[0].basic!.politics;
     religion = suggestionList[0].basic!.religion;
     kids = suggestionList[0].basic!.kids;
+    basicList.clear();
+    setBasicListFunction();
   }
 
   @override

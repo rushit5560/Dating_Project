@@ -428,7 +428,7 @@ class AboutMeAllModule extends StatelessWidget {
           ).toList(),
         ),
         SizedBox(height: 2.h),
-        screenController.userImages.length < 3
+        screenController.userImages.length < 4
         ? Container()
         : Container(
           height: 50.h,
@@ -436,11 +436,11 @@ class AboutMeAllModule extends StatelessWidget {
               color: AppColors.grey500Color,
               image:  DecorationImage(
                 image: NetworkImage(
-                  screenController.userImages[2].imageUrl,
+                  screenController.userImages[3].imageUrl,
                 ),
                 fit: BoxFit.cover,
               ),
-              borderRadius: BorderRadius.all(Radius.circular(20))
+              borderRadius: const BorderRadius.all(Radius.circular(20))
           ),
         ),
         SizedBox(height: 2.h),

@@ -36,5 +36,8 @@ class ApiUrl {
   static const getLoggedInUserProfileApi = "${apiMainPath}api/get_logged_full_details";
   static const setUserLanguageApi = "${apiMainPath}api/set_language";
   static const deleteUserPhotoApi = "${apiMainPath}api/delete_photo";
+  static const getLanguageApi = "${apiMainPath}api/get_languages";
+  static const getPoliticsApi = "${apiMainPath}api/get_politics";
+  static const getReligionApi = "${apiMainPath}api/get_religion";
 
 }

@@ -74,7 +74,7 @@ class EditProfileScreenController extends GetxController {
       request.headers['fileKey'] = "file";
       request.headers['chunkedMode'] = "false";
       request.headers['mimeType'] = "multipart/form-data";
-      request.fields['token'] = verifyToken;
+      request.fields['token'] = AppMessages.token;
       request.files.add(await http.MultipartFile.fromPath("file", image.path));
 
       log('All Fields : ${request.fields}');
@@ -204,7 +204,7 @@ class EditProfileScreenController extends GetxController {
       String verifyToken = await userPreference.getStringFromPrefs(
           key: UserPreference.userVerifyTokenKey);
       var request = http.MultipartRequest('POST', Uri.parse(url));
-      request.fields['token'] = verifyToken;
+      request.fields['token'] = AppMessages.token;
       request.fields[key] = value;
 
       log('Request Field : ${request.fields}');
@@ -235,9 +235,9 @@ class EditProfileScreenController extends GetxController {
     log('getUserDetailsFunction Api Url : $url');
 
     try {
-      // String verifyToken = await userPreference.getStringFromPrefs(key: UserPreference.userVerifyTokenKey);
+      String verifyToken = await userPreference.getStringFromPrefs(key: UserPreference.userVerifyTokenKey);
       var request = http.MultipartRequest('POST', Uri.parse(url));
-      request.fields['token'] = "96e8451a018e5558d9af7979302cc85b";
+      request.fields['token'] = AppMessages.token;
 
       var response = await request.send();
       response.stream.transform(utf8.decoder).listen((value) async {
@@ -327,7 +327,7 @@ class EditProfileScreenController extends GetxController {
       String verifyToken = await userPreference.getStringFromPrefs(
           key: UserPreference.userVerifyTokenKey);
       var request = http.MultipartRequest('POST', Uri.parse(url));
-      request.fields['token'] = verifyToken;
+      request.fields['token'] = AppMessages.token;
       request.fields['image_id'] = id;
 
       log('Request Field : ${request.fields}');

@@ -59,31 +59,47 @@ class CardSwipeModule extends StatelessWidget {
                       allowVerticalSwipe: false,
                       swipeAnchor: SwipeAnchor.bottom,
                       cancelAnimationCurve: Curves.bounceIn,
+
                       onSwipeCompleted: (index, swipeDirection) async {
                         if (swipeDirection == SwipeDirection.right) {
-                          await homeScreenController.superLoveProfileFunction(
-                            likedId:
-                                "${homeScreenController.suggestionList[index].id}",
-                            likeType: LikeType.like,
-                          );
-                          homeScreenController.suggestionList.removeAt(0);
-                          print(
-                              "homeScreenController.suggestionList[index].id ${homeScreenController.suggestionList[0].id}");
-                        } else if (swipeDirection == SwipeDirection.up) {
-                          await homeScreenController.superLoveProfileFunction(
-                            likedId:
-                                "${homeScreenController.suggestionList[index].id}",
-                            likeType: LikeType.super_love,
-                          );
-                          homeScreenController.suggestionList.removeAt(0);
-                          print(
-                              "homeScreenController.suggestionList[index].id ${homeScreenController.suggestionList[0].id}");
-                        } else if (swipeDirection == SwipeDirection.left) {
-                          homeScreenController.suggestionList.removeAt(0);
-                          print(
-                              "homeScreenController.suggestionList[index].id ${homeScreenController.suggestionList[0].id}");
 
-                          //todo - when user swipe left
+                          if (homeScreenController.isLikeButtonClick.value == false) {
+                            await homeScreenController.superLoveProfileFunction(
+                              likedId: "${homeScreenController.suggestionList[index].id}",
+                              likeType: LikeType.like,
+                              swipeCard: true,
+                            );
+                            print("Swipe Like Button: ${homeScreenController.suggestionList[0].id}");
+                            homeScreenController.isLikeButtonClick(true);
+                          } else {
+                            homeScreenController.isLikeButtonClick(false);
+                          }
+
+                        } else if (swipeDirection == SwipeDirection.up) {
+
+                          if (homeScreenController.isStarButtonClick.value == false) {
+                            await homeScreenController.superLoveProfileFunction(
+                              likedId: "${homeScreenController.suggestionList[index].id}",
+                              likeType: LikeType.super_love,
+                              swipeCard: true,
+                            );
+                            print("Swipe Up Button: ${homeScreenController.suggestionList[0].id}");
+                          } else {
+                            homeScreenController.isStarButtonClick(false);
+                          }
+
+                        } else if (swipeDirection == SwipeDirection.left) {
+
+                          if(homeScreenController.isCancelButtonClick.value == false) {
+                            homeScreenController.suggestionList.removeAt(0);
+                            print("Swipe Cancel Button: ${homeScreenController.suggestionList[0].id}");
+                            homeScreenController.setChangedUserData();
+                            homeScreenController.isCancelButtonClick(true);
+                            //todo - when user swipe left
+                          } else {
+                            homeScreenController.isCancelButtonClick(false);
+                          }
+
                         }
                       },
                       overlayBuilder: (context, properties) {
@@ -134,14 +150,17 @@ class CardSwipeModule extends StatelessWidget {
                   // Cancel Button
                   IconButton(
                     onPressed: () {
+                      homeScreenController.isCancelButtonClick(true);
                        homeScreenController.suggestionList.removeAt(0);
-                          print(
-                              "homeScreenController.suggestionList[index].id ${homeScreenController.suggestionList[0].id}");
+                       homeScreenController.setChangedUserData();
+                          print("Button Click Cancel: ${homeScreenController.suggestionList[0].id}");
                       //todo - when user swipe left
-                      // homeScreenController.cardController.next(
-                      //   swipeDirection: SwipeDirection.left,
-                      //   duration: const Duration(milliseconds: 600),
-                      // );
+                       homeScreenController.loadUI();
+
+                      homeScreenController.cardController.next(
+                        swipeDirection: SwipeDirection.left,
+                        duration: const Duration(milliseconds: 600),
+                      );
                     },
                     icon: Image.asset(AppImages.cancelImage),
                   ),
@@ -149,13 +168,13 @@ class CardSwipeModule extends StatelessWidget {
                   // Star Button
                   IconButton(
                     onPressed: () async {
+                      homeScreenController.isStarButtonClick(true);
                       await homeScreenController.superLoveProfileFunction(
                         likedId: "${homeScreenController.singlePersonData.id}",
                         likeType: LikeType.super_love,
+                        swipeCard: false,
                       );
-                       homeScreenController.suggestionList.removeAt(0);
-                          print(
-                              "homeScreenController.suggestionList[index].id ${homeScreenController.suggestionList[0].id}");
+                      print("Button Click Star ${homeScreenController.suggestionList[0].id}");
                     },
                     icon: Image.asset(AppImages.starImage),
                   ),
@@ -163,13 +182,13 @@ class CardSwipeModule extends StatelessWidget {
                   // Like Button
                   IconButton(
                     onPressed: () async {
+                      homeScreenController.isLikeButtonClick(true);
                       await homeScreenController.superLoveProfileFunction(
                         likedId: "${homeScreenController.singlePersonData.id}",
                         likeType: LikeType.like,
+                        swipeCard: false,
                       );
-                       homeScreenController.suggestionList.removeAt(0);
-                          print(
-                              "homeScreenController.suggestionList[index].id ${homeScreenController.suggestionList[0].id}");
+                      print("Button Click Like ${homeScreenController.suggestionList[0].id}");
                     },
                     icon: Image.asset(AppImages.likeImage),
                   ),

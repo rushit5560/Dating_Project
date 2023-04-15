@@ -57,7 +57,7 @@ class ProfileScreenController extends GetxController {
     try {
       String verifyToken = await userPreference.getStringFromPrefs(key: UserPreference.userVerifyTokenKey);
       var request = http.MultipartRequest('POST', Uri.parse(url));
-      request.fields['token'] = verifyToken;
+      request.fields['token'] = AppMessages.token;
 
       var response = await request.send();
       response.stream
@@ -253,7 +253,7 @@ class ProfileScreenController extends GetxController {
     try {
       String verifyToken = await userPreference.getStringFromPrefs(key: UserPreference.userVerifyTokenKey);
       var request = http.MultipartRequest('POST', Uri.parse(url));
-      request.fields['token'] = verifyToken;
+      request.fields['token'] = AppMessages.token;
       request.fields['language'] = "";
 
       var response = await request.send();

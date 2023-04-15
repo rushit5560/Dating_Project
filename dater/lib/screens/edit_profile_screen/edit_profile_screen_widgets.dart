@@ -450,24 +450,24 @@ class EditProfileScreenWidgets extends StatelessWidget {
           lableText: "Education",
           text: "Add",
         ),
-        MyBasicRowmodule(
+        /*MyBasicRowmodule(
           gesOnTap: () {},
           image: AppImages.covedImage,
           lableText: "Coved dating",
           text: "Add",
-        ),
+        ),*/
         MyBasicRowmodule(
           gesOnTap: () {},
           image: AppImages.genderImage,
           lableText: "Gender",
           text: "Add",
         ),
-        MyBasicRowmodule(
+        /*MyBasicRowmodule(
           gesOnTap: () {},
           image: AppImages.location3Image,
           lableText: "Location",
           text: "Add",
-        ),
+        ),*/
         MyBasicRowmodule(
           gesOnTap: () {},
           image: AppImages.homeTownImage,
@@ -662,12 +662,12 @@ class EditProfileScreenWidgets extends StatelessWidget {
           },
         ),
 
-        MyBasicRowmodule(
+        /*MyBasicRowmodule(
           gesOnTap: () {},
           image: AppImages.educationImage,
           lableText: "Education level",
           text: "Undergraduate Degree",
-        ),
+        ),*/
         MyBasicRowmodule(
           gesOnTap: () {},
           image: AppImages.starImage,
