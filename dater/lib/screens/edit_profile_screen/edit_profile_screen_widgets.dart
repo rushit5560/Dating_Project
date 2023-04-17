@@ -672,19 +672,19 @@ class EditProfileScreenWidgets extends StatelessWidget {
           gesOnTap: () {},
           image: AppImages.starImage,
           lableText: "Education level",
-          text: "Sagittarius",
+          text: editProfileScreenController.education,
         ),
         MyBasicRowmodule(
           gesOnTap: () {},
           image: AppImages.politicsImage,
           lableText: "Politics",
-          text: "Add",
+          text: editProfileScreenController.politics,
         ),
         MyBasicRowmodule(
           gesOnTap: () {},
           image: AppImages.religionImage,
           lableText: "Religion",
-          text: "Add",
+          text: editProfileScreenController.religion,
         ),
         MyBasicRowmodule(
           gesOnTap: () {},
@@ -718,50 +718,56 @@ class EditProfileScreenWidgets extends StatelessWidget {
           ],
         ),
         SizedBox(height: 3.h),
-        Container(
-          width: Get.width,
-          padding: const EdgeInsets.all(10),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(15),
-            border: Border.all(
-              color: AppColors.grey300Color,
-              width: 3,
+
+        GestureDetector(
+          onTap: () {
+            log('asas');
+          },
+          child: Container(
+            width: Get.width,
+            padding: const EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(15),
+              border: Border.all(
+                color: AppColors.grey300Color,
+                width: 3,
+              ),
             ),
-          ),
-          child: Wrap(
-            spacing: 3.0,
-            children: List.generate(
-              editProfileScreenController.languageList.length,
-              (int index) {
-                bool selected = true;
-                return Transform(
-                  transform: Matrix4.identity()..scale(0.9),
-                  child: ChoiceChip(
-                    avatar: const CircleAvatar(
-                      backgroundImage: AssetImage(AppImages.languageImage),
-                    ),
-                    label: Text(
-                      editProfileScreenController.languageList[index],
-                      style: TextStyleConfig.textStyle(
-                        fontFamily: FontFamilyText.sFProDisplaySemibold,
-                        textColor: AppColors.grey600Color,
-                        fontSize: 16,
+            child: Wrap(
+              spacing: 3.0,
+              children: List.generate(
+                editProfileScreenController.languageList.length,
+                (int index) {
+                  bool selected = true;
+                  return Transform(
+                    transform: Matrix4.identity()..scale(0.9),
+                    child: ChoiceChip(
+                      avatar: const CircleAvatar(
+                        backgroundImage: AssetImage(AppImages.languageImage),
                       ),
-                    ),
-                    selected: selected,
-                    selectedColor: AppColors.darkOrangeColor,
-                    backgroundColor: Colors.white,
-                    shape: const StadiumBorder(
-                      side: BorderSide(
-                        color: AppColors.grey400Color,
-                        width: 1.5,
+                      label: Text(
+                        editProfileScreenController.languageList[index],
+                        style: TextStyleConfig.textStyle(
+                          fontFamily: FontFamilyText.sFProDisplaySemibold,
+                          textColor: AppColors.grey600Color,
+                          fontSize: 16,
+                        ),
                       ),
+                      selected: selected,
+                      selectedColor: AppColors.darkOrangeColor,
+                      backgroundColor: Colors.white,
+                      shape: const StadiumBorder(
+                        side: BorderSide(
+                          color: AppColors.grey400Color,
+                          width: 1.5,
+                        ),
+                      ),
+                      onSelected: (bool value) {},
                     ),
-                    onSelected: (bool value) {},
-                  ),
-                ).commonSymmetricPadding(horizontal: 10);
-              },
-            ).toList(),
+                  ).commonSymmetricPadding(horizontal: 10);
+                },
+              ).toList(),
+            ),
           ),
         ),
       ],

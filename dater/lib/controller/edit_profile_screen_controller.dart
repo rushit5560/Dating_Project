@@ -16,7 +16,6 @@ import '../model/profile_screen_models/logged_in_user_details_model.dart';
 import '../model/profile_screen_models/upload_image_model.dart';
 import '../utils/preferences/user_preference.dart';
 
-
 class EditProfileScreenController extends GetxController {
   // UserDetails userDetails = Get.arguments[0];
   // final profileScreenController = Get.find<ProfileScreenController>();
@@ -34,6 +33,10 @@ class EditProfileScreenController extends GetxController {
 
   List<String> interestList = [];
   List<String> languageList = [];
+
+  String politics = "";
+  String religion = "";
+  String education = "";
   TextEditingController profilePromptsController = TextEditingController();
   TextEditingController myBioController = TextEditingController();
 
@@ -53,8 +56,7 @@ class EditProfileScreenController extends GetxController {
         await ImagePicker().pickImage(source: ImageSource.gallery);
     if (pickedFile != null) {
       captureImageList.add(UploadUserImage(
-        id: "",
-          imageUrl: pickedFile.path, isImageFromNetwork: false));
+          id: "", imageUrl: pickedFile.path, isImageFromNetwork: false));
       File selectedFile = File(pickedFile.path);
       await uploadImageFunction(selectedFile);
     }
@@ -126,8 +128,7 @@ class EditProfileScreenController extends GetxController {
     String bio =
         await userPreference.getStringFromPrefs(key: UserPreference.bioKey);
     log('Bio : $bio');
-    await updateUserProfileFunction(
-        key: AppMessages.bioApiText, value: bio);
+    await updateUserProfileFunction(key: AppMessages.bioApiText, value: bio);
   }
 
   /// Set User height in Prefs
@@ -235,7 +236,8 @@ class EditProfileScreenController extends GetxController {
     log('getUserDetailsFunction Api Url : $url');
 
     try {
-      String verifyToken = await userPreference.getStringFromPrefs(key: UserPreference.userVerifyTokenKey);
+      String verifyToken = await userPreference.getStringFromPrefs(
+          key: UserPreference.userVerifyTokenKey);
       var request = http.MultipartRequest('POST', Uri.parse(url));
       request.fields['token'] = AppMessages.token;
 
@@ -244,18 +246,23 @@ class EditProfileScreenController extends GetxController {
         log("value :$value");
 
         LoggedInUserDetailsModel loggedInUserDetailsModel =
-        LoggedInUserDetailsModel.fromJson(json.decode(value));
+            LoggedInUserDetailsModel.fromJson(json.decode(value));
         successStatus.value = loggedInUserDetailsModel.statusCode;
 
+        log("politics $politics");
         if (successStatus.value == 200) {
           userDetails = loggedInUserDetailsModel.msg[0];
 
+          politics = userDetails!.basic.politics;
+          religion = userDetails!.basic.religion;
+          education = userDetails!.basic.education;
+
           /// Set User Network Images
           for (var value in userDetails!.images) {
-            captureImageList.add(
-                UploadUserImage(
-                    id: value.id,
-                    imageUrl: value.imageUrl, isImageFromNetwork: true));
+            captureImageList.add(UploadUserImage(
+                id: value.id,
+                imageUrl: value.imageUrl,
+                isImageFromNetwork: true));
           }
 
           /// Set User Interest
@@ -266,7 +273,7 @@ class EditProfileScreenController extends GetxController {
           myBioController.text = userDetails!.bio;
           endVal.value = double.parse(userDetails!.basic.height);
 
-          if(loggedInUserDetailsModel.msg[0].languages.isNotEmpty) {
+          if (loggedInUserDetailsModel.msg[0].languages.isNotEmpty) {
             languageList.addAll(loggedInUserDetailsModel.msg[0].languages);
           }
 
@@ -319,7 +326,8 @@ class EditProfileScreenController extends GetxController {
   }
 
   /// Delete User Photo
-  Future<void> deleteUserImagesFunction({required String id, required int index}) async {
+  Future<void> deleteUserImagesFunction(
+      {required String id, required int index}) async {
     String url = ApiUrl.deleteUserPhotoApi;
     log('deleteUserImagesFunction Api Url : $url');
 
@@ -336,18 +344,18 @@ class EditProfileScreenController extends GetxController {
       response.stream.transform(utf8.decoder).listen((value1) async {
         log('value1 : $value1');
 
-        DeleteImageModel deleteImageModel = DeleteImageModel.fromJson(json.decode(value1));
+        DeleteImageModel deleteImageModel =
+            DeleteImageModel.fromJson(json.decode(value1));
 
         successStatus.value = deleteImageModel.statusCode;
-        if(successStatus.value == 200) {
+        if (successStatus.value == 200) {
           Fluttertoast.showToast(msg: deleteImageModel.msg);
           captureImageList.removeAt(index);
         } else {
           log('deleteUserImagesFunction Else');
         }
       });
-
-    } catch(e) {
+    } catch (e) {
       log('deleteUserImagesFunction Error :$e');
       rethrow;
     }
@@ -422,17 +430,14 @@ class EditProfileScreenController extends GetxController {
     isLoading(false);
   }
 
-
-  // Future<void> setDataInUserModelClassFunction() async {
-  //   profileScreenController.isLoading(true);
-  //   profileScreenController.userProfilePrompts.value = await userPreference.getStringFromPrefs(key: UserPreference.profilePromptsKey);
-  //   log("profileScreenController.userDetails!.profilePrompts: ${profileScreenController.userDetails!.profilePrompts}");
-  //   profileScreenController.userDetails!.bio = await userPreference.getStringFromPrefs(key: UserPreference.bioKey);
-  //   log("profileScreenController.userDetails!.bio: ${profileScreenController.userDetails!.bio}");
-  //   profileScreenController.isLoading(false);
-  //
-  //
-  // }
-
-
+// Future<void> setDataInUserModelClassFunction() async {
+//   profileScreenController.isLoading(true);
+//   profileScreenController.userProfilePrompts.value = await userPreference.getStringFromPrefs(key: UserPreference.profilePromptsKey);
+//   log("profileScreenController.userDetails!.profilePrompts: ${profileScreenController.userDetails!.profilePrompts}");
+//   profileScreenController.userDetails!.bio = await userPreference.getStringFromPrefs(key: UserPreference.bioKey);
+//   log("profileScreenController.userDetails!.bio: ${profileScreenController.userDetails!.bio}");
+//   profileScreenController.isLoading(false);
+//
+//
+// }
 }

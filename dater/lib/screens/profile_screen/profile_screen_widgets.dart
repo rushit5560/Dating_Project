@@ -176,9 +176,14 @@ class ProfileTextModule extends StatelessWidget {
                   fontSize: 12.sp,
                 ),
               ),
-              WidgetSpan(child: Image.asset(AppImages.location2Image,height: 2.h,)),
-              TextSpan(
-                text: ' 10 miles',
+              WidgetSpan(
+              child: Image.asset(
+                AppImages.location2Image,
+                height: 2.h,
+              ),
+            ),
+            TextSpan(
+                text: ' ${screenController.userDetails!.distance}',
                 style: TextStyleConfig.textStyle(
                   textColor: AppColors.grey800Color,
                   fontFamily: FontFamilyText.sFProDisplayRegular,

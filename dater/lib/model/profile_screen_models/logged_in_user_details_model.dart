@@ -124,13 +124,13 @@ class Basic {
   factory Basic.fromJson(Map<String, dynamic> json) => Basic(
     gender: json["gender"] ?? "",
     work: json["work"] ?? "",
-    education: json["education"] ?? "",
+    education: json["education"] ?? "Add",
     height: json["height"] ?? "",
     exercise: json["exercise"] ?? "",
     smoking: json["smoking"] ?? "",
     drinking: json["drinking"] ?? "",
-    politics: json["politics"] ?? "",
-    religion: json["religion"] ?? "",
+    politics: json["politics"] ?? "Add",
+    religion: json["religion"] ?? "Add",
     kids: json["kids"] ?? "",
   );
 

@@ -195,24 +195,44 @@ class CardSwipeModule extends StatelessWidget {
                 ],
               ).commonOnlyPadding(left: 15.w, right: 15.w),
               SizedBox(height: 2.h),
-              Row(
+
+              RichText(
+                text: TextSpan(
+                  text:
+                      '${homeScreenController.singlePersonData.name}, ${homeScreenController.singlePersonData.age}',
+                  style: TextStyleConfig.textStyle(
+                    textColor: AppColors.grey800Color,
+                    fontSize: 18.sp,
+                    fontFamily: FontFamilyText.sFProDisplaySemibold,
+                    fontWeight: FontWeight.w500,
+                  ),
+                  children: [
+                    WidgetSpan(
+                      child: SizedBox(width: 1.w),
+                    ),
+                    WidgetSpan(
+                      child: Image.asset(AppImages.rightImage)
+                          .commonOnlyPadding(bottom: 5),
+                    ),
+                  ],
+                ),
+              ),
+              /*Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Expanded(
-                    child: Text(
-                      '${homeScreenController.singlePersonData.name}, ${homeScreenController.singlePersonData.age}',
-                      style: TextStyleConfig.textStyle(
-                        textColor: AppColors.grey800Color,
-                        fontSize: 18.sp,
-                        fontFamily: FontFamilyText.sFProDisplaySemibold,
-                        fontWeight: FontWeight.w500,
-                      ),
+                  Text(
+                    '${homeScreenController.singlePersonData.name}, ${homeScreenController.singlePersonData.age}',
+                    style: TextStyleConfig.textStyle(
+                      textColor: AppColors.grey800Color,
+                      fontSize: 18.sp,
+                      fontFamily: FontFamilyText.sFProDisplaySemibold,
+                      fontWeight: FontWeight.w500,
                     ),
                   ),
                   SizedBox(width: 1.w),
                   Image.asset(AppImages.rightImage),
                 ],
-              ),
+              ),*/
               SizedBox(height: 1.h),
               RichText(
                 textAlign: TextAlign.center,

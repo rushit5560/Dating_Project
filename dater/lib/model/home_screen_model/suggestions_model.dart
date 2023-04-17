@@ -250,7 +250,7 @@ class SuggestionData {
         age: json["age"].toString().toLowerCase() ==
                     "Age is not available".toLowerCase() ||
                 json["age"] == null
-            ? ""
+            ? "23"
             : json["age"],
         activeTime: json["active_time"] ?? "",
         interest:
