@@ -430,14 +430,14 @@ class EditProfileScreenController extends GetxController {
     isLoading(false);
   }
 
-// Future<void> setDataInUserModelClassFunction() async {
-//   profileScreenController.isLoading(true);
-//   profileScreenController.userProfilePrompts.value = await userPreference.getStringFromPrefs(key: UserPreference.profilePromptsKey);
-//   log("profileScreenController.userDetails!.profilePrompts: ${profileScreenController.userDetails!.profilePrompts}");
-//   profileScreenController.userDetails!.bio = await userPreference.getStringFromPrefs(key: UserPreference.bioKey);
-//   log("profileScreenController.userDetails!.bio: ${profileScreenController.userDetails!.bio}");
-//   profileScreenController.isLoading(false);
-//
-//
-// }
+  Future<void> getPoliticsValueFromPrefs() async {
+    politics = await userPreference.getStringFromPrefs(key: UserPreference.politicsKey);
+    loadUI();
+  }
+
+  Future<void> getReligionValueFromPrefs() async {
+    religion = await userPreference.getStringFromPrefs(key: UserPreference.religionKey);
+    loadUI();
+  }
+
 }

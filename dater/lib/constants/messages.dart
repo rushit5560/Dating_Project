@@ -132,6 +132,8 @@ class AppMessages {
   static String typeAMessage = "Type a message";
   static String locationPermission = "Apply location permission";
   static String editProfile = "Edit Profile";
+  static String politicsHeader = "Politics";
+  static String religionHeader = "Religion";
   static String holdAndDragText = "Hold & drag photos to change their order";
   static String myInterests = "My Interests";
   static String myBio = "My bio";

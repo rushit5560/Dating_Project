@@ -17,6 +17,8 @@ import 'package:dater/utils/style.dart';
 import '../../constants/enums.dart';
 import '../../controller/edit_profile_screen_controller.dart';
 import '../../model/profile_screen_models/upload_image_model.dart';
+import '../politics_screen/politics_screen.dart';
+import '../religion_screen/religion_screen.dart';
 
 class ReorderableGridViewModule extends StatelessWidget {
   ReorderableGridViewModule({super.key});
@@ -675,13 +677,25 @@ class EditProfileScreenWidgets extends StatelessWidget {
           text: editProfileScreenController.education,
         ),
         MyBasicRowmodule(
-          gesOnTap: () {},
+          gesOnTap: () {
+            Get.to(()=> PoliticsScreen(),
+              arguments: [editProfileScreenController.politics],
+            )!.then((value) async {
+              await editProfileScreenController.getPoliticsValueFromPrefs();
+            });
+          },
           image: AppImages.politicsImage,
           lableText: "Politics",
           text: editProfileScreenController.politics,
         ),
         MyBasicRowmodule(
-          gesOnTap: () {},
+          gesOnTap: () {
+            Get.to(()=> ReligionScreen(),
+              arguments: [editProfileScreenController.religion],
+            )!.then((value) async {
+              await editProfileScreenController.getReligionValueFromPrefs();
+            });
+          },
           image: AppImages.religionImage,
           lableText: "Religion",
           text: editProfileScreenController.religion,
