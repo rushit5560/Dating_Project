@@ -18,6 +18,7 @@ class LanguageSelectScreenController extends GetxController {
 
   List<LanguageData> languageList = [];
   // LanguageData selectedLanguageValue = LanguageData();
+  List<ChangeLanguageModel> changeLanguageList = [];
 
 
   UserPreference userPreference = UserPreference();
@@ -68,7 +69,25 @@ class LanguageSelectScreenController extends GetxController {
   /// When select any language that time call this function
   changeSelectedValue({required int i, required LanguageData singleItem, required bool value}) {
     languageList[i] = LanguageData(name: singleItem.name, isSelected: value);
+    if(value == true) {
+      changeLanguageList.add(ChangeLanguageModel(languageName: singleItem.name!, isSelected: true));
+    } else {
+      changeLanguageList.add(ChangeLanguageModel(languageName: singleItem.name!, isSelected: false));
+    }
     loadUI();
+  }
+
+  Future<void> saveButtonCLickFunction() async {
+    isLoading(true);
+    for(int i =0; i< changeLanguageList.length; i++) {
+      if(changeLanguageList[i].isSelected == true) {
+        await setUserLanguageFunction(languageName: changeLanguageList[i].languageName);
+      } else if(changeLanguageList[i].isSelected == false) {
+        await deleteUserLanguageFunction(languageName: changeLanguageList[i].languageName);
+      }
+    }
+    isLoading(false);
+    Get.back();
   }
 
 
@@ -102,6 +121,42 @@ class LanguageSelectScreenController extends GetxController {
       rethrow;
     }
 
+  }
+
+  /// Remove Language FUnction
+  Future<void> deleteUserLanguageFunction({required String languageName}) async {
+    // isLoading(true);
+    String url = ApiUrl.setUserLanguageApi;
+    log('deleteUserLanguageFunction A[pi Url :$url');
+
+    try {
+      String verifyToken = await userPreference.getStringFromPrefs(key: UserPreference.userVerifyTokenKey);
+      var request = http.MultipartRequest('POST', Uri.parse(url));
+      request.fields['token'] = AppMessages.token;
+      request.fields['language'] = languageName;
+      request.fields['action'] = "remove";
+
+      var response = await request.send();
+      response.stream.transform(utf8.decoder).listen((value) async {
+        log('setUserLanguageFunction Value : $value');
+
+        LanguageSaveModel languageSaveModel = LanguageSaveModel.fromJson(json.decode(value));
+        successStatus.value = languageSaveModel.statusCode;
+
+        if(successStatus.value == 200) {
+          log('setUserLanguageFunction successStatus :${successStatus.value}');
+        } else {
+          log('setUserLanguageFunction Else Else');
+        }
+
+      });
+
+    } catch(e) {
+      log('deleteUserLanguageFunction Error :$e');
+      rethrow;
+    }
+
+    // isLoading(false);
   }
 
   /// Save Button Function
@@ -142,4 +197,13 @@ class LanguageSelectScreenController extends GetxController {
     isLoading(true);
     isLoading(false);
   }
+}
+
+
+
+class ChangeLanguageModel {
+  String languageName;
+  bool isSelected;
+
+  ChangeLanguageModel({required this.languageName, required this.isSelected});
 }

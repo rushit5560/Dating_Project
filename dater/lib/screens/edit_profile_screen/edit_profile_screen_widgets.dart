@@ -648,7 +648,7 @@ class EditProfileScreenWidgets extends StatelessWidget {
           onTap: () {
             Get.to(()=> LanguageSelectScreen(),
             arguments: [editProfileScreenController.languageList]
-            );
+            )!.then((value) async => await editProfileScreenController.getUserDetailsFunction());
           },
           child: Container(
             width: Get.width,

@@ -274,6 +274,7 @@ class EditProfileScreenController extends GetxController {
           }
 
           /// Set User Interest
+          interestList.clear();
           for (var value in userDetails!.interest) {
             interestList.add(value.name);
           }
@@ -281,6 +282,7 @@ class EditProfileScreenController extends GetxController {
           myBioController.text = userDetails!.bio;
           endVal.value = double.parse(userDetails!.basic.height);
 
+          languageList.clear();
           if (loggedInUserDetailsModel.msg[0].languages.isNotEmpty) {
             languageList.addAll(loggedInUserDetailsModel.msg[0].languages);
           }

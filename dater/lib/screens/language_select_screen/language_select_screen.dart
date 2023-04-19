@@ -100,7 +100,7 @@ class LanguageSelectScreen extends StatelessWidget {
               textColor: AppColors.gray50Color,
               textFontFamily: FontFamilyText.sFProDisplaySemibold,
               textsize: 14.sp,
-              onPressed: (){},
+              onPressed: () async => await languageSelectScreenController.saveButtonCLickFunction(),
               // onPressed: () async => languageSelectScreenController.deneButtonClickFunction(),
             ),
           ],
