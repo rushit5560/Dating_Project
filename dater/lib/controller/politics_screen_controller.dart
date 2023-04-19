@@ -20,8 +20,6 @@ class PoliticsScreenController extends GetxController {
 
   UserPreference userPreference = UserPreference();
 
-
-
   /// Get Politics Function
   Future<void> getPoliticsFunction() async {
     isLoading(true);

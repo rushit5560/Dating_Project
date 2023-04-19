@@ -30,16 +30,16 @@ class LanguageModel {
 
 class LanguageData {
   LanguageData({
-    required this.name,
-    required this.isSelected,
+    this.name,
+    this.isSelected,
   });
 
-  String name;
-  bool isSelected;
+  String? name;
+  bool? isSelected;
 
   factory LanguageData.fromJson(Map<String, dynamic> json) => LanguageData(
-      name: json["name"] ?? "",
-      isSelected: false
+    name: json["name"],
+    isSelected: false,
   );
 
   Map<String, dynamic> toJson() => {

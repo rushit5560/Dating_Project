@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:developer';
 import 'dart:io';
+import 'package:dater/screens/language_select_screen/language_select_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:get/get.dart';
@@ -19,6 +20,7 @@ import '../../controller/edit_profile_screen_controller.dart';
 import '../../model/profile_screen_models/upload_image_model.dart';
 import '../politics_screen/politics_screen.dart';
 import '../religion_screen/religion_screen.dart';
+import '../star_sign_screen/star_sign_screen.dart';
 
 class ReorderableGridViewModule extends StatelessWidget {
   ReorderableGridViewModule({super.key});
@@ -180,7 +182,7 @@ class EditProfileScreenWidgets extends StatelessWidget {
                 textColor: AppColors.grey800Color,
                 fontSize: 16.sp,
               ),
-            )
+            ),
           ],
         ),
         Row(
@@ -676,6 +678,21 @@ class EditProfileScreenWidgets extends StatelessWidget {
           lableText: "Education level",
           text: editProfileScreenController.education,
         ),
+
+        /// Star Sign
+        MyBasicRowmodule(
+          gesOnTap: () {
+            Get.to(()=> StarSignScreen(),
+              arguments: [editProfileScreenController.starSign],
+            )!.then((value) async {
+              await editProfileScreenController.getStarSignValueFromPrefs();
+            });
+          },
+          image: AppImages.starsignImage,
+          lableText: "Star Sign",
+          text: editProfileScreenController.starSign,
+        ),
+
         MyBasicRowmodule(
           gesOnTap: () {
             Get.to(()=> PoliticsScreen(),
@@ -735,7 +752,9 @@ class EditProfileScreenWidgets extends StatelessWidget {
 
         GestureDetector(
           onTap: () {
-            log('asas');
+            Get.to(()=> LanguageSelectScreen(),
+            arguments: [editProfileScreenController.languageList]
+            );
           },
           child: Container(
             width: Get.width,

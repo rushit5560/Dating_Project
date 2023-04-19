@@ -39,5 +39,9 @@ class ApiUrl {
   static const getLanguageApi = "${apiMainPath}api/get_languages";
   static const getPoliticsApi = "${apiMainPath}api/get_politics";
   static const getReligionApi = "${apiMainPath}api/get_religion";
+  static const getStarSignApi = "${apiMainPath}api/get_starsign";
+  static const setStarSignApi = "${apiMainPath}api/set_star_sign";
+  static const getPromptsApi = "${apiMainPath}api/get_prompts";
+  static const setPromptsApi = "${apiMainPath}api/set_prompt";
 
 }

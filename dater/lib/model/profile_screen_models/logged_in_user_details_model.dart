@@ -38,6 +38,7 @@ class UserDetails {
     required this.name,
     this.profilePrompts,
     required this.bio,
+    required this.starSign,
     required this.verified,
     required this.homeTown,
     required this.languages,
@@ -55,6 +56,7 @@ class UserDetails {
   String bio;
   String verified;
   String homeTown;
+  String starSign;
   List<String> languages;
   List<UserImages> images;
   String distance;
@@ -68,6 +70,7 @@ class UserDetails {
     name: json["name"] ?? "",
     profilePrompts: json["profile_prompts"] ?? "",
     bio: json["bio"] ?? "",
+    starSign: json["star_sign"] ?? "Add",
     verified: json["verified"] ?? "",
     homeTown: json["home_town"] ?? "",
     languages: List<String>.from((json["languages"] ?? []).map((x) => x ?? "")),

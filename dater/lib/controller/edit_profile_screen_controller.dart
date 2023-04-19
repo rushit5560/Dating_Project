@@ -37,6 +37,7 @@ class EditProfileScreenController extends GetxController {
   String politics = "";
   String religion = "";
   String education = "";
+  String starSign = "";
   TextEditingController profilePromptsController = TextEditingController();
   TextEditingController myBioController = TextEditingController();
 
@@ -256,6 +257,7 @@ class EditProfileScreenController extends GetxController {
           politics = userDetails!.basic.politics;
           religion = userDetails!.basic.religion;
           education = userDetails!.basic.education;
+          starSign = userDetails!.starSign;
 
           /// Set User Network Images
           for (var value in userDetails!.images) {
@@ -437,6 +439,11 @@ class EditProfileScreenController extends GetxController {
 
   Future<void> getReligionValueFromPrefs() async {
     religion = await userPreference.getStringFromPrefs(key: UserPreference.religionKey);
+    loadUI();
+  }
+
+  Future<void> getStarSignValueFromPrefs() async {
+    starSign = await userPreference.getStringFromPrefs(key: UserPreference.starSignKey);
     loadUI();
   }
 

@@ -30,11 +30,13 @@ class UserPreference {
   static String drinkingKey = "drinkingKey"; // String
   static String politicsKey = "politicsKey"; // String
   static String religionKey = "religionKey"; // String
+  static String starSignKey = "starSignKey"; // String
   static String kidsKey = "kidsKey"; // String
   static String interestKey = "interestKey"; // String
   static String imagesKey = "imagesKey"; // String
   static String editImagesKey = "editImagesKey"; // String
   static String listOfImageKey = "listOfImageKey";
+  static String listOfLanguageKey = "listOfLanguageKey";
 
 
 
@@ -55,6 +57,12 @@ class UserPreference {
   Future<void> setListOfStringInPrefs({required List<String> value}) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setStringList(listOfImageKey, value);
+  }
+
+  // Set Language String Type List
+  Future<void> setLanguageListOfStringInPrefs({required List<String> value}) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setStringList(listOfLanguageKey, value);
   }
 
 
