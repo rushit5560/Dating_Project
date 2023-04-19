@@ -108,6 +108,9 @@ class AppMessages {
   static String cookiePolicy = "Cookie Policy";
   static String takePhoto = "Take photo";
   static String done = "Done";
+  static String cancel = "Cancel";
+  static String no = "No";
+  static String yes = "Yes";
   static String save = "Save";
   static String termsOfYouUse = "Terms of you use";
   static String verifyYourAccount = "Verify Your Account";
@@ -136,6 +139,7 @@ class AppMessages {
   static String politicsHeader = "Politics";
   static String religionHeader = "Religion";
   static String starSignHeader = "Star sign";
+  static String profilePromptsHeader = "Profile Prompts";
   static String holdAndDragText = "Hold & drag photos to change their order";
   static String myInterests = "My Interests";
   static String myBio = "My bio";
@@ -147,6 +151,8 @@ class AppMessages {
   static String whatLanguageKnow = "What languages do you know ?";
   static String whatLanguageKnowDescription = "We'll show these on your profile and use them to connect you with great matches who know your languages .";
   static String profilePrompts = "Profile Prompts";
+  static String pickProfilePrompts = "Pick a Profile Prompt";
+  static String pickProfilePromptsDescription = "It's the perfect opportunity to show a little more of your personality";
 
   // This is client token - don't remove it
   static String token = "96e8451a018e5558d9af7979302cc85b";

@@ -36,7 +36,7 @@ class UserDetails {
   UserDetails({
     required this.id,
     required this.name,
-    this.profilePrompts,
+    // this.profilePrompts,
     required this.bio,
     required this.starSign,
     required this.verified,
@@ -48,11 +48,12 @@ class UserDetails {
     required this.activeTime,
     required this.interest,
     required this.basic,
+    required this.prompts,
   });
 
   String id;
   String name;
-  String? profilePrompts;
+  // String? profilePrompts;
   String bio;
   String verified;
   String homeTown;
@@ -64,11 +65,12 @@ class UserDetails {
   String activeTime;
   List<Interest> interest;
   Basic basic;
+  List<Prompt> prompts;
 
   factory UserDetails.fromJson(Map<String, dynamic> json) => UserDetails(
     id: json["id"] ?? "",
     name: json["name"] ?? "",
-    profilePrompts: json["profile_prompts"] ?? "",
+    // profilePrompts: json["profile_prompts"] ?? "",
     bio: json["bio"] ?? "",
     starSign: json["star_sign"] ?? "Add",
     verified: json["verified"] ?? "",
@@ -80,12 +82,13 @@ class UserDetails {
     activeTime: json["active_time"] ?? "",
     interest: List<Interest>.from((json["interest"] ?? []).map((x) => Interest.fromJson(x ?? {}))),
     basic: Basic.fromJson(json["basic"] ?? {}),
+    prompts: List<Prompt>.from((json["prompts"] ?? []).map((x) => Prompt.fromJson(x ?? {}))),
   );
 
   Map<String, dynamic> toJson() => {
     "id": id,
     "name": name,
-    "profile_prompts": profilePrompts,
+    // "profile_prompts": profilePrompts,
     "bio": bio,
     "verified": verified,
     "home_town": homeTown,
@@ -96,6 +99,7 @@ class UserDetails {
     "active_time": activeTime,
     "interest": List<dynamic>.from(interest.map((x) => x.toJson())),
     "basic": basic.toJson(),
+    "prompts": List<dynamic>.from(prompts.map((x) => x.toJson())),
   };
 }
 
@@ -184,5 +188,26 @@ class Interest {
 
   Map<String, dynamic> toJson() => {
     "name": name,
+  };
+}
+
+
+class Prompt {
+  Prompt({
+    required this.question,
+    required this.answer,
+  });
+
+  String question;
+  String answer;
+
+  factory Prompt.fromJson(Map<String, dynamic> json) => Prompt(
+    question: json["question"] ?? "",
+    answer: json["answer"] ?? "",
+  );
+
+  Map<String, dynamic> toJson() => {
+    "question": question,
+    "answer": answer,
   };
 }

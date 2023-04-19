@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
+import 'package:dater/model/star_sign_screen_model/save_star_sign_model.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
@@ -50,6 +51,7 @@ class EditProfileScreenController extends GetxController {
   File? file;
 
   RxBool onSelected = false.obs;
+  List<Prompt> promptsList = [];
 
   /// Image Select From Gallery
   getImageFromGallery() async {
@@ -259,6 +261,10 @@ class EditProfileScreenController extends GetxController {
           education = userDetails!.basic.education;
           starSign = userDetails!.starSign;
 
+          if(loggedInUserDetailsModel.msg[0].prompts.isNotEmpty) {
+            promptsList.addAll(loggedInUserDetailsModel.msg[0].prompts);
+          }
+
           /// Set User Network Images
           for (var value in userDetails!.images) {
             captureImageList.add(UploadUserImage(
@@ -271,7 +277,7 @@ class EditProfileScreenController extends GetxController {
           for (var value in userDetails!.interest) {
             interestList.add(value.name);
           }
-          profilePromptsController.text = userDetails!.profilePrompts!;
+          // profilePromptsController.text = userDetails!.profilePrompts!;
           myBioController.text = userDetails!.bio;
           endVal.value = double.parse(userDetails!.basic.height);
 
@@ -362,6 +368,46 @@ class EditProfileScreenController extends GetxController {
       rethrow;
     }
     loadUI();
+  }
+
+  /// Delete Prompts
+  Future<void> deletePromptsFunction({required String promptsId, required int index}) async {
+    isLoading(true);
+    String url = ApiUrl.setPromptsApi;
+    log('deletePromptsFunction Api Url :$url');
+
+    try {
+      String verifyToken = await userPreference.getStringFromPrefs(
+          key: UserPreference.userVerifyTokenKey);
+      var request = http.MultipartRequest('POST', Uri.parse(url));
+      request.fields['token'] = AppMessages.token;
+      request.fields['prompt_question_id'] = promptsId;
+      request.fields['action'] = "remove";
+
+      log('Request Field : ${request.fields}');
+      var response = await request.send();
+
+      response.stream.transform(utf8.decoder).listen((value1) async {
+        log('value1 : $value1');
+        SaveStarSignModel deletePromptsModel = SaveStarSignModel.fromJson(json.decode(value1));
+
+        successStatus.value = deletePromptsModel.statusCode;
+
+        if(successStatus.value == 200) {
+          promptsList.removeAt(index);
+          Get.back();
+          loadUI();
+        } else {
+          log('deletePromptsFunction Else');
+        }
+
+      });
+
+    } catch(e){
+      log('deletePromptsFunction Error :$e');
+      rethrow;
+    }
+
   }
 
   @override

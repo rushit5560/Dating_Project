@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:developer';
 import 'dart:io';
+import 'package:dater/model/profile_screen_models/logged_in_user_details_model.dart';
 import 'package:dater/screens/language_select_screen/language_select_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_switch/flutter_switch.dart';
@@ -15,10 +16,12 @@ import 'package:dater/constants/messages.dart';
 import 'package:dater/utils/extensions.dart';
 import 'package:dater/utils/style.dart';
 
+import '../../common_modules/custom_button.dart';
 import '../../constants/enums.dart';
 import '../../controller/edit_profile_screen_controller.dart';
 import '../../model/profile_screen_models/upload_image_model.dart';
 import '../politics_screen/politics_screen.dart';
+import '../profile_prompts_screens/profile_prompts_screen/profile_prompts_screen.dart';
 import '../religion_screen/religion_screen.dart';
 import '../star_sign_screen/star_sign_screen.dart';
 
@@ -244,118 +247,8 @@ class EditProfileScreenWidgets extends StatelessWidget {
             ).toList(),
           ),
         ),
-        SizedBox(height: 5.h),
-        Row(
-          children: [
-            Text(
-              AppMessages.profilePrompts,
-              style: TextStyleConfig.textStyle(
-                fontFamily: FontFamilyText.sFProDisplaySemibold,
-                textColor: AppColors.grey800Color,
-                fontSize: 16.sp,
-              ),
-            )
-          ],
-        ),
-        Row(
-          children: [
-            Text(
-              "Make your personality stand out from the crowd",
-              style: TextStyleConfig.textStyle(
-                fontFamily: FontFamilyText.sFProDisplayRegular,
-                textColor: AppColors.grey600Color,
-                fontSize: 12.sp,
-              ),
-            )
-          ],
-        ),
-        SizedBox(height: 2.h),
-        Container(
-          // height: 50,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(30),
-            border: Border.all(
-              color: AppColors.grey300Color,
-              width: 3,
-            ),
-          ),
-          child: Row(
-            children: [
-              Expanded(
-                child: Center(
-                  child: TextFormField(
-                    readOnly: editProfileScreenController.onSelected.value
-                        ? false
-                        : true,
-                    controller: editProfileScreenController.profilePromptsController,
-                    cursorColor: AppColors.lightOrangeColor,
-                    onChanged: (value) async {
-                      await editProfileScreenController.setProfilePromptsFunction();
-                    },
-                    maxLines: 1,
-                    maxLength: 65,
-                    decoration: InputDecoration(
-                      hintText: "Life is simple Don't overthink it",
-                      hintStyle: TextStyleConfig.textStyle(
-                        fontFamily: FontFamilyText.sFProDisplayRegular,
-                        textColor: AppColors.grey600Color,
-                        fontSize: 15.sp,
-                      ),
-                      contentPadding: const EdgeInsets.symmetric(horizontal: 10),
-                      counterText: "",
-                      enabledBorder: const OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(30)),
-                        borderSide: BorderSide(color: Colors.transparent),
-                      ),
-                      focusedBorder: const OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(30)),
-                        borderSide: BorderSide(color: Colors.transparent),
-                      ),
-                      errorBorder: const OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(30)),
-                        borderSide: BorderSide(color: Colors.transparent),
-                      ),
-                      focusedErrorBorder: const OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(30)),
-                        borderSide: BorderSide(color: Colors.transparent),
-                      ),
-                    ),
-                    style: TextStyleConfig.textStyle(
-                      fontFamily: FontFamilyText.sFProDisplayRegular,
-                      fontSize: 15.sp,
-                      textColor: AppColors.grey600Color,
-                    ),
-                  ),
-                ),
-              ),
-              Obx(
-                () => Transform.scale(
-                  scale: 0.7,
-                  child: FlutterSwitch(
-                    // toggleSize: 40.0,
-                    activeColor: AppColors.darkOrangeColor,
-                    activeToggleColor: AppColors.blackColor,
-                    inactiveToggleColor: AppColors.blackColor,
-                    inactiveSwitchBorder: Border.all(
-                      width: 3,
-                      color: AppColors.blackColor,
-                    ),
-                    activeSwitchBorder: Border.all(
-                      width: 3,
-                      color: AppColors.blackColor,
-                    ),
-                    onToggle: (value) {
-                      editProfileScreenController.isLoading(true);
-                      editProfileScreenController.onSelected.value = value;
-                      editProfileScreenController.isLoading(false);
-                    },
-                    value: editProfileScreenController.onSelected.value,
-                  ),
-                ),
-              )
-            ],
-          ),
-        ),
+
+        /// My Bio
         SizedBox(height: 5.h),
         Row(
           children: [
@@ -724,6 +617,8 @@ class EditProfileScreenWidgets extends StatelessWidget {
           text: "Relationship",
         ),
         SizedBox(height: 5.h),
+
+        /// Language Box
         Row(
           children: [
             Text(
@@ -749,7 +644,6 @@ class EditProfileScreenWidgets extends StatelessWidget {
           ],
         ),
         SizedBox(height: 3.h),
-
         GestureDetector(
           onTap: () {
             Get.to(()=> LanguageSelectScreen(),
@@ -803,7 +697,263 @@ class EditProfileScreenWidgets extends StatelessWidget {
             ),
           ),
         ),
+
+        /// Profile Prompts
+        SizedBox(height: 5.h),
+        Row(
+          children: [
+            Text(
+              AppMessages.profilePrompts,
+              style: TextStyleConfig.textStyle(
+                fontFamily: FontFamilyText.sFProDisplaySemibold,
+                textColor: AppColors.grey800Color,
+                fontSize: 16.sp,
+              ),
+            )
+          ],
+        ),
+        Row(
+          children: [
+            Text(
+              "Make your personality stand out from the crowd",
+              style: TextStyleConfig.textStyle(
+                fontFamily: FontFamilyText.sFProDisplayRegular,
+                textColor: AppColors.grey600Color,
+                fontSize: 12.sp,
+              ),
+            )
+          ],
+        ),
+        SizedBox(height: 2.h),
+
+        editProfileScreenController.promptsList.isNotEmpty
+        ? ListView.builder(
+          itemCount: editProfileScreenController.promptsList.length,
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          itemBuilder: (context, i) {
+            Prompt singleData = editProfileScreenController.promptsList[i];
+            return GestureDetector(
+              onTap: () => openEditPromptsBottomSheetModule(
+                index: i,
+                singleData: singleData,
+              ),
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(15),
+                  border: Border.all(
+                    color: AppColors.grey300Color,
+                    width: 3,
+                  ),
+                ),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            singleData.question,
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyleConfig.textStyle(
+                              fontFamily: FontFamilyText.sFProDisplaySemibold,
+                              textColor: AppColors.blackColor,
+                              fontSize: 12.sp,
+                            ),
+                          ),
+
+                          Text(
+                            singleData.answer,
+                            maxLines: 3,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyleConfig.textStyle(
+                              fontFamily: FontFamilyText.sFProDisplaySemibold,
+                              textColor: AppColors.grey400Color,
+                              fontSize: 12.sp,
+                            ),
+                          ),
+
+
+                        ],
+                      ),
+                    ),
+                    Icon(
+                      Icons.arrow_forward_ios_rounded,
+                      color: AppColors.grey600Color,
+                      size: 15.sp,
+                    ),
+                    /*IconButton(
+                      onPressed: () {},
+                      icon: const Icon(
+                        Icons.arrow_forward_ios_rounded,
+                        color: AppColors.grey600Color,
+                      ),
+                    ),*/
+                  ],
+                ).commonAllSidePadding(10),
+                    ).commonSymmetricPadding(vertical: 5),
+            );
+          },
+        )
+            : const SizedBox(),
+
+        editProfileScreenController.promptsList.isNotEmpty ? SizedBox(height: 0.5.h) : const SizedBox(),
+        Container(
+          // height: 50,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(30),
+            border: Border.all(
+              color: AppColors.grey300Color,
+              width: 3,
+            ),
+          ),
+          child: Row(
+            children: [
+              Expanded(
+                child: Center(
+                  child: TextFormField(
+                    readOnly: editProfileScreenController.onSelected.value
+                        ? false
+                        : true,
+                    controller: editProfileScreenController.profilePromptsController,
+                    cursorColor: AppColors.lightOrangeColor,
+                    onChanged: (value) async {
+                      await editProfileScreenController.setProfilePromptsFunction();
+                    },
+                    maxLines: 1,
+                    maxLength: 65,
+                    decoration: InputDecoration(
+                      hintText: "Add a question",
+                      hintStyle: TextStyleConfig.textStyle(
+                        fontFamily: FontFamilyText.sFProDisplayRegular,
+                        textColor: AppColors.grey600Color,
+                        fontSize: 15.sp,
+                      ),
+                      contentPadding: const EdgeInsets.symmetric(horizontal: 10),
+                      counterText: "",
+                      enabledBorder: const OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(30)),
+                        borderSide: BorderSide(color: Colors.transparent),
+                      ),
+                      focusedBorder: const OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(30)),
+                        borderSide: BorderSide(color: Colors.transparent),
+                      ),
+                      errorBorder: const OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(30)),
+                        borderSide: BorderSide(color: Colors.transparent),
+                      ),
+                      focusedErrorBorder: const OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(30)),
+                        borderSide: BorderSide(color: Colors.transparent),
+                      ),
+                    ),
+                    style: TextStyleConfig.textStyle(
+                      fontFamily: FontFamilyText.sFProDisplayRegular,
+                      fontSize: 15.sp,
+                      textColor: AppColors.grey600Color,
+                    ),
+                  ),
+                ),
+              ),
+              IconButton(
+                onPressed: () {
+                  Get.to(()=> ProfilePromptsScreen())!.then((value) async {
+                    await editProfileScreenController.getUserDetailsFunction();
+                  });
+                },
+                icon: const Icon(
+                  Icons.add_rounded,
+                  color: AppColors.grey600Color,
+                ),
+              ),
+              // Old Switch Module - TextField Enable or Disable
+              /*Obx(
+                () => Transform.scale(
+                  scale: 0.7,
+                  child: FlutterSwitch(
+                    // toggleSize: 40.0,
+                    activeColor: AppColors.darkOrangeColor,
+                    activeToggleColor: AppColors.blackColor,
+                    inactiveToggleColor: AppColors.blackColor,
+                    inactiveSwitchBorder: Border.all(
+                      width: 3,
+                      color: AppColors.blackColor,
+                    ),
+                    activeSwitchBorder: Border.all(
+                      width: 3,
+                      color: AppColors.blackColor,
+                    ),
+                    onToggle: (value) {
+                      editProfileScreenController.isLoading(true);
+                      editProfileScreenController.onSelected.value = value;
+                      editProfileScreenController.isLoading(false);
+                    },
+                    value: editProfileScreenController.onSelected.value,
+                  ),
+                ),
+              ),*/
+            ],
+          ),
+        ),
+        ///
       ],
+    );
+  }
+  
+  void openEditPromptsBottomSheetModule({required Prompt singleData, required int index}) {
+    showModalBottomSheet(
+      context: Get.context!,
+      backgroundColor: Colors.transparent,
+        builder: (context) {
+        return Container(
+          decoration: BoxDecoration(
+            color: AppColors.whiteColor,
+            borderRadius: BorderRadius.circular(15),
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                "Are you sure you want to delete this prompts ?",
+                textAlign: TextAlign.center,
+                style: TextStyleConfig.textStyle(
+                  fontFamily: FontFamilyText.sFProDisplaySemibold,
+                  textColor: AppColors.grey800Color,
+                  fontSize: 14.sp,
+                ),
+              ),
+
+              Row(
+                // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(
+                    child: ButtonCustom(
+                      text: AppMessages.no,
+                      onPressed: () => Get.back(),
+                      textsize: 10.sp,
+                    ).commonOnlyPadding(right: 50),
+                  ),
+
+                  Expanded(
+                    child: ButtonCustom(
+                      text: AppMessages.yes,
+                      backgroundColor: AppColors.lightOrangeColor,
+                      textColor: AppColors.whiteColor,
+                      textsize: 10.sp,
+                      onPressed: () async => await editProfileScreenController.deletePromptsFunction(
+                        index: index,
+                        promptsId: "singleData.id"
+                      ),
+                    ).commonOnlyPadding(left: 50),
+                  ),
+                ],
+              ),
+            ],
+          ).commonAllSidePadding(30),
+        ).commonAllSidePadding(20);
+        },
     );
   }
 }

@@ -194,7 +194,7 @@ class ProfileTextModule extends StatelessWidget {
           ),
         ),
         SizedBox(height: 2.h),
-        RichText(
+        /*RichText(
           textAlign: TextAlign.center,
           text: TextSpan(
             children: [
@@ -208,8 +208,8 @@ class ProfileTextModule extends StatelessWidget {
               ),
             ],
           ),
-        ),
-        SizedBox(height: 1.h),
+        ),*/
+        // SizedBox(height: 1.h),
         RichText(
           textAlign: TextAlign.center,
           text: TextSpan(

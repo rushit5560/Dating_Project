@@ -24,7 +24,7 @@ class ProfileScreenController extends GetxController {
 
   // Profile Show Variables
   RxString userName = "".obs;
-  RxString userProfilePrompts = "".obs;
+  // RxString userProfilePrompts = "".obs;
   RxString userBio = "".obs;
   RxString userVerified = "".obs;
   RxString userHomeTown = "".obs;
@@ -73,8 +73,7 @@ class ProfileScreenController extends GetxController {
           userDetails = loggedInUserDetailsModel.msg[0];
 
           userName.value = loggedInUserDetailsModel.msg[0].name;
-          userProfilePrompts.value =
-          loggedInUserDetailsModel.msg[0].profilePrompts!;
+          // userProfilePrompts.value = loggedInUserDetailsModel.msg[0].profilePrompts!;
           userBio.value = loggedInUserDetailsModel.msg[0].bio;
           userVerified.value = loggedInUserDetailsModel.msg[0].verified;
           userHomeTown.value = loggedInUserDetailsModel.msg[0].homeTown;
@@ -201,9 +200,9 @@ class ProfileScreenController extends GetxController {
         key: UserPreference.nameKey, value: userDetails.name);
     await userPreference.setStringValueInPrefs(
         key: UserPreference.userIdKey, value: userDetails.id);
-    await userPreference.setStringValueInPrefs(
-        key: UserPreference.profilePromptsKey,
-        value: userDetails.profilePrompts!);
+    // await userPreference.setStringValueInPrefs(
+    //     key: UserPreference.profilePromptsKey,
+    //     value: userDetails.profilePrompts!);
     await userPreference.setStringValueInPrefs(
         key: UserPreference.bioKey, value: userDetails.bio);
     await userPreference.setStringValueInPrefs(
@@ -289,7 +288,7 @@ class ProfileScreenController extends GetxController {
 
   Future<void> setDataInUserVariablesFunction() async {
     isLoading(true);
-    userProfilePrompts.value = await userPreference.getStringFromPrefs(key: UserPreference.profilePromptsKey);
+    // userProfilePrompts.value = await userPreference.getStringFromPrefs(key: UserPreference.profilePromptsKey);
     userBio.value = await userPreference.getStringFromPrefs(key: UserPreference.bioKey);
     // Set Height Value in Parameter & Add in list
     userHeight.value = await userPreference.getStringFromPrefs(key: UserPreference.heightKey);
