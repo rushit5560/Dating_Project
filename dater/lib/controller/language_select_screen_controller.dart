@@ -32,7 +32,7 @@ class LanguageSelectScreenController extends GetxController {
     try {
       String verifyToken = await userPreference.getStringFromPrefs(key: UserPreference.userVerifyTokenKey);
       var request = http.MultipartRequest('GET', Uri.parse(url));
-      request.fields['token'] = AppMessages.token;
+      request.fields['token'] = verifyToken;
 
       var response = await request.send();
 
@@ -99,7 +99,7 @@ class LanguageSelectScreenController extends GetxController {
     try {
       String verifyToken = await userPreference.getStringFromPrefs(key: UserPreference.userVerifyTokenKey);
       var request = http.MultipartRequest('POST', Uri.parse(url));
-      request.fields['token'] = AppMessages.token;
+      request.fields['token'] = verifyToken;
       request.fields['language'] = languageName;
 
       var response = await request.send();
@@ -132,7 +132,7 @@ class LanguageSelectScreenController extends GetxController {
     try {
       String verifyToken = await userPreference.getStringFromPrefs(key: UserPreference.userVerifyTokenKey);
       var request = http.MultipartRequest('POST', Uri.parse(url));
-      request.fields['token'] = AppMessages.token;
+      request.fields['token'] = verifyToken;
       request.fields['language'] = languageName;
       request.fields['action'] = "remove";
 

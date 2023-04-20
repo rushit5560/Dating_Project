@@ -79,7 +79,7 @@ class EditProfileScreenController extends GetxController {
       request.headers['fileKey'] = "file";
       request.headers['chunkedMode'] = "false";
       request.headers['mimeType'] = "multipart/form-data";
-      request.fields['token'] = AppMessages.token;
+      request.fields['token'] = verifyToken;
       request.files.add(await http.MultipartFile.fromPath("file", image.path));
 
       log('All Fields : ${request.fields}');
@@ -208,7 +208,7 @@ class EditProfileScreenController extends GetxController {
       String verifyToken = await userPreference.getStringFromPrefs(
           key: UserPreference.userVerifyTokenKey);
       var request = http.MultipartRequest('POST', Uri.parse(url));
-      request.fields['token'] = AppMessages.token;
+      request.fields['token'] = verifyToken;
       request.fields[key] = value;
 
       log('Request Field : ${request.fields}');
@@ -242,7 +242,7 @@ class EditProfileScreenController extends GetxController {
       String verifyToken = await userPreference.getStringFromPrefs(
           key: UserPreference.userVerifyTokenKey);
       var request = http.MultipartRequest('POST', Uri.parse(url));
-      request.fields['token'] = AppMessages.token;
+      request.fields['token'] = verifyToken;
 
       var response = await request.send();
       response.stream.transform(utf8.decoder).listen((value) async {
@@ -345,7 +345,7 @@ class EditProfileScreenController extends GetxController {
       String verifyToken = await userPreference.getStringFromPrefs(
           key: UserPreference.userVerifyTokenKey);
       var request = http.MultipartRequest('POST', Uri.parse(url));
-      request.fields['token'] = AppMessages.token;
+      request.fields['token'] = verifyToken;
       request.fields['image_id'] = id;
 
       log('Request Field : ${request.fields}');
@@ -382,11 +382,11 @@ class EditProfileScreenController extends GetxController {
       String verifyToken = await userPreference.getStringFromPrefs(
           key: UserPreference.userVerifyTokenKey);
       var request = http.MultipartRequest('POST', Uri.parse(url));
-      request.fields['token'] = AppMessages.token;
+      request.fields['token'] = verifyToken;
       request.fields['prompt_question_id'] = promptsId;
       request.fields['action'] = "remove";
 
-      log('Request Field : ${request.fields}');
+      log('deletePromptsFunction Request Field : ${request.fields}');
       var response = await request.send();
 
       response.stream.transform(utf8.decoder).listen((value1) async {

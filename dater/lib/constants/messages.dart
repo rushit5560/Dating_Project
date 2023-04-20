@@ -105,7 +105,7 @@ class AppMessages {
   static String increaseRate = "increase rate";
   static String inviteFriends = "invite friends";
   static String yourDailyRate = "Your daily rate";
-  static String cookiePolicy = "Cookie Policy";
+  static String communityGuideline = "Community Guidelines";
   static String takePhoto = "Take photo";
   static String done = "Done";
   static String cancel = "Cancel";
@@ -113,6 +113,7 @@ class AppMessages {
   static String yes = "Yes";
   static String save = "Save";
   static String termsOfYouUse = "Terms of you use";
+  static String termsOfUseHeader = "Terms of use";
   static String verifyYourAccount = "Verify Your Account";
   static String settings = "Settings";
   static String copy = "Copy";
@@ -155,7 +156,7 @@ class AppMessages {
   static String pickProfilePromptsDescription = "It's the perfect opportunity to show a little more of your personality";
 
   // This is client token - don't remove it
-  static String token = "96e8451a018e5558d9af7979302cc85b";
+  // static String token = "96e8451a018e5558d9af7979302cc85b";
   // static String token = "46848b9868ab080b9180fba089b04032"; //+619662298453
   // static String token = "7366d4dbee942e86ed458944f78f5f9a"; //+619662298450
   // static String token = "215ee6698e6a2493bda820f60f3258a1"; //+619662298451

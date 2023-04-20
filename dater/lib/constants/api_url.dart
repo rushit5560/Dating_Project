@@ -43,5 +43,8 @@ class ApiUrl {
   static const setStarSignApi = "${apiMainPath}api/set_star_sign";
   static const getPromptsApi = "${apiMainPath}api/get_prompts";
   static const setPromptsApi = "${apiMainPath}api/set_prompt";
+  static const getPrivacyPolicyApi = "${apiMainPath}api/get_privacy_policy";
+  static const getTermsAndConditionApi = "${apiMainPath}api/get_terms_of_use";
+  static const getCommunityGuidelineApi = "${apiMainPath}api/get_community_guidelines";
 
 }

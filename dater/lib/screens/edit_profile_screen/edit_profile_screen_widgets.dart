@@ -944,7 +944,7 @@ class EditProfileScreenWidgets extends StatelessWidget {
                       textsize: 10.sp,
                       onPressed: () async => await editProfileScreenController.deletePromptsFunction(
                         index: index,
-                        promptsId: "singleData.id"
+                        promptsId: singleData.promptId
                       ),
                     ).commonOnlyPadding(left: 50),
                   ),

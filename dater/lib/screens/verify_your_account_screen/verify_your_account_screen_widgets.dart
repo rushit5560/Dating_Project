@@ -8,11 +8,12 @@ import 'package:image_picker/image_picker.dart';
 import 'package:sizer/sizer.dart';
 import '../../common_modules/custom_button.dart';
 import '../../constants/colors.dart';
+import '../../constants/enums.dart';
 import '../../constants/font_family.dart';
 import '../../constants/messages.dart';
 import '../../controller/auth_screen_controllers/verify_your_account_screen_controller.dart';
 import '../../utils/style.dart';
-import '../privacy_policy_screen/privacy_policy_screen.dart';
+import '../cms_screen/cms_screen.dart';
 
 class ImageSelectModule extends StatelessWidget {
    ImageSelectModule({Key? key}) : super(key: key);
@@ -102,7 +103,10 @@ class VerifyAccountTextModule extends StatelessWidget {
                   fontFamily: "SFProDisplayRegular",
                   fontSize: 18.sp,),
                   recognizer: TapGestureRecognizer()..onTap = () {
-                  Get.to(PrivacyPolicyScreen());
+                    Get.to(
+                          () => CmsScreen(),
+                      arguments: [CmsIdentify.privacyPolicy],
+                    );
                 },
               ),
               TextSpan(

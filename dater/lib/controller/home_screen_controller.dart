@@ -90,7 +90,7 @@ class HomeScreenController extends GetxController {
       String verifyToken = await userPreference.getStringFromPrefs(
           key: UserPreference.userVerifyTokenKey);
       var request = http.MultipartRequest('POST', Uri.parse(url));
-      request.fields['token'] = AppMessages.token;
+      request.fields['token'] = verifyToken;
 
       var response = await request.send();
 
@@ -151,7 +151,7 @@ class HomeScreenController extends GetxController {
 
     try {
       Map<String, dynamic> bodyData = {
-        "token": AppMessages.token,
+        "token": verifyToken,
         "type": likeType.name,
         "liked_id": likedId
       };
@@ -190,7 +190,7 @@ class HomeScreenController extends GetxController {
       String verifyToken = await userPreference.getStringFromPrefs(
           key: UserPreference.userVerifyTokenKey);
       Map<String, dynamic> bodyData = {
-        "token": AppMessages.token,
+        "token": verifyToken,
         "type": likeType.name,
         "liked_id": likedId
       };

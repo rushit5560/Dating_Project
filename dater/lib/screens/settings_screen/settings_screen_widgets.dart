@@ -1,9 +1,7 @@
-import 'dart:developer';
+import 'package:dater/constants/enums.dart';
 import 'package:dater/constants/messages.dart';
 import 'package:dater/screens/authentication_screen/location_screen/location_screen.dart';
-import 'package:dater/screens/cookie_policy_screen/cookie_policy_screen.dart';
-import 'package:dater/screens/privacy_policy_screen/privacy_policy_screen.dart';
-import 'package:dater/screens/terms_of_you_use_screen/terms_of_you_use_screen.dart';
+import 'package:dater/screens/cms_screen/cms_screen.dart';
 import 'package:dater/screens/verify_your_account_screen/verify_your_account_screen.dart';
 import 'package:dater/utils/extensions.dart';
 import 'package:flutter/material.dart';
@@ -390,7 +388,8 @@ class CookiePolicyModule extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         Get.to(
-          () => CookiePolicyScreen(),
+          () => CmsScreen(),
+          arguments: [CmsIdentify.communityGuideline],
         );
       },
       child: Container(
@@ -409,7 +408,7 @@ class CookiePolicyModule extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              AppMessages.cookiePolicy,
+              AppMessages.communityGuideline,
               style: TextStyleConfig.textStyle(
                 fontFamily: FontFamilyText.sFProDisplaySemibold,
                 textColor: AppColors.darkOrangeColor,
@@ -466,7 +465,8 @@ class TermsOfYouUseModule extends StatelessWidget {
           IconButton(
             onPressed: () {
               Get.to(
-                () => TermsOfYouUseScreen(),
+                    () => CmsScreen(),
+                arguments: [CmsIdentify.termAndCondition],
               );
             },
             icon: const Icon(
@@ -512,7 +512,8 @@ class PrivacyPolicyModule extends StatelessWidget {
           IconButton(
             onPressed: () {
               Get.to(
-                () => PrivacyPolicyScreen(),
+                    () => CmsScreen(),
+                arguments: [CmsIdentify.privacyPolicy],
               );
             },
             icon: const Icon(

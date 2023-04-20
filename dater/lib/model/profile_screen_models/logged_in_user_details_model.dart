@@ -196,18 +196,22 @@ class Prompt {
   Prompt({
     required this.question,
     required this.answer,
+    required this.promptId,
   });
 
   String question;
   String answer;
+  String promptId;
 
   factory Prompt.fromJson(Map<String, dynamic> json) => Prompt(
     question: json["question"] ?? "",
     answer: json["answer"] ?? "",
+    promptId: json["prompt_id"] ?? "",
   );
 
   Map<String, dynamic> toJson() => {
     "question": question,
     "answer": answer,
+    "prompt_id": promptId,
   };
 }

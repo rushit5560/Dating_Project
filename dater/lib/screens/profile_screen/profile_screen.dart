@@ -9,33 +9,34 @@ import 'package:sizer/sizer.dart';
 
 import '../../common_modules/custom_loader.dart';
 import '../../controller/profile_screen_controller.dart';
+
 class ProfileScreen extends StatelessWidget {
-   ProfileScreen({super.key});
-   final profileScreenController = Get.put(ProfileScreenController());
+  ProfileScreen({super.key});
+
+  final profileScreenController = Get.put(ProfileScreenController());
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: AppColors.whiteColor2,
-      appBar: commonAppBarModule(text: AppMessages.myProfile,
-      isLeadingShow: false),
+      appBar:
+          commonAppBarModule(text: AppMessages.myProfile, isLeadingShow: false),
       body: Obx(
-        ()=> profileScreenController.isLoading.value
-        ? const CustomLoader()
-        : SingleChildScrollView(
-          scrollDirection: Axis.vertical,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-
-              ProfileModule(),
-              ProfileTextModule(),
-              SizedBox(height: 3.h),
-              AboutMeAllModule(),
-
-            ],
-          ).commonSymmetricPadding(horizontal: 10),
-        ),
+        () => profileScreenController.isLoading.value
+            ? const CustomLoader()
+            : SingleChildScrollView(
+                scrollDirection: Axis.vertical,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    ProfileModule(),
+                    ProfileTextModule(),
+                    SizedBox(height: 3.h),
+                    AboutMeAllModule(),
+                  ],
+                ).commonSymmetricPadding(horizontal: 10),
+              ),
       ),
     );
   }

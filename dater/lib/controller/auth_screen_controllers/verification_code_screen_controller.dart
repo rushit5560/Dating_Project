@@ -97,6 +97,7 @@ class VerifyCodeScreenController extends GetxController {
             Get.offAll(() => IndexScreen());
           }
           else {
+
             await userPreference.setStringValueInPrefs(
               key: UserPreference.userVerifyTokenKey,
               value: accountActiveModel.token,

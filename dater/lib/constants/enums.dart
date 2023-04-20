@@ -7,3 +7,5 @@ enum LikeType {like, super_love}
 enum LikesDialogShowAgain {yes, no}
 
 enum MoreAboutMe {no, yes, sometimes}
+
+enum CmsIdentify {communityGuideline, termAndCondition, privacyPolicy}

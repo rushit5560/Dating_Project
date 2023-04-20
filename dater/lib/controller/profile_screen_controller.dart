@@ -46,6 +46,7 @@ class ProfileScreenController extends GetxController {
   List<BasicModel> basicList = [];
   List<BasicModel> interestList = [];
   List<UserImages> userImages = [];
+  List<UserImages> userSubImagesList = [];  // Remove first 3 index images other all images save in this list.
   List<String> languageList = [];
 
   // Get User Profile
@@ -56,8 +57,9 @@ class ProfileScreenController extends GetxController {
 
     try {
       String verifyToken = await userPreference.getStringFromPrefs(key: UserPreference.userVerifyTokenKey);
+      log('User Profile verifyToken :$verifyToken');
       var request = http.MultipartRequest('POST', Uri.parse(url));
-      request.fields['token'] = AppMessages.token;
+      request.fields['token'] = verifyToken;
 
       var response = await request.send();
       response.stream
@@ -98,6 +100,13 @@ class ProfileScreenController extends GetxController {
           /// Set User Images in local list
           for (var element in loggedInUserDetailsModel.msg[0].images) {
             userImages.add(element);
+          }
+
+          // When userImage List Length more then 3
+          if(userImages.length > 3) {
+            for(int i = 3; i < userImages.length; i++) {
+              userSubImagesList.add(userImages[i]);
+            }
           }
           log('userImages Length : ${userImages.length}');
 
@@ -242,38 +251,6 @@ class ProfileScreenController extends GetxController {
     // log('Prefs Bio : $bio');
     // log('Prefs distance : $distance');
     // log('Prefs age : $age');
-  }
-
-  /// Set User language
-  Future<void> setUserLanguageFunction() async {
-    String url = ApiUrl.setUserLanguageApi;
-    log('setUserLanguageFunction Api Url : $url');
-
-    try {
-      String verifyToken = await userPreference.getStringFromPrefs(key: UserPreference.userVerifyTokenKey);
-      var request = http.MultipartRequest('POST', Uri.parse(url));
-      request.fields['token'] = AppMessages.token;
-      request.fields['language'] = "";
-
-      var response = await request.send();
-      response.stream.transform(utf8.decoder).listen((value) async {
-        log('setUserLanguageFunction Value : $value');
-
-        LanguageSaveModel languageSaveModel = LanguageSaveModel.fromJson(json.decode(value));
-        successStatus.value = languageSaveModel.statusCode;
-
-        if(successStatus.value == 200) {
-          log('setUserLanguageFunction successStatus :${successStatus.value}');
-        } else {
-          log('setUserLanguageFunction Else Else');
-        }
-
-      });
-    } catch(e) {
-      log('setUserLanguageFunction Error :$e');
-      rethrow;
-    }
-
   }
 
   @override
