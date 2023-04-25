@@ -94,7 +94,11 @@ class InterestsScreenController extends GetxController {
     String selectedOptionIdString = "";
     selectedOptionIdString = selectedOptionIdList.toString().substring(1, selectedOptionIdList.toString().length -1).replaceAll(" ", "");
     log('selectedOptionIdString : $selectedOptionIdString');
-    await saveInterestsFunction(selectedOptionIdString);
+    for(int i=0; i < selectedOptionIdList.length; i++) {
+      await saveInterestsFunction(selectedOptionIdList[i]);
+    }
+    await completeSignUpFunction();
+    // await saveInterestsFunction(selectedOptionIdString);
   }
 
   Future<void> saveInterestsFunction(String interestedId) async {
@@ -117,12 +121,12 @@ class InterestsScreenController extends GetxController {
         SaveInterestModel saveInterestModel = SaveInterestModel.fromJson(json.decode(value));
 
         if(saveInterestModel.statusCode == 200) {
-          Fluttertoast.showToast(msg: saveInterestModel.msg);
+          // Fluttertoast.showToast(msg: saveInterestModel.msg);
           // Get.offAll(()=> );
         } else if(saveInterestModel.statusCode == 400) {
-          Fluttertoast.showToast(msg: saveInterestModel.msg);
+          // Fluttertoast.showToast(msg: saveInterestModel.msg);
         } else {
-          Fluttertoast.showToast(msg: AppMessages.apiCallWrong);
+          // Fluttertoast.showToast(msg: AppMessages.apiCallWrong);
         }
 
 
@@ -133,7 +137,7 @@ class InterestsScreenController extends GetxController {
     }
 
     // isLoading(false);
-    await completeSignUpFunction();
+    // await completeSignUpFunction();
   }
 
   Future<void> completeSignUpFunction() async {

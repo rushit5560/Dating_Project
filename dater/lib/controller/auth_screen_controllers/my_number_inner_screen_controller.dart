@@ -91,7 +91,7 @@ class MyNumberInnerScreenController extends GetxController {
       var response = await request.send();
 
       response.stream.transform(utf8.decoder).listen((value) async {
-        log('value : $value');
+        log('loginUsingMobileNumberFunction value : $value');
 
         LoginModel loginModel = LoginModel.fromJson(json.decode(value));
 
@@ -111,7 +111,7 @@ class MyNumberInnerScreenController extends GetxController {
             arguments: [
               selectCountryCodeValue.dialCode,
               phoneNumberController.text.trim(),
-              authAs,
+              loginModel.msg.toLowerCase() == "Account created successfully".toLowerCase() ? AuthAs.register : authAs,
             ],
           );
         } else if (loginModel.statusCode == 400) {

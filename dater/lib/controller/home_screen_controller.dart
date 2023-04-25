@@ -89,6 +89,7 @@ class HomeScreenController extends GetxController {
     try {
       String verifyToken = await userPreference.getStringFromPrefs(
           key: UserPreference.userVerifyTokenKey);
+      log('Get User Suggestion User Token : $verifyToken');
       var request = http.MultipartRequest('POST', Uri.parse(url));
       request.fields['token'] = verifyToken;
 
@@ -99,8 +100,7 @@ class HomeScreenController extends GetxController {
           .transform(const LineSplitter())
           .listen((value) async {
         log("Suggestion Api value :$value");
-        SuggestionListModel suggestionListModel =
-            SuggestionListModel.fromJson(json.decode(value));
+        SuggestionListModel suggestionListModel = SuggestionListModel.fromJson(json.decode(value));
         successStatus.value = suggestionListModel.statusCode;
         if (successStatus.value == 200) {
           suggestionList.clear();
@@ -123,7 +123,7 @@ class HomeScreenController extends GetxController {
       rethrow;
     }
 
-    Timer(const Duration(seconds: 1), () => isLoading(false));
+    // Timer(const Duration(seconds: 1), () => isLoading(false));
 
     // isLoading(false);
   }
@@ -301,7 +301,9 @@ class HomeScreenController extends GetxController {
   initMethod() async {
     await getLocation();
     await getUserSuggestionsFunction();
+    await getUserSuggestionsFunction();
     await setBasicListFunction();
+    loadUI();
   }
 
   loadUI() {

@@ -137,32 +137,32 @@ class ProfileScreenController extends GetxController {
 
   /// Set Basic Details
   void setBasicListFunction() {
-    // if (userHeight.value != "") {
+    if (userHeight.value != "") {
     basicList.add(BasicModel(
         image: AppImages.heightImage, name: "${userHeight.value} cm"));
-    // }
-    // if(userDrinking.value != "") {
+    }
+    if(userDrinking.value != "") {
     basicList.add(
         BasicModel(image: AppImages.drinkingImage, name: userDrinking.value));
-    // }
-    // if(userSmoking.value != "") {
+    }
+    if(userSmoking.value != "") {
     basicList.add(
         BasicModel(image: AppImages.smokingImage, name: userSmoking.value));
-    // }
-    // if(userGender.value != "") {
+    }
+    if(userGender.value != "") {
     basicList
         .add(
         BasicModel(image: AppImages.genderImage, name: userGender.value));
-    // }
-    // if(userStarSign.value != "") {
+    }
+    if(userStarSign.value != "") {
     basicList.add(
         BasicModel(image: AppImages.starsignImage, name: userStarSign.value));
-    // }
-    // if(userEducation.value != "") {
+    }
+    if(userEducation.value != "") {
     basicList.add(
         BasicModel(
             image: AppImages.educationImage, name: userEducation.value));
-    // }
+    }
   }
 
   /// Set Interest in local & Prefs
@@ -263,7 +263,7 @@ class ProfileScreenController extends GetxController {
     await getUserDetailsFunction();
   }
 
-  Future<void> setDataInUserVariablesFunction() async {
+  /*Future<void> setDataInUserVariablesFunction() async {
     isLoading(true);
     // userProfilePrompts.value = await userPreference.getStringFromPrefs(key: UserPreference.profilePromptsKey);
     userBio.value = await userPreference.getStringFromPrefs(key: UserPreference.bioKey);
@@ -322,5 +322,5 @@ class ProfileScreenController extends GetxController {
     }
 
     isLoading(false);
-  }
+  }*/
 }

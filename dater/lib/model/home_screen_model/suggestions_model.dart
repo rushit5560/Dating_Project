@@ -190,8 +190,7 @@ class SuggestionListModel {
   factory SuggestionListModel.fromJson(Map<String, dynamic> json) =>
       SuggestionListModel(
         response: json["response"] ?? "",
-        msg: List<SuggestionData>.from(
-            (json["msg"] ?? []).map((x) => SuggestionData.fromJson(x ?? {}))),
+        msg: List<SuggestionData>.from((json["msg"] ?? []).map((x) => SuggestionData.fromJson(x ?? {}))),
         statusCode: json["status_code"] ?? 0,
       );
 
@@ -227,7 +226,7 @@ class SuggestionData {
   String? profilePrompts;
   String? bio;
   String? homeTown;
-  String? languages;
+  List<String>? languages;
   String? verified;
   String? distance;
   String? age;
@@ -244,17 +243,16 @@ class SuggestionData {
             json["profile_prompts"] ?? "Life is simple Don't overthink it",
         bio: json["bio"] ?? "",
         homeTown: json["home_town"] ?? "",
-        languages: json["languages"] ?? "",
+        languages: List<String>.from((json["languages"] ?? []).map((x) => x ?? "")),
         verified: json["verified"] ?? "",
         distance: json["distance"] ?? "Your location not found",
         age: json["age"].toString().toLowerCase() ==
                     "Age is not available".toLowerCase() ||
                 json["age"] == null
             ? "23"
-            : json["age"],
+            : json["age"].toString(),
         activeTime: json["active_time"] ?? "",
-        interest:
-            List<Interest>.from((json["interest"] ?? []).map((x) => x ?? {})),
+        // interest: List<Interest>.from((json["interest"] ?? []).map((x) => x ?? {})),
         basic: Basic.fromJson(json["basic"] ?? {}),
       );
 

@@ -439,43 +439,51 @@ class TermsOfYouUseModule extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: AppColors.gray50Color,
-        borderRadius: BorderRadius.circular(15),
-        boxShadow: const [
-          BoxShadow(
-            blurRadius: 5.0,
-            offset: Offset(-0, 3),
-            color: AppColors.grey800Color,
-          )
-        ],
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(
-            AppMessages.termsOfYouUse,
-            style: TextStyleConfig.textStyle(
-              fontFamily: FontFamilyText.sFProDisplaySemibold,
-              textColor: AppColors.darkOrangeColor,
-              fontSize: 14.sp,
+    return GestureDetector(
+      onTap: () {
+        Get.to(
+              () => CmsScreen(),
+          arguments: [CmsIdentify.termAndCondition],
+        );
+      },
+      child: Container(
+        decoration: BoxDecoration(
+          color: AppColors.gray50Color,
+          borderRadius: BorderRadius.circular(15),
+          boxShadow: const [
+            BoxShadow(
+              blurRadius: 5.0,
+              offset: Offset(-0, 3),
+              color: AppColors.grey800Color,
+            )
+          ],
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              AppMessages.termsOfYouUse,
+              style: TextStyleConfig.textStyle(
+                fontFamily: FontFamilyText.sFProDisplaySemibold,
+                textColor: AppColors.darkOrangeColor,
+                fontSize: 14.sp,
+              ),
+            ).commonSymmetricPadding(horizontal: 6.w),
+            IconButton(
+              onPressed: () {
+                // Get.to(
+                //       () => CmsScreen(),
+                //   arguments: [CmsIdentify.termAndCondition],
+                // );
+              },
+              icon: const Icon(
+                Icons.arrow_forward_ios_outlined,
+                color: AppColors.grey600Color,
+                size: 20,
+              ),
             ),
-          ).commonSymmetricPadding(horizontal: 6.w),
-          IconButton(
-            onPressed: () {
-              Get.to(
-                    () => CmsScreen(),
-                arguments: [CmsIdentify.termAndCondition],
-              );
-            },
-            icon: const Icon(
-              Icons.arrow_forward_ios_outlined,
-              color: AppColors.grey600Color,
-              size: 20,
-            ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -486,43 +494,51 @@ class PrivacyPolicyModule extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: AppColors.gray50Color,
-        borderRadius: BorderRadius.circular(15),
-        boxShadow: const [
-          BoxShadow(
-            blurRadius: 5.0,
-            offset: Offset(-0, 3),
-            color: AppColors.grey800Color,
-          )
-        ],
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(
-            AppMessages.privacyPolicy,
-            style: TextStyleConfig.textStyle(
-              fontFamily: FontFamilyText.sFProDisplaySemibold,
-              textColor: AppColors.darkOrangeColor,
-              fontSize: 14.sp,
+    return GestureDetector(
+      onTap: () {
+        Get.to(
+              () => CmsScreen(),
+          arguments: [CmsIdentify.privacyPolicy],
+        );
+      },
+      child: Container(
+        decoration: BoxDecoration(
+          color: AppColors.gray50Color,
+          borderRadius: BorderRadius.circular(15),
+          boxShadow: const [
+            BoxShadow(
+              blurRadius: 5.0,
+              offset: Offset(-0, 3),
+              color: AppColors.grey800Color,
+            )
+          ],
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              AppMessages.privacyPolicy,
+              style: TextStyleConfig.textStyle(
+                fontFamily: FontFamilyText.sFProDisplaySemibold,
+                textColor: AppColors.darkOrangeColor,
+                fontSize: 14.sp,
+              ),
+            ).commonSymmetricPadding(horizontal: 6.w),
+            IconButton(
+              onPressed: () {
+                // Get.to(
+                //       () => CmsScreen(),
+                //   arguments: [CmsIdentify.privacyPolicy],
+                // );
+              },
+              icon: const Icon(
+                Icons.arrow_forward_ios_outlined,
+                color: AppColors.grey600Color,
+                size: 20,
+              ),
             ),
-          ).commonSymmetricPadding(horizontal: 6.w),
-          IconButton(
-            onPressed: () {
-              Get.to(
-                    () => CmsScreen(),
-                arguments: [CmsIdentify.privacyPolicy],
-              );
-            },
-            icon: const Icon(
-              Icons.arrow_forward_ios_outlined,
-              color: AppColors.grey600Color,
-              size: 20,
-            ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

@@ -8,6 +8,7 @@ class ApiUrl {
 
   static const getGenderApi = "${apiMainPath}api/get_genders";
   static const getGoalApi = "${apiMainPath}api/get_goals";
+  static const getSexualityApi = "${apiMainPath}api/get_sexuality";
 
   static const getInterestsApi = "${apiMainPath}api/get_interests";
   static const saveInterestsApi = "${apiMainPath}api/set_interest";
@@ -46,5 +47,7 @@ class ApiUrl {
   static const getPrivacyPolicyApi = "${apiMainPath}api/get_privacy_policy";
   static const getTermsAndConditionApi = "${apiMainPath}api/get_terms_of_use";
   static const getCommunityGuidelineApi = "${apiMainPath}api/get_community_guidelines";
+  static const setVerifiedApi = "${apiMainPath}api/set_as_verified";
+  static const changePhoneNumberApi = "${apiMainPath}api/change_phone_number";
 
 }
