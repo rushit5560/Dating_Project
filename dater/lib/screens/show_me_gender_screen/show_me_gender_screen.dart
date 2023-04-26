@@ -10,7 +10,6 @@ import '../../common_modules/custom_loader.dart';
 import '../../constants/colors.dart';
 import '../../constants/font_family.dart';
 import '../../controller/show_me_gender_controller.dart';
-import '../authentication_screen/gender_select_screen/gender_select_screen_widgets.dart';
 
 class ShowMeGenderScreen extends StatelessWidget {
   ShowMeGenderScreen({Key? key}) : super(key: key);
@@ -27,12 +26,10 @@ class ShowMeGenderScreen extends StatelessWidget {
         backgroundColor: AppColors.darkOrangeColor,
         textColor: AppColors.whiteColor2,
         onPressed: () async =>
-
             await showMeGenderScreenController.saveSexualityFunction(
           key: AppMessages.genderApiText,
           value: showMeGenderScreenController.selectedGenderValue.name,
         ),
-
       ).commonSymmetricPadding(horizontal: 20, vertical: 10),
       body: Obx(
         () => showMeGenderScreenController.isLoading.value

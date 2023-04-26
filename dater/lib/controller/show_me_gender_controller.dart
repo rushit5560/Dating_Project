@@ -44,6 +44,12 @@ class ShowMeGenderScreenController extends GetxController {
         // Set Initial Value from api in local variable
         genderList.isNotEmpty ? selectedGenderValue = genderList[0] : null;
 
+        for (var element in genderList) {
+          if (element.name == showMeGenderValue) {
+            selectedGenderValue = element;
+          }
+        }
+
         log("selectedGenderValue: $selectedGenderValue");
         // log("selectedGenderValueId: $selectedGenderValueId");
       } else {
@@ -56,7 +62,9 @@ class ShowMeGenderScreenController extends GetxController {
       isLoading(false);
     }
   }
-Future<void> saveSexualityFunction({required String key, required String value}) async {
+
+  Future<void> saveSexualityFunction(
+      {required String key, required String value}) async {
     isLoading(true);
     String url = ApiUrl.completeSignUpApi;
     log('setSexualityFunction Api Url : $url');
@@ -74,7 +82,7 @@ Future<void> saveSexualityFunction({required String key, required String value})
       response.stream.transform(utf8.decoder).listen((value1) async {
         log('value : $value1');
         CompleteSignupModel completeSignupModel =
-        CompleteSignupModel.fromJson(json.decode(value1));
+            CompleteSignupModel.fromJson(json.decode(value1));
         successStatus.value = completeSignupModel.statusCode;
 
         if (successStatus.value == 200) {
@@ -88,25 +96,17 @@ Future<void> saveSexualityFunction({required String key, required String value})
           log('updateUserProfileFunction Else');
         }
       });
-    } catch(e) {
+    } catch (e) {
       log('setSexualityFunction Error :$e');
       rethrow;
     }
-
   }
+
   void radioButtonChangeFunction(Msg selectedValue) {
     isLoading(true);
     selectedGenderValue = selectedValue;
     isLoading(false);
   }
-
-  // Future<void> doneButtonFunction() async {
-  //   await signUpPreference.setStringValueInPrefs(
-  //     key: SignUpPreference.userGenderKey,
-  //     value: selectedGenderValue.id,
-  //   );
-  //   Get.offAll(() => SettingsScreen());
-  // }
 
   @override
   void onInit() {

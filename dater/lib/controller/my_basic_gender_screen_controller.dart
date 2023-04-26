@@ -28,15 +28,16 @@ class MyBasicGenderScreenController extends GetxController {
 
     try {
       http.Response response = await http.get(Uri.parse(url));
-      GenderModel getGenderModel = GenderModel.fromJson(json.decode(response.body));
+      GenderModel getGenderModel =
+          GenderModel.fromJson(json.decode(response.body));
       successStatus.value = getGenderModel.statusCode;
 
-      if(successStatus.value == 200) {
+      if (successStatus.value == 200) {
         sexualityList.clear();
         sexualityList.addAll(getGenderModel.msg);
 
-        for(var element in sexualityList) {
-          if(element.name == genderValue) {
+        for (var element in sexualityList) {
+          if (element.name == genderValue) {
             selectedSexualityValue = element;
           }
         }
@@ -45,7 +46,7 @@ class MyBasicGenderScreenController extends GetxController {
       } else {
         log('getSexualityFunction Else');
       }
-    } catch(e) {
+    } catch (e) {
       log('getSexualityFunction Error :$e');
       rethrow;
     }
@@ -56,7 +57,8 @@ class MyBasicGenderScreenController extends GetxController {
   //   await saveSexualityFunction();
   // }
 
-  Future<void> saveSexualityFunction({required String key, required String value}) async {
+  Future<void> saveSexualityFunction(
+      {required String key, required String value}) async {
     isLoading(true);
     String url = ApiUrl.completeSignUpApi;
     log('setSexualityFunction Api Url : $url');
@@ -74,7 +76,7 @@ class MyBasicGenderScreenController extends GetxController {
       response.stream.transform(utf8.decoder).listen((value1) async {
         log('value : $value1');
         CompleteSignupModel completeSignupModel =
-        CompleteSignupModel.fromJson(json.decode(value1));
+            CompleteSignupModel.fromJson(json.decode(value1));
         successStatus.value = completeSignupModel.statusCode;
 
         if (successStatus.value == 200) {
@@ -88,11 +90,10 @@ class MyBasicGenderScreenController extends GetxController {
           log('updateUserProfileFunction Else');
         }
       });
-    } catch(e) {
+    } catch (e) {
       log('setSexualityFunction Error :$e');
       rethrow;
     }
-
   }
 
   void radioButtonChangeFunction(Msg selectedValue) {
@@ -100,7 +101,6 @@ class MyBasicGenderScreenController extends GetxController {
     selectedSexualityValue = selectedValue;
     isLoading(false);
   }
-
 
   @override
   void onInit() {
