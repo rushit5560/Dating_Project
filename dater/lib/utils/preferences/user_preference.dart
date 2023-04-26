@@ -3,13 +3,17 @@ import 'dart:developer';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class UserPreference {
-
   static String userMobileNoKey = "userMobileNoKey"; // String
   static String userTokenKey = "userTokenKey"; // This is temp token // String
-  static String userVerifyTokenKey = "userVerifyTokenKey"; // This is main token // String
+  static String userCountryDialCodeKey = "userCountryDialCodeKey"; // String
+  static String userVerifyTokenKey =
+      "userVerifyTokenKey"; // This is main token // String
   static String isUserCreatedKey = "isUserCreatedKey"; // bool
   static String isUserLoggedInKey = "isUserLoggedInKey"; // bool
   static String isSeeWhoLikesYouKey = "isSeeWhoLikesYouKey"; // String
+  static String isragatherInKey = "isragatherInKey";
+  static String isSuperLoveInKey = "isSuperLoveInKey";
+
 
   /// For Profile Section
   static String nameKey = "nameKey"; // String
@@ -35,10 +39,9 @@ class UserPreference {
   static String interestKey = "interestKey"; // String
   static String imagesKey = "imagesKey"; // String
   static String editImagesKey = "editImagesKey"; // String
+  static String myBasicGenderValueKey = "myBasicGenderValueKey";
   static String listOfImageKey = "listOfImageKey";
   static String listOfLanguageKey = "listOfLanguageKey";
-
-
 
   Future<void> clearUserAllDataFromPrefs() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -60,15 +63,15 @@ class UserPreference {
   }
 
   // Set Language String Type List
-  Future<void> setLanguageListOfStringInPrefs({required List<String> value}) async {
+  Future<void> setLanguageListOfStringInPrefs(
+      {required List<String> value}) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setStringList(listOfLanguageKey, value);
   }
 
-
-
   // Set String value
-  Future<void> setStringValueInPrefs({required String key, required String value}) async {
+  Future<void> setStringValueInPrefs(
+      {required String key, required String value}) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString(key, value);
     log('prefs value signup :${prefs.getString(key)}');
@@ -82,7 +85,8 @@ class UserPreference {
   }
 
   // Set Bool value
-  Future<void> setBoolValueInPrefs({required String key, required bool value}) async {
+  Future<void> setBoolValueInPrefs(
+      {required String key, required bool value}) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setBool(key, value);
     log('prefs value :${prefs.getBool(key)}');
@@ -101,5 +105,4 @@ class UserPreference {
     bool value = prefs.getBool(key) ?? false;
     return value;
   }
-
 }

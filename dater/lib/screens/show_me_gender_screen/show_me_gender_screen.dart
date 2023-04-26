@@ -27,10 +27,12 @@ class ShowMeGenderScreen extends StatelessWidget {
         backgroundColor: AppColors.darkOrangeColor,
         textColor: AppColors.whiteColor2,
         onPressed: () async =>
+
             await showMeGenderScreenController.saveSexualityFunction(
           key: AppMessages.genderApiText,
           value: showMeGenderScreenController.selectedGenderValue.name,
         ),
+
       ).commonSymmetricPadding(horizontal: 20, vertical: 10),
       body: Obx(
         () => showMeGenderScreenController.isLoading.value

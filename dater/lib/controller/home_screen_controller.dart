@@ -20,11 +20,15 @@ class HomeScreenController extends GetxController {
   RxBool isLoading = false.obs;
   RxInt successStatus = 0.obs;
   SwipableStackController cardController = SwipableStackController();
+  // RxString selectedval = ''.obs;
   RxBool selected = false.obs;
+  RxBool selectedSuperLove = false.obs;
+
+  String selectedVal = "";
   String name = '';
   String age = '';
   String profilePrompts = '';
-
+  String selectedVlu = '';
   String gender = '';
   String work = '';
   String education = '';
@@ -80,6 +84,28 @@ class HomeScreenController extends GetxController {
     );
   }
 
+// GetUndestandfunction,
+  Future<void> undestandFunction() async {
+    await userPreference.setBoolValueInPrefs(
+        key: UserPreference.isragatherInKey, value: selected.value);
+    log("selected.value: ${selected.value}");
+
+    await getUserSuggestionsFunction();
+  }
+
+  // superlovefunction,
+  Future<void> undestandSuperLoveFunction() async {
+    await userPreference.setBoolValueInPrefs(
+        key: UserPreference.isSuperLoveInKey, value: selectedSuperLove.value);
+    log("selectedSuperLove.value: ${selectedSuperLove.value}");
+
+    await superLoveProfileFunction(
+      likedId: "${singlePersonData.id}",
+      likeType: LikeType.super_love,
+      swipeCard: false,
+    );
+  }
+
   /// Get Suggestions Function
   Future<void> getUserSuggestionsFunction() async {
     isLoading(true);
@@ -100,7 +126,8 @@ class HomeScreenController extends GetxController {
           .transform(const LineSplitter())
           .listen((value) async {
         log("Suggestion Api value :$value");
-        SuggestionListModel suggestionListModel = SuggestionListModel.fromJson(json.decode(value));
+        SuggestionListModel suggestionListModel =
+            SuggestionListModel.fromJson(json.decode(value));
         successStatus.value = suggestionListModel.statusCode;
         if (successStatus.value == 200) {
           suggestionList.clear();
@@ -125,7 +152,7 @@ class HomeScreenController extends GetxController {
 
     // Timer(const Duration(seconds: 1), () => isLoading(false));
 
-    // isLoading(false);
+    isLoading(false);
   }
 
   /// Set Basic Details
@@ -183,7 +210,10 @@ class HomeScreenController extends GetxController {
   }*/
 
   /// Like & SuperLove function
-  Future<void> superLoveProfileFunction({required String likedId, required LikeType likeType, swipeCard = false}) async {
+  Future<void> superLoveProfileFunction(
+      {required String likedId,
+      required LikeType likeType,
+      swipeCard = false}) async {
     String url = ApiUrl.superLoveProfileApi;
 
     try {
@@ -203,11 +233,12 @@ class HomeScreenController extends GetxController {
 
       log('superLove ProfileFunction Response Function : ${response.body}');
 
-      SuperLoveModel superLoveModel = SuperLoveModel.fromJson(json.decode(response.body));
+      SuperLoveModel superLoveModel =
+          SuperLoveModel.fromJson(json.decode(response.body));
 
       if (superLoveModel.statusCode == 200) {
         /// If Coming from card swipe that time not call this if condition because double time swipe the card
-        if(swipeCard == false) {
+        if (swipeCard == false) {
           if (likeType == LikeType.like) {
             log('Log Type 200 -1 : $likeType');
             cardController.next(
@@ -235,10 +266,12 @@ class HomeScreenController extends GetxController {
         // loadUI();
       } else if (superLoveModel.statusCode == 400) {
         Fluttertoast.showToast(msg: superLoveModel.msg);
-        if (superLoveModel.msg.toLowerCase() == "You already liked this account".toLowerCase()) {
+        if (superLoveModel.msg.toLowerCase() ==
+            "You already liked this account".toLowerCase()) {
           log('Log Type 400 -1 : $likeType');
+
           /// If Coming from card swipe that time not call this if condition because double time swipe the card
-          if(swipeCard == false) {
+          if (swipeCard == false) {
             if (likeType == LikeType.like) {
               cardController.next(
                 swipeDirection: SwipeDirection.right,
@@ -261,7 +294,6 @@ class HomeScreenController extends GetxController {
           } else {
             suggestionList = [];
           }
-
         }
       } else {
         log('superLoveProfileFunction Else');
