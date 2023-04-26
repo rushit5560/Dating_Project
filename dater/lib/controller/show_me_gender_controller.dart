@@ -88,7 +88,7 @@ class ShowMeGenderScreenController extends GetxController {
         if (successStatus.value == 200) {
           log('Update User Profile Success : $key & $value');
           await userPreference.setStringValueInPrefs(
-            key: UserPreference.myBasicGenderValueKey,
+            key: UserPreference.isShoeMeGenderKey,
             value: selectedGenderValue.name,
           );
           Get.back();

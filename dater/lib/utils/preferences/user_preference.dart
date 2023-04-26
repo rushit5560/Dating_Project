@@ -14,7 +14,6 @@ class UserPreference {
   static String isragatherInKey = "isragatherInKey";
   static String isSuperLoveInKey = "isSuperLoveInKey";
 
-
   /// For Profile Section
   static String nameKey = "nameKey"; // String
   static String userIdKey = "userIdKey"; // String
@@ -42,6 +41,9 @@ class UserPreference {
   static String myBasicGenderValueKey = "myBasicGenderValueKey";
   static String listOfImageKey = "listOfImageKey";
   static String listOfLanguageKey = "listOfLanguageKey";
+  static String isShoeMeGenderKey = "isShoeMeGenderKey";
+  static String myBasicWorkValueKey = "myBasicWorkValueKey";
+  static String myBasicEducationValueKey = "myBasicEducationValueKey";
 
   Future<void> clearUserAllDataFromPrefs() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();

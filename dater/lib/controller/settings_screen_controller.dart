@@ -13,12 +13,11 @@ import '../model/settings_screen_models/delete_account_model.dart';
 import '../model/settings_screen_models/referral_model.dart';
 import '../screens/authentication_screen/login_screen/login_screen.dart';
 
-class SettingsScreenController extends GetxController{
+class SettingsScreenController extends GetxController {
   RxBool isLoading = false.obs;
   RxInt successStatus = 0.obs;
 
   RxString referralNumber = "".obs;
-
 
   String showMeGender = "";
   UserPreference userPreference = UserPreference();
@@ -31,7 +30,8 @@ class SettingsScreenController extends GetxController{
     log('getUserReferralCodeFunction Api Url : $url');
 
     try {
-      String verifyToken = await userPreference.getStringFromPrefs(key: UserPreference.userVerifyTokenKey);
+      String verifyToken = await userPreference.getStringFromPrefs(
+          key: UserPreference.userVerifyTokenKey);
       var request = http.MultipartRequest('POST', Uri.parse(url));
       request.fields['token'] = verifyToken;
 
@@ -39,21 +39,22 @@ class SettingsScreenController extends GetxController{
 
       response.stream.transform(utf8.decoder).listen((value) async {
         log('value : $value');
-        ReferralModel referralModel = ReferralModel.fromJson(json.decode(value));
+        ReferralModel referralModel =
+            ReferralModel.fromJson(json.decode(value));
         successStatus.value = referralModel.statusCode;
 
-        if(successStatus.value == 200) {
+        if (successStatus.value == 200) {
           referralNumber.value = referralModel.msg;
         } else {
           log('getUserReferralCodeFunction Else');
         }
-
       });
-    } catch(e) {
+    } catch (e) {
       log('getUserReferralCodeFunction Error :$e');
       rethrow;
     }
-    isLoading(false);
+    // isLoading(false);
+    await getShowMeGenderValueFromPrefs();
   }
 
   /// Copy Text Function
@@ -68,7 +69,6 @@ class SettingsScreenController extends GetxController{
     Get.offAll(() => LoginInScreen());
   }
 
-
   /// Delete User Account
   Future<void> deleteAccountFunction() async {
     isLoading(true);
@@ -76,7 +76,8 @@ class SettingsScreenController extends GetxController{
     log('deleteAccountFunction Api Url : $url');
 
     try {
-      String verifyToken = await userPreference.getStringFromPrefs(key: UserPreference.userVerifyTokenKey);
+      String verifyToken = await userPreference.getStringFromPrefs(
+          key: UserPreference.userVerifyTokenKey);
       var request = http.MultipartRequest('POST', Uri.parse(url));
       request.fields['token'] = verifyToken;
 
@@ -85,13 +86,14 @@ class SettingsScreenController extends GetxController{
       response.stream.transform(utf8.decoder).listen((value) async {
         log('value :$value');
 
-        DeleteAccountModel deleteAccountModel = DeleteAccountModel.fromJson(json.decode(value));
+        DeleteAccountModel deleteAccountModel =
+            DeleteAccountModel.fromJson(json.decode(value));
         successStatus.value = deleteAccountModel.statusCode;
 
-        if(successStatus.value == 200) {
+        if (successStatus.value == 200) {
           Fluttertoast.showToast(msg: deleteAccountModel.msg);
           await logOutButtonFunction();
-        } else if(successStatus.value == 400) {
+        } else if (successStatus.value == 400) {
           Get.back();
           Fluttertoast.showToast(msg: deleteAccountModel.msg);
           await logOutButtonFunction();
@@ -99,16 +101,16 @@ class SettingsScreenController extends GetxController{
           log('deleteAccountFunction Else');
         }
       });
-
-    } catch(e) {
+    } catch (e) {
       log('deleteAccountFunction Error :$e');
       rethrow;
     }
     isLoading(false);
   }
- Future<void> getTargetGenderValueFromPrefs() async {
+
+  Future<void> getShowMeGenderValueFromPrefs() async {
     showMeGender = await userPreference.getStringFromPrefs(
-        key: UserPreference.myBasicGenderValueKey);
+        key: UserPreference.isShoeMeGenderKey);
     isLoading(true);
     isLoading(false);
     log("showMeGender $showMeGender");
@@ -124,6 +126,3 @@ class SettingsScreenController extends GetxController{
     await getUserReferralCodeFunction();
   }
 }
-
-
-

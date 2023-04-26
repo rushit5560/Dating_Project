@@ -29,20 +29,15 @@ class SetUpEmailScreenController extends GetxController {
   // Continue button click function
   Future<void> continueButtonOnClickFunction() async {
     if (formKey.currentState!.validate()) {
-      await updateUserProfileFunction(
+      await updateUserProfileEmailFunction(
         key: AppMessages.emailApiText,
         value: emailTextFieldController.text.toLowerCase().trim(),
       );
       log("emailTextFieldController.text: ${emailTextFieldController.text}");
-      // await signUpPreference.setStringValueInPrefs(
-      //   key: SignUpPreference.signUpEmailKey,
-      //   value: emailTextFieldController.text.toLowerCase().trim(),
-      // );
-      // Get.to(() => SettingsScreen());
     }
   }
 
-  Future<void> updateUserProfileFunction(
+  Future<void> updateUserProfileEmailFunction(
       {required String key, required String value}) async {
     String url = ApiUrl.completeSignUpApi;
     log('Update User Profile Api Url : $url');
@@ -77,5 +72,18 @@ class SetUpEmailScreenController extends GetxController {
       log('updateUserProfileFunction Error :$e');
       rethrow;
     }
+  }
+
+  @override
+  void onInit() async {
+    emailTextFieldController.text = await userPreference.getStringFromPrefs(
+      key: SignUpPreference.signUpEmailKey,
+    );
+    // await updateUserProfileEmailFunction(
+    //   key: AppMessages.emailApiText,
+    //   value: emailTextFieldController.text.toLowerCase().trim(),
+    // );
+    log("emailTextFieldController.text: ${emailTextFieldController.text}");
+    super.onInit();
   }
 }

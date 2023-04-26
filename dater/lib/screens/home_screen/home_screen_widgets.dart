@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 import 'package:swipable_stack/swipable_stack.dart';
+import '../../common_modules/custom_button.dart';
 import '../../constants/colors.dart';
 import '../../constants/enums.dart';
 import '../../controller/home_screen_controller.dart';
@@ -59,47 +60,48 @@ class CardSwipeModule extends StatelessWidget {
                       allowVerticalSwipe: false,
                       swipeAnchor: SwipeAnchor.bottom,
                       cancelAnimationCurve: Curves.bounceIn,
-
                       onSwipeCompleted: (index, swipeDirection) async {
                         if (swipeDirection == SwipeDirection.right) {
-
-                          if (homeScreenController.isLikeButtonClick.value == false) {
+                          if (homeScreenController.isLikeButtonClick.value ==
+                              false) {
                             await homeScreenController.superLoveProfileFunction(
-                              likedId: "${homeScreenController.suggestionList[index].id}",
+                              likedId:
+                                  "${homeScreenController.suggestionList[index].id}",
                               likeType: LikeType.like,
                               swipeCard: true,
                             );
-                            print("Swipe Like Button: ${homeScreenController.suggestionList[0].id}");
+                            print(
+                                "Swipe Like Button: ${homeScreenController.suggestionList[0].id}");
                             homeScreenController.isLikeButtonClick(true);
                           } else {
                             homeScreenController.isLikeButtonClick(false);
                           }
-
                         } else if (swipeDirection == SwipeDirection.up) {
-
-                          if (homeScreenController.isStarButtonClick.value == false) {
+                          if (homeScreenController.isStarButtonClick.value ==
+                              false) {
                             await homeScreenController.superLoveProfileFunction(
-                              likedId: "${homeScreenController.suggestionList[index].id}",
+                              likedId:
+                                  "${homeScreenController.suggestionList[index].id}",
                               likeType: LikeType.super_love,
                               swipeCard: true,
                             );
-                            print("Swipe Up Button: ${homeScreenController.suggestionList[0].id}");
+                            print(
+                                "Swipe Up Button: ${homeScreenController.suggestionList[0].id}");
                           } else {
                             homeScreenController.isStarButtonClick(false);
                           }
-
                         } else if (swipeDirection == SwipeDirection.left) {
-
-                          if(homeScreenController.isCancelButtonClick.value == false) {
+                          if (homeScreenController.isCancelButtonClick.value ==
+                              false) {
                             homeScreenController.suggestionList.removeAt(0);
-                            print("Swipe Cancel Button: ${homeScreenController.suggestionList[0].id}");
+                            print(
+                                "Swipe Cancel Button: ${homeScreenController.suggestionList[0].id}");
                             homeScreenController.setChangedUserData();
                             homeScreenController.isCancelButtonClick(true);
                             //todo - when user swipe left
                           } else {
                             homeScreenController.isCancelButtonClick(false);
                           }
-
                         }
                       },
                       overlayBuilder: (context, properties) {
@@ -151,11 +153,12 @@ class CardSwipeModule extends StatelessWidget {
                   IconButton(
                     onPressed: () {
                       homeScreenController.isCancelButtonClick(true);
-                       homeScreenController.suggestionList.removeAt(0);
-                       homeScreenController.setChangedUserData();
-                          print("Button Click Cancel: ${homeScreenController.suggestionList[0].id}");
+                      homeScreenController.suggestionList.removeAt(0);
+                      homeScreenController.setChangedUserData();
+                      print(
+                          "Button Click Cancel: ${homeScreenController.suggestionList[0].id}");
                       //todo - when user swipe left
-                       homeScreenController.loadUI();
+                      homeScreenController.loadUI();
 
                       homeScreenController.cardController.next(
                         swipeDirection: SwipeDirection.left,
@@ -169,12 +172,124 @@ class CardSwipeModule extends StatelessWidget {
                   IconButton(
                     onPressed: () async {
                       homeScreenController.isStarButtonClick(true);
-                      await homeScreenController.superLoveProfileFunction(
-                        likedId: "${homeScreenController.singlePersonData.id}",
-                        likeType: LikeType.super_love,
-                        swipeCard: false,
-                      );
-                      print("Button Click Star ${homeScreenController.suggestionList[0].id}");
+
+                      if (homeScreenController.selectedSuperLove.value ==
+                          true) {
+                        await homeScreenController.undestandSuperLoveFunction();
+                        // await homeScreenController.
+
+                        // superLoveProfileFunction(
+                        //   likedId:
+                        //       "${homeScreenController.singlePersonData.id}",
+                        //   likeType: LikeType.super_love,
+                        //   swipeCard: false,
+                        // );
+                      } else if (homeScreenController.selectedSuperLove.value ==
+                          false) {
+                        showDialog(
+                          barrierDismissible: false,
+                          context: context,
+                          builder: (context) {
+                            return AlertDialog(
+                              shape: const RoundedRectangleBorder(
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(20),
+                                ),
+                              ),
+                              elevation: 50,
+                              content: StatefulBuilder(
+                                builder: (context, setState) {
+                                  return Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      Text(
+                                        "Super love",
+                                        style: TextStyleConfig.textStyle(
+                                          fontSize: 20,
+                                          fontFamily:
+                                              FontFamilyText.sFProDisplayBold,
+                                        ),
+                                      ),
+                                      SizedBox(height: 2.h),
+                                      Text(
+                                        "Every super love will cost you 4 coins",
+                                        style: TextStyleConfig.textStyle(
+                                          fontSize: 12.sp,
+                                          fontFamily: FontFamilyText
+                                              .sFProDisplayRegular,
+                                        ),
+                                      ),
+                                      SizedBox(height: 5.h),
+                                      ButtonCustom(
+                                        text: "Undestand",
+                                        onPressed: () async {
+                                          await homeScreenController
+                                              .undestandSuperLoveFunction();
+                                          //     .superLoveProfileFunction(
+                                          //   likedId:
+                                          //       "${homeScreenController.singlePersonData.id}",
+                                          //   likeType: LikeType.super_love,
+                                          //   swipeCard: false,
+                                          // );
+                                          Get.back();
+                                        },
+                                        fontWeight: FontWeight.bold,
+                                        textsize: 14.sp,
+                                        textFontFamily:
+                                            FontFamilyText.sFProDisplayHeavy,
+                                        textColor: AppColors.whiteColor2,
+                                        backgroundColor:
+                                            AppColors.darkOrangeColor,
+                                      ).commonSymmetricPadding(horizontal: 35),
+                                      SizedBox(height: 1.h),
+                                      Row(
+                                        children: [
+                                          Checkbox(
+                                            checkColor:
+                                                AppColors.lightOrangeColor,
+                                            hoverColor:
+                                                AppColors.lightOrangeColor,
+                                            activeColor:
+                                                AppColors.lightOrangeColor,
+                                            tristate: false,
+                                            side: const BorderSide(
+                                              width: 2,
+                                              color: AppColors.blackColor,
+                                            ),
+                                            shape: const CircleBorder(),
+                                            value: homeScreenController
+                                                .selectedSuperLove.value,
+                                            onChanged: (value) {
+                                              setState(() {
+                                                homeScreenController
+                                                        .selectedSuperLove
+                                                        .value =
+                                                    !homeScreenController
+                                                        .selectedSuperLove
+                                                        .value;
+                                              });
+                                            },
+                                          ),
+                                          Text(
+                                            "don't show again",
+                                            style: TextStyleConfig.textStyle(
+                                              fontSize: 14.sp,
+                                              fontFamily: FontFamilyText
+                                                  .sFProDisplayRegular,
+                                            ),
+                                          ),
+                                        ],
+                                      )
+                                    ],
+                                  );
+                                },
+                              ),
+                            );
+                          },
+                        );
+                      }
+                      print(
+                          "Button Click Star ${homeScreenController.suggestionList[0].id}");
                     },
                     icon: Image.asset(AppImages.starImage),
                   ),
@@ -188,14 +303,14 @@ class CardSwipeModule extends StatelessWidget {
                         likeType: LikeType.like,
                         swipeCard: false,
                       );
-                      print("Button Click Like ${homeScreenController.suggestionList[0].id}");
+                      print(
+                          "Button Click Like ${homeScreenController.suggestionList[0].id}");
                     },
                     icon: Image.asset(AppImages.likeImage),
                   ),
                 ],
               ).commonOnlyPadding(left: 15.w, right: 15.w),
               SizedBox(height: 2.h),
-
               RichText(
                 text: TextSpan(
                   text:
