@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dater/constants/enums.dart';
 import 'package:dater/constants/messages.dart';
 import 'package:dater/screens/authentication_screen/location_screen/location_screen.dart';
@@ -213,7 +215,7 @@ class PersonalInfoModule extends StatelessWidget {
               ),
               IconButton(
                 onPressed: () {
-                  Get.to(PersonalInfoScreen());
+                  Get.to(() => PersonalInfoScreen());
                 },
                 icon: const Icon(
                   Icons.arrow_forward_ios_outlined,
@@ -235,7 +237,7 @@ class PersonalInfoModule extends StatelessWidget {
                 ),
               ),
               IconButton(
-                onPressed: ()=> Get.to(SetUpEmailScreen()),
+                onPressed: () => Get.to(() => SetUpEmailScreen()),
                 icon: const Icon(Icons.arrow_forward_ios_outlined,
                     color: AppColors.grey600Color, size: 20),
               ),
@@ -299,7 +301,7 @@ class LocationModule extends StatelessWidget {
                 ),
               ),
               IconButton(
-                onPressed:() => Get.to(LocationScreen()),
+                onPressed: () => Get.to(() => LocationScreen()),
                 icon: const Icon(Icons.check_circle_rounded,
                     color: AppColors.darkOrangeColor, size: 20),
               )
@@ -325,10 +327,12 @@ class LocationModule extends StatelessWidget {
 }
 
 class ShowMeModule extends StatelessWidget {
-  const ShowMeModule({Key? key}) : super(key: key);
+  ShowMeModule({Key? key}) : super(key: key);
+  final screenController = Get.find<SettingsScreenController>();
 
   @override
   Widget build(BuildContext context) {
+    log("screenController.showMeGender ${screenController.showMeGender}");
     return Container(
       decoration: BoxDecoration(
         color: AppColors.gray50Color,
@@ -357,7 +361,7 @@ class ShowMeModule extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                AppMessages.women,
+                screenController.showMeGender,
                 style: TextStyleConfig.textStyle(
                   fontFamily: FontFamilyText.sFProDisplaySemibold,
                   textColor: AppColors.grey600Color,
@@ -365,7 +369,15 @@ class ShowMeModule extends StatelessWidget {
                 ),
               ),
               IconButton(
-                onPressed: () {Get.to(ShowMeGenderScreen());},
+                onPressed: () {
+                  Get.to(
+                    () => ShowMeGenderScreen(),
+                    arguments: [screenController.showMeGender],
+                  )!
+                      .then((value) async {
+                    await screenController.gettargetgenderValueFromPrefs();
+                  });
+                },
                 icon: const Icon(
                   Icons.arrow_forward_ios_outlined,
                   color: AppColors.grey600Color,
@@ -442,7 +454,7 @@ class TermsOfYouUseModule extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         Get.to(
-              () => CmsScreen(),
+          () => CmsScreen(),
           arguments: [CmsIdentify.termAndCondition],
         );
       },
@@ -497,7 +509,7 @@ class PrivacyPolicyModule extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         Get.to(
-              () => CmsScreen(),
+          () => CmsScreen(),
           arguments: [CmsIdentify.privacyPolicy],
         );
       },
@@ -582,17 +594,19 @@ class BothButtonModule extends StatelessWidget {
           textFontFamily: FontFamilyText.sFProDisplaySemibold,
           textsize: 14.sp,
           onPressed: () => showDialog(
-              context: context,
-              builder: (BuildContext context) {
-                return CustomLogoutAlertDialog(
-                  text: "Delete Account",
-                  content: "Are you sure you want delete your account ?",
-                  yesButtonText: "Yes",
-                  onYesPressed: () async => await screenController.deleteAccountFunction(),
-                  noButtonText: "No",
-                  onNoPressed: () => Get.back(),
-                );
-              }),
+            context: context,
+            builder: (BuildContext context) {
+              return CustomLogoutAlertDialog(
+                text: "Delete Account",
+                content: "Are you sure you want delete your account ?",
+                yesButtonText: "Yes",
+                onYesPressed: () async =>
+                    await screenController.deleteAccountFunction(),
+                noButtonText: "No",
+                onNoPressed: () => Get.back(),
+              );
+            },
+          ),
         ),
       ],
     );

@@ -112,6 +112,7 @@ class MyNumberInnerScreenController extends GetxController {
               selectCountryCodeValue.dialCode,
               phoneNumberController.text.trim(),
               loginModel.msg.toLowerCase() == "Account created successfully".toLowerCase() ? AuthAs.register : authAs,
+              ComingFrom.registerScreen,
             ],
           );
         } else if (loginModel.statusCode == 400) {

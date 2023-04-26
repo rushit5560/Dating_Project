@@ -74,7 +74,7 @@ class UserDetails {
     bio: json["bio"] ?? "",
     starSign: json["star_sign"] ?? "Add",
     verified: json["verified"] ?? "",
-    homeTown: json["home_town"] ?? "",
+    homeTown: json["home_town"] ?? "Add",
     languages: List<String>.from((json["languages"] ?? []).map((x) => x ?? "")),
     images: List<UserImages>.from((json["images"] ?? []).map((x) => UserImages.fromJson(x ?? {}))),
     distance: json["distance"] ?? "",
@@ -129,8 +129,8 @@ class Basic {
   String kids;
 
   factory Basic.fromJson(Map<String, dynamic> json) => Basic(
-    gender: json["gender"] ?? "",
-    work: json["work"] ?? "",
+    gender: json["gender"] ?? "Add",
+    work: json["work"] ?? "Add",
     education: json["education"] ?? "Add",
     height: json["height"] ?? "",
     exercise: json["exercise"] ?? "",

@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../constants/colors.dart';
+import '../../constants/enums.dart';
 import '../../constants/font_family.dart';
 import '../../constants/messages.dart';
 import '../../controller/personal_info_screen_controller.dart';
@@ -17,22 +18,23 @@ class TextFiled1Module extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-        children: [ Row(
+    return Form(
+      key: personalInfoScreenController.formKey,
+      child: Column(
+        children: [
+          // Old phone number
+          Row(
             children: [
               Expanded(
                 flex: 25,
                 child: GestureDetector(
-                  //onTap: openBottomSheetModule,
+                  onTap: () => openBottomSheetModule(countrySelectedType: CountrySelectedType.oldCountry),
                   child: Container(
                     decoration: const BoxDecoration(
-                      border:
-                      Border(
+                      border: Border(
                           bottom: BorderSide(color: AppColors.grey500Color)),
                     ),
-                    child: Text(
-                        personalInfoScreenController.countryCodeController
-                            .text)
+                    child: Text(personalInfoScreenController.oldCountryCode.value)
                         .commonSymmetricPadding(vertical: 10),
                   ),
                 ),
@@ -40,106 +42,100 @@ class TextFiled1Module extends StatelessWidget {
               const SizedBox(width: 20),
               Expanded(
                 flex: 75,
-                child: Form(
-                  key: personalInfoScreenController.formKey,
-                  child: TextFormField(
-                    cursorColor: AppColors.darkOrangeColor,
-                    controller: personalInfoScreenController
-                        .phoneNumberController,
-                    textInputAction: TextInputAction.next,
-                    keyboardType: TextInputType.phone,
-                    maxLength: 10,
-                    validator: (value) =>
-                        FieldValidator().validateMobileNumber(value!),
-                    decoration: InputDecoration(
-                      focusedErrorBorder: const UnderlineInputBorder(
-                        borderSide: BorderSide(
-                            color: AppColors.darkOrangeColor),
-                      ),
-                      enabledBorder: const UnderlineInputBorder(
-                        borderSide: BorderSide(color: AppColors.grey500Color),
-                      ),
-                      focusedBorder: const UnderlineInputBorder(
-                        borderSide: BorderSide(
-                            color: AppColors.darkOrangeColor),
-                      ),
-                      isDense: true,
-                      counterText: '',
-                      hintText: AppMessages.phoneNumber,
-                      hintStyle: TextStyle(
-                        color: AppColors.grey500Color,
-                        fontSize: 14,
-                        fontFamily: FontFamilyText.sFProDisplayRegular,
-                      ),
+                child: TextFormField(
+                  cursorColor: AppColors.darkOrangeColor,
+                  controller: personalInfoScreenController.phoneNumberController,
+                  textInputAction: TextInputAction.next,
+                  keyboardType: TextInputType.phone,
+                  maxLength: 10,
+                  validator: (value) => FieldValidator().validateMobileNumber(value!),
+                  decoration: InputDecoration(
+                    focusedErrorBorder: const UnderlineInputBorder(
+                      borderSide: BorderSide(color: AppColors.darkOrangeColor),
+                    ),
+                    enabledBorder: const UnderlineInputBorder(
+                      borderSide: BorderSide(color: AppColors.grey500Color),
+                    ),
+                    focusedBorder: const UnderlineInputBorder(
+                      borderSide: BorderSide(color: AppColors.darkOrangeColor),
+                    ),
+                    isDense: true,
+                    counterText: '',
+                    hintText: AppMessages.phoneNumber,
+                    hintStyle: TextStyle(
+                      color: AppColors.grey500Color,
+                      fontSize: 14,
+                      fontFamily: FontFamilyText.sFProDisplayRegular,
                     ),
                   ),
                 ),
               ),
-            ]
-        ),
+            ],
+          ),
+
+          // New phone number
           Row(
             children: [
               Expanded(
                   flex: 25,
                   child: GestureDetector(
-                    //onTap: openBottomSheetModule,
+                    onTap: () => openBottomSheetModule(countrySelectedType: CountrySelectedType.newCountry),
                     child: Container(
                       decoration: const BoxDecoration(
-                        border:
-                        Border(
+                        border: Border(
                             bottom: BorderSide(color: AppColors.grey500Color)),
                       ),
-                      child: Text(
-                          personalInfoScreenController.countryCodeController
-                              .text).commonSymmetricPadding(vertical: 10),
+                      child: Text(personalInfoScreenController.newCountryCode.value)
+                          .commonSymmetricPadding(vertical: 10),
                     ),
-                  )
-              ),
+                  )),
               const SizedBox(width: 20),
               Expanded(
                 flex: 75,
                 child: Row(children: <Widget>[
-                  Expanded
-                    (child: TextFormField(
-                    cursorColor: AppColors.darkOrangeColor,
-                    controller: personalInfoScreenController
-                        .phoneNumberController,
-                    textInputAction: TextInputAction.next,
-                    keyboardType: TextInputType.phone,
-                    maxLength: 10,
-                    validator: (value) =>
-                        FieldValidator().validateMobileNumber(value!),
-                    decoration: InputDecoration(
-                      focusedErrorBorder: const UnderlineInputBorder(
-                        borderSide: BorderSide(color: AppColors
-                            .darkOrangeColor),
-                      ),
-                      enabledBorder: const UnderlineInputBorder(
-                        borderSide: BorderSide(color: AppColors.grey500Color),
-                      ),
-                      focusedBorder: const UnderlineInputBorder(
-                        borderSide: BorderSide(color: AppColors
-                            .darkOrangeColor),
-                      ),
-                      isDense: true,
-                      counterText: '',
-                      hintText: AppMessages.newPhoneNumber,
-                      hintStyle: TextStyle(
-                        color: AppColors.grey500Color,
-                        fontSize: 14,
-                        fontFamily: FontFamilyText.sFProDisplayRegular,
+                  Expanded(
+                    child: TextFormField(
+                      cursorColor: AppColors.darkOrangeColor,
+                      controller:
+                          personalInfoScreenController.newNumberTextFieldController,
+                      textInputAction: TextInputAction.next,
+                      keyboardType: TextInputType.phone,
+                      maxLength: 10,
+                      validator: (value) =>
+                          FieldValidator().validatePhoneNumber(value!),
+                      decoration: InputDecoration(
+                        focusedErrorBorder: const UnderlineInputBorder(
+                          borderSide:
+                              BorderSide(color: AppColors.darkOrangeColor),
+                        ),
+                        enabledBorder: const UnderlineInputBorder(
+                          borderSide: BorderSide(color: AppColors.grey500Color),
+                        ),
+                        focusedBorder: const UnderlineInputBorder(
+                          borderSide:
+                              BorderSide(color: AppColors.darkOrangeColor),
+                        ),
+                        isDense: true,
+                        counterText: '',
+                        hintText: AppMessages.newPhoneNumber,
+                        hintStyle: TextStyle(
+                          color: AppColors.grey500Color,
+                          fontSize: 14,
+                          fontFamily: FontFamilyText.sFProDisplayRegular,
+                        ),
                       ),
                     ),
-                  ),
                   ),
                 ]),
               )
             ],
-          )
-        ]);
+          ),
+        ],
+      ),
+    );
   }
 
-/*  void openBottomSheetModule() {
+  void openBottomSheetModule({required CountrySelectedType countrySelectedType}) {
     showModalBottomSheet(
         context: Get.context!,
         isDismissible: false,
@@ -160,8 +156,7 @@ class TextFiled1Module extends StatelessWidget {
                   children: [
                     Expanded(
                       child: TextField(
-                        controller: personalInfoScreenController
-                            .searchController,
+                        controller: personalInfoScreenController.searchController,
                         cursorColor: AppColors.darkOrangeColor,
                         onChanged: (value) {
                           personalInfoScreenController.isLoading(true);
@@ -187,8 +182,7 @@ class TextFiled1Module extends StatelessWidget {
                             BorderSide(color: AppColors.darkOrangeColor),
                           ),
                           enabledBorder: const UnderlineInputBorder(
-                            borderSide: BorderSide(
-                                color: AppColors.grey500Color),
+                            borderSide: BorderSide(color: AppColors.grey500Color),
                           ),
                           focusedBorder: const UnderlineInputBorder(
                             borderSide:
@@ -223,23 +217,18 @@ class TextFiled1Module extends StatelessWidget {
                 ).commonSymmetricPadding(horizontal: 8, vertical: 5),
                 Expanded(
                   child: Obx(
-                        () =>
-                    personalInfoScreenController.isLoading.value
+                        () => personalInfoScreenController.isLoading.value
                         ? Container()
                         : ListView.builder(
-                         itemCount: personalInfoScreenController
-                          .searchCountryCodeList.length,
-                         shrinkWrap: true,
-                          physics: const AlwaysScrollableScrollPhysics(),
-                         itemBuilder: (context, i) {
-                        // log("screenController.searchCountryCodeList.length, ${screenController.searchCountryCodeList.length}");
+                      itemCount: personalInfoScreenController.searchCountryCodeList.length,
+                      shrinkWrap: true,
+                      physics: const AlwaysScrollableScrollPhysics(),
+                      itemBuilder: (context, i) {
                         CountryData singleItem =
                         personalInfoScreenController.searchCountryCodeList[i];
                         return ListTile(
                           dense: true,
-                          onTap: () =>
-                              personalInfoScreenController
-                                  .onCountrySelectFunction(singleItem),
+                          onTap: () => personalInfoScreenController.onCountrySelectFunction(singleItem, countrySelectedType),
                           leading: Text(
                             "${singleItem.emoji}",
                             style: TextStyle(
@@ -255,6 +244,26 @@ class TextFiled1Module extends StatelessWidget {
                             ),
                           ),
                         );
+                        /*return GestureDetector(
+                                onTap: () {
+                                  personalInfoScreenController.isLoading(true);
+                                  personalInfoScreenController.countryCodeController.text =
+                                      "${singleItem.emoji} ${singleItem.dialCode} ${singleItem.code}";
+                                  personalInfoScreenController.selectCountryCodeValue = singleItem;
+                                  personalInfoScreenController.isLoading(false);
+                                  Get.back();
+                                  personalInfoScreenController.searchCountryCodeList =
+                                      personalInfoScreenController.countryCodeList;
+                                  personalInfoScreenController.searchController.clear();
+                                },
+                                child: Text(
+                                  "${singleItem.emoji} ${singleItem.dialCode} ${singleItem.code}",
+                                  style: TextStyle(
+                                    fontFamily:
+                                        FontFamilyText.sFProDisplayRegular,
+                                  ),
+                                ).commonSymmetricPadding(horizontal: 8, vertical: 10),
+                              );*/
                       },
                     ),
                   ),
@@ -263,7 +272,8 @@ class TextFiled1Module extends StatelessWidget {
             ),
           );
         });
-  }*/
+  }
+
 }
 
 

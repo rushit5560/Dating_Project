@@ -17,16 +17,8 @@ class VerifyYourAccountScreen extends StatelessWidget {
     return  Scaffold(
       backgroundColor: AppColors.whiteColor2,
       appBar: commonAppBarModule(text: AppMessages.verifyYourAccount),
-      bottomNavigationBar: ButtonCustom(
-        text: AppMessages.done,
-        shadowColor: AppColors.grey900Color,
-        onPressed: () {},
-        fontWeight: FontWeight.bold,
-        textsize: 18.sp,
-        textFontFamily: FontFamilyText.sFProDisplayHeavy,
-        textColor: AppColors.whiteColor2,
-        backgroundColor: AppColors.darkOrangeColor,
-      ).commonSymmetricPadding(vertical: 20,horizontal: 25),
+
+
       body: Column(
         children: [
           SizedBox(height: 3.h,),
@@ -35,6 +27,19 @@ class VerifyYourAccountScreen extends StatelessWidget {
           const VerifyAccountTextModule(),
         ],
       ),
+
+      bottomNavigationBar: ButtonCustom(
+        text: AppMessages.done,
+        shadowColor: AppColors.grey900Color,
+        onPressed: () async => await verifyYourAccountScreenController.doneButtonFunction(),
+        fontWeight: FontWeight.bold,
+        textsize: 14.sp,
+        textFontFamily: FontFamilyText.sFProDisplayBold,
+        textColor: AppColors.whiteColor2,
+        backgroundColor: AppColors.darkOrangeColor,
+      ).commonSymmetricPadding(vertical: 20,horizontal: 25),
+
+
     );
   }
 }

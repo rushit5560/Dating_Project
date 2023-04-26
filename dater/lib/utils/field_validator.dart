@@ -12,6 +12,17 @@ class FieldValidator {
     return null;
   }
 
+  String? validatePhoneNumber(String value) {
+    if (value.isEmpty) {
+      return 'Phone number is required.';
+    } else if (value.length < 8) {
+      return 'Enter at least 8 digit phone number.';
+    } else if (value == "00000000") {
+      return 'Please enter valid phone number.';
+    }
+    return null;
+  }
+
   String? validateName(String value) {
     if(value.isEmpty) {
       return "Please enter your name.";

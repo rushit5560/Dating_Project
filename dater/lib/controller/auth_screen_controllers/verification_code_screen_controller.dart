@@ -19,6 +19,7 @@ class VerifyCodeScreenController extends GetxController {
   String countryCode = Get.arguments[0] ?? "";
   String mobileNumber = Get.arguments[1] ?? "";
   AuthAs authAs = Get.arguments[2];
+  ComingFrom comingFrom = Get.arguments[3] ?? ComingFrom.registerScreen;
 
   RxBool isLoading = false.obs;
 
@@ -94,7 +95,12 @@ class VerifyCodeScreenController extends GetxController {
               value: true,
             );
 
-            Get.offAll(() => IndexScreen());
+            if(comingFrom == ComingFrom.changeNumberScreen) {
+              Get.back();
+              Get.back();
+            } else {
+              Get.offAll(() => IndexScreen());
+            }
           }
           else {
 
@@ -113,7 +119,12 @@ class VerifyCodeScreenController extends GetxController {
                 key: UserPreference.isUserLoggedInKey,
                 value: true,
               );
-              Get.offAll(() => IndexScreen());
+              if(comingFrom == ComingFrom.changeNumberScreen) {
+                Get.back();
+                Get.back();
+              } else {
+                Get.offAll(() => IndexScreen());
+              }
             }
           }
 

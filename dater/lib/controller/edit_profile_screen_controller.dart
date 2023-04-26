@@ -39,6 +39,7 @@ class EditProfileScreenController extends GetxController {
   String religion = "";
   String education = "";
   String starSign = "";
+  String gender = "";
   TextEditingController profilePromptsController = TextEditingController();
   TextEditingController myBioController = TextEditingController();
 
@@ -260,6 +261,7 @@ class EditProfileScreenController extends GetxController {
           religion = userDetails!.basic.religion;
           education = userDetails!.basic.education;
           starSign = userDetails!.starSign;
+          gender = userDetails!.basic.gender;
 
           if(loggedInUserDetailsModel.msg[0].prompts.isNotEmpty) {
             promptsList.addAll(loggedInUserDetailsModel.msg[0].prompts);
@@ -492,6 +494,11 @@ class EditProfileScreenController extends GetxController {
 
   Future<void> getStarSignValueFromPrefs() async {
     starSign = await userPreference.getStringFromPrefs(key: UserPreference.starSignKey);
+    loadUI();
+  }
+
+  Future<void> getMyBasicGenderValueFromPrefs() async {
+    gender = await userPreference.getStringFromPrefs(key: UserPreference.myBasicGenderValueKey);
     loadUI();
   }
 

@@ -59,14 +59,17 @@ import 'package:http/http.dart' as http;
 import '../../model/authentication_model/gender_select_screen_model/get_gender_model.dart';
 import '../../screens/authentication_screen/goal_select_screen/goal_select_screen.dart';
 import '../../utils/preferences/signup_preference.dart';
+import '../../utils/preferences/user_preference.dart';
 
 class GenderTargetScreenController extends GetxController {
   // RxString selectedvalue = "Female".obs;
   RxBool isLoading = false.obs;
   RxBool isSuccessStatus = false.obs;
+  String showMeGender = "";
 
   List<Msg> targetGenderList = [];
   Msg targetGenderSelectedValue = Msg(id: "1", name: "Female");
+  UserPreference userPreference = UserPreference();
 
   SignUpPreference signUpPreference = SignUpPreference();
 
@@ -80,7 +83,7 @@ class GenderTargetScreenController extends GetxController {
       http.Response response = await http.get(Uri.parse(url));
 
       GenderModel getTargetGenderModel =
-      GenderModel.fromJson(json.decode(response.body));
+          GenderModel.fromJson(json.decode(response.body));
 
       // isSuccessStatus =response.statusCode ;
 
@@ -88,7 +91,9 @@ class GenderTargetScreenController extends GetxController {
         log("response.statusCode: ${response.statusCode}");
         log("response.body: ${response.body}");
         targetGenderList = getTargetGenderModel.msg;
-        targetGenderList.isNotEmpty ? targetGenderSelectedValue = targetGenderList[0] : null;
+        targetGenderList.isNotEmpty
+            ? targetGenderSelectedValue = targetGenderList[0]
+            : null;
 
         // log("msgData: $msgData");
       } else {
@@ -116,9 +121,17 @@ class GenderTargetScreenController extends GetxController {
     Get.to(() => GoalSelectScreen());
   }
 
+  Future<void> gettargetgenderValueFromPrefs() async {
+    showMeGender = await userPreference.getStringFromPrefs(
+        key: SignUpPreference.isShowMeGenderKey);
+    isLoading(true);
+    isLoading(false);
+  }
+
   @override
   void onInit() {
     geGenderFunction();
+    gettargetgenderValueFromPrefs();
     super.onInit();
   }
 }

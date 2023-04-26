@@ -11,11 +11,12 @@ import '../../constants/messages.dart';
 import '../../controller/personal_info_screen_controller.dart';
 
 class PersonalInfoScreen extends StatelessWidget {
-   PersonalInfoScreen({Key? key}) : super(key: key);
-final personalInfoScreenController = Get.put(PersonalInfoScreenController());
+  PersonalInfoScreen({Key? key}) : super(key: key);
+  final personalInfoScreenController = Get.put(PersonalInfoScreenController());
+
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
+    return Scaffold(
       backgroundColor: AppColors.whiteColor2,
       appBar: commonAppBarModule(text: AppMessages.phoneNumber),
       bottomNavigationBar: ButtonCustom(
@@ -27,23 +28,24 @@ final personalInfoScreenController = Get.put(PersonalInfoScreenController());
         fontWeight: FontWeight.bold,
         textsize: 14.sp,
         onPressed: () async {
+          await personalInfoScreenController.nextButtonClickFunction();
           // await personalInfoScreenController.onContinueButtonClickFunction();
         },
-      ).commonSymmetricPadding(horizontal: 20,vertical: 15),
-      body: Obx(()=> personalInfoScreenController.isLoading.value
-         ? CustomLoader()
-         :SingleChildScrollView(
-          scrollDirection: Axis.vertical,
-          child: Column(
-            children: [
-              TextFiled1Module(),
-              SizedBox(height: 4.h),
-              TextCustomModule(),
-              SizedBox(height: 7.h),
-
-            ],
-          ).commonSymmetricPadding(horizontal: 25),
-        ),
+      ).commonSymmetricPadding(horizontal: 20, vertical: 15),
+      body: Obx(
+        () => personalInfoScreenController.isLoading.value
+            ? const CustomLoader()
+            : SingleChildScrollView(
+                scrollDirection: Axis.vertical,
+                child: Column(
+                  children: [
+                    TextFiled1Module(),
+                    SizedBox(height: 4.h),
+                    const TextCustomModule(),
+                    SizedBox(height: 7.h),
+                  ],
+                ).commonSymmetricPadding(horizontal: 25),
+              ),
       ),
     );
   }

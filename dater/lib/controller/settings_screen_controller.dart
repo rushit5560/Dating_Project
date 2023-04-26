@@ -19,6 +19,8 @@ class SettingsScreenController extends GetxController{
 
   RxString referralNumber = "".obs;
 
+
+  String showMeGender = "";
   UserPreference userPreference = UserPreference();
   SignUpPreference signUpPreference = SignUpPreference();
 
@@ -103,6 +105,13 @@ class SettingsScreenController extends GetxController{
       rethrow;
     }
     isLoading(false);
+  }
+ Future<void> gettargetgenderValueFromPrefs() async {
+    showMeGender = await userPreference.getStringFromPrefs(
+        key: SignUpPreference.isShowMeGenderKey);
+    isLoading(true);
+    isLoading(false);
+    log("showMeGender $showMeGender");
   }
 
   @override

@@ -21,36 +21,36 @@ class SettingsScreen extends StatelessWidget {
       backgroundColor: AppColors.whiteColor2,
       appBar: commonAppBarModule(text: AppMessages.settings),
       body: Obx(
-        ()=> settingsScreenController.isLoading.value
-        ? CustomLoader()
-        : SafeArea(
-          child: SingleChildScrollView(
-            scrollDirection: Axis.vertical,
-            child: Column(
-              children: [
-                SizedBox(height: 4.h),
-                ReferralNumberModule(),
-                SizedBox(height: 4.h),
-                const VerifyAccountModule(),
-                SizedBox(height: 2.h),
-                const PersonalInfoModule(),
-                SizedBox(height: 3.h),
-                const LocationModule(),
-                SizedBox(height: 3.h),
-                const ShowMeModule(),
-                SizedBox(height: 3.h),
-                const CookiePolicyModule(),
-                SizedBox(height: 3.5.h),
-                const TermsOfYouUseModule(),
-                SizedBox(height: 3.5.h),
-                const PrivacyPolicyModule(),
-                SizedBox(height: 3.5.h),
-                BothButtonModule(),
-                SizedBox(height: 4.h),
-              ],
-            ).commonSymmetricPadding(horizontal: 30),
-          ),
-        ),
+        () => settingsScreenController.isLoading.value
+            ? const CustomLoader()
+            : SafeArea(
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.vertical,
+                  child: Column(
+                    children: [
+                      SizedBox(height: 4.h),
+                      ReferralNumberModule(),
+                      SizedBox(height: 4.h),
+                      const VerifyAccountModule(),
+                      SizedBox(height: 2.h),
+                      const PersonalInfoModule(),
+                      SizedBox(height: 3.h),
+                      const LocationModule(),
+                      SizedBox(height: 3.h),
+                      ShowMeModule(),
+                      SizedBox(height: 3.h),
+                      const CookiePolicyModule(),
+                      SizedBox(height: 3.5.h),
+                      const TermsOfYouUseModule(),
+                      SizedBox(height: 3.5.h),
+                      const PrivacyPolicyModule(),
+                      SizedBox(height: 3.5.h),
+                      BothButtonModule(),
+                      SizedBox(height: 4.h),
+                    ],
+                  ).commonSymmetricPadding(horizontal: 30),
+                ),
+              ),
       ),
     );
   }
