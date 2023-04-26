@@ -30,6 +30,20 @@ class FieldValidator {
     return null;
   }
 
+  String? validateWorkTitle(String value) {
+    if(value.isEmpty) {
+      return "Please enter work title.";
+    }
+    return null;
+  }
+
+  String? validateWorkCompany(String value) {
+    if(value.isEmpty) {
+      return "Please enter company name.";
+    }
+    return null;
+  }
+
   String? validateEmail(String value) {
     String emailRegExp = r"[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?";
     if (value.isEmpty) {

@@ -154,7 +154,9 @@ class AppMessages {
   static String profilePrompts = "Profile Prompts";
   static String pickProfilePrompts = "Pick a Profile Prompt";
   static String pickProfilePromptsDescription = "It's the perfect opportunity to show a little more of your personality";
-
+  static String workHeaderText = "Work";
+  static String educationHeaderText = "Education";
+  static String lookingFor = "Looking for";
   // This is client token - don't remove it
   // static String token = "96e8451a018e5558d9af7979302cc85b";
   // static String token = "46848b9868ab080b9180fba089b04032"; //+619662298453
@@ -172,7 +174,7 @@ class AppMessages {
   static String targetGenderApiText = "target_gender";
   static String emailApiText = "email";
   static String profilePromptsApiText = "profile_prompts";
-  static String workApiText = "Work";
+  static String workApiText = "work";
   static String educationApiText = "education";
   static String homeTownApiText = "home_town";
   static String heightApiText = "height";

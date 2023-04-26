@@ -18,11 +18,15 @@ import '../../common_modules/custom_button.dart';
 import '../../constants/enums.dart';
 import '../../controller/edit_profile_screen_controller.dart';
 import '../../model/profile_screen_models/upload_image_model.dart';
+import '../my_basic_education_screen/my_basic_education_screen.dart';
 import '../my_basic_gender_screen/my_basic_gender_screen.dart';
+import '../my_basic_work_screen/my_basic_work_screen.dart';
 import '../politics_screen/politics_screen.dart';
 import '../profile_prompts_screens/profile_prompts_screen/profile_prompts_screen.dart';
 import '../religion_screen/religion_screen.dart';
 import '../star_sign_screen/star_sign_screen.dart';
+import '../looking_for_screen/looking_for_screen.dart';
+
 
 class ReorderableGridViewModule extends StatelessWidget {
   ReorderableGridViewModule({super.key});
@@ -351,16 +355,28 @@ class EditProfileScreenWidgets extends StatelessWidget {
         ),
         SizedBox(height: 2.h),
         MyBasicRowmodule(
-          gesOnTap: () {},
+          gesOnTap: () {
+            Get.to(()=> MyBasicWorkScreen(),
+            // arguments: [editProfileScreenController.work], //todo
+            )!.then((value) async {
+              await editProfileScreenController.getMyBasicWorkValueFromPrefs();
+            });
+          },
           image: AppImages.workImage,
           lableText: "Work",
-          text: "Add",
+          text: editProfileScreenController.work,
         ),
         MyBasicRowmodule(
-          gesOnTap: () {},
+          gesOnTap: () {
+            Get.to(()=> MyBasicEducationScreen(),
+              // arguments: [editProfileScreenController.education], //todo
+            )!.then((value) async {
+              await editProfileScreenController.getMyBasicEducationValueFromPrefs();
+            });
+          },
           image: AppImages.educationImage,
           lableText: "Education",
-          text: "Add",
+          text: editProfileScreenController.education,
         ),
         /*MyBasicRowmodule(
           gesOnTap: () {},
@@ -368,11 +384,13 @@ class EditProfileScreenWidgets extends StatelessWidget {
           lableText: "Coved dating",
           text: "Add",
         ),*/
+
+        // Gender Module
         MyBasicRowmodule(
           gesOnTap: () {
             Get.to(
               () => MyBasicGenderScreen(),
-              arguments: [editProfileScreenController.gender], //todo
+              arguments: [editProfileScreenController.gender],
             )!
                 .then((value) async {
               await editProfileScreenController
@@ -687,7 +705,11 @@ class EditProfileScreenWidgets extends StatelessWidget {
           text: editProfileScreenController.religion,
         ),
         MyBasicRowmodule(
-          gesOnTap: () {},
+          gesOnTap: () {
+            Get.to(
+                  () =>  LookingForScreen(),
+            );
+          },
           image: AppImages.lookingForImage,
           lableText: "Looking for",
           text: "Relationship",

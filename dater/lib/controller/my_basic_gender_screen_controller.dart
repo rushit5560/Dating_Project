@@ -109,6 +109,7 @@ class MyBasicGenderScreenController extends GetxController {
   }
 
   Future<void> initMethod() async {
+    log('genderValue : $genderValue');
     await getSexualityFunction();
   }
 }

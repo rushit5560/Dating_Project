@@ -40,6 +40,7 @@ class EditProfileScreenController extends GetxController {
   String education = "";
   String starSign = "";
   String gender = "";
+  String work = "";
   TextEditingController profilePromptsController = TextEditingController();
   TextEditingController myBioController = TextEditingController();
 
@@ -242,6 +243,7 @@ class EditProfileScreenController extends GetxController {
     try {
       String verifyToken = await userPreference.getStringFromPrefs(
           key: UserPreference.userVerifyTokenKey);
+      log('verifyToken :$verifyToken');
       var request = http.MultipartRequest('POST', Uri.parse(url));
       request.fields['token'] = verifyToken;
 
@@ -262,6 +264,7 @@ class EditProfileScreenController extends GetxController {
           education = userDetails!.basic.education;
           starSign = userDetails!.starSign;
           gender = userDetails!.basic.gender;
+          work = userDetails!.basic.work;
 
           if(loggedInUserDetailsModel.msg[0].prompts.isNotEmpty) {
             promptsList.addAll(loggedInUserDetailsModel.msg[0].prompts);
@@ -499,6 +502,15 @@ class EditProfileScreenController extends GetxController {
 
   Future<void> getMyBasicGenderValueFromPrefs() async {
     gender = await userPreference.getStringFromPrefs(key: UserPreference.myBasicGenderValueKey);
+    loadUI();
+  }
+  Future<void> getMyBasicWorkValueFromPrefs() async {
+    work = await userPreference.getStringFromPrefs(key: UserPreference.myBasicWorkValueKey);
+    loadUI();
+  }
+
+  Future<void> getMyBasicEducationValueFromPrefs() async {
+    education = await userPreference.getStringFromPrefs(key: UserPreference.myBasicEducationValueKey);
     loadUI();
   }
 
