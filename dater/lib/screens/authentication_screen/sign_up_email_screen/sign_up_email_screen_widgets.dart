@@ -15,6 +15,7 @@ import 'package:sizer/sizer.dart';
 import '../../../common_modules/custom_button.dart';
 import '../../../utils/field_validator.dart';
 import '../../../utils/preferences/signup_preference.dart';
+import '../username_screen/username_screen.dart';
 
 class SignUpEmailScreenWidgets extends StatelessWidget {
   SignUpEmailScreenWidgets({super.key});
@@ -79,7 +80,7 @@ class SignUpEmailScreenWidgets extends StatelessWidget {
           size: const Size(150, 0),
           textsize: 14.sp,
           onPressed: () {
-            Get.to(() => LocationScreen());
+            Get.to(() => UserNameScreen());
           },
         ),
         SizedBox(height: 2.h),

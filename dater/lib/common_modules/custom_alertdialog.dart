@@ -90,12 +90,12 @@ class CustomAlertDialog extends StatelessWidget {
           //     },
           //   ),
 
-          /*Radio(
+          Radio(
             activeColor: activeColor,
             value: value,
             groupValue: groupValue,
             onChanged: onChanged,
-          ),*/
+          ),
           Text(
             radioButtonText,
             style: TextStyleConfig.textStyle(

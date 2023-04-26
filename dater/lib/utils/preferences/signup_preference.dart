@@ -15,7 +15,10 @@ class SignUpPreference {
   static String targetGenderKey = "targetGenderKey"; // String
   static String userGoalKey = "userGoalKey"; // String
   static String userInterestKey = "userInterestKey"; // String
-  static String isUserFirstTimeKey = "isUserFirstTimeKey"; // bool - Show SignUp & SignIn Button
+  static String isUserFirstTimeKey =
+      "isUserFirstTimeKey"; // bool - Show SignUp & SignIn Button
+  static String isShowMeGenderKey = "isShowMeGenderKey"; // String
+  static String isShoeMeGenderKey = "isShoeMeGenderKey";
 
   Future<void> clearSignUpDataFromPrefs() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -47,17 +50,17 @@ class SignUpPreference {
 
     log("signUpEmailKey : ${prefs.getString(signUpEmailKey)}");
     log("signUpFNameKey : ${prefs.getString(signUpFNameKey)}");
-
-
   }
 
-  Future<void> setStringValueInPrefs({required String key, required String value}) async {
+  Future<void> setStringValueInPrefs(
+      {required String key, required String value}) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString(key, value);
     log('prefs value string value:${prefs.getString(key)}');
   }
 
-  Future<void> setListValueInPrefs({required String key, required List<String> value}) async {
+  Future<void> setListValueInPrefs(
+      {required String key, required List<String> value}) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setStringList(key, value);
     log('prefs list value :${prefs.getStringList(key)}');
@@ -69,7 +72,8 @@ class SignUpPreference {
     return value;
   }
 
-  Future<void> setBoolValueInPrefs({required String key, required bool value}) async {
+  Future<void> setBoolValueInPrefs(
+      {required String key, required bool value}) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setBool(key, value);
     log('prefs value bool val :${prefs.getBool(key)}');
@@ -81,5 +85,5 @@ class SignUpPreference {
     return value;
   }
 
-
+  updateUserProfileFunction({required String key, required String value}) {}
 }

@@ -17,28 +17,29 @@ class ShowMeGenderScreen extends StatelessWidget {
   final showMeGenderScreenController = Get.put(ShowMeGenderScreenController());
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
+    return Scaffold(
       backgroundColor: AppColors.whiteColor2,
       appBar: commonAppBarModule(text: AppMessages.showMe),
-        bottomNavigationBar: ButtonCustom(
-          text: "Done",
-          textFontFamily: FontFamilyText.sFProDisplayBold,
-          textsize: 15,
-          backgroundColor: AppColors.darkOrangeColor,
-          textColor: AppColors.whiteColor2,
-          onPressed: () async => await showMeGenderScreenController.doneButtonFunction(),
-        ).commonSymmetricPadding(horizontal: 20, vertical: 10),
-      body:  Obx(
-            () => showMeGenderScreenController.isLoading.value
+      bottomNavigationBar: ButtonCustom(
+        text: "Done",
+        textFontFamily: FontFamilyText.sFProDisplayBold,
+        textsize: 15,
+        backgroundColor: AppColors.darkOrangeColor,
+        textColor: AppColors.whiteColor2,
+        onPressed: () async =>
+            await showMeGenderScreenController.doneButtonFunction(),
+      ).commonSymmetricPadding(horizontal: 20, vertical: 10),
+      body: Obx(
+        () => showMeGenderScreenController.isLoading.value
             ? const CustomLoader()
             : SingleChildScrollView(
-            child: Column(
-            children: [
-              SizedBox(height: 2.h),
-              GenderRadioButtonModule(),
-            ],
-          ).commonSymmetricPadding(horizontal: 25, vertical: 10),
-        ),
+                child: Column(
+                  children: [
+                    SizedBox(height: 2.h),
+                    GenderRadioButtonModule(),
+                  ],
+                ).commonSymmetricPadding(horizontal: 25, vertical: 10),
+              ),
       ),
     );
   }
