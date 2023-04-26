@@ -375,7 +375,7 @@ class ShowMeModule extends StatelessWidget {
                     arguments: [screenController.showMeGender],
                   )!
                       .then((value) async {
-                    await screenController.gettargetgenderValueFromPrefs();
+                    await screenController.getTargetGenderValueFromPrefs();
                   });
                 },
                 icon: const Icon(

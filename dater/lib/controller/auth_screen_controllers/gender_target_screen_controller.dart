@@ -102,9 +102,10 @@ class GenderTargetScreenController extends GetxController {
     } catch (e) {
       log("geGenderFunction Error $e");
       rethrow;
-    } finally {
+    } /*finally {
       isLoading(false);
-    }
+    }*/
+    isLoading(false);
   }
 
   void radioButtonOnChangeFunction(Msg selectedValue) {
@@ -125,14 +126,18 @@ class GenderTargetScreenController extends GetxController {
     showMeGender = await userPreference.getStringFromPrefs(
         key: SignUpPreference.isShowMeGenderKey);
     log("showMeGender $showMeGender");
-    isLoading(true);
-    isLoading(false);
+    await geGenderFunction();
+    // isLoading(true);
+    // isLoading(false);
   }
 
   @override
   void onInit() {
-    geGenderFunction();
-    gettargetgenderValueFromPrefs();
+    initMethod();
     super.onInit();
+  }
+
+  Future<void> initMethod() async {
+    await gettargetgenderValueFromPrefs();
   }
 }

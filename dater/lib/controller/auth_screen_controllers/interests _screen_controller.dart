@@ -91,9 +91,10 @@ class InterestsScreenController extends GetxController {
 
   // Next Button Click Function
   Future<void> nextButtonClickFunction() async {
-    String selectedOptionIdString = "";
-    selectedOptionIdString = selectedOptionIdList.toString().substring(1, selectedOptionIdList.toString().length -1).replaceAll(" ", "");
-    log('selectedOptionIdString : $selectedOptionIdString');
+    // String selectedOptionIdString = "";
+    // selectedOptionIdString = selectedOptionIdList.toString().substring(1, selectedOptionIdList.toString().length -1).replaceAll(" ", "");
+    // log('selectedOptionIdString : $selectedOptionIdString');
+    Fluttertoast.showToast(msg: "Please wait!");
     for(int i=0; i < selectedOptionIdList.length; i++) {
       await saveInterestsFunction(selectedOptionIdList[i]);
     }

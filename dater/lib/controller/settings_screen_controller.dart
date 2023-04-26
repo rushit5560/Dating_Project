@@ -106,9 +106,9 @@ class SettingsScreenController extends GetxController{
     }
     isLoading(false);
   }
- Future<void> gettargetgenderValueFromPrefs() async {
+ Future<void> getTargetGenderValueFromPrefs() async {
     showMeGender = await userPreference.getStringFromPrefs(
-        key: SignUpPreference.isShowMeGenderKey);
+        key: UserPreference.myBasicGenderValueKey);
     isLoading(true);
     isLoading(false);
     log("showMeGender $showMeGender");

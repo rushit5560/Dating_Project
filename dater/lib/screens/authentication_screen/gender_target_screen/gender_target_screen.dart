@@ -14,6 +14,7 @@ import '../../../constants/font_family.dart';
 class GenderTargetScreen extends StatelessWidget {
   GenderTargetScreen({Key? key}) : super(key: key);
   final genderTargetScreenController = Get.put(GenderTargetScreenController());
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,7 +32,7 @@ class GenderTargetScreen extends StatelessWidget {
         () => genderTargetScreenController.isLoading.value
             ? const CustomLoader()
             : SingleChildScrollView(
-              child: Column(
+                child: Column(
                   children: [
                     GenderTargetRadioButtonModule(),
                     SizedBox(height: 6.h),
@@ -54,7 +55,7 @@ class GenderTargetScreen extends StatelessWidget {
                     const GenderTargetNotesModule(),
                   ],
                 ).commonSymmetricPadding(horizontal: 25, vertical: 10),
-            ),
+              ),
       ),
 
       bottomNavigationBar: ButtonCustom(
@@ -63,9 +64,9 @@ class GenderTargetScreen extends StatelessWidget {
         textsize: 15,
         backgroundColor: AppColors.darkOrangeColor,
         textColor: AppColors.whiteColor2,
-        onPressed: () async => await genderTargetScreenController.nextButtonFunction(),
+        onPressed: () async =>
+            await genderTargetScreenController.nextButtonFunction(),
       ).commonSymmetricPadding(horizontal: 20, vertical: 10),
-
     );
   }
 }
