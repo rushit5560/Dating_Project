@@ -23,7 +23,8 @@ class MyBasicEducationScreenController extends GetxController {
 
   Future<void> doneButtonClick() async {
     if(formKey.currentState!.validate()) {
-      String work = "${institutionFieldController.text.trim()} at ${graduationYearFieldController.text.trim()}";
+      // String work = "${institutionFieldController.text.trim()} at ${graduationYearFieldController.text.trim()}";
+      String work = institutionFieldController.text.trim();
       log('work :$work');
       await saveEducationFunction(
         key: AppMessages.educationApiText,

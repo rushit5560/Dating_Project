@@ -48,6 +48,7 @@ class ProfileScreenController extends GetxController {
   List<UserImages> userImages = [];
   List<UserImages> userSubImagesList = [];  // Remove first 3 index images other all images save in this list.
   List<String> languageList = [];
+  List<Prompt> promptsList = [];
 
   // Get User Profile
   Future<void> getUserDetailsFunction() async {
@@ -93,16 +94,23 @@ class ProfileScreenController extends GetxController {
           userReligion.value = loggedInUserDetailsModel.msg[0].basic.religion;
           userKids.value = loggedInUserDetailsModel.msg[0].basic.kids;
 
+          promptsList.clear();
+          if(loggedInUserDetailsModel.msg[0].prompts.isNotEmpty) {
+            promptsList.addAll(loggedInUserDetailsModel.msg[0].prompts);
+          }
+
           setBasicListFunction();
           await setInterestListFunction(
               loggedInUserDetailsModel.msg[0].interest);
 
           /// Set User Images in local list
+          userImages.clear();
           for (var element in loggedInUserDetailsModel.msg[0].images) {
             userImages.add(element);
           }
 
           // When userImage List Length more then 3
+          userSubImagesList.clear();
           if(userImages.length > 3) {
             for(int i = 3; i < userImages.length; i++) {
               userSubImagesList.add(userImages[i]);

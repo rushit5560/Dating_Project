@@ -126,50 +126,60 @@ class ProfileTextModule extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      children: [Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          IconButton(
-            onPressed: () => Get.to(()=> SettingsScreen()),
-            icon: const Icon(
-              Icons.settings_outlined,
-              color: AppColors.darkOrangeColor,
-              size: 30,
+      children: [
+        // Setting Button & Edit Button Module
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            IconButton(
+              onPressed: () => Get.to(() => SettingsScreen()),
+              icon: const Icon(
+                Icons.settings_outlined,
+                color: AppColors.darkOrangeColor,
+                size: 30,
+              ),
             ),
-          ),
-          RichText(
-            textAlign: TextAlign.center,
-            text: TextSpan(
-              children: [
-                TextSpan(
-                  text: '${screenController.userName.value},${screenController.userAge.value} ',
-                  style: TextStyleConfig.textStyle(
-                    textColor: AppColors.grey800Color,
-                    fontFamily: FontFamilyText.sFProDisplayRegular,
-                    fontSize: 14.sp,
+            RichText(
+              textAlign: TextAlign.center,
+              text: TextSpan(
+                children: [
+                  TextSpan(
+                    text:
+                        '${screenController.userName.value},${screenController.userAge.value} ',
+                    style: TextStyleConfig.textStyle(
+                      textColor: AppColors.grey800Color,
+                      fontFamily: FontFamilyText.sFProDisplayRegular,
+                      fontSize: 14.sp,
+                    ),
                   ),
-                ),
-                screenController.userVerified.value == "0"
-                    ? WidgetSpan(child: Container())
-                    : WidgetSpan(child: Image.asset(AppImages.rightImage))
-              ],
+                  screenController.userVerified.value == "0"
+                      ? WidgetSpan(child: Container())
+                      : WidgetSpan(child: Image.asset(AppImages.rightImage))
+                ],
+              ),
             ),
-          ),
-          IconButton(
-              onPressed: ()=> Get.to(()=>  EditProfileScreen(), arguments: [screenController.userDetails])!.then((value) async {
-                // await screenController.setDataInUserVariablesFunction();
-                screenController.clearOldUserDataFunction();
-                await screenController.getUserDetailsFunction();
-              }),
-              icon: const Icon(Icons.edit_outlined,color: AppColors.darkOrangeColor,size: 20,))
-        ],
-      ),
+            IconButton(
+                onPressed: () => Get.to(() => EditProfileScreen(),
+                            arguments: [screenController.userDetails])!
+                        .then((value) async {
+                      // await screenController.setDataInUserVariablesFunction();
+                      screenController.clearOldUserDataFunction();
+                      await screenController.getUserDetailsFunction();
+                    }),
+                icon: const Icon(
+                  Icons.edit_outlined,
+                  color: AppColors.darkOrangeColor,
+                  size: 20,
+                ))
+          ],
+        ),
+        // Work Module
         RichText(
           textAlign: TextAlign.center,
           text: TextSpan(
             children: [
               TextSpan(
-                text: 'Art Manager  ',
+                text: '${screenController.userWork.value} ',
                 style: TextStyleConfig.textStyle(
                   textColor: AppColors.grey800Color,
                   fontFamily: FontFamilyText.sFProDisplayRegular,
@@ -177,12 +187,12 @@ class ProfileTextModule extends StatelessWidget {
                 ),
               ),
               WidgetSpan(
-              child: Image.asset(
-                AppImages.location2Image,
-                height: 2.h,
+                child: Image.asset(
+                  AppImages.location2Image,
+                  height: 2.h,
+                ),
               ),
-            ),
-            TextSpan(
+              TextSpan(
                 text: ' ${screenController.userDetails!.distance}',
                 style: TextStyleConfig.textStyle(
                   textColor: AppColors.grey800Color,
@@ -194,12 +204,13 @@ class ProfileTextModule extends StatelessWidget {
           ),
         ),
         SizedBox(height: 2.h),
-        /*RichText(
+        screenController.promptsList.isNotEmpty
+        ? RichText(
           textAlign: TextAlign.center,
           text: TextSpan(
             children: [
               TextSpan(
-                text: screenController.userProfilePrompts.value,
+                text: "${screenController.promptsList[0].question}${screenController.promptsList[0].answer}",
                 style: TextStyleConfig.textStyle(
                   textColor: AppColors.grey800Color,
                   fontFamily: FontFamilyText.sFProDisplayRegular,
@@ -208,8 +219,8 @@ class ProfileTextModule extends StatelessWidget {
               ),
             ],
           ),
-        ),*/
-        // SizedBox(height: 1.h),
+        ) : Container(),
+        SizedBox(height: 2.h),
         RichText(
           textAlign: TextAlign.center,
           text: TextSpan(
@@ -233,10 +244,10 @@ class ProfileTextModule extends StatelessWidget {
             ],
           ),
         ),
-    ]);
+      ],
+    );
   }
 }
-
 
 class AboutMeAllModule extends StatelessWidget {
   AboutMeAllModule({Key? key}) : super(key: key);
@@ -261,6 +272,7 @@ class AboutMeAllModule extends StatelessWidget {
             borderRadius: const BorderRadius.all(Radius.circular(20))
           ),
         ),
+        // About Me Module
         SizedBox(height: 2.h),
         Text('About me',
           style: TextStyleConfig.textStyle(
@@ -273,12 +285,14 @@ class AboutMeAllModule extends StatelessWidget {
         SizedBox(height: 1.h),
         Text(screenController.userBio.value,
           style: TextStyleConfig.textStyle(
-            fontFamily: FontFamilyText.sFProDisplayBold,
-            textColor: AppColors.grey800Color,
+            fontFamily: FontFamilyText.sFProDisplayRegular,
+            textColor: AppColors.grey600Color,
             //fontWeight: FontWeight.w500,
             fontSize: 14.sp,
           ),
         ),
+
+        // My Basic Module
         SizedBox(height: 2.h),
         Text("Basics",
           style: TextStyleConfig.textStyle(
@@ -328,7 +342,9 @@ class AboutMeAllModule extends StatelessWidget {
             },
           ).toList(),
         ),
-        Text("Interests",
+        // Interest Module
+        Text(
+          "Interests",
           style: TextStyleConfig.textStyle(
             fontFamily: FontFamilyText.sFProDisplayBold,
             textColor: AppColors.grey800Color,
@@ -372,22 +388,7 @@ class AboutMeAllModule extends StatelessWidget {
           ).toList(),
         ),
         SizedBox(height: 2.h),
-        screenController.userImages.length < 3
-        ? Container()
-        : Container(
-          height: 50.h,
-          decoration:  BoxDecoration(
-              color: AppColors.grey500Color,
-              image:  DecorationImage(
-                image: NetworkImage(
-                  screenController.userImages[2].imageUrl,
-                ),
-                fit: BoxFit.cover,
-              ),
-              borderRadius: const BorderRadius.all(Radius.circular(20))
-          ),
-        ),
-        SizedBox(height: 2.h),
+        // Language Module
         Text("Languages I Known",
           style: TextStyleConfig.textStyle(
             fontFamily: FontFamilyText.sFProDisplayBold,
@@ -432,6 +433,82 @@ class AboutMeAllModule extends StatelessWidget {
             },
           ).toList(),
         ),
+
+        // User Image Module
+        SizedBox(height: 2.h),
+        screenController.userImages.length < 3
+        ? Container()
+        : Container(
+          height: 50.h,
+          decoration:  BoxDecoration(
+              color: AppColors.grey500Color,
+              image:  DecorationImage(
+                image: NetworkImage(
+                  screenController.userImages[2].imageUrl,
+                ),
+                fit: BoxFit.cover,
+              ),
+              borderRadius: const BorderRadius.all(Radius.circular(20))
+          ),
+        ),
+        // User Prompts Module
+        SizedBox(height: 2.h),
+        screenController.promptsList.length > 1
+            ? Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                      screenController.promptsList[1].question,
+                    style: TextStyleConfig.textStyle(
+                      fontFamily: FontFamilyText.sFProDisplaySemibold,
+                      textColor: AppColors.grey300Color,
+                      //fontWeight: FontWeight.w500,
+                      fontSize: 16.sp,
+                    ),
+                  ),
+                  SizedBox(height: 1.h),
+                  Container(
+                    width: Get.width,
+                    padding: const EdgeInsets.all(10),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(30),
+                      border: Border.all(
+                        color: AppColors.grey400Color,
+                        width: 1,
+                      ),
+                    ),
+                    child: Text(
+                      screenController.promptsList[1].answer,
+                      textAlign: TextAlign.center,
+                      style: TextStyleConfig.textStyle(
+                        fontFamily: FontFamilyText.sFProDisplaySemibold,
+                        textColor: AppColors.grey600Color,
+                        //fontWeight: FontWeight.w500,
+                        fontSize: 12.sp,
+                      ),
+                    ),
+                  ),
+                ],
+              )
+            /*RichText(
+                textAlign: TextAlign.center,
+                text: TextSpan(
+                  children: [
+                    TextSpan(
+                      text:
+                          "${screenController.promptsList[1].question}${screenController.promptsList[1].answer}",
+                      style: TextStyleConfig.textStyle(
+                        textColor: AppColors.grey800Color,
+                        fontFamily: FontFamilyText.sFProDisplayRegular,
+                        fontSize: 12.sp,
+                      ),
+                    ),
+                  ],
+                ),
+              )*/
+            : Container(),
+
+        // User Images Module
         SizedBox(height: 2.h),
         screenController.userImages.length < 4
         ? Container()
@@ -469,6 +546,7 @@ class AboutMeAllModule extends StatelessWidget {
               borderRadius: const BorderRadius.all(Radius.circular(20))
           ),
         ),*/
+        // User Location Module
         SizedBox(height: 2.h),
         Text("${screenController.userName}'s Location",
           style: TextStyleConfig.textStyle(
@@ -499,7 +577,7 @@ class AboutMeAllModule extends StatelessWidget {
         Wrap(
           spacing: 3.0,
           children: List.generate(
-            4,
+            2,
                 (int index) {
               return Transform(
                 transform: Matrix4.identity()..scale(0.9),
@@ -508,7 +586,7 @@ class AboutMeAllModule extends StatelessWidget {
                     backgroundImage: AssetImage(AppImages.ballImage),
                   ),
                   label: Text(
-                    'wfg',
+                    'Live in New South Wales',
                     style: TextStyleConfig.textStyle(
                       fontFamily: FontFamilyText.sFProDisplaySemibold,
                       textColor: AppColors.grey600Color,

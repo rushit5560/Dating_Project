@@ -49,5 +49,6 @@ class ApiUrl {
   static const getCommunityGuidelineApi = "${apiMainPath}api/get_community_guidelines";
   static const setVerifiedApi = "${apiMainPath}api/set_as_verified";
   static const changePhoneNumberApi = "${apiMainPath}api/change_phone_number";
+  static const setCoverImageApi = "${apiMainPath}api/set_cover_photo";
 
 }

@@ -32,7 +32,7 @@ class ProfileScreen extends StatelessWidget {
                   children: [
                     ProfileModule(),
                     ProfileTextModule(),
-                    SizedBox(height: 3.h),
+                    // SizedBox(height: 3.h),
                     AboutMeAllModule(),
                   ],
                 ).commonSymmetricPadding(horizontal: 10),

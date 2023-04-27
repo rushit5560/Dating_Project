@@ -26,6 +26,7 @@ class EditProfileScreen extends StatelessWidget {
             : SingleChildScrollView(
                 child: Column(
                   children: [
+                    ProfileStrengthModule(),
                     ReorderableGridViewModule(),
                     SizedBox(height: 2.h),
                     EditProfileScreenWidgets()

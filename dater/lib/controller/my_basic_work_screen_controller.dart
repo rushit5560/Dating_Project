@@ -23,7 +23,8 @@ class MyBasicWorkScreenController extends GetxController {
 
   Future<void> doneButtonClick() async {
     if(formKey.currentState!.validate()) {
-      String work = "${titleFieldController.text.trim()} at ${companyFieldController.text.trim()}";
+      // String work = "${titleFieldController.text.trim()} at ${companyFieldController.text.trim()}";
+      String work = titleFieldController.text.trim();
       log('work :$work');
       await saveWorkFunction(
         key: AppMessages.workApiText,

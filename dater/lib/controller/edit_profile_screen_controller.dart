@@ -15,6 +15,7 @@ import '../model/authentication_model/complete signup_screen_model/complete sign
 import '../model/profile_screen_models/delete_image_model.dart';
 import '../model/profile_screen_models/logged_in_user_details_model.dart';
 import '../model/profile_screen_models/upload_image_model.dart';
+import '../model/saved_data_model/saved_data_model.dart';
 import '../utils/preferences/user_preference.dart';
 
 class EditProfileScreenController extends GetxController {
@@ -96,6 +97,7 @@ class EditProfileScreenController extends GetxController {
 
         if (userPhotoUploadModel.statusCode == 200) {
           Fluttertoast.showToast(msg: userPhotoUploadModel.msg);
+          await getUserDetailsFunction();
         } else if (userPhotoUploadModel.statusCode == 400) {
           Fluttertoast.showToast(msg: userPhotoUploadModel.msg);
         } else {
@@ -266,10 +268,12 @@ class EditProfileScreenController extends GetxController {
           gender = userDetails!.basic.gender;
           work = userDetails!.basic.work;
 
+          promptsList.clear();
           if(loggedInUserDetailsModel.msg[0].prompts.isNotEmpty) {
             promptsList.addAll(loggedInUserDetailsModel.msg[0].prompts);
           }
 
+          captureImageList.clear();
           /// Set User Network Images
           for (var value in userDetails!.images) {
             captureImageList.add(UploadUserImage(
@@ -415,6 +419,46 @@ class EditProfileScreenController extends GetxController {
       rethrow;
     }
 
+  }
+
+  /// Set Cover Image Function
+  Future<void> setUserCoverImageFunction(String imageId) async {
+    isLoading(true);
+    String url = ApiUrl.setCoverImageApi;
+    log('setUserCoverImageFunction Api Url : $url');
+
+    try {
+      String verifyToken = await userPreference.getStringFromPrefs(
+          key: UserPreference.userVerifyTokenKey);
+      var request = http.MultipartRequest('POST', Uri.parse(url));
+      request.fields['token'] = verifyToken;
+      request.fields['image_id'] = imageId;
+
+      log('setUserCoverImageFunction Request Field : ${request.fields}');
+      var response = await request.send();
+
+      response.stream.transform(utf8.decoder).listen((value1) async {
+        log('setUserCoverImageFunction value1 : $value1');
+
+        SavedDataModel savedDataModel = SavedDataModel.fromJson(json.decode(value1));
+        successStatus.value = savedDataModel.statusCode;
+
+        if(successStatus.value == 200) {
+          Fluttertoast.showToast(msg: savedDataModel.msg);
+          //todo
+          await getUserDetailsFunction();
+        } else {
+          log('setUserCoverImageFunction Else');
+        }
+
+      });
+
+    } catch(e) {
+      log('setUserCoverImageFunction Error :$e');
+      rethrow;
+    }
+    Get.back();
+    isLoading(false);
   }
 
   @override
