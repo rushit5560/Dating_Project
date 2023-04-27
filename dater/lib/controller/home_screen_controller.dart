@@ -89,7 +89,6 @@ class HomeScreenController extends GetxController {
     await userPreference.setBoolValueInPrefs(
         key: UserPreference.isragatherInKey, value: selected.value);
     log("selected.value: ${selected.value}");
-
     await getUserSuggestionsFunction();
   }
 

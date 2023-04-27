@@ -176,14 +176,7 @@ class CardSwipeModule extends StatelessWidget {
                       if (homeScreenController.selectedSuperLove.value ==
                           true) {
                         await homeScreenController.undestandSuperLoveFunction();
-                        // await homeScreenController.
-
-                        // superLoveProfileFunction(
-                        //   likedId:
-                        //       "${homeScreenController.singlePersonData.id}",
-                        //   likeType: LikeType.super_love,
-                        //   swipeCard: false,
-                        // );
+                     
                       } else if (homeScreenController.selectedSuperLove.value ==
                           false) {
                         showDialog(

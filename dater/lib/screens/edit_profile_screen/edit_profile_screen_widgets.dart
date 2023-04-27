@@ -27,7 +27,6 @@ import '../religion_screen/religion_screen.dart';
 import '../star_sign_screen/star_sign_screen.dart';
 import '../looking_for_screen/looking_for_screen.dart';
 
-
 class ReorderableGridViewModule extends StatelessWidget {
   ReorderableGridViewModule({super.key});
   final editProfileScreenController = Get.find<EditProfileScreenController>();
@@ -89,7 +88,7 @@ class ReorderableGridViewModule extends StatelessWidget {
                           onTap: () =>
                               editProfileScreenController.getImageFromGallery(),
                           child: Stack(
-                            alignment: Alignment.bottomRight,
+                            alignment: Alignment.topRight,
                             children: [
                               editProfileScreenController.captureImageList[i]
                                           .isImageFromNetwork ==
@@ -123,29 +122,74 @@ class ReorderableGridViewModule extends StatelessWidget {
                                       ),
                                     ),
                               GestureDetector(
-                                onTap: () async {
-                                  /// If image from network then call api
-                                  if (editProfileScreenController
-                                          .captureImageList[i].id !=
-                                      "") {
-                                    await editProfileScreenController
-                                        .deleteUserImagesFunction(
-                                      id: editProfileScreenController
-                                          .captureImageList[i].id,
-                                      index: i,
+                                  onTap: () {
+                                    showDialog(
+                                      barrierDismissible: false,
+                                      context: context,
+                                      builder: (context) {
+                                        return AlertDialog(
+                                          shape: const RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.all(
+                                              Radius.circular(20),
+                                            ),
+                                          ),
+                                          elevation: 50,
+                                          actions: [
+                                            SizedBox(height: 2.h),
+                                            ButtonCustom(
+                                              backgroundColor:
+                                                  AppColors.lightOrangeColor,
+                                              textColor: AppColors.whiteColor,
+                                              textFontFamily: FontFamilyText
+                                                  .sFProDisplayBold,
+                                              textsize: 12.sp,
+                                              onPressed: () {},
+                                              text: "Make as cover",
+                                            ).commonSymmetricPadding(
+                                                horizontal: 30),
+                                            SizedBox(height: 2.h),
+                                            ButtonCustom(
+                                              backgroundColor:
+                                                  AppColors.lightOrangeColor,
+                                              textColor: AppColors.whiteColor,
+                                              textFontFamily: FontFamilyText
+                                                  .sFProDisplayBold,
+                                              textsize: 12.sp,
+                                              onPressed: () async {
+                                                // If image from network then call api
+                                                if (editProfileScreenController
+                                                        .captureImageList[i]
+                                                        .id !=
+                                                    "") {
+                                                  await editProfileScreenController
+                                                      .deleteUserImagesFunction(
+                                                    id: editProfileScreenController
+                                                        .captureImageList[i].id,
+                                                    index: i,
+                                                  );
+                                                  Get.back();
+                                                } else {
+                                                  /// Local image remove only from local ist only
+                                                  editProfileScreenController
+                                                      .deleteUserImageFunction(
+                                                          i);
+                                                  Get.back();
+                                                }
+                                              },
+                                              text: "Delete",
+                                            ).commonSymmetricPadding(
+                                                horizontal: 30),
+                                            SizedBox(height: 2.h),
+                                          ],
+                                        );
+                                      },
                                     );
-                                  } else {
-                                    /// Local image remove only from local ist only
-                                    editProfileScreenController
-                                        .deleteUserImageFunction(i);
-                                  }
-                                },
-                                child: Image.asset(
-                                  AppImages.cancel2,
-                                  height: 20,
-                                  width: 20,
-                                ).commonOnlyPadding(bottom: 10, right: 10),
-                              ),
+                                  },
+                                  child: const Icon(
+                                    Icons.more_vert_sharp,
+                                    color: AppColors.blackColor,
+                                    size: 30,
+                                  )).commonOnlyPadding(top: 10),
                             ],
                           ),
                         ),
@@ -356,9 +400,11 @@ class EditProfileScreenWidgets extends StatelessWidget {
         SizedBox(height: 2.h),
         MyBasicRowmodule(
           gesOnTap: () {
-            Get.to(()=> MyBasicWorkScreen(),
-            // arguments: [editProfileScreenController.work], //todo
-            )!.then((value) async {
+            Get.to(
+              () => MyBasicWorkScreen(),
+              // arguments: [editProfileScreenController.work], //todo
+            )!
+                .then((value) async {
               await editProfileScreenController.getMyBasicWorkValueFromPrefs();
             });
           },
@@ -368,10 +414,13 @@ class EditProfileScreenWidgets extends StatelessWidget {
         ),
         MyBasicRowmodule(
           gesOnTap: () {
-            Get.to(()=> MyBasicEducationScreen(),
+            Get.to(
+              () => MyBasicEducationScreen(),
               // arguments: [editProfileScreenController.education], //todo
-            )!.then((value) async {
-              await editProfileScreenController.getMyBasicEducationValueFromPrefs();
+            )!
+                .then((value) async {
+              await editProfileScreenController
+                  .getMyBasicEducationValueFromPrefs();
             });
           },
           image: AppImages.educationImage,
@@ -707,7 +756,7 @@ class EditProfileScreenWidgets extends StatelessWidget {
         MyBasicRowmodule(
           gesOnTap: () {
             Get.to(
-                  () =>  LookingForScreen(),
+              () => LookingForScreen(),
             );
           },
           image: AppImages.lookingForImage,
