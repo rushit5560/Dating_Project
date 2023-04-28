@@ -176,7 +176,6 @@ class CardSwipeModule extends StatelessWidget {
                       if (homeScreenController.selectedSuperLove.value ==
                           true) {
                         await homeScreenController.undestandSuperLoveFunction();
-                     
                       } else if (homeScreenController.selectedSuperLove.value ==
                           false) {
                         showDialog(
@@ -307,7 +306,7 @@ class CardSwipeModule extends StatelessWidget {
               RichText(
                 text: TextSpan(
                   text:
-                      '${homeScreenController.singlePersonData.name}, ${homeScreenController.singlePersonData.age}',
+                      '${homeScreenController.name.value}, ${homeScreenController.age.value}',
                   style: TextStyleConfig.textStyle(
                     textColor: AppColors.grey800Color,
                     fontSize: 18.sp,
@@ -347,7 +346,7 @@ class CardSwipeModule extends StatelessWidget {
                 text: TextSpan(
                   children: [
                     TextSpan(
-                      text: "Art Manager ",
+                      text: "${homeScreenController.work.value} ",
                       style: TextStyleConfig.textStyle(
                         textColor: AppColors.grey600Color,
                         fontSize: 16,
@@ -486,7 +485,7 @@ class BasicInFormationModule extends StatelessWidget {
                     ),
                   ).commonOnlyPadding(left: 2),
                   label: Text(
-                    "smoking",
+                    homeScreenController.basicList[index].name,
                     style: TextStyleConfig.textStyle(
                       fontFamily: FontFamilyText.sFProDisplaySemibold,
                       textColor: AppColors.grey600Color,

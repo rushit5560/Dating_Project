@@ -25,20 +25,20 @@ class HomeScreenController extends GetxController {
   RxBool selectedSuperLove = false.obs;
 
   String selectedVal = "";
-  String name = '';
-  String age = '';
-  String profilePrompts = '';
-  String selectedVlu = '';
-  String gender = '';
-  String work = '';
-  String education = '';
-  String height = '';
-  String exercise = '';
-  String smoking = '';
-  String drinking = '';
-  String politics = '';
-  String religion = '';
-  String kids = '';
+  RxString name = ''.obs;
+  RxString age = ''.obs;
+  RxString profilePrompts = ''.obs;
+  RxString selectedVlu = ''.obs;
+  RxString gender = ''.obs;
+  RxString work = ''.obs;
+  RxString education = ''.obs;
+  RxString height = ''.obs;
+  RxString exercise = ''.obs;
+  RxString smoking = ''.obs;
+  RxString drinking = ''.obs;
+  RxString politics = ''.obs;
+  RxString religion = ''.obs;
+  RxString kids = ''.obs;
   List<SuggestionData> suggestionList = [];
   SuggestionData singlePersonData = SuggestionData();
   UserPreference userPreference = UserPreference();
@@ -156,17 +156,23 @@ class HomeScreenController extends GetxController {
 
   /// Set Basic Details
   setBasicListFunction() {
-    basicList.add(BasicModel(image: AppImages.genderImage, name: gender));
-    basicList.add(BasicModel(image: AppImages.workImage, name: work));
-    basicList.add(BasicModel(image: AppImages.educationImage, name: education));
-    basicList.add(BasicModel(image: AppImages.heightImage, name: height));
-    basicList.add(BasicModel(image: AppImages.exerciseImage, name: exercise));
-    basicList.add(BasicModel(image: AppImages.smokingImage, name: smoking));
+    basicList.add(BasicModel(image: AppImages.genderImage, name: gender.value));
+    basicList.add(BasicModel(image: AppImages.workImage, name: work.value));
+    basicList.add(
+        BasicModel(image: AppImages.educationImage, name: education.value));
+    basicList.add(BasicModel(image: AppImages.heightImage, name: height.value));
+    basicList
+        .add(BasicModel(image: AppImages.exerciseImage, name: exercise.value));
+    basicList
+        .add(BasicModel(image: AppImages.smokingImage, name: smoking.value));
 
-    basicList.add(BasicModel(image: AppImages.drinkingImage, name: drinking));
-    basicList.add(BasicModel(image: AppImages.politicsImage, name: politics));
-    basicList.add(BasicModel(image: AppImages.refreshImage, name: religion));
-    basicList.add(BasicModel(image: AppImages.kidsImage, name: kids));
+    basicList
+        .add(BasicModel(image: AppImages.drinkingImage, name: drinking.value));
+    basicList
+        .add(BasicModel(image: AppImages.politicsImage, name: politics.value));
+    basicList
+        .add(BasicModel(image: AppImages.refreshImage, name: religion.value));
+    basicList.add(BasicModel(image: AppImages.kidsImage, name: kids.value));
   }
 
   /*/// Like   function
@@ -306,19 +312,19 @@ class HomeScreenController extends GetxController {
 
   /// When swipe complete that time user data change
   setChangedUserData() {
-    name = suggestionList[0].name.toString();
-    age = suggestionList[0].age.toString();
-    profilePrompts = suggestionList[0].profilePrompts.toString();
-    work = suggestionList[0].basic!.work;
-    gender = suggestionList[0].basic!.gender;
-    education = suggestionList[0].basic!.education;
-    height = suggestionList[0].basic!.height;
-    exercise = suggestionList[0].basic!.exercise;
-    smoking = suggestionList[0].basic!.smoking;
-    drinking = suggestionList[0].basic!.drinking;
-    politics = suggestionList[0].basic!.politics;
-    religion = suggestionList[0].basic!.religion;
-    kids = suggestionList[0].basic!.kids;
+    name = suggestionList[0].name.toString().obs;
+    age = suggestionList[0].age.toString().obs;
+    profilePrompts = suggestionList[0].profilePrompts.toString().obs;
+    work = suggestionList[0].basic!.work.obs;
+    gender = suggestionList[0].basic!.gender.obs;
+    education = suggestionList[0].basic!.education.obs;
+    height = suggestionList[0].basic!.height.obs;
+    exercise = suggestionList[0].basic!.exercise.obs;
+    smoking = suggestionList[0].basic!.smoking.obs;
+    drinking = suggestionList[0].basic!.drinking.obs;
+    politics = suggestionList[0].basic!.politics.obs;
+    religion = suggestionList[0].basic!.religion.obs;
+    kids = suggestionList[0].basic!.kids.obs;
     basicList.clear();
     setBasicListFunction();
   }

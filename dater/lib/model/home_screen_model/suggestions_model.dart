@@ -190,7 +190,8 @@ class SuggestionListModel {
   factory SuggestionListModel.fromJson(Map<String, dynamic> json) =>
       SuggestionListModel(
         response: json["response"] ?? "",
-        msg: List<SuggestionData>.from((json["msg"] ?? []).map((x) => SuggestionData.fromJson(x ?? {}))),
+        msg: List<SuggestionData>.from(
+            (json["msg"] ?? []).map((x) => SuggestionData.fromJson(x ?? {}))),
         statusCode: json["status_code"] ?? 0,
       );
 
@@ -236,16 +237,17 @@ class SuggestionData {
 
   factory SuggestionData.fromJson(Map<String, dynamic> json) => SuggestionData(
         id: json["id"] ?? "",
-        name: json["name"] ?? "Eliza Willams",
+        name: json["name"] ?? "",
         sexualityGet: json["sexuality_get"] ?? "",
         targetGenderGet: json["target_gender_get"] ?? "",
         profilePrompts:
             json["profile_prompts"] ?? "Life is simple Don't overthink it",
         bio: json["bio"] ?? "",
         homeTown: json["home_town"] ?? "",
-        languages: List<String>.from((json["languages"] ?? []).map((x) => x ?? "")),
+        languages:
+            List<String>.from((json["languages"] ?? []).map((x) => x ?? "")),
         verified: json["verified"] ?? "",
-        distance: json["distance"] ?? "Your location not found",
+        distance: json["distance"] ?? "",
         age: json["age"].toString().toLowerCase() ==
                     "Age is not available".toLowerCase() ||
                 json["age"] == null
