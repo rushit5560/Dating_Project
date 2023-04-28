@@ -745,7 +745,7 @@ class EditProfileScreenWidgets extends StatelessWidget {
             ),
           ),
           child: Wrap(
-            spacing: 3.0,
+            // spacing: 3.0,
             children: List.generate(
               editProfileScreenController.interestList.length,
               (int index) {
@@ -827,7 +827,7 @@ class EditProfileScreenWidgets extends StatelessWidget {
               ),
             ),
             child: Wrap(
-              spacing: 3.0,
+              // spacing: 3.0,
               children: List.generate(
                 editProfileScreenController.languageList.length,
                     (int index) {

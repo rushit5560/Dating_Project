@@ -304,7 +304,7 @@ class AboutMeAllModule extends StatelessWidget {
         ),
         SizedBox(height: 2.h),
         Wrap(
-          spacing: 3.0,
+          // spacing: 3.0,
           children: List.generate(
             screenController.basicList.length,
                 (int index) {
@@ -337,7 +337,7 @@ class AboutMeAllModule extends StatelessWidget {
                   ),
                   onSelected: (bool value) {},
                 ),
-              ).commonSymmetricPadding(horizontal: 10)
+              ).commonSymmetricPadding(horizontal: 5)
               : Container();
             },
           ).toList(),
@@ -354,7 +354,7 @@ class AboutMeAllModule extends StatelessWidget {
         ),
         SizedBox(height: 2.h),
         Wrap(
-          spacing: 3.0,
+          // spacing: 3.0,
           children: List.generate(
             screenController.interestList.length,
                 (int index) {
@@ -383,7 +383,7 @@ class AboutMeAllModule extends StatelessWidget {
                   ),
                   onSelected: (bool value) {},
                 ),
-              ).commonSymmetricPadding(horizontal: 10);
+              ).commonSymmetricPadding(horizontal: 5);
             },
           ).toList(),
         ),
@@ -399,7 +399,7 @@ class AboutMeAllModule extends StatelessWidget {
         ),
         SizedBox(height: 2.h),
         Wrap(
-          spacing: 3.0,
+          // spacing: 1.0,
           children: List.generate(
             screenController.languageList.length,
                 (int index) {
@@ -429,7 +429,7 @@ class AboutMeAllModule extends StatelessWidget {
                   ),
                   onSelected: (bool value) {},
                 ),
-              ).commonSymmetricPadding(horizontal: 10);
+              ).commonSymmetricPadding(horizontal: 5);
             },
           ).toList(),
         ),
@@ -575,7 +575,7 @@ class AboutMeAllModule extends StatelessWidget {
         ),
         SizedBox(height: 2.h),
         Wrap(
-          spacing: 3.0,
+          // spacing: 2.0,
           children: List.generate(
             2,
                 (int index) {
@@ -604,7 +604,7 @@ class AboutMeAllModule extends StatelessWidget {
                   ),
                   onSelected: (bool value) {},
                 ),
-              ).commonSymmetricPadding(horizontal: 10);
+              ).commonSymmetricPadding(horizontal: 5);
             },
           ).toList(),
         ),
