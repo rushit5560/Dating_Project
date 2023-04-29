@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:developer';
-
 import 'package:dater/constants/api_url.dart';
 import 'package:dater/utils/preferences/signup_preference.dart';
 import 'package:dater/utils/preferences/user_preference.dart';
@@ -8,10 +7,11 @@ import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
-import '../constants/messages.dart';
 import '../model/settings_screen_models/delete_account_model.dart';
 import '../model/settings_screen_models/referral_model.dart';
 import '../screens/authentication_screen/login_screen/login_screen.dart';
+
+
 
 class SettingsScreenController extends GetxController {
   RxBool isLoading = false.obs;
@@ -109,8 +109,9 @@ class SettingsScreenController extends GetxController {
   }
 
   Future<void> getShowMeGenderValueFromPrefs() async {
+    //todo
     showMeGender = await userPreference.getStringFromPrefs(
-        key: UserPreference.isShoeMeGenderKey);
+        key: UserPreference.isShowMeGenderKey);
     isLoading(true);
     isLoading(false);
     log("showMeGender $showMeGender");

@@ -265,6 +265,7 @@ class HomeScreenController extends GetxController {
           // singlePersonData = suggestionList[0];
           setChangedUserData();
         } else {
+          suggestionList.clear();
           suggestionList = [];
         }
 
@@ -297,6 +298,7 @@ class HomeScreenController extends GetxController {
             // singlePersonData = suggestionList[0];
             setChangedUserData();
           } else {
+            suggestionList.clear();
             suggestionList = [];
           }
         }

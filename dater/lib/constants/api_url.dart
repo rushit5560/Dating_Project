@@ -9,6 +9,7 @@ class ApiUrl {
   static const getGenderApi = "${apiMainPath}api/get_genders";
   static const getGoalApi = "${apiMainPath}api/get_goals";
   static const getSexualityApi = "${apiMainPath}api/get_sexuality";
+  static const getTargetGenderApi = "${apiMainPath}api/get_target_gender";
 
   static const getInterestsApi = "${apiMainPath}api/get_interests";
   static const saveInterestsApi = "${apiMainPath}api/set_interest";

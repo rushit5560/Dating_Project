@@ -30,7 +30,7 @@ class ShowMeGenderScreenController extends GetxController {
 
   Future<void> getGenderFunction() async {
     isLoading(true);
-    String url = ApiUrl.getGenderApi;
+    String url = ApiUrl.getTargetGenderApi;
     log("geGenderFunction get url: $url");
 
     try {
@@ -88,7 +88,7 @@ class ShowMeGenderScreenController extends GetxController {
         if (successStatus.value == 200) {
           log('Update User Profile Success : $key & $value');
           await userPreference.setStringValueInPrefs(
-            key: UserPreference.isShoeMeGenderKey,
+            key: UserPreference.isShowMeGenderKey,
             value: selectedGenderValue.name,
           );
           Get.back();

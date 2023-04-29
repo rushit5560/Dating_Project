@@ -41,7 +41,7 @@ class UserPreference {
   static String myBasicGenderValueKey = "myBasicGenderValueKey";
   static String listOfImageKey = "listOfImageKey";
   static String listOfLanguageKey = "listOfLanguageKey";
-  static String isShoeMeGenderKey = "isShoeMeGenderKey";
+  static String isShowMeGenderKey = "isShowMeGenderKey";
   static String myBasicWorkValueKey = "myBasicWorkValueKey";
   static String myBasicEducationValueKey = "myBasicEducationValueKey";
 

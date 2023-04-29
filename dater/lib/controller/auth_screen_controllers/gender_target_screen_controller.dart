@@ -76,7 +76,7 @@ class GenderTargetScreenController extends GetxController {
   Future<void> geGenderFunction() async {
     isLoading(true);
 
-    String url = ApiUrl.getGenderApi;
+    String url = ApiUrl.getTargetGenderApi;
     log("geGenderFunction get url: $url");
 
     try {
@@ -119,6 +119,7 @@ class GenderTargetScreenController extends GetxController {
       key: SignUpPreference.targetGenderKey,
       value: targetGenderSelectedValue.id,
     );
+    await userPreference.setStringValueInPrefs(key: UserPreference.isShowMeGenderKey, value: targetGenderSelectedValue.name);
     Get.to(() => GoalSelectScreen());
   }
 
