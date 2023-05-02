@@ -132,7 +132,7 @@ class AppMessages {
   static String basics = "Basics";
   static String interests = "Interests";
   static String languagesIKnow = "Languages I know";
-  static String locationText = "Eliza's Location";
+  static String locationText = "'s Location";
   static String chat = "Chat";
   static String typeAMessage = "Type a message";
   static String locationPermission = "Apply location permission";

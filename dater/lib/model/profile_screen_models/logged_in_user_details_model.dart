@@ -49,6 +49,8 @@ class UserDetails {
     required this.interest,
     required this.basic,
     required this.prompts,
+    required this.percentage,
+
   });
 
   String id;
@@ -66,6 +68,7 @@ class UserDetails {
   List<Interest> interest;
   Basic basic;
   List<Prompt> prompts;
+  int percentage;
 
   factory UserDetails.fromJson(Map<String, dynamic> json) => UserDetails(
     id: json["id"] ?? "",
@@ -83,6 +86,7 @@ class UserDetails {
     interest: List<Interest>.from((json["interest"] ?? []).map((x) => Interest.fromJson(x ?? {}))),
     basic: Basic.fromJson(json["basic"] ?? {}),
     prompts: List<Prompt>.from((json["prompts"] ?? []).map((x) => Prompt.fromJson(x ?? {}))),
+    percentage: json["percentage"] ?? 0,
   );
 
   Map<String, dynamic> toJson() => {
@@ -100,6 +104,7 @@ class UserDetails {
     "interest": List<dynamic>.from(interest.map((x) => x.toJson())),
     "basic": basic.toJson(),
     "prompts": List<dynamic>.from(prompts.map((x) => x.toJson())),
+    "percentage": percentage,
   };
 }
 

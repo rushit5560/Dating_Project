@@ -39,7 +39,7 @@ class HomeScreen extends StatelessWidget {
                               onTap: () {
                                 if (homeScreenController.selected.value ==
                                     true) {
-                                  homeScreenController.undestandFunction();
+                                  homeScreenController.understandFunction();
                                 } else if (homeScreenController
                                         .selected.value ==
                                     false) {
@@ -85,7 +85,7 @@ class HomeScreen extends StatelessWidget {
                                                     log("11");
 
                                                     await homeScreenController
-                                                        .undestandFunction();
+                                                        .understandFunction();
                                                     Get.back();
                                                     log("22");
                                                   },

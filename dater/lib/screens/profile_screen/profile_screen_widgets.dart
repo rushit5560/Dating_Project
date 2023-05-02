@@ -45,7 +45,7 @@ class ProfileModule extends StatelessWidget {
                             ),
                             pointers: <GaugePointer>[
                               RangePointer(
-                                  value: profileScreenController.progressValue,
+                                  value: profileScreenController.userPercentage.value,
                                   width: 0.06,
                                   color: AppColors.darkOrangeColor,
                                   sizeUnit: GaugeSizeUnit.factor,
@@ -104,7 +104,7 @@ class ProfileModule extends StatelessWidget {
                           )]
                     ),
                     child: Text(
-                      '${profileScreenController.progressValue.toStringAsFixed(0)}%',
+                      '${profileScreenController.userPercentage.value.toStringAsFixed(0)}%',
                       style: TextStyle(
                         fontFamily: FontFamilyText.sFProDisplaySemibold,
                         fontSize: 11,

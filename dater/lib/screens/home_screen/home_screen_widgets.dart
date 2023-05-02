@@ -61,53 +61,82 @@ class CardSwipeModule extends StatelessWidget {
                       swipeAnchor: SwipeAnchor.bottom,
                       cancelAnimationCurve: Curves.bounceIn,
                       onSwipeCompleted: (index, swipeDirection) async {
+                        homeScreenController.currentUserIndex.value = index;
+                        int finalIndex = index + 1;
+                        print('Swipe Complete finalIndex : $finalIndex');
+
                         if (swipeDirection == SwipeDirection.right) {
-                          if (homeScreenController.isLikeButtonClick.value ==
-                              false) {
+                          await homeScreenController.superLoveProfileFunction(
+                            likedId:
+                                "${homeScreenController.suggestionList[0].id}",
+                            likeType: LikeType.like,
+                            swipeCard: true,
+                            index: finalIndex,
+                          );
+                        } else if (swipeDirection == SwipeDirection.left) {
+                          // print("Swipe Cancel Button: ${homeScreenController.suggestionList[0].id}");
+                          if(finalIndex == homeScreenController.suggestionList.length) {
+                            homeScreenController.suggestionList = [];
+                            homeScreenController.loadUI();
+                          } else {
+                            homeScreenController.setChangedUserData(finalIndex);
+                            homeScreenController.loadUI();
+                          }
+                        } else if (swipeDirection == SwipeDirection.up) {
+                          await homeScreenController
+                              .understandSuperLoveFunction(finalIndex);
+                        }
+
+                        /*if (swipeDirection == SwipeDirection.right) {
+                          if (homeScreenController.isLikeButtonClick.value == false) {
                             await homeScreenController.superLoveProfileFunction(
-                              likedId:
-                                  "${homeScreenController.suggestionList[index].id}",
+                              likedId: "${homeScreenController.suggestionList[index].id}",
                               likeType: LikeType.like,
                               swipeCard: true,
                             );
-                            print(
-                                "Swipe Like Button: ${homeScreenController.suggestionList[0].id}");
+                            print("Swipe Like Button: ${homeScreenController.suggestionList[0].id}");
                             homeScreenController.isLikeButtonClick(true);
                           } else {
                             homeScreenController.isLikeButtonClick(false);
                           }
-                        } else if (swipeDirection == SwipeDirection.up) {
-                          if (homeScreenController.isStarButtonClick.value ==
-                              false) {
+                        }*/
+
+                        /*else if (swipeDirection == SwipeDirection.up) {
+                          if (homeScreenController.isStarButtonClick.value == false) {
                             await homeScreenController.superLoveProfileFunction(
-                              likedId:
-                                  "${homeScreenController.suggestionList[index].id}",
+                              likedId: "${homeScreenController.suggestionList[index].id}",
                               likeType: LikeType.super_love,
                               swipeCard: true,
                             );
-                            print(
-                                "Swipe Up Button: ${homeScreenController.suggestionList[0].id}");
+                            print("Swipe Up Button: ${homeScreenController.suggestionList[0].id}");
                           } else {
                             homeScreenController.isStarButtonClick(false);
                           }
-                        } else if (swipeDirection == SwipeDirection.left) {
-                          if (homeScreenController.isCancelButtonClick.value ==
-                              false) {
+                        }*/
+
+                        /*else if (swipeDirection == SwipeDirection.left) {
+                          if (homeScreenController.isCancelButtonClick.value == false) {
                             homeScreenController.suggestionList.removeAt(0);
-                            print(
-                                "Swipe Cancel Button: ${homeScreenController.suggestionList[0].id}");
+                            print("Swipe Cancel Button: ${homeScreenController.suggestionList[0].id}");
                             homeScreenController.setChangedUserData();
                             homeScreenController.isCancelButtonClick(true);
                             //todo - when user swipe left
                           } else {
                             homeScreenController.isCancelButtonClick(false);
                           }
-                        }
+                        }*/
                       },
                       overlayBuilder: (context, properties) {
                         final opacity = min(properties.swipeProgress, 1.0);
                         final isRight =
                             properties.direction == SwipeDirection.right;
+
+                        SwipeDirectionEnum swipeDirectionEnum =
+                            properties.direction == SwipeDirection.right
+                                ? SwipeDirectionEnum.right
+                                : properties.direction == SwipeDirection.left
+                                    ? SwipeDirectionEnum.left
+                                    : SwipeDirectionEnum.up;
 
                         return Container(
                           decoration:
@@ -115,17 +144,25 @@ class CardSwipeModule extends StatelessWidget {
                           child: Opacity(
                             opacity: opacity,
                             child: Center(
-                              child: isRight
-                                  ? const Icon(
-                                      Icons.favorite,
-                                      color: AppColors.lightOrangeColor,
-                                      size: 70,
-                                    )
-                                  : const Icon(
-                                      Icons.close_rounded,
-                                      color: AppColors.whiteColor,
-                                      size: 70,
-                                    ),
+                              child:
+                                  swipeDirectionEnum == SwipeDirectionEnum.right
+                                      ? const Icon(
+                                          Icons.favorite,
+                                          color: AppColors.lightOrangeColor,
+                                          size: 70,
+                                        )
+                                      : swipeDirectionEnum ==
+                                              SwipeDirectionEnum.left
+                                          ? const Icon(
+                                              Icons.close_rounded,
+                                              color: AppColors.whiteColor,
+                                              size: 70,
+                                            )
+                                          : const Icon(
+                                              Icons.star_border_rounded,
+                                              color: AppColors.whiteColor,
+                                              size: 70,
+                                            ),
                             ),
                           ),
                         );
@@ -135,11 +172,32 @@ class CardSwipeModule extends StatelessWidget {
                       builder: (context, sp) {
                         // MatchPersonData singleItem = homeScreenController.matchesList[sp.index];
 
-                        return Image.asset(
-                          AppImages.swiper1Image,
-                          width: double.infinity,
-                          fit: BoxFit.fill,
-                        );
+                        return homeScreenController.userImageList.isEmpty
+                            ? ClipRRect(
+                                borderRadius: BorderRadius.circular(20),
+                                child: Image.asset(
+                                  AppImages.swiper1Image,
+                                  width: double.infinity,
+                                  fit: BoxFit.fill,
+                                ),
+                              )
+                            : ClipRRect(
+                                borderRadius: BorderRadius.circular(20),
+                                child: Image.network(
+                                  homeScreenController.suggestionList[homeScreenController.currentUserIndex.value].images![0].imageUrl,
+                                  fit: BoxFit.fill,
+                                  errorBuilder: (context, obj, st) {
+                                    return ClipRRect(
+                                      borderRadius: BorderRadius.circular(20),
+                                      child: Image.asset(
+                                        AppImages.swiper1Image,
+                                        width: double.infinity,
+                                        fit: BoxFit.fill,
+                                      ),
+                                    );
+                                  },
+                                ),
+                              );
                       },
                     ),
                   ),
@@ -152,9 +210,17 @@ class CardSwipeModule extends StatelessWidget {
                   // Cancel Button
                   IconButton(
                     onPressed: () {
-                      homeScreenController.isCancelButtonClick(true);
+                      homeScreenController.cardController.next(
+                        swipeDirection: SwipeDirection.left,
+                      );
+                      /*homeScreenController.isCancelButtonClick(true);
                       homeScreenController.suggestionList.removeAt(0);
-                      homeScreenController.setChangedUserData();
+                      if(homeScreenController.suggestionList.isEmpty) {
+                        homeScreenController.suggestionList.clear();
+                        homeScreenController.suggestionList = [];
+                      } else {
+                        homeScreenController.setChangedUserData();
+                      }
                       print(
                           "Button Click Cancel: ${homeScreenController.suggestionList[0].id}");
                       //todo - when user swipe left
@@ -164,6 +230,7 @@ class CardSwipeModule extends StatelessWidget {
                         swipeDirection: SwipeDirection.left,
                         duration: const Duration(milliseconds: 600),
                       );
+                      homeScreenController.isCancelButtonClick(false);*/
                     },
                     icon: Image.asset(AppImages.cancelImage),
                   ),
@@ -175,7 +242,11 @@ class CardSwipeModule extends StatelessWidget {
 
                       if (homeScreenController.selectedSuperLove.value ==
                           true) {
-                        await homeScreenController.undestandSuperLoveFunction();
+                        homeScreenController.cardController.next(
+                          swipeDirection: SwipeDirection.up,
+                          duration: const Duration(milliseconds: 1000),
+                        );
+                        //todo
                       } else if (homeScreenController.selectedSuperLove.value ==
                           false) {
                         showDialog(
@@ -215,15 +286,13 @@ class CardSwipeModule extends StatelessWidget {
                                       ButtonCustom(
                                         text: "Undestand",
                                         onPressed: () async {
-                                          await homeScreenController
-                                              .undestandSuperLoveFunction();
-                                          //     .superLoveProfileFunction(
-                                          //   likedId:
-                                          //       "${homeScreenController.singlePersonData.id}",
-                                          //   likeType: LikeType.super_love,
-                                          //   swipeCard: false,
-                                          // );
                                           Get.back();
+                                          homeScreenController.cardController
+                                              .next(
+                                            swipeDirection: SwipeDirection.up,
+                                            duration: const Duration(
+                                                milliseconds: 1000),
+                                          );
                                         },
                                         fontWeight: FontWeight.bold,
                                         textsize: 14.sp,
@@ -289,14 +358,20 @@ class CardSwipeModule extends StatelessWidget {
                   // Like Button
                   IconButton(
                     onPressed: () async {
-                      homeScreenController.isLikeButtonClick(true);
+                      homeScreenController.cardController.next(
+                        swipeDirection: SwipeDirection.right,
+                      );
+                      /*homeScreenController.isLikeButtonClick(true);
                       await homeScreenController.superLoveProfileFunction(
                         likedId: "${homeScreenController.singlePersonData.id}",
                         likeType: LikeType.like,
                         swipeCard: false,
                       );
+                      homeScreenController.cardController.next(
+                        swipeDirection: SwipeDirection.right,
+                      );
                       print(
-                          "Button Click Like ${homeScreenController.suggestionList[0].id}");
+                          "Button Click Like ${homeScreenController.suggestionList[0].id}");*/
                     },
                     icon: Image.asset(AppImages.likeImage),
                   ),
@@ -314,13 +389,17 @@ class CardSwipeModule extends StatelessWidget {
                     fontWeight: FontWeight.w500,
                   ),
                   children: [
-                    WidgetSpan(
-                      child: SizedBox(width: 1.w),
-                    ),
-                    WidgetSpan(
-                      child: Image.asset(AppImages.rightImage)
-                          .commonOnlyPadding(bottom: 5),
-                    ),
+                    homeScreenController.verifiedUser.value == "0"
+                        ? WidgetSpan(
+                            child: SizedBox(width: 1.w),
+                          )
+                        : const WidgetSpan(child: SizedBox()),
+                    homeScreenController.verifiedUser.value == "0"
+                        ? WidgetSpan(
+                            child: Image.asset(AppImages.rightImage)
+                                .commonOnlyPadding(bottom: 5),
+                          )
+                        : const WidgetSpan(child: SizedBox()),
                   ],
                 ),
               ),
@@ -358,8 +437,7 @@ class CardSwipeModule extends StatelessWidget {
                       child: Image.asset(AppImages.location2Image, height: 2.h),
                     ),
                     TextSpan(
-                      text:
-                          " ${homeScreenController.singlePersonData.distance}",
+                      text: " ${homeScreenController.distance.value}",
                       style: TextStyleConfig.textStyle(
                         textColor: AppColors.grey600Color,
                         fontSize: 16,
@@ -370,18 +448,36 @@ class CardSwipeModule extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 3.h),
-              Container(
-                height: 56.h,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15),
-                  image: const DecorationImage(
-                    image: AssetImage(
-                      AppImages.swiper1Image,
-                    ),
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              ),
+              homeScreenController.suggestionList[homeScreenController.currentUserIndex.value].images!.length > 2
+                  ? SizedBox(
+                      height: 56.h,
+                      width: Get.width,
+                      // decoration: BoxDecoration(
+                      //   borderRadius: BorderRadius.circular(15),
+                      // ),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(20),
+                        child: Image.network(
+                          homeScreenController
+                              .suggestionList[
+                                  homeScreenController.currentUserIndex.value]
+                              .images![1]
+                              .imageUrl,
+                          fit: BoxFit.fill,
+                          errorBuilder: (context, obj, st) {
+                            return ClipRRect(
+                              borderRadius: BorderRadius.circular(20),
+                              child: Image.asset(
+                                AppImages.swiper1Image,
+                                width: double.infinity,
+                                fit: BoxFit.fill,
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                    )
+                  : Container(),
               SizedBox(height: 3.h),
               Row(
                 children: [
@@ -399,7 +495,7 @@ class CardSwipeModule extends StatelessWidget {
               Row(
                 children: [
                   Text(
-                    "${homeScreenController.singlePersonData.profilePrompts}",
+                    "${homeScreenController.bio}",
                     style: TextStyleConfig.textStyle(
                       fontSize: 13.sp,
                       fontFamily: FontFamilyText.sFProDisplaySemibold,
@@ -413,7 +509,37 @@ class CardSwipeModule extends StatelessWidget {
               SizedBox(height: 4.h),
               InterestsInformationModule(),
               SizedBox(height: 7.h),
-              Container(
+              homeScreenController.suggestionList[homeScreenController.currentUserIndex.value].images!.length > 3
+                  ? SizedBox(
+                height: 56.h,
+                width: Get.width,
+                // decoration: BoxDecoration(
+                //   borderRadius: BorderRadius.circular(15),
+                // ),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(20),
+                  child: Image.network(
+                    homeScreenController
+                        .suggestionList[
+                    homeScreenController.currentUserIndex.value]
+                        .images![2]
+                        .imageUrl,
+                    fit: BoxFit.fill,
+                    errorBuilder: (context, obj, st) {
+                      return ClipRRect(
+                        borderRadius: BorderRadius.circular(20),
+                        child: Image.asset(
+                          AppImages.swiper1Image,
+                          width: double.infinity,
+                          fit: BoxFit.fill,
+                        ),
+                      );
+                    },
+                  ),
+                ),
+              )
+                  : Container(),
+              /*Container(
                 height: 56.h,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(15),
@@ -424,26 +550,88 @@ class CardSwipeModule extends StatelessWidget {
                     fit: BoxFit.cover,
                   ),
                 ),
-              ),
+              ),*/
               SizedBox(height: 5.h),
               LanguagesInformationModule(),
               SizedBox(height: 7.h),
-              Container(
-                height: 56.h,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15),
-                  image: const DecorationImage(
-                    image: AssetImage(
-                      AppImages.swiper1Image,
-                    ),
-                    fit: BoxFit.cover,
-                  ),
-                ),
+
+              UserImageShowModule(
+                imageListIndex: 4,
+                imageShowIndex: 3,
               ),
-              SizedBox(height: 5.h),
+              UserImageShowModule(
+                imageListIndex: 5,
+                imageShowIndex: 4,
+              ),
+              UserImageShowModule(
+                imageListIndex: 6,
+                imageShowIndex: 5,
+              ),
+              UserImageShowModule(
+                imageListIndex: 7,
+                imageShowIndex: 6,
+              ),
+              UserImageShowModule(
+                imageListIndex: 8,
+                imageShowIndex: 7,
+              ),
+              UserImageShowModule(
+                imageListIndex: 9,
+                imageShowIndex: 8,
+              ),
+
+
+              // SizedBox(height: 5.h),
               LocationInformationModule(),
             ],
           );
+  }
+}
+
+class UserImageShowModule extends StatelessWidget {
+  final int imageListIndex;
+  final int imageShowIndex;
+
+  UserImageShowModule(
+      {Key? key, required this.imageListIndex, required this.imageShowIndex})
+      : super(key: key);
+  final screenController = Get.find<HomeScreenController>();
+
+  @override
+  Widget build(BuildContext context) {
+    return screenController
+                .suggestionList[screenController.currentUserIndex.value]
+                .images!
+                .length >
+            imageListIndex
+        ? SizedBox(
+            height: 56.h,
+            width: Get.width,
+            // decoration: BoxDecoration(
+            //   borderRadius: BorderRadius.circular(15),
+            // ),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(20),
+              child: Image.network(
+                screenController
+                    .suggestionList[screenController.currentUserIndex.value]
+                    .images![imageShowIndex]
+                    .imageUrl,
+                fit: BoxFit.fill,
+                errorBuilder: (context, obj, st) {
+                  return ClipRRect(
+                    borderRadius: BorderRadius.circular(20),
+                    child: Image.asset(
+                      AppImages.swiper1Image,
+                      width: double.infinity,
+                      fit: BoxFit.fill,
+                    ),
+                  );
+                },
+              ),
+            ),
+          ).commonSymmetricPadding(vertical: 15)
+        : Container();
   }
 }
 
@@ -538,7 +726,7 @@ class InterestsInformationModule extends StatelessWidget {
         Wrap(
           spacing: 3.0,
           children: List.generate(
-            5,
+            homeScreenController.interestList.length,
             (int index) {
               return Transform(
                 transform: Matrix4.identity()..scale(0.9),
@@ -547,7 +735,7 @@ class InterestsInformationModule extends StatelessWidget {
                     backgroundImage: AssetImage(AppImages.ballImage),
                   ).commonOnlyPadding(left: 2),
                   label: Text(
-                    'Photography',
+                    homeScreenController.interestList[index],
                     style: TextStyleConfig.textStyle(
                       fontFamily: FontFamilyText.sFProDisplaySemibold,
                       textColor: AppColors.grey600Color,
@@ -600,7 +788,7 @@ class LanguagesInformationModule extends StatelessWidget {
         Wrap(
           spacing: 3.0,
           children: List.generate(
-            3,
+            homeScreenController.languageList.length,
             (int index) {
               return Transform(
                 transform: Matrix4.identity()..scale(0.9),
@@ -609,7 +797,7 @@ class LanguagesInformationModule extends StatelessWidget {
                     backgroundImage: AssetImage(AppImages.ballImage),
                   ).commonOnlyPadding(left: 2),
                   label: Text(
-                    'Japanese',
+                    homeScreenController.languageList[index],
                     style: TextStyleConfig.textStyle(
                       fontFamily: FontFamilyText.sFProDisplaySemibold,
                       textColor: AppColors.grey600Color,
@@ -655,7 +843,7 @@ class LocationInformationModule extends StatelessWidget {
             ),
             SizedBox(width: 1.w),
             Text(
-              AppMessages.locationText,
+              "${homeScreenController.name}${AppMessages.locationText}",
               style: TextStyleConfig.textStyle(
                 fontSize: 16.sp,
                 fontFamily: FontFamilyText.sFProDisplayBold,
@@ -669,7 +857,7 @@ class LocationInformationModule extends StatelessWidget {
           children: [
             Text(
               textAlign: TextAlign.start,
-              "New South Wales, Sydney \n3 km away",
+              "${homeScreenController.homeTown.value}, Sydney \n${homeScreenController.distance.value}",
               style: TextStyleConfig.textStyle(
                 fontFamily: FontFamilyText.sFProDisplaySemibold,
                 textColor: AppColors.grey600Color,
@@ -691,7 +879,7 @@ class LocationInformationModule extends StatelessWidget {
                     backgroundImage: AssetImage(AppImages.ballImage),
                   ).commonOnlyPadding(left: 2),
                   label: Text(
-                    'Live in New  ',
+                    index == 0 ? homeScreenController.homeTown.value : 'Sydney',
                     style: TextStyleConfig.textStyle(
                       fontFamily: FontFamilyText.sFProDisplaySemibold,
                       textColor: AppColors.grey600Color,

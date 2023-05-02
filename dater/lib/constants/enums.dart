@@ -13,3 +13,5 @@ enum CmsIdentify {communityGuideline, termAndCondition, privacyPolicy}
 enum CountrySelectedType {oldCountry, newCountry}
 
 enum ComingFrom {changeNumberScreen, registerScreen}
+
+enum SwipeDirectionEnum {up, left, right}

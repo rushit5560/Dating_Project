@@ -16,7 +16,7 @@ class ProfileScreenController extends GetxController {
   RxBool isLoading = false.obs;
   RxInt successStatus = 0.obs;
 
-  double progressValue = 40;
+  // double progressValue = 40;
 
   UserPreference userPreference = UserPreference();
 
@@ -42,6 +42,7 @@ class ProfileScreenController extends GetxController {
   RxString userReligion = "".obs;
   RxString userKids = "".obs;
   RxString userStarSign = "".obs;
+  RxDouble userPercentage = 0.0.obs;
 
   List<BasicModel> basicList = [];
   List<BasicModel> interestList = [];
@@ -93,6 +94,7 @@ class ProfileScreenController extends GetxController {
           userPolitics.value = loggedInUserDetailsModel.msg[0].basic.politics;
           userReligion.value = loggedInUserDetailsModel.msg[0].basic.religion;
           userKids.value = loggedInUserDetailsModel.msg[0].basic.kids;
+          userPercentage.value = double.parse(loggedInUserDetailsModel.msg[0].percentage.toString());
 
           promptsList.clear();
           if(loggedInUserDetailsModel.msg[0].prompts.isNotEmpty) {

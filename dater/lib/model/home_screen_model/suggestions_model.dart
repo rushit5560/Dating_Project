@@ -218,6 +218,7 @@ class SuggestionData {
     this.activeTime,
     this.interest,
     this.basic,
+    this.images,
   });
 
   String? id;
@@ -234,6 +235,7 @@ class SuggestionData {
   String? activeTime;
   List<Interest>? interest;
   Basic? basic;
+  List<UserImage>? images;
 
   factory SuggestionData.fromJson(Map<String, dynamic> json) => SuggestionData(
         id: json["id"] ?? "",
@@ -244,7 +246,7 @@ class SuggestionData {
             json["profile_prompts"] ?? "Life is simple Don't overthink it",
         bio: json["bio"] ?? "",
         homeTown: json["home_town"] ?? "",
-        languages:
+        languages: json["languages"] == null ? [] :
             List<String>.from((json["languages"] ?? []).map((x) => x ?? "")),
         verified: json["verified"] ?? "",
         distance: json["distance"] ?? "",
@@ -254,8 +256,11 @@ class SuggestionData {
             ? "23"
             : json["age"].toString(),
         activeTime: json["active_time"] ?? "",
-        // interest: List<Interest>.from((json["interest"] ?? []).map((x) => x ?? {})),
+    interest: List<Interest>.from((json["interest"] ?? []).map((x) => Interest.fromJson(x ?? {}))),
         basic: Basic.fromJson(json["basic"] ?? {}),
+    images: json["images"] == null
+        ? []
+        : List<UserImage>.from((json["images"] ?? []).map((x) => UserImage.fromJson(x ?? {}))),
       );
 
   Map<String, dynamic> toJson() => {
@@ -273,7 +278,28 @@ class SuggestionData {
         "active_time": activeTime,
         "interest": List<Interest>.from(interest!.map((x) => x)),
         "basic": basic!.toJson(),
+    "images": List<dynamic>.from(images!.map((x) => x.toJson())),
       };
+}
+
+class UserImage {
+  String id;
+  String imageUrl;
+
+  UserImage({
+    required this.id,
+    required this.imageUrl,
+  });
+
+  factory UserImage.fromJson(Map<String, dynamic> json) => UserImage(
+    id: json["id"] ?? "",
+    imageUrl: json["image_url"] ?? "",
+  );
+
+  Map<String, dynamic> toJson() => {
+    "id": id,
+    "image_url": imageUrl,
+  };
 }
 
 class Basic {
