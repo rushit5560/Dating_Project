@@ -28,6 +28,7 @@ class ProfileScreenController extends GetxController {
   RxString userBio = "".obs;
   RxString userVerified = "".obs;
   RxString userHomeTown = "".obs;
+  RxString userLookingFor = "".obs;
   RxString userDistance = "".obs;
   RxString userAge = "".obs;
   RxString userActiveTime = "".obs;
@@ -81,6 +82,7 @@ class ProfileScreenController extends GetxController {
           userBio.value = loggedInUserDetailsModel.msg[0].bio;
           userVerified.value = loggedInUserDetailsModel.msg[0].verified;
           userHomeTown.value = loggedInUserDetailsModel.msg[0].homeTown;
+          // userLookingFor.value = loggedInUserDetailsModel.msg[0].basic.;
           userDistance.value = loggedInUserDetailsModel.msg[0].distance;
           userAge.value = loggedInUserDetailsModel.msg[0].age;
           userActiveTime.value = loggedInUserDetailsModel.msg[0].activeTime;
@@ -147,32 +149,44 @@ class ProfileScreenController extends GetxController {
 
   /// Set Basic Details
   void setBasicListFunction() {
-    if (userHeight.value != "") {
+    // if (userHeight.value != "") {
     basicList.add(BasicModel(
         image: AppImages.heightImage, name: "${userHeight.value} cm"));
-    }
-    if(userDrinking.value != "") {
-    basicList.add(
-        BasicModel(image: AppImages.drinkingImage, name: userDrinking.value));
-    }
-    if(userSmoking.value != "") {
-    basicList.add(
-        BasicModel(image: AppImages.smokingImage, name: userSmoking.value));
-    }
-    if(userGender.value != "") {
+    // }
+
+    basicList.add(BasicModel(
+        image: AppImages.educationImage, name: userEducation.value));
+
+    // if(userGender.value != "") {
     basicList
         .add(
         BasicModel(image: AppImages.genderImage, name: userGender.value));
-    }
-    if(userStarSign.value != "") {
+    // }
+
+    basicList.add(BasicModel(
+        image: AppImages.homeTownImage, name: userHomeTown.value));
+
+
+
+
+    // if(userDrinking.value != "") {
+    basicList.add(
+        BasicModel(image: AppImages.drinkingImage, name: userDrinking.value));
+    // }
+    // if(userSmoking.value != "") {
+    basicList.add(
+        BasicModel(image: AppImages.smokingImage, name: userSmoking.value));
+    // }
+
+    // if(userStarSign.value != "") {
     basicList.add(
         BasicModel(image: AppImages.starsignImage, name: userStarSign.value));
-    }
-    if(userEducation.value != "") {
+    // }
+    // if(userEducation.value != "") {
     basicList.add(
         BasicModel(
             image: AppImages.educationImage, name: userEducation.value));
-    }
+    // }
   }
 
   /// Set Interest in local & Prefs

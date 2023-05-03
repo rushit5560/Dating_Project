@@ -21,6 +21,7 @@ import '../../controller/edit_profile_screen_controller.dart';
 import '../../model/profile_screen_models/upload_image_model.dart';
 import '../my_basic_education_screen/my_basic_education_screen.dart';
 import '../my_basic_gender_screen/my_basic_gender_screen.dart';
+import '../my_basic_home_town_screen/my_basic_home_town_screen.dart';
 import '../my_basic_work_screen/my_basic_work_screen.dart';
 import '../politics_screen/politics_screen.dart';
 import '../profile_prompts_screens/profile_prompts_screen/profile_prompts_screen.dart';
@@ -58,7 +59,7 @@ class ProfileStrengthModule extends StatelessWidget {
           ),
           child: Center(
             child: Text(
-              "85% Complete",
+              "${editProfileScreenController.userPercentage}% Complete",
               style: TextStyleConfig.textStyle(
                 fontFamily: FontFamilyText.sFProDisplaySemibold,
                 textColor: AppColors.lightOrangeColor,
@@ -436,12 +437,22 @@ class EditProfileScreenWidgets extends StatelessWidget {
           lableText: "Gender",
           text: editProfileScreenController.gender,
         ),
+
         // Home Town Module
         MyBasicRowmodule(
-          gesOnTap: () {},
+          gesOnTap: () {
+            Get.to(
+                  () => MyBasicHomeTownScreen(),
+              arguments: [editProfileScreenController.homeTown],
+            )!
+                .then((value) async {
+              await editProfileScreenController
+                  .getMyBasicHomeTownValueFromPrefs();
+            });
+          },
           image: AppImages.homeTownImage,
           lableText: "Hometown",
-          text: "Add",
+          text: editProfileScreenController.homeTown,
         ),
         // Looking For Module
         MyBasicRowmodule(

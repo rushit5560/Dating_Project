@@ -86,6 +86,7 @@ class UserDetails {
     interest: List<Interest>.from((json["interest"] ?? []).map((x) => Interest.fromJson(x ?? {}))),
     basic: Basic.fromJson(json["basic"] ?? {}),
     prompts: List<Prompt>.from((json["prompts"] ?? []).map((x) => Prompt.fromJson(x ?? {}))),
+    // percentage: json["percentage"] ?? 0,
     percentage: json["percentage"] ?? 0,
   );
 
@@ -137,7 +138,7 @@ class Basic {
     gender: json["gender"] ?? "Add",
     work: json["work"] ?? "Add",
     education: json["education"] ?? "Add",
-    height: json["height"] ?? "",
+    height: json["height"] ?? "170",
     exercise: json["exercise"] ?? "",
     smoking: json["smoking"] ?? "",
     drinking: json["drinking"] ?? "",

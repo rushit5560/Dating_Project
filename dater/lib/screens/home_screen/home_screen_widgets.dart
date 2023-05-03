@@ -128,8 +128,8 @@ class CardSwipeModule extends StatelessWidget {
                       },
                       overlayBuilder: (context, properties) {
                         final opacity = min(properties.swipeProgress, 1.0);
-                        final isRight =
-                            properties.direction == SwipeDirection.right;
+                        // final isRight =
+                        //     properties.direction == SwipeDirection.right;
 
                         SwipeDirectionEnum swipeDirectionEnum =
                             properties.direction == SwipeDirection.right
@@ -178,7 +178,7 @@ class CardSwipeModule extends StatelessWidget {
                                 child: Image.asset(
                                   AppImages.swiper1Image,
                                   width: double.infinity,
-                                  fit: BoxFit.fill,
+                                  fit: BoxFit.fill,//todo
                                 ),
                               )
                             : ClipRRect(

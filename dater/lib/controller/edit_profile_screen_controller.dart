@@ -42,6 +42,8 @@ class EditProfileScreenController extends GetxController {
   String starSign = "";
   String gender = "";
   String work = "";
+  String homeTown = "";
+  int userPercentage = 0;
   TextEditingController profilePromptsController = TextEditingController();
   TextEditingController myBioController = TextEditingController();
 
@@ -267,6 +269,9 @@ class EditProfileScreenController extends GetxController {
           starSign = userDetails!.starSign;
           gender = userDetails!.basic.gender;
           work = userDetails!.basic.work;
+          userPercentage = userDetails!.percentage;
+          homeTown = userDetails!.homeTown;
+          //todo
 
           promptsList.clear();
           if(loggedInUserDetailsModel.msg[0].prompts.isNotEmpty) {
@@ -555,6 +560,11 @@ class EditProfileScreenController extends GetxController {
 
   Future<void> getMyBasicEducationValueFromPrefs() async {
     education = await userPreference.getStringFromPrefs(key: UserPreference.myBasicEducationValueKey);
+    loadUI();
+  }
+
+  Future<void> getMyBasicHomeTownValueFromPrefs() async {
+    homeTown = await userPreference.getStringFromPrefs(key: UserPreference.myBasicHomeTownValueKey);
     loadUI();
   }
 

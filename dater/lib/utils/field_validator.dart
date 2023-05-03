@@ -37,6 +37,13 @@ class FieldValidator {
     return null;
   }
 
+  String? validateHomeTown(String value) {
+    if(value.isEmpty) {
+      return "Please enter hometown.";
+    }
+    return null;
+  }
+
   String? validateWorkCompany(String value) {
     if(value.isEmpty) {
       return "Please enter company name.";

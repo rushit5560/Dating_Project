@@ -157,6 +157,7 @@ class AppMessages {
   static String pickProfilePromptsDescription = "It's the perfect opportunity to show a little more of your personality";
   static String workHeaderText = "Work";
   static String educationHeaderText = "Education";
+  static String homeTownHeaderText = "Home Town";
   static String lookingFor = "Looking for";
   // This is client token - don't remove it
   // static String token = "96e8451a018e5558d9af7979302cc85b";
