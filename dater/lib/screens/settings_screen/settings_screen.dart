@@ -31,7 +31,7 @@ class SettingsScreen extends StatelessWidget {
                       SizedBox(height: 4.h),
                       ReferralNumberModule(),
                       SizedBox(height: 4.h),
-                      const VerifyAccountModule(),
+                      VerifyAccountModule(),
                       SizedBox(height: 2.h),
                       const PersonalInfoModule(),
                       SizedBox(height: 3.h),

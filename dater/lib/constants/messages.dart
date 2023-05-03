@@ -118,6 +118,7 @@ class AppMessages {
   static String settings = "Settings";
   static String copy = "Copy";
   static String yourReferralNumber = "Your referral number";
+  static String notVerified = "Not Verified";
   static String verified = "Not Verified";
   static String personalInfo = "Personal Info";
   static String email = "Email";

@@ -23,7 +23,7 @@ class MyBasicGenderScreenController extends GetxController {
 
   Future<void> getSexualityFunction() async {
     isLoading(true);
-    String url = ApiUrl.getSexualityApi;
+    String url = ApiUrl.getGenderApi;
     log('getSexualityFunction Api Url : $url');
 
     try {

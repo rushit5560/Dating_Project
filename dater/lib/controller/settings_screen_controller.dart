@@ -20,6 +20,8 @@ class SettingsScreenController extends GetxController {
   RxString referralNumber = "".obs;
 
   String showMeGender = "";
+  String userVerified = "";
+
   UserPreference userPreference = UserPreference();
   SignUpPreference signUpPreference = SignUpPreference();
 
@@ -124,6 +126,8 @@ class SettingsScreenController extends GetxController {
   }
 
   Future<void> initMethod() async {
+    userVerified = await userPreference.getStringFromPrefs(key: UserPreference.verifiedKey);
+    log('userVerified :$userVerified');
     await getUserReferralCodeFunction();
   }
 }

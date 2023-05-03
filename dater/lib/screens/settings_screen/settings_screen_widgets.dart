@@ -107,7 +107,8 @@ class ReferralNumberModule extends StatelessWidget {
 }
 
 class VerifyAccountModule extends StatelessWidget {
-  const VerifyAccountModule({Key? key}) : super(key: key);
+  VerifyAccountModule({Key? key}) : super(key: key);
+  final screenController = Get.find<SettingsScreenController>();
 
   @override
   Widget build(BuildContext context) {
@@ -137,15 +138,17 @@ class VerifyAccountModule extends StatelessWidget {
           //SizedBox(height: 1.h,),
           GestureDetector(
             onTap: () {
-              Get.to(
-                () => VerifyYourAccountScreen(),
-              );
+              if(screenController.userVerified != "1") {
+                Get.to(
+                      () => VerifyYourAccountScreen(),
+                );
+              }
             },
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  AppMessages.verified,
+                  screenController.userVerified == "1" ? AppMessages.verified : AppMessages.notVerified,
                   style: TextStyleConfig.textStyle(
                     fontFamily: FontFamilyText.sFProDisplaySemibold,
                     textColor: AppColors.grey600Color,
