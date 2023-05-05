@@ -208,7 +208,8 @@ class SuggestionData {
     this.name,
     this.sexualityGet,
     this.targetGenderGet,
-    this.profilePrompts,
+    this.prompts,
+    // this.profilePrompts,
     this.bio,
     this.homeTown,
     this.languages,
@@ -225,7 +226,8 @@ class SuggestionData {
   String? name;
   String? sexualityGet;
   String? targetGenderGet;
-  String? profilePrompts;
+  // String? profilePrompts;
+  List<Prompt>? prompts;
   String? bio;
   String? homeTown;
   List<String>? languages;
@@ -242,8 +244,8 @@ class SuggestionData {
         name: json["name"] ?? "",
         sexualityGet: json["sexuality_get"] ?? "",
         targetGenderGet: json["target_gender_get"] ?? "",
-        profilePrompts:
-            json["profile_prompts"] ?? "Life is simple Don't overthink it",
+        prompts: List<Prompt>.from((json["prompts"] ?? []).map((x) => Prompt.fromJson(x))),
+        // profilePrompts: json["profile_prompts"] ?? "Life is simple Don't overthink it",
         bio: json["bio"] ?? "",
         homeTown: json["home_town"] ?? "",
         languages: json["languages"] == null ? [] :
@@ -268,7 +270,7 @@ class SuggestionData {
         "name": name,
         "sexuality_get": sexualityGet,
         "target_gender_get": targetGenderGet,
-        "profile_prompts": profilePrompts,
+        // "profile_prompts": profilePrompts,
         "bio": bio,
         "home_town": homeTown,
         "languages": languages,
@@ -280,6 +282,30 @@ class SuggestionData {
         "basic": basic!.toJson(),
     "images": List<dynamic>.from(images!.map((x) => x.toJson())),
       };
+}
+
+class Prompt {
+  String question;
+  String promptId;
+  String answer;
+
+  Prompt({
+    required this.question,
+    required this.promptId,
+    required this.answer,
+  });
+
+  factory Prompt.fromJson(Map<String, dynamic> json) => Prompt(
+    question: json["question"] ?? "",
+    promptId: json["prompt_id"] ?? "",
+    answer: json["answer"] ?? "",
+  );
+
+  Map<String, dynamic> toJson() => {
+    "question": question,
+    "prompt_id": promptId,
+    "answer": answer,
+  };
 }
 
 class UserImage {

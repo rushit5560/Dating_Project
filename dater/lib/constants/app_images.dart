@@ -55,4 +55,7 @@ class AppImages {
   static const lookingForImage = '$rootPath/looking_for.png';
   static const languageImage = '$rootPath/language.png';
   static const selfieImage = '$rootPath/selfie_image.png';
+  static const workWhiteImage = "$rootPath/work_white_icon.png";
+  static const educationWhiteImage = "$rootPath/education_white_icon.png";
+
 }

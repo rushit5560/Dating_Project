@@ -4,6 +4,8 @@ import 'dart:developer';
 import 'package:dater/constants/messages.dart';
 import 'package:dater/model/home_screen_model/super_love_model.dart';
 import 'package:dater/model/profile_screen_models/basic_model.dart';
+import 'package:flutter/rendering.dart';
+import 'package:flutter/widgets.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 import 'package:dater/constants/api_url.dart';
@@ -18,14 +20,14 @@ import '../utils/preferences/user_preference.dart';
 
 class HomeScreenController extends GetxController {
   RxBool isLoading = false.obs;
+  RxBool isVisible = true.obs;
   RxInt successStatus = 0.obs;
   SwipableStackController cardController = SwipableStackController();
   // RxString selectedval = ''.obs;
   RxBool selected = false.obs;
   RxBool selectedSuperLove = false.obs;
-
   // int superLoveIndex = 0;
-
+  var scrollController = ScrollController();
   String selectedVal = "";
   RxString name = ''.obs;
   RxString bio = ''.obs;
@@ -110,11 +112,10 @@ class HomeScreenController extends GetxController {
     log("selectedSuperLove.value: ${selectedSuperLove.value}");
 
     await superLoveProfileFunction(
-      likedId: "${singlePersonData.id}",
-      likeType: LikeType.super_love,
-      swipeCard: false,
-      index: index
-    );
+        likedId: "${singlePersonData.id}",
+        likeType: LikeType.super_love,
+        swipeCard: false,
+        index: index);
   }
 
   /// Get Suggestions Function
@@ -164,7 +165,6 @@ class HomeScreenController extends GetxController {
 
     // Timer(const Duration(seconds: 1), () => isLoading(false));
 
-
     // isLoading(false);
     // loadUI();
     await getUserSuggestionsFunction2();
@@ -190,7 +190,7 @@ class HomeScreenController extends GetxController {
           .listen((value) async {
         log("Suggestion Api value :$value");
         SuggestionListModel suggestionListModel =
-        SuggestionListModel.fromJson(json.decode(value));
+            SuggestionListModel.fromJson(json.decode(value));
         successStatus.value = suggestionListModel.statusCode;
         if (successStatus.value == 200) {
           suggestionList.clear();
@@ -204,7 +204,6 @@ class HomeScreenController extends GetxController {
             log("singlePersonData :${singlePersonData.bio}");
 
             log('suggestionList : ${suggestionList.length}');
-
           }
         } else {
           log('getUserSuggestionsFunction Else');
@@ -219,18 +218,19 @@ class HomeScreenController extends GetxController {
     isLoading(false);
     // Timer(const Duration(seconds: 1), () => isLoading(false));
 
-
     // isLoading(false);
     // loadUI();
   }
 
   /// Set Basic Details
-  setBasicListFunction() {
+  List<BasicModel> setBasicListFunction({required SuggestionData singleItem}) {
+    List<BasicModel> basicList = [];
     basicList.add(BasicModel(image: AppImages.genderImage, name: gender.value));
     basicList.add(BasicModel(image: AppImages.workImage, name: work.value));
     basicList.add(
         BasicModel(image: AppImages.educationImage, name: education.value));
-    basicList.add(BasicModel(image: AppImages.heightImage, name: height.value));
+    basicList.add(
+        BasicModel(image: AppImages.heightImage, name: "${height.value} cm"));
     basicList
         .add(BasicModel(image: AppImages.exerciseImage, name: exercise.value));
     basicList
@@ -243,6 +243,8 @@ class HomeScreenController extends GetxController {
     basicList
         .add(BasicModel(image: AppImages.refreshImage, name: religion.value));
     basicList.add(BasicModel(image: AppImages.kidsImage, name: kids.value));
+
+    return basicList;
   }
 
   /*/// Like   function
@@ -285,12 +287,12 @@ class HomeScreenController extends GetxController {
   }*/
 
   /// Like & SuperLove function
-  Future<void> superLoveProfileFunction(
-      {required String likedId,
-      required LikeType likeType,
-      swipeCard = false,
-        required int index,
-      }) async {
+  Future<void> superLoveProfileFunction({
+    required String likedId,
+    required LikeType likeType,
+    swipeCard = false,
+    required int index,
+  }) async {
     String url = ApiUrl.superLoveProfileApi;
 
     try {
@@ -333,7 +335,7 @@ class HomeScreenController extends GetxController {
         /// Remove Data at 0 Index & set new data in variable
         // suggestionList.removeAt(0);
         // When swipe index & suggestion list length same that time clear the suggestion list
-        if(index == suggestionList.length) {
+        if (index == suggestionList.length) {
           suggestionList = [];
         }
         if (suggestionList != []) {
@@ -369,7 +371,7 @@ class HomeScreenController extends GetxController {
 
           /// Remove Data at 0 Index & set new data in variable
           // suggestionList.removeAt(0);
-          if(index == suggestionList.length) {
+          if (index == suggestionList.length) {
             suggestionList = [];
           }
           if (suggestionList.isNotEmpty) {
@@ -396,7 +398,7 @@ class HomeScreenController extends GetxController {
     name = suggestionList[index].name.toString().obs;
     bio = suggestionList[index].bio.toString().obs;
     age = suggestionList[index].age.toString().obs;
-    profilePrompts = suggestionList[index].profilePrompts.toString().obs;
+    // profilePrompts = suggestionList[index].profilePrompts.toString().obs;
     work = suggestionList[index].basic!.work.obs;
     gender = suggestionList[index].basic!.gender.obs;
     education = suggestionList[index].basic!.education.obs;
@@ -412,25 +414,24 @@ class HomeScreenController extends GetxController {
     verifiedUser = suggestionList[index].verified!.obs;
 
     basicList.clear();
-    setBasicListFunction();
+    // setBasicListFunction(singleItem: suggestionList[index]);
     interestList.clear();
-    if(suggestionList[index].interest != []) {
+    if (suggestionList[index].interest != []) {
       for (int i = 0; i < suggestionList[index].interest!.length; i++) {
         interestList.add(suggestionList[index].interest![i].name);
       }
     }
     log('interestList Length : ${interestList.length}');
     languageList.clear();
-    if(suggestionList[index].languages != []) {
+    if (suggestionList[index].languages != []) {
       languageList.addAll(suggestionList[index].languages!);
     }
 
     //todo
     userImageList.clear();
-    if(suggestionList[index].images != []) {
+    if (suggestionList[index].images != []) {
       userImageList.addAll(suggestionList[index].images!);
     }
-
 
     log("suggestionList : ${suggestionList.length}");
   }
@@ -446,6 +447,40 @@ class HomeScreenController extends GetxController {
     await getUserSuggestionsFunction();
     // await getUserSuggestionsFunction();
     // await setBasicListFunction();
+
+    // scrollController.addListener((){
+    //   if(scrollController.position.userScrollDirection == ScrollDirection.reverse){
+    //     if(isVisible.value == true) {
+    //       isVisible.value = false;
+    //       print("**** ${isVisible.value} up"); //Move IO away from setState
+    //      loadUI();
+    //     }
+    //   } else {
+    //     if(scrollController.position.userScrollDirection == ScrollDirection.forward){
+    //       if(isVisible.value == false) {
+    //         isVisible.value = true;
+    //         print("**** ${isVisible.value} down"); //Move IO away from setState
+    //         loadUI();
+    //       }
+    //     }
+    //   }});
+
+    /*if (scrollController.position.atEdge) {
+      if (scrollController.position.pixels < 0) {
+        log('scrollController.position.pixels :${scrollController.position.pixels}');
+        if (isVisible.value) {
+          isLoading(true);
+          isVisible.value = false;
+          isLoading(false);
+        }
+        loadUI();
+      }
+    } else {
+      if (!isVisible.value) {
+        isVisible.value = true;
+      }
+      loadUI();
+    }*/
     loadUI();
   }
 

@@ -11,9 +11,11 @@ import '../../common_modules/custom_button.dart';
 import '../../constants/colors.dart';
 import '../../constants/enums.dart';
 import '../../controller/home_screen_controller.dart';
+import '../../model/home_screen_model/suggestions_model.dart';
+import '../../model/profile_screen_models/basic_model.dart';
 import '../../utils/style.dart';
 
-class CardSwipeModule extends StatelessWidget {
+/*class CardSwipeModule extends StatelessWidget {
   CardSwipeModule({Key? key}) : super(key: key);
   final homeScreenController = Get.find<HomeScreenController>();
 
@@ -32,28 +34,28 @@ class CardSwipeModule extends StatelessWidget {
                 alignment: Alignment.bottomCenter,
                 clipBehavior: Clip.none,
                 children: [
-                  Container(
-                    height: 56.h,
-                    decoration: const BoxDecoration(
-                      image: DecorationImage(
-                        image: AssetImage(
-                          AppImages.lightorange1,
-                        ),
-                        fit: BoxFit.fill,
-                      ),
-                    ),
-                  ).commonSymmetricPadding(horizontal: 16.w),
-                  Container(
-                    height: 53.h,
-                    decoration: const BoxDecoration(
-                      image: DecorationImage(
-                        image: AssetImage(
-                          AppImages.lightorange2,
-                        ),
-                        fit: BoxFit.fill,
-                      ),
-                    ),
-                  ).commonSymmetricPadding(horizontal: 8.w),
+                  // Container(
+                  //   height: 56.h,
+                  //   decoration: const BoxDecoration(
+                  //     image: DecorationImage(
+                  //       image: AssetImage(
+                  //         AppImages.lightorange1,
+                  //       ),
+                  //       fit: BoxFit.fill,
+                  //     ),
+                  //   ),
+                  // ).commonSymmetricPadding(horizontal: 16.w),
+                  // Container(
+                  //   height: 53.h,
+                  //   decoration: const BoxDecoration(
+                  //     image: DecorationImage(
+                  //       image: AssetImage(
+                  //         AppImages.lightorange2,
+                  //       ),
+                  //       fit: BoxFit.fill,
+                  //     ),
+                  //   ),
+                  // ).commonSymmetricPadding(horizontal: 8.w),
                   SizedBox(
                     height: 50.h,
                     child: SwipableStack(
@@ -75,7 +77,8 @@ class CardSwipeModule extends StatelessWidget {
                           );
                         } else if (swipeDirection == SwipeDirection.left) {
                           // print("Swipe Cancel Button: ${homeScreenController.suggestionList[0].id}");
-                          if(finalIndex == homeScreenController.suggestionList.length) {
+                          if (finalIndex ==
+                              homeScreenController.suggestionList.length) {
                             homeScreenController.suggestionList = [];
                             homeScreenController.loadUI();
                           } else {
@@ -87,7 +90,8 @@ class CardSwipeModule extends StatelessWidget {
                               .understandSuperLoveFunction(finalIndex);
                         }
 
-                        /*if (swipeDirection == SwipeDirection.right) {
+                        */
+/*if (swipeDirection == SwipeDirection.right) {
                           if (homeScreenController.isLikeButtonClick.value == false) {
                             await homeScreenController.superLoveProfileFunction(
                               likedId: "${homeScreenController.suggestionList[index].id}",
@@ -100,8 +104,10 @@ class CardSwipeModule extends StatelessWidget {
                             homeScreenController.isLikeButtonClick(false);
                           }
                         }*/
+/*
 
-                        /*else if (swipeDirection == SwipeDirection.up) {
+                        */
+/*else if (swipeDirection == SwipeDirection.up) {
                           if (homeScreenController.isStarButtonClick.value == false) {
                             await homeScreenController.superLoveProfileFunction(
                               likedId: "${homeScreenController.suggestionList[index].id}",
@@ -113,8 +119,10 @@ class CardSwipeModule extends StatelessWidget {
                             homeScreenController.isStarButtonClick(false);
                           }
                         }*/
+/*
 
-                        /*else if (swipeDirection == SwipeDirection.left) {
+                        */
+/*else if (swipeDirection == SwipeDirection.left) {
                           if (homeScreenController.isCancelButtonClick.value == false) {
                             homeScreenController.suggestionList.removeAt(0);
                             print("Swipe Cancel Button: ${homeScreenController.suggestionList[0].id}");
@@ -125,6 +133,7 @@ class CardSwipeModule extends StatelessWidget {
                             homeScreenController.isCancelButtonClick(false);
                           }
                         }*/
+/*
                       },
                       overlayBuilder: (context, properties) {
                         final opacity = min(properties.swipeProgress, 1.0);
@@ -178,13 +187,17 @@ class CardSwipeModule extends StatelessWidget {
                                 child: Image.asset(
                                   AppImages.swiper1Image,
                                   width: double.infinity,
-                                  fit: BoxFit.fill,//todo
+                                  fit: BoxFit.fill, //todo
                                 ),
                               )
                             : ClipRRect(
                                 borderRadius: BorderRadius.circular(20),
                                 child: Image.network(
-                                  homeScreenController.suggestionList[homeScreenController.currentUserIndex.value].images![0].imageUrl,
+                                  homeScreenController
+                                      .suggestionList[homeScreenController
+                                          .currentUserIndex.value]
+                                      .images![0]
+                                      .imageUrl,
                                   fit: BoxFit.fill,
                                   errorBuilder: (context, obj, st) {
                                     return ClipRRect(
@@ -213,7 +226,8 @@ class CardSwipeModule extends StatelessWidget {
                       homeScreenController.cardController.next(
                         swipeDirection: SwipeDirection.left,
                       );
-                      /*homeScreenController.isCancelButtonClick(true);
+                      */
+/*homeScreenController.isCancelButtonClick(true);
                       homeScreenController.suggestionList.removeAt(0);
                       if(homeScreenController.suggestionList.isEmpty) {
                         homeScreenController.suggestionList.clear();
@@ -231,6 +245,7 @@ class CardSwipeModule extends StatelessWidget {
                         duration: const Duration(milliseconds: 600),
                       );
                       homeScreenController.isCancelButtonClick(false);*/
+/*
                     },
                     icon: Image.asset(AppImages.cancelImage),
                   ),
@@ -361,7 +376,8 @@ class CardSwipeModule extends StatelessWidget {
                       homeScreenController.cardController.next(
                         swipeDirection: SwipeDirection.right,
                       );
-                      /*homeScreenController.isLikeButtonClick(true);
+                      */
+/*homeScreenController.isLikeButtonClick(true);
                       await homeScreenController.superLoveProfileFunction(
                         likedId: "${homeScreenController.singlePersonData.id}",
                         likeType: LikeType.like,
@@ -372,6 +388,7 @@ class CardSwipeModule extends StatelessWidget {
                       );
                       print(
                           "Button Click Like ${homeScreenController.suggestionList[0].id}");*/
+/*
                     },
                     icon: Image.asset(AppImages.likeImage),
                   ),
@@ -403,7 +420,8 @@ class CardSwipeModule extends StatelessWidget {
                   ],
                 ),
               ),
-              /*Row(
+              */
+/*Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
@@ -419,6 +437,7 @@ class CardSwipeModule extends StatelessWidget {
                   Image.asset(AppImages.rightImage),
                 ],
               ),*/
+/*
               SizedBox(height: 1.h),
               RichText(
                 textAlign: TextAlign.center,
@@ -507,39 +526,45 @@ class CardSwipeModule extends StatelessWidget {
               SizedBox(height: 4.h),
               BasicInFormationModule(),
               SizedBox(height: 4.h),
-              InterestsInformationModule(),
+              // InterestsInformationModule(),
               SizedBox(height: 7.h),
-              homeScreenController.suggestionList[homeScreenController.currentUserIndex.value].images!.length > 3
+              homeScreenController
+                          .suggestionList[
+                              homeScreenController.currentUserIndex.value]
+                          .images!
+                          .length >
+                      3
                   ? SizedBox(
-                height: 56.h,
-                width: Get.width,
-                // decoration: BoxDecoration(
-                //   borderRadius: BorderRadius.circular(15),
-                // ),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(20),
-                  child: Image.network(
-                    homeScreenController
-                        .suggestionList[
-                    homeScreenController.currentUserIndex.value]
-                        .images![2]
-                        .imageUrl,
-                    fit: BoxFit.fill,
-                    errorBuilder: (context, obj, st) {
-                      return ClipRRect(
+                      height: 56.h,
+                      width: Get.width,
+                      // decoration: BoxDecoration(
+                      //   borderRadius: BorderRadius.circular(15),
+                      // ),
+                      child: ClipRRect(
                         borderRadius: BorderRadius.circular(20),
-                        child: Image.asset(
-                          AppImages.swiper1Image,
-                          width: double.infinity,
+                        child: Image.network(
+                          homeScreenController
+                              .suggestionList[
+                                  homeScreenController.currentUserIndex.value]
+                              .images![2]
+                              .imageUrl,
                           fit: BoxFit.fill,
+                          errorBuilder: (context, obj, st) {
+                            return ClipRRect(
+                              borderRadius: BorderRadius.circular(20),
+                              child: Image.asset(
+                                AppImages.swiper1Image,
+                                width: double.infinity,
+                                fit: BoxFit.fill,
+                              ),
+                            );
+                          },
                         ),
-                      );
-                    },
-                  ),
-                ),
-              )
+                      ),
+                    )
                   : Container(),
-              /*Container(
+              */
+/*Container(
                 height: 56.h,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(15),
@@ -551,8 +576,9 @@ class CardSwipeModule extends StatelessWidget {
                   ),
                 ),
               ),*/
+/*
               SizedBox(height: 5.h),
-              LanguagesInformationModule(),
+              // LanguagesInformationModule(),
               SizedBox(height: 7.h),
 
               UserImageShowModule(
@@ -580,62 +606,14 @@ class CardSwipeModule extends StatelessWidget {
                 imageShowIndex: 8,
               ),
 
-
               // SizedBox(height: 5.h),
               LocationInformationModule(),
             ],
           );
   }
-}
+}*/
 
-class UserImageShowModule extends StatelessWidget {
-  final int imageListIndex;
-  final int imageShowIndex;
-
-  UserImageShowModule(
-      {Key? key, required this.imageListIndex, required this.imageShowIndex})
-      : super(key: key);
-  final screenController = Get.find<HomeScreenController>();
-
-  @override
-  Widget build(BuildContext context) {
-    return screenController
-                .suggestionList[screenController.currentUserIndex.value]
-                .images!
-                .length >
-            imageListIndex
-        ? SizedBox(
-            height: 56.h,
-            width: Get.width,
-            // decoration: BoxDecoration(
-            //   borderRadius: BorderRadius.circular(15),
-            // ),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(20),
-              child: Image.network(
-                screenController
-                    .suggestionList[screenController.currentUserIndex.value]
-                    .images![imageShowIndex]
-                    .imageUrl,
-                fit: BoxFit.fill,
-                errorBuilder: (context, obj, st) {
-                  return ClipRRect(
-                    borderRadius: BorderRadius.circular(20),
-                    child: Image.asset(
-                      AppImages.swiper1Image,
-                      width: double.infinity,
-                      fit: BoxFit.fill,
-                    ),
-                  );
-                },
-              ),
-            ),
-          ).commonSymmetricPadding(vertical: 15)
-        : Container();
-  }
-}
-
-class BasicInFormationModule extends StatelessWidget {
+/*class BasicInFormationModule extends StatelessWidget {
   BasicInFormationModule({super.key});
 
   final homeScreenController = Get.find<HomeScreenController>();
@@ -682,7 +660,658 @@ class BasicInFormationModule extends StatelessWidget {
                   ),
                   selected: homeScreenController.selected.value,
                   selectedColor: AppColors.darkOrangeColor,
-                  backgroundColor: Colors.white,
+                  backgroundColor: AppColors.lightOrangeColor,
+                  shape: const StadiumBorder(
+                    side: BorderSide(
+                      color: AppColors.grey400Color,
+                      width: 1.5,
+                    ),
+                  ),
+                  onSelected: (bool value) {},
+                ),
+              );
+            },
+          ).toList(),
+        )
+      ],
+    );
+  }
+}*/
+
+/// New Widget
+class SwipeUserModule extends StatelessWidget {
+  SwipeUserModule({Key? key}) : super(key: key);
+  final homeScreenController = Get.find<HomeScreenController>();
+
+  @override
+  Widget build(BuildContext context) {
+    return homeScreenController.suggestionList.isEmpty
+        ? SizedBox(
+            height: Get.height * 0.70,
+            child: const Center(
+              child: Text('No Matches Found'),
+            ),
+          )
+        : SwipableStack(
+            allowVerticalSwipe: false,
+            swipeAnchor: SwipeAnchor.bottom,
+            cancelAnimationCurve: Curves.bounceIn,
+            stackClipBehaviour: Clip.none,
+            onSwipeCompleted: (index, swipeDirection) async {
+              print('Swipe Complete Index============ : $index');
+              homeScreenController.currentUserIndex.value = index;
+
+              int finalIndex = index + 1;
+              print('Swipe Complete finalIndex : $finalIndex');
+
+              /// When swipe Right
+              if (swipeDirection == SwipeDirection.right) {
+                await homeScreenController.superLoveProfileFunction(
+                  likedId: "${homeScreenController.suggestionList[0].id}",
+                  likeType: LikeType.like,
+                  swipeCard: true,
+                  index: finalIndex,
+                );
+              }
+
+              /// When swipe Left
+              else if (swipeDirection == SwipeDirection.left) {
+                // print("Swipe Cancel Button: ${homeScreenController.suggestionList[0].id}");
+                if (finalIndex == homeScreenController.suggestionList.length) {
+                  homeScreenController.suggestionList = [];
+                  homeScreenController.loadUI();
+                } else {
+                  homeScreenController.setChangedUserData(finalIndex);
+                  homeScreenController.loadUI();
+                }
+              }
+
+              /// When Swipe Up
+              else if (swipeDirection == SwipeDirection.up) {
+                await homeScreenController
+                    .understandSuperLoveFunction(finalIndex);
+              }
+            },
+            overlayBuilder: (context, properties) {
+              final opacity = min(properties.swipeProgress, 0.5);
+
+              SwipeDirectionEnum swipeDirectionEnum =
+                  properties.direction == SwipeDirection.right
+                      ? SwipeDirectionEnum.right
+                      : properties.direction == SwipeDirection.left
+                          ? SwipeDirectionEnum.left
+                          : SwipeDirectionEnum.up;
+
+              return Opacity(
+                opacity: opacity,
+                child: Center(
+                  child: swipeDirectionEnum == SwipeDirectionEnum.right
+                      ? const Icon(
+                          Icons.favorite,
+                          color: AppColors.lightOrangeColor,
+                          size: 70,
+                        )
+                      : swipeDirectionEnum == SwipeDirectionEnum.left
+                          ? const Icon(
+                              Icons.close_rounded,
+                              color: AppColors.whiteColor,
+                              size: 70,
+                            )
+                          : const Icon(
+                              Icons.star_border_rounded,
+                              color: AppColors.whiteColor,
+                              size: 70,
+                            ),
+                ),
+              );
+            },
+            controller: homeScreenController.cardController,
+            itemCount: homeScreenController.suggestionList.length,
+            builder: (context, sp) {
+              // print('sp.index : ${sp.index}');
+              SuggestionData singleItem =
+                  homeScreenController.suggestionList[sp.index];
+
+              List<String> languageList =
+                  homeScreenController.suggestionList[sp.index].languages!;
+              List<Interest> interestList =
+                  homeScreenController.suggestionList[sp.index].interest!;
+              List<UserImage> userImagesList =
+                  homeScreenController.suggestionList[sp.index].images!;
+
+              List<BasicModel> basicList = [];
+              basicList = homeScreenController.setBasicListFunction(
+                singleItem: singleItem,
+              );
+
+              return SingleChildScrollView(
+                // controller: homeScreenController.scrollController,
+                child: Column(
+                  // crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    /// User Main Image module
+                    Stack(
+                      // alignment: Alignment.bottomCenter,
+                      children: [
+                        // User Image Module
+                        Container(
+                          decoration: const BoxDecoration(
+                            color: AppColors.whiteColor2,
+                            // boxShadow: [
+                            //   BoxShadow(
+                            //     color: Colors.black,
+                            //   ),
+                            // ],
+                          ),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(20),
+                            child: Image.network(
+                              singleItem.images![0].imageUrl,
+                              fit: BoxFit.cover,
+                              height: Get.height * 0.70,
+                              width: Get.width,
+                              errorBuilder: (context, obj, st) {
+                                return ClipRRect(
+                                  borderRadius: BorderRadius.circular(20),
+                                  child: Image.asset(
+                                    AppImages.swiper1Image,
+                                    width: double.infinity,
+                                    fit: BoxFit.contain,
+                                  ),
+                                );
+                              },
+                            ),
+                          ),
+                        ),
+
+                        // Shadow position on image
+                        Positioned(
+                          bottom: 0,
+                          child: Container(
+                            height: Get.height * 0.12,
+                            width: Get.width * 0.85,
+                            decoration: const BoxDecoration(
+                              borderRadius: BorderRadius.only(
+                                bottomLeft: Radius.circular(25),
+                                bottomRight: Radius.circular(25),
+                              ),
+                              boxShadow: [
+                                BoxShadow(color: Colors.black12, blurRadius: 5),
+                              ],
+                            ),
+                          ),
+                        ),
+
+                        // User name, age module
+                        Positioned(
+                          bottom: 10,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              RichText(
+                                text: TextSpan(
+                                  text: '${singleItem.name}, ',
+                                  style: TextStyleConfig.textStyle(
+                                    textColor: AppColors.whiteColor2,
+                                    fontSize: 21.sp,
+                                    fontFamily:
+                                    FontFamilyText.sFProDisplaySemibold,
+                                    // fontWeight: FontWeight.bold,
+                                  ),
+                                  children: [
+                                    TextSpan(
+                                      text: '${singleItem.age}',
+                                      style: TextStyleConfig.textStyle(
+                                        textColor: AppColors.whiteColor2,
+                                        fontSize: 21.sp,
+                                        fontFamily:
+                                        FontFamilyText.sFProDisplayRegular,
+                                        // fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                    singleItem.verified == "0"
+                                        ? WidgetSpan(
+                                        child: SizedBox(width: 1.w))
+                                        : const WidgetSpan(child: SizedBox()),
+                                    singleItem.verified == "0"
+                                        ? WidgetSpan(
+                                      child: Image.asset(
+                                        AppImages.rightImage,
+                                        height: 22,
+                                        width: 22,
+                                        fit: BoxFit.fill,
+                                      ).commonOnlyPadding(bottom: 5),
+                                    )
+                                        : const WidgetSpan(child: SizedBox()),
+                                  ],
+                                ),
+                              ),
+                              const SizedBox(height: 3),
+                              Row(
+                                children: [
+                                  Image.asset(
+                                    AppImages.workWhiteImage,
+                                    height: 20,
+                                    width: 20,
+                                  ),
+                                  const SizedBox(width: 5),
+                                  Text(
+                                    // "Graphic Design",
+                                    singleItem.basic!.work,
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: TextStyle(
+                                      fontFamily:
+                                      FontFamilyText.sFProDisplaySemibold,
+                                      color: AppColors.whiteColor2,
+                                      fontSize: 9.sp,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Row(
+                                children: [
+                                  Image.asset(
+                                    AppImages.educationWhiteImage,
+                                    height: 20,
+                                    width: 20,
+                                  ),
+                                  const SizedBox(width: 5),
+                                  Text(
+                                    // "University of United State",
+                                    singleItem.basic!.education,
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: TextStyle(
+                                      fontFamily:
+                                      FontFamilyText.sFProDisplaySemibold,
+                                      color: AppColors.whiteColor2,
+                                      fontSize: 9.sp,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ).commonSymmetricPadding(horizontal: 10),
+                        ),
+
+                        // Star Button module
+                        // Positioned(
+                        //   bottom: 35,
+                        //   right: 25,
+                        //   child: IconButton(
+                        //     onPressed: () {
+                        //       homeScreenController.cardController.next(
+                        //         swipeDirection: SwipeDirection.up,
+                        //       );
+                        //     },
+                        //     icon: const Icon(
+                        //       Icons.star_rounded,
+                        //       color: AppColors.lightOrangeColor,
+                        //       size: 60,
+                        //     ),
+                        //   ),
+                        // ),
+                      ],
+                    ),
+
+                    Container(
+                      color: Colors.white,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          // About Module
+                          Container(height: 2.h),
+                          Text(
+                            AppMessages.aboutMe,
+                            style: TextStyleConfig.textStyle(
+                              fontSize: 16.sp,
+                              fontFamily: FontFamilyText.sFProDisplaySemibold,
+                              textColor: AppColors.grey800Color,
+                            ),
+                          ),
+                          SizedBox(height: 0.5.h),
+                          Text(
+                            "${homeScreenController.bio}",
+                            // "Eliza is an experienced graphic designer, with over 10 years of experience "
+                            //     "specializing in logo design. "
+                            //     "Besides hosting several graphic design seminars "
+                            //     "Eliza creates relevant and original logos that "
+                            //     "enhance a company's brand recognition.",
+                            maxLines: 6,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyleConfig.textStyle(
+                              fontSize: 13.sp,
+                              fontFamily: FontFamilyText.sFProDisplaySemibold,
+                              textColor: AppColors.grey600Color,
+                            ),
+                          ),
+                          //
+
+                          // Basic Module
+                          SizedBox(height: 4.h),
+                          BasicInFormationModule(basicList: basicList),
+                          //
+
+                          // Interest Module
+                          interestList.isEmpty
+                              ? Container()
+                              : SizedBox(height: 4.h),
+                          interestList.isEmpty
+                              ? Container()
+                              : InterestsInformationModule(
+                              interestList: interestList),
+                          //
+
+                          // Language Module
+                          languageList.isEmpty
+                              ? Container()
+                              : SizedBox(height: 4.h),
+                          languageList.isEmpty
+                              ? Container()
+                              : LanguagesInformationModule(
+                              languageList: languageList),
+                          //
+
+                          SizedBox(height: 3.h),
+
+                          // User 2nd Image Show module
+                          singleItem.images!.length > 1
+                              ? SizedBox(
+                            height: 56.h,
+                            width: Get.width,
+                            // decoration: BoxDecoration(
+                            //   borderRadius: BorderRadius.circular(15),
+                            // ),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(20),
+                              child: Image.network(
+                                singleItem.images![1].imageUrl,
+                                fit: BoxFit.fill,
+                                errorBuilder: (context, obj, st) {
+                                  return ClipRRect(
+                                    borderRadius:
+                                    BorderRadius.circular(20),
+                                    child: Image.asset(
+                                      AppImages.swiper1Image,
+                                      width: double.infinity,
+                                      fit: BoxFit.fill,
+                                    ),
+                                  );
+                                },
+                              ),
+                            ),
+                          ).commonSymmetricPadding(vertical: 5)
+                              : Container(),
+                          //
+
+                          // 2nd Prompts show module
+                          // SizedBox(height: 2.h),
+                          singleItem.prompts!.isNotEmpty
+                              ? Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                singleItem.prompts![0].question,
+                                style: TextStyleConfig.textStyle(
+                                  fontFamily:
+                                  FontFamilyText.sFProDisplaySemibold,
+                                  textColor: AppColors.grey300Color,
+                                  //fontWeight: FontWeight.w500,
+                                  fontSize: 16.sp,
+                                ),
+                              ),
+                              SizedBox(height: 1.h),
+                              Container(
+                                width: Get.width,
+                                padding: const EdgeInsets.all(10),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(30),
+                                  border: Border.all(
+                                    color: AppColors.grey400Color,
+                                    width: 1,
+                                  ),
+                                ),
+                                child: Text(
+                                  singleItem.prompts![0].answer,
+                                  textAlign: TextAlign.center,
+                                  style: TextStyleConfig.textStyle(
+                                    fontFamily: FontFamilyText
+                                        .sFProDisplaySemibold,
+                                    textColor: AppColors.grey600Color,
+                                    //fontWeight: FontWeight.w500,
+                                    fontSize: 12.sp,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ).commonSymmetricPadding(vertical: 5)
+                              : Container(),
+                          //
+
+                          /// User Images Module
+                          // User 3rd Image Show module
+                          UserImageShowModule(
+                            userImagesList: userImagesList,
+                            imageListIndex: 2,
+                            imageShowIndex: 2,
+                          ),
+
+                          // User 4th Image Show module
+                          UserImageShowModule(
+                            userImagesList: userImagesList,
+                            imageListIndex: 3,
+                            imageShowIndex: 3,
+                          ),
+
+                          // User 5th Image Show module
+                          UserImageShowModule(
+                            userImagesList: userImagesList,
+                            imageListIndex: 4,
+                            imageShowIndex: 4,
+                          ),
+
+                          // User 6th Image Show module
+                          UserImageShowModule(
+                            userImagesList: userImagesList,
+                            imageListIndex: 5,
+                            imageShowIndex: 5,
+                          ),
+
+                          // User 7th Image Show module
+                          UserImageShowModule(
+                            userImagesList: userImagesList,
+                            imageListIndex: 6,
+                            imageShowIndex: 6,
+                          ),
+
+                          // User 8th Image Show module
+                          UserImageShowModule(
+                            userImagesList: userImagesList,
+                            imageListIndex: 7,
+                            imageShowIndex: 7,
+                          ),
+
+                          // User 9th Image Show module
+                          UserImageShowModule(
+                            userImagesList: userImagesList,
+                            imageListIndex: 8,
+                            imageShowIndex: 8,
+                          ),
+                          //
+
+                          SizedBox(height: 3.h),
+
+                          // Location Module
+                          LocationInformationModule(singleItem: singleItem),
+                          //
+
+                          SizedBox(height: 4.h),
+
+                          // Super Love Button
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              GestureDetector(
+                                onTap: () {
+                                  homeScreenController.cardController.next(
+                                    swipeDirection: SwipeDirection.up,
+                                  );
+                                },
+                                child: const Icon(
+                                  Icons.star_rounded,
+                                  color: AppColors.lightOrangeColor,
+                                  size: 50,
+                                ),
+                              ),
+                              /*IconButton(
+                                    onPressed: () {
+
+                                    },
+                                    icon: const Icon(
+                                      Icons.star_rounded,
+                                      color: AppColors.lightOrangeColor,
+                                      size: 50,
+                                    ),
+                                  ),*/
+                            ],
+                          ),
+
+                          // Close & Like button module
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              GestureDetector(
+                                onTap: () {
+                                  homeScreenController.cardController.next(
+                                    swipeDirection: SwipeDirection.left,
+                                  );
+                                },
+                                child: const Icon(
+                                  Icons.close_rounded,
+                                  color: AppColors.lightOrangeColor,
+                                  size: 50,
+                                ),
+                              ),
+                              Expanded(
+                                child: Text(
+                                  'Hide and Report',
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    fontSize: 15.sp,
+                                    color: AppColors.lightOrangeColor,
+                                  ),
+                                ),
+                              ),
+                              GestureDetector(
+                                onTap: () {
+                                  homeScreenController.cardController.next(
+                                    swipeDirection: SwipeDirection.right,
+                                  );
+                                },
+                                child: const Icon(
+                                  Icons.favorite_border_outlined,
+                                  color: AppColors.lightOrangeColor,
+                                  size: 50,
+                                ),
+                              ),
+                            ],
+                          ).commonSymmetricPadding(horizontal: 10),
+
+                          SizedBox(height: 3.h),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              );
+
+              /*return homeScreenController.userImageList.isEmpty
+                  ? ClipRRect(
+                      borderRadius: BorderRadius.circular(20),
+                      child: Image.asset(
+                        AppImages.swiper1Image,
+                        width: double.infinity,
+                        fit: BoxFit.fill,
+                      ),
+                    )
+                  : ClipRRect(
+                      borderRadius: BorderRadius.circular(20),
+                      child: Image.network(
+                        homeScreenController
+                            .suggestionList[
+                                homeScreenController.currentUserIndex.value]
+                            .images![0]
+                            .imageUrl,
+                        fit: BoxFit.fill,
+                        errorBuilder: (context, obj, st) {
+                          return ClipRRect(
+                            borderRadius: BorderRadius.circular(20),
+                            child: Image.asset(
+                              AppImages.swiper1Image,
+                              width: double.infinity,
+                              fit: BoxFit.fill,
+                            ),
+                          );
+                        },
+                      ),
+                    );*/
+            },
+          );
+  }
+}
+
+class BasicInFormationModule extends StatelessWidget {
+  List<BasicModel> basicList;
+  BasicInFormationModule({super.key, required this.basicList});
+
+  final homeScreenController = Get.find<HomeScreenController>();
+
+  @override
+  Widget build(BuildContext context) {
+    // print("object ${homeScreenController.basicList.length}");
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          children: [
+            Text(
+              AppMessages.basics,
+              style: TextStyleConfig.textStyle(
+                fontSize: 16.sp,
+                fontFamily: FontFamilyText.sFProDisplayBold,
+                textColor: AppColors.grey800Color,
+              ),
+            ),
+          ],
+        ),
+        SizedBox(height: 2.h),
+        Wrap(
+          spacing: 3.0,
+          children: List.generate(
+            basicList.length,
+            (int index) {
+              return Transform(
+                transform: Matrix4.identity()..scale(0.9),
+                child: ChoiceChip(
+                  avatar: CircleAvatar(
+                    backgroundImage: AssetImage(
+                      basicList[index].image,
+                    ),
+                  ).commonOnlyPadding(left: 2),
+                  label: Text(
+                    basicList[index].name,
+                    style: TextStyleConfig.textStyle(
+                      fontFamily: FontFamilyText.sFProDisplaySemibold,
+                      textColor: AppColors.grey600Color,
+                      fontSize: 16,
+                    ),
+                  ),
+                  selected: false,
+                  selectedColor: AppColors.darkOrangeColor,
+                  backgroundColor: AppColors.lightOrangeColor,
                   shape: const StadiumBorder(
                     side: BorderSide(
                       color: AppColors.grey400Color,
@@ -701,9 +1330,10 @@ class BasicInFormationModule extends StatelessWidget {
 }
 
 class InterestsInformationModule extends StatelessWidget {
-  InterestsInformationModule({super.key});
+  List<Interest> interestList;
+  InterestsInformationModule({super.key, required this.interestList});
 
-  final homeScreenController = Get.find<HomeScreenController>();
+  // final homeScreenController = Get.find<HomeScreenController>();
 
   @override
   Widget build(BuildContext context) {
@@ -726,7 +1356,7 @@ class InterestsInformationModule extends StatelessWidget {
         Wrap(
           spacing: 3.0,
           children: List.generate(
-            homeScreenController.interestList.length,
+            interestList.length,
             (int index) {
               return Transform(
                 transform: Matrix4.identity()..scale(0.9),
@@ -735,16 +1365,16 @@ class InterestsInformationModule extends StatelessWidget {
                     backgroundImage: AssetImage(AppImages.ballImage),
                   ).commonOnlyPadding(left: 2),
                   label: Text(
-                    homeScreenController.interestList[index],
+                    interestList[index].name,
                     style: TextStyleConfig.textStyle(
                       fontFamily: FontFamilyText.sFProDisplaySemibold,
                       textColor: AppColors.grey600Color,
                       fontSize: 16,
                     ),
                   ),
-                  selected: homeScreenController.selected.value,
+                  selected: false,
                   selectedColor: AppColors.darkOrangeColor,
-                  backgroundColor: Colors.white,
+                  backgroundColor: AppColors.lightOrangeColor,
                   shape: const StadiumBorder(
                     side: BorderSide(
                       color: AppColors.grey400Color,
@@ -763,9 +1393,10 @@ class InterestsInformationModule extends StatelessWidget {
 }
 
 class LanguagesInformationModule extends StatelessWidget {
-  LanguagesInformationModule({super.key});
+  List<String> languageList;
+  LanguagesInformationModule({super.key, required this.languageList});
 
-  final homeScreenController = Get.find<HomeScreenController>();
+  // final homeScreenController = Get.find<HomeScreenController>();
 
   @override
   Widget build(BuildContext context) {
@@ -788,25 +1419,26 @@ class LanguagesInformationModule extends StatelessWidget {
         Wrap(
           spacing: 3.0,
           children: List.generate(
-            homeScreenController.languageList.length,
+            languageList.length,
             (int index) {
               return Transform(
                 transform: Matrix4.identity()..scale(0.9),
                 child: ChoiceChip(
                   avatar: const CircleAvatar(
-                    backgroundImage: AssetImage(AppImages.ballImage),
+                    backgroundImage: AssetImage(AppImages.languageImage),
                   ).commonOnlyPadding(left: 2),
                   label: Text(
-                    homeScreenController.languageList[index],
+                    languageList[index],
+                    // "English",
                     style: TextStyleConfig.textStyle(
                       fontFamily: FontFamilyText.sFProDisplaySemibold,
                       textColor: AppColors.grey600Color,
                       fontSize: 16,
                     ),
                   ),
-                  selected: homeScreenController.selected.value,
+                  selected: false,
                   selectedColor: AppColors.darkOrangeColor,
-                  backgroundColor: Colors.white,
+                  backgroundColor: AppColors.lightOrangeColor,
                   shape: const StadiumBorder(
                     side: BorderSide(
                       color: AppColors.grey400Color,
@@ -824,8 +1456,57 @@ class LanguagesInformationModule extends StatelessWidget {
   }
 }
 
+class UserImageShowModule extends StatelessWidget {
+  List<UserImage> userImagesList;
+  final int imageListIndex;
+  final int imageShowIndex;
+
+  UserImageShowModule(
+      {Key? key,
+      required this.imageListIndex,
+      required this.imageShowIndex,
+      required this.userImagesList})
+      : super(key: key);
+  // final screenController = Get.find<HomeScreenController>();
+
+  @override
+  Widget build(BuildContext context) {
+    // print('imageListIndex : ${imageListIndex.toString()}');
+    // print('imageShowIndex : ${imageShowIndex.toString()}');
+    // print('userImagesList : ${userImagesList}');
+
+    return userImagesList.length > imageListIndex
+        ? SizedBox(
+            height: 56.h,
+            width: Get.width,
+            // decoration: BoxDecoration(
+            //   borderRadius: BorderRadius.circular(15),
+            // ),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(20),
+              child: Image.network(
+                userImagesList[imageShowIndex].imageUrl,
+                fit: BoxFit.fill,
+                errorBuilder: (context, obj, st) {
+                  return ClipRRect(
+                    borderRadius: BorderRadius.circular(20),
+                    child: Image.asset(
+                      AppImages.swiper1Image,
+                      width: double.infinity,
+                      fit: BoxFit.fill,
+                    ),
+                  );
+                },
+              ),
+            ),
+          ).commonSymmetricPadding(vertical: 5)
+        : Container();
+  }
+}
+
 class LocationInformationModule extends StatelessWidget {
-  LocationInformationModule({super.key});
+  SuggestionData singleItem;
+  LocationInformationModule({super.key, required this.singleItem});
 
   final homeScreenController = Get.find<HomeScreenController>();
 
@@ -843,7 +1524,7 @@ class LocationInformationModule extends StatelessWidget {
             ),
             SizedBox(width: 1.w),
             Text(
-              "${homeScreenController.name}${AppMessages.locationText}",
+              "${singleItem.name}${AppMessages.locationText}",
               style: TextStyleConfig.textStyle(
                 fontSize: 16.sp,
                 fontFamily: FontFamilyText.sFProDisplayBold,
@@ -857,7 +1538,7 @@ class LocationInformationModule extends StatelessWidget {
           children: [
             Text(
               textAlign: TextAlign.start,
-              "${homeScreenController.homeTown.value}, Sydney \n${homeScreenController.distance.value}",
+              "${singleItem.homeTown}, Sydney \n${singleItem.distance}",
               style: TextStyleConfig.textStyle(
                 fontFamily: FontFamilyText.sFProDisplaySemibold,
                 textColor: AppColors.grey600Color,
@@ -879,14 +1560,14 @@ class LocationInformationModule extends StatelessWidget {
                     backgroundImage: AssetImage(AppImages.ballImage),
                   ).commonOnlyPadding(left: 2),
                   label: Text(
-                    index == 0 ? homeScreenController.homeTown.value : 'Sydney',
+                    index == 0 ? singleItem.homeTown! : 'Sydney',
                     style: TextStyleConfig.textStyle(
                       fontFamily: FontFamilyText.sFProDisplaySemibold,
                       textColor: AppColors.grey600Color,
                       fontSize: 16,
                     ),
                   ),
-                  selected: homeScreenController.selected.value,
+                  selected: false,
                   selectedColor: AppColors.darkOrangeColor,
                   backgroundColor: Colors.white,
                   shape: const StadiumBorder(
