@@ -1,8 +1,10 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:developer';
+import 'dart:ui';
 import 'package:dater/model/home_screen_model/super_love_model.dart';
 import 'package:dater/model/profile_screen_models/basic_model.dart';
+import 'package:dater/screens/index_screen/index_screen.dart';
 import 'package:flutter/widgets.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
@@ -21,6 +23,10 @@ class HomeScreenController extends GetxController {
   RxBool isVisible = true.obs;
   RxInt successStatus = 0.obs;
   SwipableStackController cardController = SwipableStackController();
+
+  double physicalDeviceWidth = 0.0;
+  double physicalDeviceHeight = 0.0;
+
   // RxString selectedval = ''.obs;
   RxBool selected = false.obs;
   RxBool selectedSuperLove = false.obs;
@@ -108,7 +114,9 @@ class HomeScreenController extends GetxController {
     await userPreference.setBoolValueInPrefs(
         key: UserPreference.isragatherInKey, value: selected.value);
     log("selected.value: ${selected.value}");
-    await getUserSuggestionsFunction();
+    Get.offAll(()=> IndexScreen());
+    // await getUserSuggestionsFunction();
+    // await initMethod();
   }
 
   // superlovefunction,
@@ -140,8 +148,7 @@ class HomeScreenController extends GetxController {
       var response = await request.send();
 
       response.stream
-          .transform(const Utf8Decoder())
-          .transform(const LineSplitter())
+          .transform(utf8.decoder)
           .listen((value) async {
         log("Suggestion Api value :$value");
         SuggestionListModel suggestionListModel =
@@ -149,31 +156,35 @@ class HomeScreenController extends GetxController {
         successStatus.value = suggestionListModel.statusCode;
         if (successStatus.value == 200) {
           suggestionList.clear();
+          // suggestionList = [];
 
           if (suggestionListModel.msg.isNotEmpty) {
             suggestionList.addAll(suggestionListModel.msg);
-            singlePersonData = suggestionList[0];
-            setChangedUserData(0);
+            // singlePersonData = suggestionList[0];
+            // setChangedUserData(0);
 
-            log("singlePersonData :${singlePersonData.name}");
-            log("singlePersonData :${singlePersonData.bio}");
+            // log("singlePersonData :${singlePersonData.name}");
+            // log("singlePersonData :${singlePersonData.bio}");
 
-            log('suggestionList : ${suggestionList.length}');
+            log('suggestionList1212 : ${suggestionList.length}');
           }
+          // isLoading(false);
         } else {
           log('getUserSuggestionsFunction Else');
+          // isLoading(false);
         }
       });
     } catch (e) {
       log('getMatchesFunction Error :$e');
+      // isLoading(false);
       rethrow;
     }
 
     // Timer(const Duration(seconds: 1), () => isLoading(false));
 
     // isLoading(false);
-    // loadUI();
-    await getUserSuggestionsFunction2();
+    loadUI();
+    // await getUserSuggestionsFunction2();
   }
 
   Future<void> getUserSuggestionsFunction2() async {
@@ -191,8 +202,7 @@ class HomeScreenController extends GetxController {
       var response = await request.send();
 
       response.stream
-          .transform(const Utf8Decoder())
-          .transform(const LineSplitter())
+          .transform(utf8.decoder)
           .listen((value) async {
         log("Suggestion Api value :$value");
         SuggestionListModel suggestionListModel =
@@ -210,9 +220,11 @@ class HomeScreenController extends GetxController {
             log("singlePersonData :${singlePersonData.bio}");
 
             log('suggestionList : ${suggestionList.length}');
+            isLoading(false);
           }
         } else {
           log('getUserSuggestionsFunction Else');
+          isLoading(false);
           // isLoading(false);
         }
       });
@@ -221,7 +233,7 @@ class HomeScreenController extends GetxController {
       // isLoading(false);
       rethrow;
     }
-    isLoading(false);
+    // isLoading(false);
     // Timer(const Duration(seconds: 1), () => isLoading(false));
 
     // isLoading(false);
@@ -232,9 +244,9 @@ class HomeScreenController extends GetxController {
   List<BasicModel> setBasicListFunction({required SuggestionData singleItem}) {
     List<BasicModel> basicList = [];
     basicList.add(BasicModel(image: AppImages.genderImage, name: gender.value));
-    basicList.add(BasicModel(image: AppImages.workImage, name: work.value));
-    basicList.add(
-        BasicModel(image: AppImages.educationImage, name: education.value));
+    // basicList.add(BasicModel(image: AppImages.workImage, name: work.value));
+    // basicList.add(
+    //     BasicModel(image: AppImages.educationImage, name: education.value));
     basicList.add(
         BasicModel(image: AppImages.heightImage, name: "${height.value} cm"));
     basicList
@@ -449,6 +461,14 @@ class HomeScreenController extends GetxController {
   }
 
   initMethod() async {
+    //Size in physical pixels
+    var physicalScreenSize = window.physicalSize;
+    physicalDeviceWidth = physicalScreenSize.width;
+    physicalDeviceHeight = physicalScreenSize.height;
+    log('physicalDeviceHeight : $physicalDeviceHeight');
+    log('physicalDeviceWidth : $physicalDeviceWidth');
+    selected.value = await userPreference.getBoolFromPrefs(key: UserPreference.isragatherInKey);
+
     await getLocation();
     await getUserSuggestionsFunction();
     // await getUserSuggestionsFunction();
@@ -487,7 +507,7 @@ class HomeScreenController extends GetxController {
       }
       loadUI();
     }*/
-    loadUI();
+    // loadUI();
   }
 
   loadUI() {

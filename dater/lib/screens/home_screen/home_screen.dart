@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'dart:ui';
 import 'package:dater/common_modules/custom_loader.dart';
 import 'package:dater/constants/colors.dart';
 import 'package:dater/constants/font_family.dart';
@@ -13,6 +14,7 @@ import 'package:sizer/sizer.dart';
 import 'package:swipable_stack/swipable_stack.dart';
 import '../../common_modules/custom_button.dart';
 import '../../constants/app_images.dart';
+import '../../utils/preferences/user_preference.dart';
 import '../favorite_screen/favorite_screen.dart';
 import 'home_screen_widgets.dart';
 
@@ -22,9 +24,143 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       backgroundColor: AppColors.whiteColor2,
       resizeToAvoidBottomInset: false,
+
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(60.0),
+        child: SafeArea(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              // Reload button
+              GestureDetector(
+                  onTap: () async {
+                    if (homeScreenController.selected.value == true) {
+                      homeScreenController.selected.value = await homeScreenController.userPreference.getBoolFromPrefs(key: UserPreference.isragatherInKey);
+                      await homeScreenController.understandFunction();
+                      // await homeScreenController.initMethod();
+                    } else if (homeScreenController.selected.value == false) {
+                      showDialog(
+                        barrierDismissible: false,
+                        context: context,
+                        builder: (context) {
+                          return AlertDialog(
+                            shape: const RoundedRectangleBorder(
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(20),
+                              ),
+                            ),
+                            elevation: 50,
+                            content: StatefulBuilder(
+                              builder: (context, setState) {
+                                return Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Text(
+                                      "Regather",
+                                      style: TextStyleConfig.textStyle(
+                                        fontSize: 20,
+                                        fontFamily:
+                                            FontFamilyText.sFProDisplayBold,
+                                      ),
+                                    ),
+                                    SizedBox(height: 2.h),
+                                    Text(
+                                      "Every regather will cost you 1 coin",
+                                      style: TextStyleConfig.textStyle(
+                                        fontSize: 14.sp,
+                                        fontFamily:
+                                            FontFamilyText.sFProDisplayRegular,
+                                      ),
+                                    ),
+                                    SizedBox(height: 5.h),
+                                    ButtonCustom(
+                                      text: "Undestand",
+                                      onPressed: () async {
+                                        log("11");
+                                        Get.back();
+                                        await homeScreenController
+                                            .understandFunction();
+
+                                        log("22");
+                                      },
+                                      fontWeight: FontWeight.bold,
+                                      textsize: 14.sp,
+                                      textFontFamily:
+                                          FontFamilyText.sFProDisplayHeavy,
+                                      textColor: AppColors.whiteColor2,
+                                      backgroundColor: AppColors.darkOrangeColor,
+                                    ).commonSymmetricPadding(horizontal: 35),
+                                    SizedBox(height: 1.h),
+                                    Row(
+                                      children: [
+                                        Checkbox(
+                                          checkColor: AppColors.lightOrangeColor,
+                                          hoverColor: AppColors.lightOrangeColor,
+                                          activeColor: AppColors.lightOrangeColor,
+                                          tristate: false,
+                                          side: const BorderSide(
+                                            width: 2,
+                                            color: AppColors.blackColor,
+                                          ),
+                                          shape: const CircleBorder(),
+                                          value:
+                                              homeScreenController.selected.value,
+                                          onChanged: (value) {
+                                            setState(() {
+                                              homeScreenController
+                                                      .selected.value =
+                                                  !homeScreenController
+                                                      .selected.value;
+                                            });
+                                          },
+                                        ),
+                                        Text(
+                                          "don't show again",
+                                          style: TextStyleConfig.textStyle(
+                                            fontSize: 14.sp,
+                                            fontFamily: FontFamilyText
+                                                .sFProDisplayRegular,
+                                          ),
+                                        ),
+                                      ],
+                                    )
+                                  ],
+                                );
+                              },
+                            ),
+                          );
+                        },
+                      );
+                    }
+                  },
+                  child: Image.asset(AppImages.refreshImage)),
+              // Heart button
+              GestureDetector(
+                onTap: () {
+                  Get.to(() => FavoriteScreen());
+                },
+                child: Image.asset(AppImages.hardImage),
+              ),
+              // Filter screen
+              GestureDetector(
+                onTap: () {
+                  Get.to(
+                    () => FilterScreen(),
+                  );
+                },
+                child: Image.asset(AppImages.menuImage),
+              ),
+            ],
+          ).commonSymmetricPadding(horizontal: 20, vertical: 15),
+        ),
+      ),
+
+      // bottomNavigationBar: Container(),
+
       body: Obx(
         () => homeScreenController.isLoading.value
             ? const CustomLoader()
@@ -87,10 +223,10 @@ class HomeScreen extends StatelessWidget {
                 child: SafeArea(
                   child: Column(
                     children: [
-                      SizedBox(height: 2.h),
+                      // SizedBox(height: 2.h),
 
                       /// Header module
-                      Row(
+                      /*Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           // Reload button
@@ -223,8 +359,8 @@ class HomeScreen extends StatelessWidget {
                             child: Image.asset(AppImages.menuImage),
                           ),
                         ],
-                      ),
-                      SizedBox(height: 2.h),
+                      ),*/
+                      // SizedBox(height: 2.h),
 
                       // Swipe Card
                       // CardSwipeModule(),
@@ -233,15 +369,33 @@ class HomeScreen extends StatelessWidget {
                         child: Stack(
                           alignment: Alignment.bottomRight,
                           children: [
-                            SwipeUserModule(),
+                            Obx(
+                              () => homeScreenController.isLoading.value
+                                  ? Container()
+                                  : SwipeUserModule(),
+                            ),
 
-                            Positioned(
-                              bottom: 50,
-                              right: 30,
+                            /// Star button - Super love button
+                            homeScreenController.suggestionList.isEmpty
+                            ? Container()
+                            : Positioned(
+                              bottom: homeScreenController.physicalDeviceHeight < 2200
+                                  ? Get.height * 0.08 : Get.height * 0.10,
+                              right: 5.w,
                               child: Obx(
                                 () => Visibility(
                                   visible: homeScreenController.isVisible.value,
-                                  child: IconButton(
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      homeScreenController.cardController.next(
+                                        swipeDirection: SwipeDirection.up,
+                                      );
+                                    },
+                                    child: const Icon(Icons.star_rounded,
+                                        color: AppColors.lightOrangeColor,
+                                        size: 60),
+                                  ),
+                                  /*child: IconButton(
                                       onPressed: () {
                                         homeScreenController.cardController
                                             .next(
@@ -250,7 +404,8 @@ class HomeScreen extends StatelessWidget {
                                       },
                                       icon: const Icon(Icons.star_rounded,
                                           color: AppColors.lightOrangeColor,
-                                          size: 60)),
+                                          size: 60)
+                                  ),*/
                                 ),
                               ),
                             ),
@@ -258,7 +413,7 @@ class HomeScreen extends StatelessWidget {
                         ),
                       ),
                     ],
-                  ).commonSymmetricPadding(horizontal: 30, vertical: 20),
+                  ).commonSymmetricPadding(horizontal: 30, vertical: 0),
                 ),
             ),
       ),
