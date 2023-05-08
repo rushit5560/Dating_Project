@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 import 'package:swipable_stack/swipable_stack.dart';
-import '../../common_modules/custom_button.dart';
 import '../../constants/colors.dart';
 import '../../constants/enums.dart';
 import '../../controller/home_screen_controller.dart';
@@ -733,7 +732,10 @@ class SwipeUserModule extends StatelessWidget {
               }
             },
             overlayBuilder: (context, properties) {
-              final opacity = min(properties.swipeProgress, 0.5);
+              // properties.swipeProgress;
+              final opacity = min(properties.swipeProgress, 1.0);
+              print('opacity : ${properties.swipeProgress}');
+
 
               SwipeDirectionEnum swipeDirectionEnum =
                   properties.direction == SwipeDirection.right
@@ -741,6 +743,8 @@ class SwipeUserModule extends StatelessWidget {
                       : properties.direction == SwipeDirection.left
                           ? SwipeDirectionEnum.left
                           : SwipeDirectionEnum.up;
+
+              // homeScreenController.hideSuperLoveButtonFunction(swipeDirectionEnum);
 
               return Opacity(
                 opacity: opacity,
@@ -769,15 +773,11 @@ class SwipeUserModule extends StatelessWidget {
             itemCount: homeScreenController.suggestionList.length,
             builder: (context, sp) {
               // print('sp.index : ${sp.index}');
-              SuggestionData singleItem =
-                  homeScreenController.suggestionList[sp.index];
+              SuggestionData singleItem = homeScreenController.suggestionList[sp.index];
 
-              List<String> languageList =
-                  homeScreenController.suggestionList[sp.index].languages!;
-              List<Interest> interestList =
-                  homeScreenController.suggestionList[sp.index].interest!;
-              List<UserImage> userImagesList =
-                  homeScreenController.suggestionList[sp.index].images!;
+              List<String> languageList = homeScreenController.suggestionList[sp.index].languages!;
+              List<Interest> interestList = homeScreenController.suggestionList[sp.index].interest!;
+              List<UserImage> userImagesList = homeScreenController.suggestionList[sp.index].images!;
 
               List<BasicModel> basicList = [];
               basicList = homeScreenController.setBasicListFunction(
@@ -855,7 +855,7 @@ class SwipeUserModule extends StatelessWidget {
                                     textColor: AppColors.whiteColor2,
                                     fontSize: 21.sp,
                                     fontFamily:
-                                    FontFamilyText.sFProDisplaySemibold,
+                                        FontFamilyText.sFProDisplaySemibold,
                                     // fontWeight: FontWeight.bold,
                                   ),
                                   children: [
@@ -865,23 +865,23 @@ class SwipeUserModule extends StatelessWidget {
                                         textColor: AppColors.whiteColor2,
                                         fontSize: 21.sp,
                                         fontFamily:
-                                        FontFamilyText.sFProDisplayRegular,
+                                            FontFamilyText.sFProDisplayRegular,
                                         // fontWeight: FontWeight.bold,
                                       ),
                                     ),
                                     singleItem.verified == "0"
                                         ? WidgetSpan(
-                                        child: SizedBox(width: 1.w))
+                                            child: SizedBox(width: 1.w))
                                         : const WidgetSpan(child: SizedBox()),
                                     singleItem.verified == "0"
                                         ? WidgetSpan(
-                                      child: Image.asset(
-                                        AppImages.rightImage,
-                                        height: 22,
-                                        width: 22,
-                                        fit: BoxFit.fill,
-                                      ).commonOnlyPadding(bottom: 5),
-                                    )
+                                            child: Image.asset(
+                                              AppImages.rightImage,
+                                              height: 22,
+                                              width: 22,
+                                              fit: BoxFit.fill,
+                                            ).commonOnlyPadding(bottom: 5),
+                                          )
                                         : const WidgetSpan(child: SizedBox()),
                                   ],
                                 ),
@@ -902,7 +902,7 @@ class SwipeUserModule extends StatelessWidget {
                                     overflow: TextOverflow.ellipsis,
                                     style: TextStyle(
                                       fontFamily:
-                                      FontFamilyText.sFProDisplaySemibold,
+                                          FontFamilyText.sFProDisplaySemibold,
                                       color: AppColors.whiteColor2,
                                       fontSize: 9.sp,
                                     ),
@@ -924,7 +924,7 @@ class SwipeUserModule extends StatelessWidget {
                                     overflow: TextOverflow.ellipsis,
                                     style: TextStyle(
                                       fontFamily:
-                                      FontFamilyText.sFProDisplaySemibold,
+                                          FontFamilyText.sFProDisplaySemibold,
                                       color: AppColors.whiteColor2,
                                       fontSize: 9.sp,
                                     ),
@@ -1000,7 +1000,7 @@ class SwipeUserModule extends StatelessWidget {
                           interestList.isEmpty
                               ? Container()
                               : InterestsInformationModule(
-                              interestList: interestList),
+                                  interestList: interestList),
                           //
 
                           // Language Module
@@ -1010,7 +1010,7 @@ class SwipeUserModule extends StatelessWidget {
                           languageList.isEmpty
                               ? Container()
                               : LanguagesInformationModule(
-                              languageList: languageList),
+                                  languageList: languageList),
                           //
 
                           SizedBox(height: 3.h),
@@ -1018,30 +1018,30 @@ class SwipeUserModule extends StatelessWidget {
                           // User 2nd Image Show module
                           singleItem.images!.length > 1
                               ? SizedBox(
-                            height: 56.h,
-                            width: Get.width,
-                            // decoration: BoxDecoration(
-                            //   borderRadius: BorderRadius.circular(15),
-                            // ),
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(20),
-                              child: Image.network(
-                                singleItem.images![1].imageUrl,
-                                fit: BoxFit.fill,
-                                errorBuilder: (context, obj, st) {
-                                  return ClipRRect(
-                                    borderRadius:
-                                    BorderRadius.circular(20),
-                                    child: Image.asset(
-                                      AppImages.swiper1Image,
-                                      width: double.infinity,
-                                      fit: BoxFit.fill,
+                                  height: 56.h,
+                                  width: Get.width,
+                                  // decoration: BoxDecoration(
+                                  //   borderRadius: BorderRadius.circular(15),
+                                  // ),
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(20),
+                                    child: Image.network(
+                                      singleItem.images![1].imageUrl,
+                                      fit: BoxFit.cover,
+                                      errorBuilder: (context, obj, st) {
+                                        return ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(20),
+                                          child: Image.asset(
+                                            AppImages.swiper1Image,
+                                            width: double.infinity,
+                                            fit: BoxFit.fill,
+                                          ),
+                                        );
+                                      },
                                     ),
-                                  );
-                                },
-                              ),
-                            ),
-                          ).commonSymmetricPadding(vertical: 5)
+                                  ),
+                                ).commonSymmetricPadding(vertical: 5)
                               : Container(),
                           //
 
@@ -1049,43 +1049,43 @@ class SwipeUserModule extends StatelessWidget {
                           // SizedBox(height: 2.h),
                           singleItem.prompts!.isNotEmpty
                               ? Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                singleItem.prompts![0].question,
-                                style: TextStyleConfig.textStyle(
-                                  fontFamily:
-                                  FontFamilyText.sFProDisplaySemibold,
-                                  textColor: AppColors.grey300Color,
-                                  //fontWeight: FontWeight.w500,
-                                  fontSize: 16.sp,
-                                ),
-                              ),
-                              SizedBox(height: 1.h),
-                              Container(
-                                width: Get.width,
-                                padding: const EdgeInsets.all(10),
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(30),
-                                  border: Border.all(
-                                    color: AppColors.grey400Color,
-                                    width: 1,
-                                  ),
-                                ),
-                                child: Text(
-                                  singleItem.prompts![0].answer,
-                                  textAlign: TextAlign.center,
-                                  style: TextStyleConfig.textStyle(
-                                    fontFamily: FontFamilyText
-                                        .sFProDisplaySemibold,
-                                    textColor: AppColors.grey600Color,
-                                    //fontWeight: FontWeight.w500,
-                                    fontSize: 12.sp,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ).commonSymmetricPadding(vertical: 5)
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      singleItem.prompts![0].question,
+                                      style: TextStyleConfig.textStyle(
+                                        fontFamily:
+                                            FontFamilyText.sFProDisplaySemibold,
+                                        textColor: AppColors.grey300Color,
+                                        //fontWeight: FontWeight.w500,
+                                        fontSize: 16.sp,
+                                      ),
+                                    ),
+                                    SizedBox(height: 1.h),
+                                    Container(
+                                      width: Get.width,
+                                      padding: const EdgeInsets.all(10),
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(30),
+                                        border: Border.all(
+                                          color: AppColors.grey400Color,
+                                          width: 1,
+                                        ),
+                                      ),
+                                      child: Text(
+                                        singleItem.prompts![0].answer,
+                                        textAlign: TextAlign.center,
+                                        style: TextStyleConfig.textStyle(
+                                          fontFamily: FontFamilyText
+                                              .sFProDisplaySemibold,
+                                          textColor: AppColors.grey600Color,
+                                          //fontWeight: FontWeight.w500,
+                                          fontSize: 12.sp,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ).commonSymmetricPadding(vertical: 5)
                               : Container(),
                           //
 
@@ -1486,14 +1486,14 @@ class UserImageShowModule extends StatelessWidget {
               borderRadius: BorderRadius.circular(20),
               child: Image.network(
                 userImagesList[imageShowIndex].imageUrl,
-                fit: BoxFit.fill,
+                fit: BoxFit.cover,
                 errorBuilder: (context, obj, st) {
                   return ClipRRect(
                     borderRadius: BorderRadius.circular(20),
                     child: Image.asset(
                       AppImages.swiper1Image,
                       width: double.infinity,
-                      fit: BoxFit.fill,
+                      fit: BoxFit.cover,
                     ),
                   );
                 },

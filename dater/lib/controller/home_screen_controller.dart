@@ -1,10 +1,8 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:developer';
-import 'package:dater/constants/messages.dart';
 import 'package:dater/model/home_screen_model/super_love_model.dart';
 import 'package:dater/model/profile_screen_models/basic_model.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
@@ -67,6 +65,14 @@ class HomeScreenController extends GetxController {
     AppImages.swiper1Image,
     AppImages.swiper2Image,
   ];
+
+  hideSuperLoveButtonFunction(SwipeDirectionEnum swipeDirectionEnum) {
+    if(swipeDirectionEnum == SwipeDirectionEnum.left || swipeDirectionEnum == SwipeDirectionEnum.right) {
+      isVisible.value = false;
+    } else {
+      isVisible.value = true;
+    }
+  }
 
   fetchMobileLocation() async {
     Location location = Location();

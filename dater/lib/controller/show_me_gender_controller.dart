@@ -19,6 +19,8 @@ class ShowMeGenderScreenController extends GetxController {
   RxInt successStatus = 0.obs;
 
   List<Msg> genderList = [];
+  List<Msg> mainGenderList = [];
+  List<Msg> nonBinaryGenderList = [];
   Msg selectedGenderValue = Msg(id: "1", name: "Female");
   String selectedGenderValueId = "";
 
@@ -45,10 +47,20 @@ class ShowMeGenderScreenController extends GetxController {
         genderList.isNotEmpty ? selectedGenderValue = genderList[0] : null;
 
         for (var element in genderList) {
+
+          if(element.name == "Female" || element.name == "Male") {
+            mainGenderList.add(element);
+          } else {
+            nonBinaryGenderList.add(element);
+          }
+
           if (element.name == showMeGenderValue) {
             selectedGenderValue = element;
           }
         }
+
+        log('mainGenderList :${mainGenderList.length}');
+        log('nonBinaryGenderList :${nonBinaryGenderList.length}');
 
         log("selectedGenderValue: $selectedGenderValue");
         // log("selectedGenderValueId: $selectedGenderValueId");
