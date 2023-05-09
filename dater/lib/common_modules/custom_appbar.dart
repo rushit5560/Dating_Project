@@ -46,6 +46,7 @@ PreferredSizeWidget commonAppBarModule(
 
 PreferredSizeWidget appBarModule(
     {required String text,
+      required String userImage,
       Color iconColor = AppColors.lightOrangeColor,
       String textFontFamily = "SFProDisplayRegular",
       Color textColor = AppColors.grey800Color,
@@ -78,13 +79,24 @@ PreferredSizeWidget appBarModule(
         fontSize: 20.sp,
       ),
     ),
-    actions: const [
+    actions: [
       Padding(
-        padding: EdgeInsets.all(12),
-        child: CircleAvatar(
-          backgroundImage: AssetImage(AppImages.swiper1Image),
+        padding: const EdgeInsets.all(12),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(30),
+          child: SizedBox(
+            width: 50,
+            height: 50,
+            child: Image.network(
+              userImage,
+              fit: BoxFit.cover,
+              errorBuilder: (context, st, obj) {
+                return Image.asset(AppImages.chatimage);
+              },
+            ),
+          ),
         ),
-      )
+      ),
     ],
   );
 }

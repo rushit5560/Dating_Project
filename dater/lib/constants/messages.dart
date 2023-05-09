@@ -187,4 +187,5 @@ class AppMessages {
   static String kidsApiText = "kids";
   static String politicsApiText = "politics";
   static String religionApiText = "religion";
+  static String goalApiText = "goal";
 }

@@ -45,9 +45,8 @@ class GoalSelectScreen extends StatelessWidget {
                         backgroundColor: AppColors.greyColor,
                       ),
                     ),
-                    SizedBox(
-                      height: 2.h,
-                    ),
+                    SizedBox(height: 2.h),
+
                     const GoalselectNotesModule(),
                   ],
                 ).commonSymmetricPadding(horizontal: 25, vertical: 10),

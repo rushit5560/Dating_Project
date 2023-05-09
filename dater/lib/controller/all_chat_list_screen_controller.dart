@@ -19,8 +19,8 @@ class AllChatListScreenController extends GetxController {
   RxBool panddingMess = true.obs;
 
 
-  List<MatchPersonData> matchesList = [];
-  List<MatchPersonData> searchMatchesList = [];
+  List<MatchUserData> matchesList = [];
+  List<MatchUserData> searchMatchesList = [];
   UserPreference userPreference = UserPreference();
 
   /// Get Matches Function

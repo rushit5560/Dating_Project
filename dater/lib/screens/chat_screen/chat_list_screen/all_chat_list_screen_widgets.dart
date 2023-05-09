@@ -57,20 +57,32 @@ class ChatListModule extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       child: ListView.builder(
-        itemCount: 10,
+        itemCount: allChatListScreenController.searchMatchesList.length,
         itemBuilder: (context, index) {
-          MatchPersonData person = allChatListScreenController.searchMatchesList[index];
+          MatchUserData person = allChatListScreenController.searchMatchesList[index];
           return GestureDetector(
             onTap: () {
               Get.to(
                 () =>  ChatScreen(),
                 arguments: [person]
-              );
+              )!.then((value) async {
+                await allChatListScreenController.getMatchesFunction();
+              });
             },
             child: ListTile(
-              leading: const CircleAvatar(
-                backgroundImage: AssetImage(AppImages.chatimage),
+              leading: ClipRRect(
+                borderRadius: BorderRadius.circular(30),
+                child: SizedBox(
+                  width: 50,
+                  height: 50,
+                  child: person.images.isNotEmpty
+                  ? Image.network(person.images[0].imageUrl,
+                    fit: BoxFit.cover,
+                  )
+                  : Image.asset(AppImages.chatimage),
+                ),
               ),
+
               title: RichText(
                 text: TextSpan(
                   children: [
@@ -80,21 +92,24 @@ class ChatListModule extends StatelessWidget {
                         fontFamily: FontFamilyText.sFProDisplaySemibold,
                         textColor: AppColors.grey800Color,
                         fontSize: 14.sp,
+                        fontWeight: person.lastMessage.isSeen == 1 ? FontWeight.normal : FontWeight.bold,
                       ),
                     ),
                     WidgetSpan(
                       alignment: PlaceholderAlignment.middle,
-                      child: Image.asset(AppImages.rightimage),
+                      child: person.verified == "1" ? Image.asset(AppImages.rightimage, height: 30, width: 30,) : SizedBox(height: 30, width: 30,),
+                      // child: Image.asset(AppImages.rightimage, height: 30, width: 30,)
                     ),
                   ],
                 ),
               ),
               subtitle: Text(
-                "Hey, how’s life going.",
+                person.lastMessage.messageText,
                 style: TextStyleConfig.textStyle(
                   fontFamily: FontFamilyText.sFProDisplayRegular,
                   textColor: AppColors.grey800Color,
                   fontSize: 12.sp,
+                  fontWeight: person.lastMessage.isSeen == 1 ? FontWeight.normal : FontWeight.bold,
                 ),
               ),
               trailing: Column(
@@ -103,18 +118,18 @@ class ChatListModule extends StatelessWidget {
                   Container(
                     height: 7,
                     width: 7,
-                    decoration: const BoxDecoration(
+                    decoration: BoxDecoration(
                       shape: BoxShape.circle,
-                      color: AppColors.darkOrangeColor,
+                      color: person.lastMessage.isSeen == 1 ? Colors.transparent : AppColors.darkOrangeColor,
                     ),
                   ),
-                  Text(
+                  /*Text(
                     "9:27 AM",
                     style: TextStyleConfig.textStyle(
                       fontFamily: FontFamilyText.sFProDisplayRegular,
                       textColor: AppColors.grey500Color,
                     ),
-                  ).commonOnlyPadding(top: 3),
+                  ).commonOnlyPadding(top: 3),*/
                 ],
               ),
             ),

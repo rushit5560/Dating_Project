@@ -43,6 +43,7 @@ class EditProfileScreenController extends GetxController {
   String gender = "";
   String work = "";
   String homeTown = "";
+  String lookingFor = "";
   int userPercentage = 0;
   TextEditingController profilePromptsController = TextEditingController();
   TextEditingController myBioController = TextEditingController();
@@ -271,6 +272,7 @@ class EditProfileScreenController extends GetxController {
           work = userDetails!.basic.work;
           userPercentage = userDetails!.percentage;
           homeTown = userDetails!.homeTown;
+          // lookingFor = userDetails!.;
           //todo
 
           promptsList.clear();

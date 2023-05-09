@@ -31,7 +31,7 @@ class MyBasicGenderScreen extends StatelessWidget {
         onPressed: () async =>
             await myBasicGenderScreenController.saveSexualityFunction(
               key: AppMessages.sexualityApiText,
-              value: myBasicGenderScreenController.selectedSexualityValue.id,
+              value: myBasicGenderScreenController.selectedSexualityValue.name,
             ),
       ).commonSymmetricPadding(horizontal: 20, vertical: 10),
       body: Obx(

@@ -19,14 +19,17 @@ class LookingForScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: AppColors.whiteColor2,
       appBar: commonAppBarModule(text: AppMessages.lookingFor),
+
       bottomNavigationBar: ButtonCustom(
         text: "Done",
         textFontFamily: FontFamilyText.sFProDisplayBold,
         textsize: 15,
         backgroundColor: AppColors.darkOrangeColor,
         textColor: AppColors.whiteColor2,
-        onPressed: () {},
+        onPressed: () async => await lookingForScreenController.doneButtonFunction(),
       ).commonSymmetricPadding(horizontal: 20, vertical: 10),
+
+
       body: Obx(
         () => lookingForScreenController.isLoading.value
             ? const CustomLoader()
@@ -36,7 +39,7 @@ class LookingForScreen extends StatelessWidget {
                     LookingForRadioButtonModule(),
                   ],
                 ),
-              ),
+              ).commonSymmetricPadding(horizontal: 25, vertical: 10),
       ),
     );
   }

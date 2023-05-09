@@ -1,4 +1,5 @@
 import 'package:dater/common_modules/custom_appbar.dart';
+import 'package:dater/common_modules/custom_loader.dart';
 import 'package:dater/constants/colors.dart';
 import 'package:dater/constants/messages.dart';
 import 'package:dater/controller/all_chat_list_screen_controller.dart';
@@ -24,20 +25,24 @@ class AllChatListScreen extends StatelessWidget {
               child: Text('No Matches Found!'),
             )
           : */
-          Column(
-        children: [
-          const SearchTextfiledModule(),
-          SizedBox(height: 3.h),
-          allChatListScreenController.searchMatchesList.isEmpty
-              ? SizedBox(
-                  height: 50.h,
-                  child: const Center(
-                    child: Text('No Matches Found'),
-                  ),
-                )
-              : ChatListModule(),
-        ],
-      ).commonSymmetricPadding(horizontal: 25, vertical: 10),
+          Obx(
+        () => allChatListScreenController.isLoading.value
+            ? const CustomLoader()
+            : Column(
+                children: [
+                  const SearchTextfiledModule(),
+                  SizedBox(height: 3.h),
+                  allChatListScreenController.searchMatchesList.isEmpty
+                      ? SizedBox(
+                          height: 50.h,
+                          child: const Center(
+                            child: Text('No Matches Found'),
+                          ),
+                        )
+                      : ChatListModule(),
+                ],
+              ).commonSymmetricPadding(horizontal: 25, vertical: 10),
+      ),
     );
   }
 }

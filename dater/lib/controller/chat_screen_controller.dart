@@ -14,7 +14,7 @@ import '../utils/preferences/user_preference.dart';
 
 
 class ChatScreenController extends GetxController{
-  MatchPersonData personData = Get.arguments[0];
+  MatchUserData personData = Get.arguments[0];
   // MatchPersonData? personData = MatchPersonData(id: "2");
   RxBool isLoading = false.obs;
   RxInt successStatus = 0.obs;
@@ -36,10 +36,14 @@ class ChatScreenController extends GetxController{
 
     try {
       String verifyToken = await userPreference.getStringFromPrefs(key: UserPreference.userVerifyTokenKey);
+      String userId = await userPreference.getStringFromPrefs(key: UserPreference.userIdKey);
+      log('Client userId : ${personData.id}');
+      log('My userId : $userId');
+
       var request = http.MultipartRequest('POST', Uri.parse(url));
 
       request.fields['token'] = verifyToken;
-      request.fields['sender_id'] = "${personData.id}";
+      request.fields['sender_id'] = userId;
 
       var response = await request.send();
 
@@ -51,7 +55,7 @@ class ChatScreenController extends GetxController{
 
         if(successStatus.value == 200) {
           chatList.clear();
-          chatList.addAll(messageListModel.msg);
+          chatList.addAll(messageListModel.msg.reversed);
           log('chatList Length : ${chatList.length}');
         } else {
           log('sendChatMessageFunction Else');
@@ -74,7 +78,7 @@ class ChatScreenController extends GetxController{
       String verifyToken = await userPreference.getStringFromPrefs(key: UserPreference.userVerifyTokenKey);
       var request = http.MultipartRequest('POST', Uri.parse(url));
       request.fields['token'] = verifyToken;
-      request.fields['recipient_id'] = "${personData.id}";
+      request.fields['recipient_id'] = personData.id;
       request.fields['text'] = textEditingController.text.trim();
 
       var response = await request.send();
@@ -85,7 +89,9 @@ class ChatScreenController extends GetxController{
         successStatus.value = messageSendModel.statusCode;
 
         if(successStatus.value == 200) {
-          Fluttertoast.showToast(msg: messageSendModel.msg);
+          // Fluttertoast.showToast(msg: messageSendModel.msg);
+          chatList.add(ChatData(messageText: textEditingController.text.trim(), clientMessage: false));
+          textEditingController.clear();
         } else {
           log('sendChatMessageFunction Else');
         }

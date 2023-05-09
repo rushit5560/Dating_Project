@@ -7,7 +7,7 @@ import 'package:sizer/sizer.dart';
 
 import '../../constants/colors.dart';
 import '../../constants/font_family.dart';
-import '../../model/authentication_model/gender_select_screen_model/get_gender_model.dart';
+import '../../model/authentication_model/goal_select_screen_model/goal_model.dart';
 import '../../utils/style.dart';
 
 class LookingForRadioButtonModule extends StatelessWidget {
@@ -40,15 +40,15 @@ class LookingForRadioButtonModule extends StatelessWidget {
           //   ],
           // ),
           ListView.builder(
-            shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
-            itemCount: lookingForScreenController.lookingForList.length,
+            shrinkWrap: true,
+            itemCount: lookingForScreenController.goalList.length,
             itemBuilder: (context, index) {
               return Row(
                 children: [
                   Expanded(
                     child: Text(
-                      lookingForScreenController.lookingForList[index].name,
+                      lookingForScreenController.goalList[index].name,
                       style: TextStyleConfig.textStyle(
                         fontFamily: FontFamilyText.sFProDisplayRegular,
                         fontSize: 15.sp,
@@ -56,13 +56,15 @@ class LookingForRadioButtonModule extends StatelessWidget {
                       ),
                     ),
                   ),
-                  Radio<Msg>(
+                  Radio<GoalData>(
                     activeColor: AppColors.darkOrangeColor,
-                    value: lookingForScreenController.lookingForList[index],
-                    groupValue:
-                        lookingForScreenController.selectedLookingForValue,
-                    onChanged: (val) => lookingForScreenController
-                        .radioButtonChangeFunction(val!),
+                    value: lookingForScreenController.goalList[index],
+                    groupValue: lookingForScreenController.selectedGoalData,
+                    onChanged: (val) {
+                      // log("val : $val");
+                      lookingForScreenController
+                          .radioButtonOnChangeFunction(val!);
+                    },
                   ),
                 ],
               );

@@ -1644,7 +1644,7 @@ class LocationInformationModule extends StatelessWidget {
           children: [
             Text(
               textAlign: TextAlign.start,
-              "${singleItem.homeTown}, Sydney \n${singleItem.distance}",
+              "${singleItem.homeTown}\n${singleItem.distance}",
               style: TextStyleConfig.textStyle(
                 fontFamily: FontFamilyText.sFProDisplaySemibold,
                 textColor: AppColors.grey600Color,
@@ -1657,7 +1657,7 @@ class LocationInformationModule extends StatelessWidget {
         Wrap(
           spacing: 3.0,
           children: List.generate(
-            2,
+            1,
             (int index) {
               return Transform(
                 transform: Matrix4.identity()..scale(0.9),
@@ -1666,7 +1666,8 @@ class LocationInformationModule extends StatelessWidget {
                     backgroundImage: AssetImage(AppImages.ballImage),
                   ).commonOnlyPadding(left: 2),
                   label: Text(
-                    index == 0 ? singleItem.homeTown! : 'Sydney',
+                    // index == 0 ? singleItem.homeTown! : 'Sydney',
+                    "From ${singleItem.homeTown!}",
                     style: TextStyleConfig.textStyle(
                       fontFamily: FontFamilyText.sFProDisplaySemibold,
                       textColor: AppColors.grey600Color,
