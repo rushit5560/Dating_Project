@@ -8,10 +8,13 @@ import 'package:get/get.dart';
 
 import '../constants/api_url.dart';
 import '../model/home_screen_model/matches_model.dart';
+import 'package:dio/dio.dart' as dio;
+
 
 class AllChatListScreenController extends GetxController {
   RxBool isLoading = false.obs;
   RxBool isSuccessStatus = false.obs;
+  RxInt successStatus = 0.obs;
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   TextEditingController searchTextFieldController = TextEditingController();
   RxBool rightSelected = true.obs;
@@ -23,6 +26,8 @@ class AllChatListScreenController extends GetxController {
   List<MatchUserData> searchMatchesList = [];
   UserPreference userPreference = UserPreference();
 
+  var dioRequest = dio.Dio();
+
   /// Get Matches Function
   Future<void> getMatchesFunction() async {
     isLoading(true);
@@ -31,12 +36,37 @@ class AllChatListScreenController extends GetxController {
 
     try {
       String verifyToken = await userPreference.getStringFromPrefs(key: UserPreference.userVerifyTokenKey);
-      var request = http.MultipartRequest('POST', Uri.parse(url));
+      var formData = dio.FormData.fromMap({
+        'token': verifyToken
+      });
+
+      var response = await dioRequest.post(url, data: formData);
+      log('getMatches Response : ${response.data}');
+
+      MatchesModel matchesModel = MatchesModel.fromJson(json.decode(response.data));
+      successStatus.value = matchesModel.statusCode;
+
+      if (successStatus.value == 200) {
+        matchesList.clear();
+        searchMatchesList.clear();
+        if(matchesModel.msg.isNotEmpty) {
+          matchesList.addAll(matchesModel.msg);
+          searchMatchesList = matchesList;
+          log('matchesList : ${matchesList.length}');
+        }
+
+      } else {
+        log('getMatchesFunction Else');
+      }
+
+      /*var request = http.MultipartRequest('POST', Uri.parse(url));
       request.fields['token'] = verifyToken;
 
       var response = await request.send();
 
-      response.stream.transform(utf8.decoder).listen((value) async {
+      response.stream
+          .transform(utf8.decoder)
+          .listen((value) async {
         log("Matches value :$value");
         MatchesModel matchesModel = MatchesModel.fromJson(json.decode(value));
         matchesList.clear();
@@ -46,7 +76,7 @@ class AllChatListScreenController extends GetxController {
           searchMatchesList = matchesList;
           log('matchesList : ${matchesList.length}');
         }
-      });
+      });*/
     } catch (e) {
       log('getMatchesFunction Error :$e');
       rethrow;

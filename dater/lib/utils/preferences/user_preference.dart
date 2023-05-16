@@ -45,6 +45,7 @@ class UserPreference {
   static String myBasicWorkValueKey = "myBasicWorkValueKey";
   static String myBasicEducationValueKey = "myBasicEducationValueKey";
   static String myBasicHomeTownValueKey = "myBasicHomeTownValueKey";
+  static String myBasicLookingForValueKey = "myBasicLookingForValueKey";
 
   Future<void> clearUserAllDataFromPrefs() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();

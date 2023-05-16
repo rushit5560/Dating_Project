@@ -40,7 +40,11 @@ class HomeScreen extends StatelessWidget {
                   onTap: () async {
                     if (homeScreenController.selected.value == true) {
                       homeScreenController.selected.value = await homeScreenController.userPreference.getBoolFromPrefs(key: UserPreference.isragatherInKey);
-                      await homeScreenController.understandFunction();
+                      if(homeScreenController.lastLikeProfileId != "") {
+                        await homeScreenController.understandFunction();
+                      } else {
+                        log('No likes');
+                      }
                       // await homeScreenController.initMethod();
                     } else if (homeScreenController.selected.value == false) {
                       showDialog(
@@ -380,7 +384,7 @@ class HomeScreen extends StatelessWidget {
                             ? Container()
                             : Positioned(
                               bottom: homeScreenController.physicalDeviceHeight < 2200
-                                  ? Get.height * 0.08 : Get.height * 0.10,
+                                  ? Get.height * 0.11 : Get.height * 0.13,
                               right: 5.w,
                               child: Obx(
                                 () => Visibility(

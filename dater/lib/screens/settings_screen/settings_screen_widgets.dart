@@ -304,7 +304,8 @@ class LocationModule extends StatelessWidget {
                 ),
               ),
               IconButton(
-                onPressed: () => Get.to(() => LocationScreen()),
+                // onPressed: () => Get.to(() => LocationScreen()),
+                onPressed: () {},
                 icon: const Icon(Icons.check_circle_rounded,
                     color: AppColors.darkOrangeColor, size: 20),
               )

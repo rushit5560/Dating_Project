@@ -70,6 +70,7 @@ class UserDetails {
   List<Prompt> prompts;
   int percentage;
 
+
   factory UserDetails.fromJson(Map<String, dynamic> json) => UserDetails(
     id: json["id"] ?? "",
     name: json["name"] ?? "",
@@ -80,7 +81,7 @@ class UserDetails {
     homeTown: json["home_town"] ?? "Add",
     languages: List<String>.from((json["languages"] ?? []).map((x) => x ?? "")),
     images: List<UserImages>.from((json["images"] ?? []).map((x) => UserImages.fromJson(x ?? {}))),
-    distance: json["distance"] ?? "",
+    distance: (json["distance"] ?? 0).toString(),
     age: json["age"].toString(),
     activeTime: json["active_time"] ?? "",
     interest: List<Interest>.from((json["interest"] ?? []).map((x) => Interest.fromJson(x ?? {}))),
@@ -88,6 +89,7 @@ class UserDetails {
     prompts: List<Prompt>.from((json["prompts"] ?? []).map((x) => Prompt.fromJson(x ?? {}))),
     // percentage: json["percentage"] ?? 0,
     percentage: json["percentage"] ?? 0,
+
   );
 
   Map<String, dynamic> toJson() => {
@@ -121,6 +123,7 @@ class Basic {
     required this.politics,
     required this.religion,
     required this.kids,
+    required this.lookingFor,
   });
 
   String gender;
@@ -133,6 +136,7 @@ class Basic {
   String politics;
   String religion;
   String kids;
+  String lookingFor;
 
   factory Basic.fromJson(Map<String, dynamic> json) => Basic(
     gender: json["gender"] ?? "Add",
@@ -145,6 +149,7 @@ class Basic {
     politics: json["politics"] ?? "Add",
     religion: json["religion"] ?? "Add",
     kids: json["kids"] ?? "",
+    lookingFor: json["looking_for"] ?? "",
   );
 
   Map<String, dynamic> toJson() => {

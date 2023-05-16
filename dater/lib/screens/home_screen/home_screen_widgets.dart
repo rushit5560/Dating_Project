@@ -717,6 +717,7 @@ class SwipeUserModule extends StatelessWidget {
                           swipeCard: true,
                           index: finalIndex,
                         );
+                        homeScreenController.lastLikeProfileId = homeScreenController.suggestionList[0].id!;
                       }
 
                       /// When swipe Left
@@ -737,6 +738,8 @@ class SwipeUserModule extends StatelessWidget {
                         await homeScreenController
                             .understandSuperLoveFunction(finalIndex);
                       }
+
+
                     },
                     overlayBuilder: (context, properties) {
                       // properties.swipeProgress;
@@ -1069,8 +1072,7 @@ class SwipeUserModule extends StatelessWidget {
 
                                     // Basic Module
                                     SizedBox(height: 4.h),
-                                    BasicInFormationModule(
-                                        basicList: basicList),
+                                    BasicInFormationModule(basicList: basicList),
                                     //
 
                                     // Interest Module
@@ -1640,11 +1642,14 @@ class LocationInformationModule extends StatelessWidget {
           ],
         ),
         SizedBox(height: 2.h),
-        Row(
+        singleItem.distance! == "Not available"
+        ? Container()
+        : Row(
           children: [
             Text(
               textAlign: TextAlign.start,
-              "${singleItem.homeTown}\n${singleItem.distance}",
+              // "${singleItem.homeTown}\n${singleItem.distance} km away",
+              "${singleItem.distance} km away",
               style: TextStyleConfig.textStyle(
                 fontFamily: FontFamilyText.sFProDisplaySemibold,
                 textColor: AppColors.grey600Color,
@@ -1653,11 +1658,13 @@ class LocationInformationModule extends StatelessWidget {
             ),
           ],
         ),
-        SizedBox(height: 2.h),
+        singleItem.distance! == "Not available"
+            ? Container()
+            : SizedBox(height: 2.h),
         Wrap(
           spacing: 3.0,
           children: List.generate(
-            1,
+            2,
             (int index) {
               return Transform(
                 transform: Matrix4.identity()..scale(0.9),
@@ -1666,8 +1673,9 @@ class LocationInformationModule extends StatelessWidget {
                     backgroundImage: AssetImage(AppImages.ballImage),
                   ).commonOnlyPadding(left: 2),
                   label: Text(
-                    // index == 0 ? singleItem.homeTown! : 'Sydney',
-                    "From ${singleItem.homeTown!}",
+                    index == 0
+                        ? "Live in ${singleItem.country!}"
+                        : "From ${singleItem.homeTown!}",
                     style: TextStyleConfig.textStyle(
                       fontFamily: FontFamilyText.sFProDisplaySemibold,
                       textColor: AppColors.grey600Color,

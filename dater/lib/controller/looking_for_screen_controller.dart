@@ -10,6 +10,8 @@ import '../utils/preferences/signup_preference.dart';
 import '../utils/preferences/user_preference.dart';
 
 class LookingForScreenController extends GetxController {
+  String lookingForValue = Get.arguments[0];
+
   RxBool isLoading = false.obs;
   RxInt successStatus = 0.obs;
 
@@ -38,6 +40,12 @@ class LookingForScreenController extends GetxController {
         log("response.body: ${response.body}");
         goalList = goalModel.msg;
         goalList.isNotEmpty ? selectedGoalData = goalList[0] : null;
+
+        for(var element in goalList) {
+          if(element.name == lookingForValue) {
+            selectedGoalData = element;
+          }
+        }
 
       } else {
         log("getGoalListFunction Error");
@@ -83,10 +91,11 @@ class LookingForScreenController extends GetxController {
 
         if (successStatus.value == 200) {
           log('Update User Profile Success : $key & $value');
-          await signUpPreference.setStringValueInPrefs(
+          await userPreference.setStringValueInPrefs(key: UserPreference.myBasicLookingForValueKey, value: selectedGoalData.name);
+          /*await signUpPreference.setStringValueInPrefs(
             key: SignUpPreference.userGoalKey,
             value: selectedGoalData.id,
-          );
+          );*/
           Get.back();
         } else {
           log('updateUserProfileFunction Else');

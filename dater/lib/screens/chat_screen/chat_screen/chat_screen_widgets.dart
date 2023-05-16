@@ -187,6 +187,7 @@ class MessageAllModule extends StatelessWidget {
     return ListView.builder(
       physics: const NeverScrollableScrollPhysics(),
       shrinkWrap: true,
+      // reverse: true,
       itemCount: screenController.chatList.length,
       scrollDirection: Axis.vertical,
       itemBuilder: (BuildContext context, int index) {
@@ -196,12 +197,12 @@ class MessageAllModule extends StatelessWidget {
           child: Column(
             children: [
               Row(
-                mainAxisAlignment: singleChat.clientMessage == false
+                mainAxisAlignment: singleChat.clientMessage == true
                     ? MainAxisAlignment.end
                     : MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  singleChat.clientMessage == true
+                  singleChat.clientMessage == false
                       ? const CircleAvatar(
                           radius: 15,
                           backgroundImage: AssetImage(AppImages.swiper1Image),
@@ -214,7 +215,7 @@ class MessageAllModule extends StatelessWidget {
                       maxWidth: MediaQuery.of(context).size.width * 0.6,
                     ),
                     decoration: BoxDecoration(
-                        color: singleChat.clientMessage == false
+                        color: singleChat.clientMessage == true
                             ? AppColors.lightOrangeColor
                             : AppColors.whiteColor2,
                         borderRadius: const BorderRadius.only(
@@ -227,7 +228,7 @@ class MessageAllModule extends StatelessWidget {
                       singleChat.messageText,
                       style: TextStyleConfig.textStyle(
                         fontFamily: FontFamilyText.sFProDisplayMedium,
-                        textColor: singleChat.clientMessage == false
+                        textColor: singleChat.clientMessage == true
                             ? AppColors.whiteColor2
                             : AppColors.grey600Color,
                         fontWeight: FontWeight.w500,

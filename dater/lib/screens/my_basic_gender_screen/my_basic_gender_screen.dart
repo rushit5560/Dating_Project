@@ -30,8 +30,8 @@ class MyBasicGenderScreen extends StatelessWidget {
         textColor: AppColors.whiteColor2,
         onPressed: () async =>
             await myBasicGenderScreenController.saveSexualityFunction(
-              key: AppMessages.sexualityApiText,
-              value: myBasicGenderScreenController.selectedSexualityValue.name,
+              key: AppMessages.genderApiText,
+              value: myBasicGenderScreenController.selectedSexualityValue.id,
             ),
       ).commonSymmetricPadding(horizontal: 20, vertical: 10),
       body: Obx(

@@ -110,6 +110,7 @@ class ChatScreen extends StatelessWidget {
                           color: Colors.white,
                           child: SingleChildScrollView(
                             scrollDirection: Axis.vertical,
+                            reverse: true,
                             child: Column(
                               children: [
                                 SizedBox(height: 2.h),

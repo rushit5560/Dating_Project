@@ -43,7 +43,7 @@ class ChatScreenController extends GetxController{
       var request = http.MultipartRequest('POST', Uri.parse(url));
 
       request.fields['token'] = verifyToken;
-      request.fields['sender_id'] = userId;
+      request.fields['sender_id'] = personData.id;
 
       var response = await request.send();
 
@@ -56,6 +56,7 @@ class ChatScreenController extends GetxController{
         if(successStatus.value == 200) {
           chatList.clear();
           chatList.addAll(messageListModel.msg.reversed);
+          // chatList.addAll(messageListModel.msg);
           log('chatList Length : ${chatList.length}');
         } else {
           log('sendChatMessageFunction Else');

@@ -220,6 +220,8 @@ class SuggestionData {
     this.interest,
     this.basic,
     this.images,
+    this.country,
+    this.percentage,
   });
 
   String? id;
@@ -238,6 +240,8 @@ class SuggestionData {
   List<Interest>? interest;
   Basic? basic;
   List<UserImage>? images;
+  int? percentage;
+  String? country;
 
   factory SuggestionData.fromJson(Map<String, dynamic> json) => SuggestionData(
         id: json["id"] ?? "",
@@ -251,7 +255,7 @@ class SuggestionData {
         languages: json["languages"] == null ? [] :
             List<String>.from((json["languages"] ?? []).map((x) => x ?? "")),
         verified: json["verified"] ?? "",
-        distance: json["distance"] ?? "",
+        distance: (json["distance"] ?? 0).toString(),
         age: json["age"].toString().toLowerCase() ==
                     "Age is not available".toLowerCase() ||
                 json["age"] == null
@@ -263,6 +267,8 @@ class SuggestionData {
     images: json["images"] == null
         ? []
         : List<UserImage>.from((json["images"] ?? []).map((x) => UserImage.fromJson(x ?? {}))),
+    percentage: json["percentage"] ?? 0,
+    country: json["country"] ?? "",
       );
 
   Map<String, dynamic> toJson() => {

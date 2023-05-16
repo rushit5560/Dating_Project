@@ -10,13 +10,16 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 import 'package:dater/constants/api_url.dart';
 import 'package:dater/constants/app_images.dart';
-import 'package:dater/screens/location_permission_sreen/location_permission%20screen.dart';
+import 'package:dater/screens/location_permission_screen/location_permission_screen.dart';
 import 'package:get/get.dart';
 import 'package:location/location.dart';
 import 'package:swipable_stack/swipable_stack.dart';
 import '../constants/enums.dart';
+import '../model/home_screen_model/regather_model.dart';
 import '../model/home_screen_model/suggestions_model.dart';
+import '../model/saved_data_model/saved_data_model.dart';
 import '../utils/preferences/user_preference.dart';
+import 'package:dio/dio.dart' as dio;
 
 class HomeScreenController extends GetxController {
   RxBool isLoading = false.obs;
@@ -26,6 +29,13 @@ class HomeScreenController extends GetxController {
 
   double physicalDeviceWidth = 0.0;
   double physicalDeviceHeight = 0.0;
+
+  String lastLikeProfileId = "";
+
+  Location location = Location();
+  late LocationData locationData;
+
+  var dioRequest = dio.Dio();
 
   // RxString selectedval = ''.obs;
   RxBool selected = false.obs;
@@ -81,8 +91,6 @@ class HomeScreenController extends GetxController {
   }
 
   fetchMobileLocation() async {
-    Location location = Location();
-
     bool serviceEnabled;
 
     serviceEnabled = await location.serviceEnabled();
@@ -94,6 +102,7 @@ class HomeScreenController extends GetxController {
         return;
       }
     }
+    // locationData = await location.getLocation();
   }
 
   Future<void> getLocation() async {
@@ -114,7 +123,8 @@ class HomeScreenController extends GetxController {
     await userPreference.setBoolValueInPrefs(
         key: UserPreference.isragatherInKey, value: selected.value);
     log("selected.value: ${selected.value}");
-    Get.offAll(()=> IndexScreen());
+    await regatherFunction();
+    // Get.offAll(()=> IndexScreen());
     // await getUserSuggestionsFunction();
     // await initMethod();
   }
@@ -142,17 +152,50 @@ class HomeScreenController extends GetxController {
       String verifyToken = await userPreference.getStringFromPrefs(
           key: UserPreference.userVerifyTokenKey);
       log('Get User Suggestion User Token : $verifyToken');
-      var request = http.MultipartRequest('POST', Uri.parse(url));
+
+      var formData = dio.FormData.fromMap({
+        'token': verifyToken
+      });
+
+      var response = await dioRequest.post(url, data: formData);
+      log('Suggestion Response : ${response.data}');
+
+      SuggestionListModel suggestionListModel = SuggestionListModel.fromJson(json.decode(response.data));
+      successStatus.value = suggestionListModel.statusCode;
+
+      if (successStatus.value == 200) {
+        suggestionList.clear();
+        // suggestionList = [];
+
+        if (suggestionListModel.msg.isNotEmpty) {
+          suggestionList.addAll(suggestionListModel.msg);
+          // singlePersonData = suggestionList[0];
+          // setChangedUserData(0);
+
+          // log("singlePersonData :${singlePersonData.name}");
+          // log("singlePersonData :${singlePersonData.bio}");
+
+          log('suggestionList1212 : ${suggestionList.length}');
+        }
+      } else {
+        log('getUserSuggestionsFunction Else');
+      }
+
+
+
+      /*var request = http.MultipartRequest('POST', Uri.parse(url));
+
+      request.headers['Content-Type'] = "multipart/form-data";
       request.fields['token'] = verifyToken;
 
       var response = await request.send();
 
       response.stream
-          .transform(utf8.decoder)
+          .transform(const Utf8Decoder())
+          .transform(const LineSplitter())
           .listen((value) async {
         log("Suggestion Api value :$value");
-        SuggestionListModel suggestionListModel =
-            SuggestionListModel.fromJson(json.decode(value));
+        SuggestionListModel suggestionListModel = SuggestionListModel.fromJson(json.decode(value));
         successStatus.value = suggestionListModel.statusCode;
         if (successStatus.value == 200) {
           suggestionList.clear();
@@ -168,26 +211,23 @@ class HomeScreenController extends GetxController {
 
             log('suggestionList1212 : ${suggestionList.length}');
           }
-          // isLoading(false);
         } else {
           log('getUserSuggestionsFunction Else');
-          // isLoading(false);
+
         }
-      });
+      });*/
     } catch (e) {
       log('getMatchesFunction Error :$e');
-      // isLoading(false);
+
       rethrow;
     }
 
-    // Timer(const Duration(seconds: 1), () => isLoading(false));
-
-    // isLoading(false);
-    loadUI();
+    isLoading(false);
+    // loadUI();
     // await getUserSuggestionsFunction2();
   }
 
-  Future<void> getUserSuggestionsFunction2() async {
+  /*Future<void> getUserSuggestionsFunction2() async {
     isLoading(true);
     String url = ApiUrl.getSuggestionApi;
     log('Suggestion Api Url :$url');
@@ -238,7 +278,7 @@ class HomeScreenController extends GetxController {
 
     // isLoading(false);
     // loadUI();
-  }
+  }*/
 
   /// Set Basic Details
   List<BasicModel> setBasicListFunction({required SuggestionData singleItem}) {
@@ -411,6 +451,47 @@ class HomeScreenController extends GetxController {
     loadUI();
   }
 
+  /// Regather Function
+  Future<void> regatherFunction() async {
+    isLoading(true);
+    String url = ApiUrl.superLoveProfileApi;
+    log('Regather Api Url :$url');
+
+    try {
+      String verifyToken = await userPreference.getStringFromPrefs(
+          key: UserPreference.userVerifyTokenKey);
+      var formData = dio.FormData.fromMap({
+        'token': verifyToken,
+        'type': LikeType.regather.name,
+        'liked_id': lastLikeProfileId
+      });
+
+
+      var response = await dioRequest.post(url, data: formData);
+      log('regather Response : ${response.data}');
+
+      RegatherModel regatherModel = RegatherModel.fromJson(json.decode(response.data));
+      successStatus.value = regatherModel.statusCode;
+
+      if(successStatus.value == 200) {
+        Fluttertoast.showToast(msg: regatherModel.msg);
+      } else {
+        if(regatherModel.msg.toLowerCase() == "You already regathered on this account".toLowerCase()) {
+          Fluttertoast.showToast(msg: "You already regathered on your account");
+        }
+
+        log('regatherFunction Else');
+      }
+
+    } catch(e) {
+      log('regatherFunction Error :$e');
+      rethrow;
+    }
+
+    isLoading(false);
+
+  }
+
   /// When swipe complete that time user data change
   setChangedUserData(int index) {
     name = suggestionList[index].name.toString().obs;
@@ -470,6 +551,7 @@ class HomeScreenController extends GetxController {
     selected.value = await userPreference.getBoolFromPrefs(key: UserPreference.isragatherInKey);
 
     await getLocation();
+    await updateUserLocationFunction();
     await getUserSuggestionsFunction();
     // await getUserSuggestionsFunction();
     // await setBasicListFunction();
@@ -508,6 +590,41 @@ class HomeScreenController extends GetxController {
       loadUI();
     }*/
     // loadUI();
+  }
+
+  Future<void> updateUserLocationFunction() async {
+    isLoading(true);
+    String url = ApiUrl.updateUserLocationApi;
+    log('Update User location Api Url : $url');
+
+    try {
+      locationData = await location.getLocation();
+      String verifyToken = await userPreference.getStringFromPrefs(
+          key: UserPreference.userVerifyTokenKey);
+
+      var request = http.MultipartRequest('POST', Uri.parse(url));
+      request.fields['token'] = verifyToken;
+      request.fields['lat'] = "${locationData.latitude}";
+      request.fields['long'] = "${locationData.longitude}";
+
+      var response = await request.send();
+
+      response.stream.transform(utf8.decoder).listen((value) async {
+        log('Location Update value : $value');
+        SavedDataModel savedDataModel = SavedDataModel.fromJson(json.decode(value));
+        successStatus.value = savedDataModel.statusCode;
+
+        if(successStatus.value == 200) {
+          log('Message :${savedDataModel.msg}');
+        } else {
+          log('updateUserLocationFunction Else');
+        }
+
+      });
+    } catch(e) {
+      log('updateUserLocationFunction Error :$e');
+    }
+
   }
 
   loadUI() {

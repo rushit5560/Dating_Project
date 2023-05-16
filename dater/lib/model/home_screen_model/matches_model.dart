@@ -123,7 +123,7 @@ class MatchesModel {
 
   factory MatchesModel.fromJson(Map<String, dynamic> json) => MatchesModel(
     response: json["response"] ?? "",
-    msg: List<MatchUserData>.from((json["msg"] ?? []).map((x) => MatchUserData.fromJson(x ?? {}))),
+    msg: json["msg"] == "No data" ? [] : List<MatchUserData>.from((json["msg"] ?? []).map((x) => MatchUserData.fromJson(x ?? {}))),
     token: json["token"] ?? "",
     statusCode: json["status_code"] ?? 0,
   );

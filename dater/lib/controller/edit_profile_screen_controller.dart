@@ -260,7 +260,7 @@ class EditProfileScreenController extends GetxController {
             LoggedInUserDetailsModel.fromJson(json.decode(value));
         successStatus.value = loggedInUserDetailsModel.statusCode;
 
-        log("politics $politics");
+        // log("politics $politics");
         if (successStatus.value == 200) {
           userDetails = loggedInUserDetailsModel.msg[0];
 
@@ -272,8 +272,7 @@ class EditProfileScreenController extends GetxController {
           work = userDetails!.basic.work;
           userPercentage = userDetails!.percentage;
           homeTown = userDetails!.homeTown;
-          // lookingFor = userDetails!.;
-          //todo
+          lookingFor = userDetails!.basic.lookingFor;
 
           promptsList.clear();
           if(loggedInUserDetailsModel.msg[0].prompts.isNotEmpty) {
@@ -452,7 +451,6 @@ class EditProfileScreenController extends GetxController {
 
         if(successStatus.value == 200) {
           Fluttertoast.showToast(msg: savedDataModel.msg);
-          //todo
           await getUserDetailsFunction();
         } else {
           log('setUserCoverImageFunction Else');
@@ -567,6 +565,11 @@ class EditProfileScreenController extends GetxController {
 
   Future<void> getMyBasicHomeTownValueFromPrefs() async {
     homeTown = await userPreference.getStringFromPrefs(key: UserPreference.myBasicHomeTownValueKey);
+    loadUI();
+  }
+
+  Future<void> getMyBasicLookingForValueFromPrefs() async {
+    lookingFor = await userPreference.getStringFromPrefs(key: UserPreference.myBasicLookingForValueKey);
     loadUI();
   }
 

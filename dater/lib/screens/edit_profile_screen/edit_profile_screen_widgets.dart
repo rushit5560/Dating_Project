@@ -460,11 +460,14 @@ class EditProfileScreenWidgets extends StatelessWidget {
           gesOnTap: () {
             Get.to(
                   () => LookingForScreen(),
-            );
+              arguments: [editProfileScreenController.lookingFor],
+            )!.then((value) async {
+              await editProfileScreenController.getMyBasicLookingForValueFromPrefs();
+            });
           },
           image: AppImages.lookingForImage,
           lableText: "Looking for",
-          text: "Relationship",
+          text: editProfileScreenController.lookingFor,
         ),
         // Height Module
         Row(
@@ -1310,9 +1313,11 @@ class FilterRowmodule extends StatelessWidget {
             SizedBox(
               width: 27.w,
               child: Column(
+                // crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Text(
                     text2,
+                    textAlign: TextAlign.center,
                     style: TextStyleConfig.textStyle(
                       fontFamily: FontFamilyText.sFProDisplayRegular,
                       textColor: AppColors.grey600Color,

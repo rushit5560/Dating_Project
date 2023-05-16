@@ -61,7 +61,6 @@ class LikerDetailsScreenController extends GetxController {
         }
         Get.back();
 
-
       } else if (superLoveModel.statusCode == 400) {
         Fluttertoast.showToast(msg: superLoveModel.msg);
         if(superLoveModel.msg.toLowerCase() == "You already liked this account") {
