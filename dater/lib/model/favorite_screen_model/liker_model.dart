@@ -134,7 +134,7 @@ class LikerModel {
 
   factory LikerModel.fromJson(Map<String, dynamic> json) => LikerModel(
     response: json["response"] ?? "",
-    msg: List<LikerData>.from((json["msg"] ?? []).map((x) => LikerData.fromJson(x ?? {}))),
+    msg: json["msg"].toString().toLowerCase() == "No data".toLowerCase() ? [] : List<LikerData>.from((json["msg"] ?? []).map((x) => LikerData.fromJson(x ?? {}))),
     token: json["token"] ?? "",
     statusCode: json["status_code"] ?? 0,
   );

@@ -39,109 +39,123 @@ class HomeScreen extends StatelessWidget {
               // Reload button
               GestureDetector(
                   onTap: () async {
-                    Fluttertoast.showToast(msg: "Please wait...Rewinding");
-                    if (homeScreenController.selected.value == true) {
-                      homeScreenController.selected.value = await homeScreenController.userPreference.getBoolFromPrefs(key: UserPreference.isragatherInKey);
-                      if(homeScreenController.lastLikeProfileId != "") {
-                        await homeScreenController.understandFunction();
-                        homeScreenController.cardController.rewind(duration: const Duration(seconds: 1));
-                      } else {
-                        log('No likes');
-                      }
-                      // await homeScreenController.initMethod();
-                    } else if (homeScreenController.selected.value == false) {
-                      showDialog(
-                        barrierDismissible: false,
-                        context: context,
-                        builder: (context) {
-                          return AlertDialog(
-                            shape: const RoundedRectangleBorder(
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(20),
-                              ),
-                            ),
-                            elevation: 50,
-                            content: StatefulBuilder(
-                              builder: (context, setState) {
-                                return Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    Text(
-                                      "Regather",
-                                      style: TextStyleConfig.textStyle(
-                                        fontSize: 20,
-                                        fontFamily:
-                                            FontFamilyText.sFProDisplayBold,
-                                      ),
-                                    ),
-                                    SizedBox(height: 2.h),
-                                    Text(
-                                      "Every regather will cost you 1 coin",
-                                      style: TextStyleConfig.textStyle(
-                                        fontSize: 14.sp,
-                                        fontFamily:
-                                            FontFamilyText.sFProDisplayRegular,
-                                      ),
-                                    ),
-                                    SizedBox(height: 5.h),
-                                    ButtonCustom(
-                                      text: "Undestand",
-                                      onPressed: () async {
-                                        log("11");
-                                        Get.back();
-                                        await homeScreenController
-                                            .understandFunction();
 
-                                        log("22");
-                                      },
-                                      fontWeight: FontWeight.bold,
-                                      textsize: 14.sp,
-                                      textFontFamily:
-                                          FontFamilyText.sFProDisplayHeavy,
-                                      textColor: AppColors.whiteColor2,
-                                      backgroundColor: AppColors.darkOrangeColor,
-                                    ).commonSymmetricPadding(horizontal: 35),
-                                    SizedBox(height: 1.h),
-                                    Row(
-                                      children: [
-                                        Checkbox(
-                                          checkColor: AppColors.lightOrangeColor,
-                                          hoverColor: AppColors.lightOrangeColor,
-                                          activeColor: AppColors.lightOrangeColor,
-                                          tristate: false,
-                                          side: const BorderSide(
-                                            width: 2,
-                                            color: AppColors.blackColor,
-                                          ),
-                                          shape: const CircleBorder(),
-                                          value:
-                                              homeScreenController.selected.value,
-                                          onChanged: (value) {
-                                            setState(() {
-                                              homeScreenController
-                                                      .selected.value =
-                                                  !homeScreenController
-                                                      .selected.value;
-                                            });
-                                          },
+                    if(homeScreenController.isRewindAllow == true) {
+                      Fluttertoast.showToast(msg: "Please wait...Rewinding");
+                      if (homeScreenController.selected.value == true) {
+                        homeScreenController.selected.value =
+                        await homeScreenController.userPreference
+                            .getBoolFromPrefs(
+                            key: UserPreference.isragatherInKey);
+                        if (homeScreenController.lastLikeProfileId != "") {
+                          await homeScreenController.understandFunction();
+                          homeScreenController.cardController.rewind(
+                              duration: const Duration(seconds: 1));
+                        } else {
+                          log('No likes');
+                        }
+                        // await homeScreenController.initMethod();
+                      }
+                      else if (homeScreenController.selected.value == false) {
+                        showDialog(
+                          barrierDismissible: false,
+                          context: context,
+                          builder: (context) {
+                            return AlertDialog(
+                              shape: const RoundedRectangleBorder(
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(20),
+                                ),
+                              ),
+                              elevation: 50,
+                              content: StatefulBuilder(
+                                builder: (context, setState) {
+                                  return Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      Text(
+                                        "Regather",
+                                        style: TextStyleConfig.textStyle(
+                                          fontSize: 20,
+                                          fontFamily:
+                                          FontFamilyText.sFProDisplayBold,
                                         ),
-                                        Text(
-                                          "don't show again",
-                                          style: TextStyleConfig.textStyle(
-                                            fontSize: 14.sp,
-                                            fontFamily: FontFamilyText
-                                                .sFProDisplayRegular,
-                                          ),
+                                      ),
+                                      SizedBox(height: 2.h),
+                                      Text(
+                                        "Every regather will cost you 1 coin",
+                                        style: TextStyleConfig.textStyle(
+                                          fontSize: 14.sp,
+                                          fontFamily:
+                                          FontFamilyText.sFProDisplayRegular,
                                         ),
-                                      ],
-                                    )
-                                  ],
-                                );
-                              },
-                            ),
-                          );
-                        },
-                      );
+                                      ),
+                                      SizedBox(height: 5.h),
+                                      ButtonCustom(
+                                        text: "Undestand",
+                                        onPressed: () async {
+                                          log("11");
+                                          Get.back();
+                                          await homeScreenController
+                                              .understandFunction();
+
+                                          log("22");
+                                        },
+                                        fontWeight: FontWeight.bold,
+                                        textsize: 14.sp,
+                                        textFontFamily:
+                                        FontFamilyText.sFProDisplayHeavy,
+                                        textColor: AppColors.whiteColor2,
+                                        backgroundColor: AppColors
+                                            .darkOrangeColor,
+                                      ).commonSymmetricPadding(horizontal: 35),
+                                      SizedBox(height: 1.h),
+                                      Row(
+                                        children: [
+                                          Checkbox(
+                                            checkColor: AppColors
+                                                .lightOrangeColor,
+                                            hoverColor: AppColors
+                                                .lightOrangeColor,
+                                            activeColor: AppColors
+                                                .lightOrangeColor,
+                                            tristate: false,
+                                            side: const BorderSide(
+                                              width: 2,
+                                              color: AppColors.blackColor,
+                                            ),
+                                            shape: const CircleBorder(),
+                                            value:
+                                            homeScreenController.selected.value,
+                                            onChanged: (value) {
+                                              setState(() {
+                                                homeScreenController
+                                                    .selected.value =
+                                                !homeScreenController
+                                                    .selected.value;
+                                              });
+                                            },
+                                          ),
+                                          Text(
+                                            "don't show again",
+                                            style: TextStyleConfig.textStyle(
+                                              fontSize: 14.sp,
+                                              fontFamily: FontFamilyText
+                                                  .sFProDisplayRegular,
+                                            ),
+                                          ),
+                                        ],
+                                      )
+                                    ],
+                                  );
+                                },
+                              ),
+                            );
+                          },
+                        );
+                      }
+                    } else {
+                      log('not allow');
                     }
                   },
                 child: Image.asset(
