@@ -175,7 +175,7 @@ class MatchUserData {
     bio: json["bio"] ?? "",
     verified: json["verified"] ?? "",
     images: List<UserImage>.from((json["images"] ?? []).map((x) => UserImage.fromJson(x ?? {}))),
-    distance: json["distance"] ?? "",
+    distance: (json["distance"] ?? 0).toString(),
     age: json["age"] ?? 0,
     activeTime: json["active_time"] ?? "",
     interest: List<Interest>.from((json["interest"] ?? []).map((x) => Interest.fromJson(x ?? {}))),
@@ -183,7 +183,7 @@ class MatchUserData {
     percentage: json["percentage"] ?? 0,
     basic: Basic.fromJson(json["basic"] ?? {}),
     languages: json["languages"] ?? "",
-    lastMessage: LastMessage.fromJson(json["last_message"] ?? {}),
+    lastMessage: LastMessage.fromJson(json["last_message"].toString() == "[]" ? {} : json["last_message"]),
   );
 
   Map<String, dynamic> toJson() => {

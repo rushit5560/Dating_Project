@@ -19,7 +19,7 @@ class AllChatListScreen extends StatelessWidget {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: AppColors.whiteColor2,
-      appBar: commonAppBarModule(text: AppMessages.chat),
+      appBar: commonAppBarModule(text: AppMessages.chat, isLeadingShow: false),
       body: /*allChatListScreenController.matchesList.isEmpty
           ? const Center(
               child: Text('No Matches Found!'),

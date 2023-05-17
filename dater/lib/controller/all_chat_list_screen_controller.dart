@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:developer';
 import 'package:dater/constants/messages.dart';
@@ -85,6 +86,62 @@ class AllChatListScreenController extends GetxController {
     isLoading(false);
   }
 
+  // Future<void> getUserMatchesFunction() async {
+  //   // isLoading(true);
+  //   String url = ApiUrl.matchesApi;
+  //   log('Matches Api Url :$url');
+  //
+  //   try {
+  //     String verifyToken = await userPreference.getStringFromPrefs(key: UserPreference.userVerifyTokenKey);
+  //     var formData = dio.FormData.fromMap({
+  //       'token': verifyToken
+  //     });
+  //
+  //     var response = await dioRequest.post(url, data: formData);
+  //     log('getUserMatches Response : ${response.data}');
+  //
+  //     MatchesModel matchesModel = MatchesModel.fromJson(json.decode(response.data));
+  //     successStatus.value = matchesModel.statusCode;
+  //
+  //     if (successStatus.value == 200) {
+  //       matchesList.clear();
+  //       searchMatchesList.clear();
+  //       if(matchesModel.msg.isNotEmpty) {
+  //         matchesList.addAll(matchesModel.msg);
+  //         searchMatchesList = matchesList;
+  //         log('matchesList : ${matchesList.length}');
+  //       }
+  //
+  //     } else {
+  //       log('getUserMatchesFunction Else');
+  //     }
+  //
+  //     /*var request = http.MultipartRequest('POST', Uri.parse(url));
+  //     request.fields['token'] = verifyToken;
+  //
+  //     var response = await request.send();
+  //
+  //     response.stream
+  //         .transform(utf8.decoder)
+  //         .listen((value) async {
+  //       log("Matches value :$value");
+  //       MatchesModel matchesModel = MatchesModel.fromJson(json.decode(value));
+  //       matchesList.clear();
+  //       searchMatchesList.clear();
+  //       if(matchesModel.msg.isNotEmpty) {
+  //         matchesList.addAll(matchesModel.msg);
+  //         searchMatchesList = matchesList;
+  //         log('matchesList : ${matchesList.length}');
+  //       }
+  //     });*/
+  //   } catch (e) {
+  //     log('getUserMatchesFunction Error :$e');
+  //     rethrow;
+  //   }
+  //   loadUI();
+  //   // isLoading(false);
+  // }
+
 
   @override
   void onInit() {
@@ -94,6 +151,15 @@ class AllChatListScreenController extends GetxController {
 
   Future<void> initMethod() async {
     await getMatchesFunction();
+
+    // Timer.periodic(const Duration(minutes: 2), (timer) async {
+    //   await getUserMatchesFunction();
+    // });
   }
+
+  // loadUI() {
+  //   isLoading(true);
+  //   isLoading(false);
+  // }
 
 }

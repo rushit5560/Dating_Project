@@ -712,12 +712,12 @@ class SwipeUserModule extends StatelessWidget {
                       if (swipeDirection == SwipeDirection.right) {
                         await homeScreenController.superLoveProfileFunction(
                           likedId:
-                              "${homeScreenController.suggestionList[0].id}",
+                              "${homeScreenController.suggestionList[index].id}",
                           likeType: LikeType.like,
                           swipeCard: true,
                           index: finalIndex,
                         );
-                        homeScreenController.lastLikeProfileId = homeScreenController.suggestionList[0].id!;
+                        homeScreenController.lastLikeProfileId = homeScreenController.suggestionList[index].id!;
                       }
 
                       /// When swipe Left

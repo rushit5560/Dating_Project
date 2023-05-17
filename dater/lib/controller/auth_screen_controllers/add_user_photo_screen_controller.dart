@@ -12,6 +12,8 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import '../../model/authentication_model/add_user_photo_screen_model/user_photo_upload_screen.dart';
 import '../../utils/preferences/signup_preference.dart';
+import 'package:dio/dio.dart' as dio;
+
 
 class AddUserPhotoScreenController extends GetxController {
   RxBool isLoading = false.obs;
@@ -20,11 +22,14 @@ class AddUserPhotoScreenController extends GetxController {
   File image1 = File("");
   File image2 = File("");
   File image3 = File("");
+  String image1Name = "";
+  String image2Name = "";
+  String image3Name = "";
   bool isImageUploadInApiSuccess = false;
   SignUpPreference signUpPreference = SignUpPreference();
   UserPreference userPreference = UserPreference();
 
-
+  var dioRequest = dio.Dio();
 
   // Pick Image from gallery
   pickImageFromGallery(int index) async {
@@ -56,8 +61,12 @@ class AddUserPhotoScreenController extends GetxController {
     if(image1.path.isEmpty || image2.path.isEmpty || image3.path.isEmpty) {
       Fluttertoast.showToast(msg: "Please select three photo");
     } else {
-      log('asasasasasa');
-      if(image1.path != "") {
+      String image1Name = image1.path.toString().split("/")[0];
+
+      log('image1Name : $image1Name');
+
+
+      /*if(image1.path != "") {
         await signUpPreference.setStringValueInPrefs(
           key: SignUpPreference.userImage1Key,
           value: image1.path.toString(),
@@ -77,11 +86,11 @@ class AddUserPhotoScreenController extends GetxController {
           value: image3.path.toString(),
         );
         await uploadImageFunction(image3);
-      }
-      log('Image upload Status final :$isImageUploadInApiSuccess');
-      log('Image upload Status 1 :$isImageUploadInApiSuccess');
+      }*/
+      // log('Image upload Status final :$isImageUploadInApiSuccess');
+      // log('Image upload Status 1 :$isImageUploadInApiSuccess');
 
-      Timer(
+      /*Timer(
         const Duration(milliseconds: 500),
         () {
           if (isImageUploadInApiSuccess == true) {
@@ -90,7 +99,7 @@ class AddUserPhotoScreenController extends GetxController {
             Fluttertoast.showToast(msg: AppMessages.apiCallWrong);
           }
         },
-      );
+      );*/
     }
     isLoading(false);
 
@@ -108,7 +117,26 @@ class AddUserPhotoScreenController extends GetxController {
       // };
       String verifyToken = await userPreference.getStringFromPrefs(key: UserPreference.userVerifyTokenKey);
 
-      var request = http.MultipartRequest('POST', Uri.parse(url));
+      var formData = dio.FormData.fromMap({
+        'token': verifyToken,
+        "files" : [
+          await dio.MultipartFile.fromFile(image1.path, filename: image1Name),
+          await dio.MultipartFile.fromFile(image2.path, filename: image2Name),
+          await dio.MultipartFile.fromFile(image3.path, filename: image3Name),
+        ],
+      });
+
+
+      var response = await dioRequest.post(url, data: formData,
+        options: dio.Options(
+          headers: {
+            "fileKey" : "file",
+            "chunkedMode" : "false",
+            "mimeType" : "multipart/form-data",
+          },
+        ),
+      );
+      /*var request = http.MultipartRequest('POST', Uri.parse(url));
       request.headers['fileKey'] = "file";
       request.headers['chunkedMode'] = "false";
       request.headers['mimeType'] = "multipart/form-data";
@@ -133,7 +161,7 @@ class AddUserPhotoScreenController extends GetxController {
         } else {
           Fluttertoast.showToast(msg: AppMessages.apiCallWrong);
         }
-      });
+      });*/
 
 
     } catch(e) {

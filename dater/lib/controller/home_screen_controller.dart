@@ -374,6 +374,7 @@ class HomeScreenController extends GetxController {
           SuperLoveModel.fromJson(json.decode(response.body));
 
       if (superLoveModel.statusCode == 200) {
+        Fluttertoast.showToast(msg: superLoveModel.msg);
         /// If Coming from card swipe that time not call this if condition because double time swipe the card
         /*if (swipeCard == false) {
           if (likeType == LikeType.like) {

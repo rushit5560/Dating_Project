@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:developer';
 
@@ -13,7 +14,7 @@ import '../model/home_screen_model/matches_model.dart';
 import '../utils/preferences/user_preference.dart';
 
 
-class ChatScreenController extends GetxController{
+class ChatScreenController extends GetxController {
   MatchUserData personData = Get.arguments[0];
   // MatchPersonData? personData = MatchPersonData(id: "2");
   RxBool isLoading = false.obs;
@@ -26,6 +27,8 @@ class ChatScreenController extends GetxController{
   FocusNode focusNode = FocusNode();
 
   List<ChatData> chatList = [];
+
+  RxBool isTimerOn = true.obs;
 
 
   /// Get All Chats Function
@@ -91,7 +94,7 @@ class ChatScreenController extends GetxController{
 
         if(successStatus.value == 200) {
           // Fluttertoast.showToast(msg: messageSendModel.msg);
-          chatList.add(ChatData(messageText: textEditingController.text.trim(), clientMessage: false));
+          chatList.add(ChatData(messageText: textEditingController.text.trim(), clientMessage: true));
           textEditingController.clear();
         } else {
           log('sendChatMessageFunction Else');
@@ -106,6 +109,45 @@ class ChatScreenController extends GetxController{
   }
 
 
+  /// Continuously call the api
+  Future<void> getUserChatMessagesFunction() async {
+    String url = ApiUrl.getChatListApi;
+    log('getUserChatMessagesFunction Api Url : $url');
+
+    try {
+      String verifyToken = await userPreference.getStringFromPrefs(key: UserPreference.userVerifyTokenKey);
+      String userId = await userPreference.getStringFromPrefs(key: UserPreference.userIdKey);
+      log('Client userId : ${personData.id}');
+      log('My userId : $userId');
+
+      var request = http.MultipartRequest('POST', Uri.parse(url));
+
+      request.fields['token'] = verifyToken;
+      request.fields['sender_id'] = personData.id;
+
+      var response = await request.send();
+
+      response.stream.transform(utf8.decoder).listen((value) async {
+        log('getUserChatMessagesFunction Value : $value');
+
+        MessageListModel messageListModel = MessageListModel.fromJson(json.decode(value));
+        successStatus.value = messageListModel.statusCode;
+
+        if(successStatus.value == 200) {
+          chatList.clear();
+          chatList.addAll(messageListModel.msg.reversed);
+          // chatList.addAll(messageListModel.msg);
+          log('chatList Length : ${chatList.length}');
+        } else {
+          log('getUserChatMessagesFunction Else');
+        }
+      });
+    } catch(e) {
+      log('getUserChatMessagesFunction Error :$e');
+      rethrow;
+    }
+    loadUI();
+  }
 
 
 
@@ -123,16 +165,42 @@ class ChatScreenController extends GetxController{
     });
 
     await getUserAllChatList();
+
+    // isTimerOn.value
+    //     ?
+    Timer.periodic(const Duration(seconds: 3), (timer) async {
+      isTimerOn.value ? await getUserChatMessagesFunction() : null;
+          });
+        // : () {};
   }
 
-  @override
+  /*@override
   void onClose() {
     super.onClose();
     textEditingController.selection;
-  }
+
+  }*/
 
   loadUI() {
     isLoading(true);
     isLoading(false);
   }
+
+  @override
+  void dispose() {
+    super.dispose();
+    isTimerOn.value = false;
+    log('dispose isTimerOn : $isTimerOn');
+    // Timer(const Duration(milliseconds: 100), () {}).cancel();
+  }
+
+  // @override
+  // // TODO: implement onDelete
+  // InternalFinalCallback<void> get onDelete => deleteControllerFunction();
+  //
+  // deleteControllerFunction(){
+  //   super.onDelete;
+  //   Timer(const Duration(seconds: 1), () {}).cancel();
+  // }
+
 }
