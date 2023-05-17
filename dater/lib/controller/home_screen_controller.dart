@@ -71,6 +71,8 @@ class HomeScreenController extends GetxController {
   List<UserImage> userImageList = [];
   RxInt currentUserIndex = 0.obs;
 
+  bool isRewindAllow = false;
+
   RxBool isCancelButtonClick = false.obs;
   RxBool isStarButtonClick = false.obs;
   RxBool isLikeButtonClick = false.obs;
@@ -454,7 +456,7 @@ class HomeScreenController extends GetxController {
 
   /// Regather Function
   Future<void> regatherFunction() async {
-    isLoading(true);
+    // isLoading(true);
     String url = ApiUrl.superLoveProfileApi;
     log('Regather Api Url :$url');
 
@@ -475,7 +477,10 @@ class HomeScreenController extends GetxController {
       successStatus.value = regatherModel.statusCode;
 
       if(successStatus.value == 200) {
+        Fluttertoast.cancel();
         Fluttertoast.showToast(msg: regatherModel.msg);
+        // cardController.rewind();
+        // log('cardController.canRewind : ${cardController.canRewind}');
       } else {
         if(regatherModel.msg.toLowerCase() == "You already regathered on this account".toLowerCase()) {
           Fluttertoast.showToast(msg: "You already regathered on your account");
@@ -489,7 +494,8 @@ class HomeScreenController extends GetxController {
       rethrow;
     }
 
-    isLoading(false);
+    loadUI();
+    // isLoading(false);
 
   }
 

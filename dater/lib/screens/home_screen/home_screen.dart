@@ -9,6 +9,7 @@ import 'package:dater/utils/extensions.dart';
 import 'package:dater/utils/style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 import 'package:swipable_stack/swipable_stack.dart';
@@ -38,10 +39,12 @@ class HomeScreen extends StatelessWidget {
               // Reload button
               GestureDetector(
                   onTap: () async {
+                    Fluttertoast.showToast(msg: "Please wait...Rewinding");
                     if (homeScreenController.selected.value == true) {
                       homeScreenController.selected.value = await homeScreenController.userPreference.getBoolFromPrefs(key: UserPreference.isragatherInKey);
                       if(homeScreenController.lastLikeProfileId != "") {
                         await homeScreenController.understandFunction();
+                        homeScreenController.cardController.rewind(duration: const Duration(seconds: 1));
                       } else {
                         log('No likes');
                       }
@@ -141,13 +144,23 @@ class HomeScreen extends StatelessWidget {
                       );
                     }
                   },
-                  child: Image.asset(AppImages.refreshImage)),
+                child: Image.asset(
+                  AppImages.refreshImage,
+                  height: 35,
+                  width: 35,
+                ),
+              ),
               // Heart button
               GestureDetector(
                 onTap: () {
                   Get.to(() => FavoriteScreen());
                 },
-                child: Image.asset(AppImages.hardImage),
+                child: Image.asset(
+                  AppImages.hardImage,
+                  height: 35,
+                  width: 35,
+                  // fit: BoxFit.cover
+                ),
               ),
               // Filter screen
               GestureDetector(
@@ -156,7 +169,11 @@ class HomeScreen extends StatelessWidget {
                     () => FilterScreen(),
                   );
                 },
-                child: Image.asset(AppImages.menuImage),
+                child: Image.asset(
+                  AppImages.menuImage,
+                  height: 35,
+                  width: 35,
+                ),
               ),
             ],
           ).commonSymmetricPadding(horizontal: 20, vertical: 15),

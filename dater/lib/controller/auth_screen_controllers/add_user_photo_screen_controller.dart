@@ -61,12 +61,17 @@ class AddUserPhotoScreenController extends GetxController {
     if(image1.path.isEmpty || image2.path.isEmpty || image3.path.isEmpty) {
       Fluttertoast.showToast(msg: "Please select three photo");
     } else {
-      String image1Name = image1.path.toString().split("/")[0];
+      image1Name = image1.path.toString().split("/").last;
+      image2Name = image2.path.toString().split("/").last;
+      image3Name = image3.path.toString().split("/").last;
 
       log('image1Name : $image1Name');
+      log('image2Name : $image2Name');
+      log('image3Name : $image3Name');
 
+      // await uploadImageFunction();
 
-      /*if(image1.path != "") {
+      if(image1.path != "") {
         await signUpPreference.setStringValueInPrefs(
           key: SignUpPreference.userImage1Key,
           value: image1.path.toString(),
@@ -86,11 +91,11 @@ class AddUserPhotoScreenController extends GetxController {
           value: image3.path.toString(),
         );
         await uploadImageFunction(image3);
-      }*/
+      }
       // log('Image upload Status final :$isImageUploadInApiSuccess');
       // log('Image upload Status 1 :$isImageUploadInApiSuccess');
 
-      /*Timer(
+      Timer(
         const Duration(milliseconds: 500),
         () {
           if (isImageUploadInApiSuccess == true) {
@@ -99,7 +104,7 @@ class AddUserPhotoScreenController extends GetxController {
             Fluttertoast.showToast(msg: AppMessages.apiCallWrong);
           }
         },
-      );*/
+      );
     }
     isLoading(false);
 
@@ -119,11 +124,7 @@ class AddUserPhotoScreenController extends GetxController {
 
       var formData = dio.FormData.fromMap({
         'token': verifyToken,
-        "files" : [
-          await dio.MultipartFile.fromFile(image1.path, filename: image1Name),
-          await dio.MultipartFile.fromFile(image2.path, filename: image2Name),
-          await dio.MultipartFile.fromFile(image3.path, filename: image3Name),
-        ],
+        "file" : await dio.MultipartFile.fromFile(image.path, filename: image.path.toString().split("/").last),
       });
 
 
@@ -136,6 +137,22 @@ class AddUserPhotoScreenController extends GetxController {
           },
         ),
       );
+      log('Upload Image response : ${response.data}');
+
+      UserPhotoUploadModel userPhotoUploadModel = UserPhotoUploadModel.fromJson(json.decode(response.data));
+
+      if(userPhotoUploadModel.statusCode == 200) {
+        log('Image upload Status 1 :$isImageUploadInApiSuccess');
+        isImageUploadInApiSuccess = true;
+        log('Image upload Status 2 :$isImageUploadInApiSuccess');
+        // Get.to(() => DobSelectScreen());
+
+      } else if(userPhotoUploadModel.statusCode == 400) {
+        Fluttertoast.showToast(msg: userPhotoUploadModel.msg);
+      } else {
+        Fluttertoast.showToast(msg: AppMessages.apiCallWrong);
+      }
+
       /*var request = http.MultipartRequest('POST', Uri.parse(url));
       request.headers['fileKey'] = "file";
       request.headers['chunkedMode'] = "false";

@@ -677,7 +677,7 @@ import '../../utils/style.dart';
   }
 }*/
 
-import 'dart:ui';
+// import 'dart:ui';
 
 /// New Widget
 class SwipeUserModule extends StatelessWidget {
@@ -701,6 +701,7 @@ class SwipeUserModule extends StatelessWidget {
                     swipeAnchor: SwipeAnchor.bottom,
                     cancelAnimationCurve: Curves.bounceIn,
                     stackClipBehaviour: Clip.none,
+                    swipeAssistDuration: const Duration(milliseconds: 850),
                     onSwipeCompleted: (index, swipeDirection) async {
                       print('Swipe Complete Index============ : $index');
                       homeScreenController.currentUserIndex.value = index;
@@ -717,7 +718,9 @@ class SwipeUserModule extends StatelessWidget {
                           swipeCard: true,
                           index: finalIndex,
                         );
-                        homeScreenController.lastLikeProfileId = homeScreenController.suggestionList[index].id!;
+                        homeScreenController.lastLikeProfileId =
+                            homeScreenController.suggestionList[index].id!;
+                        homeScreenController.isRewindAllow = true;
                       }
 
                       /// When swipe Left
@@ -731,14 +734,15 @@ class SwipeUserModule extends StatelessWidget {
                           homeScreenController.setChangedUserData(finalIndex);
                           homeScreenController.loadUI();
                         }
+                        homeScreenController.isRewindAllow = false;
                       }
 
                       /// When Swipe Up
                       else if (swipeDirection == SwipeDirection.up) {
                         await homeScreenController
                             .understandSuperLoveFunction(finalIndex);
+                        homeScreenController.isRewindAllow = true;
                       }
-
 
                     },
                     overlayBuilder: (context, properties) {
@@ -1072,7 +1076,8 @@ class SwipeUserModule extends StatelessWidget {
 
                                     // Basic Module
                                     SizedBox(height: 4.h),
-                                    BasicInFormationModule(basicList: basicList),
+                                    BasicInFormationModule(
+                                        basicList: basicList),
                                     //
 
                                     // Interest Module
