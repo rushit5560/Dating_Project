@@ -15,10 +15,11 @@ import '../constants/messages.dart';
 import '../model/favorite_screen_model/liker_model.dart';
 import '../utils/preferences/user_preference.dart';
 import '../utils/style.dart';
+import 'package:dio/dio.dart' as dio;
 
 class FavoriteScreenController extends GetxController {
   RxBool isLoading = true.obs;
-
+  RxInt successStatus = 0.obs;
   RxBool isShowAgain = false.obs;
   UserPreference userPreference = UserPreference();
 
@@ -29,6 +30,9 @@ class FavoriteScreenController extends GetxController {
   RxBool selectedLike = false.obs;
   RxBool selectedLiked = false.obs;
 
+  var dioRequest = dio.Dio();
+
+
   // Get Your Liker Function
   Future<void> getYourLikerFunction() async {
     isLoading(true);
@@ -36,9 +40,26 @@ class FavoriteScreenController extends GetxController {
     log('getYourLikerFunction Api Url : $url');
 
     try {
-      String verifyToken = await userPreference.getStringFromPrefs(
-          key: UserPreference.userVerifyTokenKey);
-      var request = http.MultipartRequest('POST', Uri.parse(url));
+      String verifyToken = await userPreference.getStringFromPrefs(key: UserPreference.userVerifyTokenKey);
+      var formData = dio.FormData.fromMap({
+        'token': verifyToken
+      });
+
+      var response = await dioRequest.post(url, data: formData);
+      log('Suggestion Response : ${response.data}');
+
+      LikerModel likerModel = LikerModel.fromJson(json.decode(response.data));
+      successStatus.value = likerModel.statusCode;
+
+      if (successStatus.value == 200) {
+        likerList.clear();
+        likerList.addAll(likerModel.msg);
+        log('likerList Length : ${likerList.length}');
+      } else {
+        log('getYourLikerFunction Else');
+      }
+
+      /*var request = http.MultipartRequest('POST', Uri.parse(url));
       request.fields['token'] = verifyToken;
 
       var response = await request.send();
@@ -50,8 +71,9 @@ class FavoriteScreenController extends GetxController {
         likerList.clear();
         likerList.addAll(likerModel.msg);
         log('likerList Length : ${likerList.length}');
-      });
-    } catch (e) {
+      });*/
+
+    } catch(e) {
       log('getYourLikerFunction Error :$e');
       rethrow;
     }
