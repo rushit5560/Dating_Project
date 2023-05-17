@@ -13,6 +13,8 @@ class UserPreference {
   static String isSeeWhoLikesYouKey = "isSeeWhoLikesYouKey"; // String
   static String isragatherInKey = "isragatherInKey";
   static String isSuperLoveInKey = "isSuperLoveInKey";
+  static String isLikeInKey = "isLikeInKey";
+
 
   /// For Profile Section
   static String nameKey = "nameKey"; // String

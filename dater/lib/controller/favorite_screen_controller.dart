@@ -23,10 +23,11 @@ class FavoriteScreenController extends GetxController {
   UserPreference userPreference = UserPreference();
 
   LikesDialogShowAgain likesDialogShowAgain = LikesDialogShowAgain.yes;
-
-
+  String lastLikeProfileId = "";
 
   List<LikerData> likerList = [];
+  RxBool selectedLike = false.obs;
+  RxBool selectedLiked = false.obs;
 
   // Get Your Liker Function
   Future<void> getYourLikerFunction() async {
@@ -35,7 +36,8 @@ class FavoriteScreenController extends GetxController {
     log('getYourLikerFunction Api Url : $url');
 
     try {
-      String verifyToken = await userPreference.getStringFromPrefs(key: UserPreference.userVerifyTokenKey);
+      String verifyToken = await userPreference.getStringFromPrefs(
+          key: UserPreference.userVerifyTokenKey);
       var request = http.MultipartRequest('POST', Uri.parse(url));
       request.fields['token'] = verifyToken;
 
@@ -49,116 +51,112 @@ class FavoriteScreenController extends GetxController {
         likerList.addAll(likerModel.msg);
         log('likerList Length : ${likerList.length}');
       });
-
-    } catch(e) {
+    } catch (e) {
       log('getYourLikerFunction Error :$e');
       rethrow;
     }
     isLoading(false);
   }
 
+  Future<void> understandlikeFunction() async {
+    await userPreference.setBoolValueInPrefs(
+        key: UserPreference.isLikeInKey, value: selectedLiked.value);
+    log("selectedLiked.value: ${selectedLiked.value}");
+    await getYourLikerFunction();
+
+    // Get.offAll(()=> IndexScreen());
+    // await getUserSuggestionsFunction();
+    // await initMethod();
+  }
 
   // Alert Dialog
-  showLikesDialog(BuildContext context) {
-    return showDialog(
-        context: context,
-        barrierDismissible: false,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            shape: const RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(20)),
+  showLikesDialog(BuildContext context) async {
+    // if (selectedLike.value == false) {
+    log("selectedLike.value2222 ${selectedLike.value}");
+
+    showDialog(
+      barrierDismissible: false,
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(
+              Radius.circular(20),
             ),
-            title: Text(
-              "See who likes you",
-              style: TextStyleConfig.textStyle(
-                fontFamily: FontFamilyText.sFProDisplayBold,
-                textColor: AppColors.blackColor,
-                fontSize: 14.sp,
-                // fontWeight: FontWeight.bold,
-              ),
-            ),
-            content: Text(
-              "Every profile will cost 1 coin",
-              style: TextStyleConfig.textStyle(
-                fontFamily: FontFamilyText.sFProDisplayRegular,
-                textColor: AppColors.grey600Color,
-                fontSize: 14.sp,
-                // fontWeight: FontWeight.bold,
-              ),
-            ),
-            actions: [
-              const Divider(thickness: 2),
-              ButtonCustom(
-                text: "UnderStand",
-                onPressed: () => Get.back(),
-                // fontWeight: FontWeight.bold,
-                textsize: 14.sp,
-                textFontFamily: FontFamilyText.sFProDisplayBold,
-                textColor: AppColors.whiteColor2,
-                backgroundColor: AppColors.darkOrangeColor,
-              ).commonSymmetricPadding(horizontal: 35),
-              Row(children: [
-                /*Obx(
-                () => Checkbox(
-                  value: isShowAgain.value,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(25),
+          ),
+          elevation: 50,
+          content: StatefulBuilder(
+            builder: (context, setState) {
+              return Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    "See who likes you",
+                    style: TextStyleConfig.textStyle(
+                      fontSize: 20,
+                      fontFamily: FontFamilyText.sFProDisplayBold,
+                    ),
                   ),
-                  activeColor: AppColors.darkOrangeColor,
-                  checkColor: AppColors.darkOrangeColor,
-                  onChanged: (value) {
-                    log('value : $value');
-                    if (value == true) {
-                      isShowAgain.value = false;
-                    } else if (value == false) {
-                      isShowAgain.value = true;
-                    }
-                    loadUI();
-                  },
-                ),
-              ),*/
-                Obx(
-                  () => isLoading.value
-                      ? Container()
-                      : likesDialogShowAgain == LikesDialogShowAgain.yes
-                          ? Radio(
-                              activeColor: AppColors.darkOrangeColor,
-                              value: LikesDialogShowAgain.yes,
-                              groupValue: likesDialogShowAgain,
-                              onChanged: (value) {
-                                log('value1 : $value');
-                                // if (value == true) {
-                                //   isShowAgain.value = false;
-                                // } else if (value == false) {
-                                //   isShowAgain.value = true;
-                                // }
-                                loadUI();
-                              })
-                          : Radio(
-                              activeColor: AppColors.darkOrangeColor,
-                              value: LikesDialogShowAgain.no,
-                              groupValue: likesDialogShowAgain,
-                              onChanged: (value) {
-                                log('value2 : $value');
-                                // if (value == true) {
-                                //   isShowAgain.value = false;
-                                // } else if (value == false) {
-                                //   isShowAgain.value = true;
-                                // }
-                                loadUI();
-                              }),
-                ),
-                Text(
-                  "don't show again",
-                  style: TextStyleConfig.textStyle(
-                    fontFamily: FontFamilyText.sFProDisplayRegular,
-                    textColor: AppColors.darkOrangeColor,
+                  SizedBox(height: 2.h),
+                  Text(
+                    "Every regather will cost you 1 coin",
+                    style: TextStyleConfig.textStyle(
+                      fontSize: 14.sp,
+                      fontFamily: FontFamilyText.sFProDisplayRegular,
+                    ),
                   ),
-                ),
-              ]),
-            ],
-          );
-        });
+                  SizedBox(height: 5.h),
+                  ButtonCustom(
+                    text: "Undestand",
+                    onPressed: () async {
+                      log("11");
+                      Get.back();
+                      await understandlikeFunction();
+
+                      log("22");
+                    },
+                    fontWeight: FontWeight.bold,
+                    textsize: 14.sp,
+                    textFontFamily: FontFamilyText.sFProDisplayHeavy,
+                    textColor: AppColors.whiteColor2,
+                    backgroundColor: AppColors.darkOrangeColor,
+                  ).commonSymmetricPadding(horizontal: 35),
+                  SizedBox(height: 1.h),
+                  Row(
+                    children: [
+                      Checkbox(
+                        checkColor: AppColors.lightOrangeColor,
+                        hoverColor: AppColors.lightOrangeColor,
+                        activeColor: AppColors.lightOrangeColor,
+                        tristate: false,
+                        side: const BorderSide(
+                          width: 2,
+                          color: AppColors.blackColor,
+                        ),
+                        shape: const CircleBorder(),
+                        value: selectedLike.value,
+                        onChanged: (value) {
+                          setState(() {
+                            selectedLike.value = !selectedLike.value;
+                          });
+                        },
+                      ),
+                      Text(
+                        "don't show again",
+                        style: TextStyleConfig.textStyle(
+                          fontSize: 14.sp,
+                          fontFamily: FontFamilyText.sFProDisplayRegular,
+                        ),
+                      ),
+                    ],
+                  )
+                ],
+              );
+            },
+          ),
+        );
+      },
+    );
   }
 
   @override
@@ -168,9 +166,15 @@ class FavoriteScreenController extends GetxController {
   }
 
   Future<void> initMethod() async {
-    await getYourLikerFunction();
+    selectedLike.value =
+        await userPreference.getBoolFromPrefs(key: UserPreference.isLikeInKey);
+
+    if (selectedLike.value != true) {
+      showLikesDialog(Get.context!);
+    } else {
+      await getYourLikerFunction();
+    }
     // isShowAgain.value = await userPreference.getStringFromPrefs(key: UserPreference.isSeeWhoLikesYouKey);
-    showLikesDialog(Get.context!);
   }
 
   loadUI() {
