@@ -203,10 +203,17 @@ class MessageAllModule extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   singleChat.clientMessage == false
-                      ? const CircleAvatar(
-                          radius: 15,
-                          backgroundImage: AssetImage(AppImages.swiper1Image),
-                        )
+                      ? screenController.personData.images.isNotEmpty
+                          ? CircleAvatar(
+                              radius: 15,
+                              backgroundImage: NetworkImage(screenController
+                                  .personData.images[0].imageUrl),
+                            )
+                          : const CircleAvatar(
+                              radius: 15,
+                              backgroundImage:
+                                  AssetImage(AppImages.swiper1Image),
+                            )
                       : Container(),
                   // const SizedBox(width: 10),
                   Container(

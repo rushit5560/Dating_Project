@@ -290,7 +290,7 @@ class Interest {
 
 class LastMessage {
   String messageText;
-  int isSeen;
+  String isSeen;
   bool clientMessage;
 
   LastMessage({
@@ -301,7 +301,7 @@ class LastMessage {
 
   factory LastMessage.fromJson(Map<String, dynamic> json) => LastMessage(
     messageText: json["message_text"] ?? "",
-    isSeen: json["is_seen"] ?? 0,
+    isSeen: (json["is_seen"] ?? 0).toString(),
     clientMessage: json["client_message"] ?? false,
   );
 

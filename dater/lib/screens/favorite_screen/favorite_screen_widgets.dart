@@ -13,10 +13,10 @@ import '../../model/favorite_screen_model/liker_model.dart';
 import '../../utils/style.dart';
 import '../liker_details_screen/liker_details_screen.dart';
 
-
 class FavoriteGridViewBuilderModule extends StatelessWidget {
   FavoriteGridViewBuilderModule({Key? key}) : super(key: key);
   final favoriteScreenController = Get.find<FavoriteScreenController>();
+
   @override
   Widget build(BuildContext context) {
     return Expanded(
@@ -29,7 +29,6 @@ class FavoriteGridViewBuilderModule extends StatelessWidget {
           childAspectRatio: 0.8,
         ),
         itemBuilder: (BuildContext context, int index) {
-
           LikerData singleData = favoriteScreenController.likerList[index];
 
           return InkWell(
@@ -63,8 +62,11 @@ class FavoriteGridViewBuilderModule extends StatelessWidget {
             //         ),
             //       );
             //     }),
-            onTap: () => Get.to(()=> LikerDetailsScreen(),
-            arguments: [favoriteScreenController.likerList[index].id]),
+            onTap: () => Get.to(() => LikerDetailsScreen(),
+                    arguments: [favoriteScreenController.likerList[index].id])!
+                .then((value) async {
+              await favoriteScreenController.getYourLikerFunction();
+            }),
             child: Container(
               // height: 30.h,
               decoration: const BoxDecoration(
@@ -73,48 +75,59 @@ class FavoriteGridViewBuilderModule extends StatelessWidget {
                   boxShadow: [BoxShadow(blurRadius: 1)]),
               child: Column(
                 children: [
-                  Container(
-                    height: 22.h,
-                    decoration: const BoxDecoration(
-                      color: AppColors.whiteColor2,
-                      // image: DecorationImage(
-                      //   image: singleData.images.isNotEmpty
-                      //     ? NetworkImage(singleData.images[0].imageUrl)
-                      //   : Image.asset(AppImages.locationImage),
-                      //   fit: BoxFit.cover,
-                      // ),
-                      borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(20),
-                          topRight: Radius.circular(20)),
-                    ),
+                  Expanded(
+                    flex: 85,
                     child: singleData.images.isNotEmpty
-                        ? Image.network(singleData.images[0].imageUrl)
-                        : Image.asset(AppImages.locationImage).commonAllSidePadding(30),
+                        ? ClipRRect(
+                            borderRadius: const BorderRadius.only(
+                                topLeft: Radius.circular(20),
+                                topRight: Radius.circular(20)),
+                            child: Image.network(
+                              singleData.images[0].imageUrl,
+                              fit: BoxFit.cover,
+                              width: Get.width,
+                            ),
+                          )
+                        : ClipRRect(
+                            borderRadius: const BorderRadius.only(
+                              topLeft: Radius.circular(20),
+                              topRight: Radius.circular(20),
+                            ),
+                            child: Image.asset(
+                              AppImages.locationImage,
+                            ).commonAllSidePadding(30),
+                          ),
                   ),
                   SizedBox(height: 1.h),
-                  Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                    AnimatedContainer(
-                      width: 2.8.w,
-                      height: 1.5.h,
-                      decoration: const BoxDecoration(
-                        color: Colors.green,
-                        borderRadius: BorderRadius.all(Radius.circular(30)),
-                      ),
-                      duration: const Duration(seconds: 0),
-                      //curve: Curves.bounceIn,
+                  Expanded(
+                    flex: 15,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        AnimatedContainer(
+                          width: 2.8.w,
+                          height: 1.5.h,
+                          decoration: const BoxDecoration(
+                            color: Colors.orange,
+                            borderRadius: BorderRadius.all(Radius.circular(30)),
+                          ),
+                          duration: const Duration(seconds: 0),
+                          //curve: Curves.bounceIn,
+                        ),
+                        SizedBox(width: 1.w),
+                        Text(
+                          singleData.activeTime,
+                          //textAlign: TextAlign.right,
+                          style: TextStyleConfig.textStyle(
+                            textColor: AppColors.grey800Color,
+                            fontSize: 12.sp,
+                            fontFamily: FontFamilyText.sFProDisplaySemibold,
+                            // fontWeight: FontWeight.normal,
+                          ),
+                        ),
+                      ],
                     ),
-                    SizedBox(width: 1.w),
-                    Text(
-                      singleData.activeTime,
-                      //textAlign: TextAlign.right,
-                      style: TextStyleConfig.textStyle(
-                        textColor: AppColors.grey800Color,
-                        fontSize: 12.sp,
-                        fontFamily: FontFamilyText.sFProDisplaySemibold,
-                        // fontWeight: FontWeight.normal,
-                      ),
-                    ),
-                  ]),
+                  ),
                 ],
               ),
             ),

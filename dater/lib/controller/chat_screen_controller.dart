@@ -12,7 +12,7 @@ import '../model/chat_screens_models/chat_list_model.dart';
 import '../model/chat_screens_models/send_message_model.dart';
 import '../model/home_screen_model/matches_model.dart';
 import '../utils/preferences/user_preference.dart';
-
+import 'package:dio/dio.dart' as dio;
 
 class ChatScreenController extends GetxController {
   MatchUserData personData = Get.arguments[0];
@@ -28,6 +28,7 @@ class ChatScreenController extends GetxController {
 
   List<ChatData> chatList = [];
 
+  var dioRequest = dio.Dio();
   RxBool isTimerOn = true.obs;
 
 
@@ -80,10 +81,35 @@ class ChatScreenController extends GetxController {
 
     try {
       String verifyToken = await userPreference.getStringFromPrefs(key: UserPreference.userVerifyTokenKey);
-      var request = http.MultipartRequest('POST', Uri.parse(url));
+
+      var formData = dio.FormData.fromMap({
+        'token': verifyToken,
+        'recipient_id': personData.id,
+        'text': textEditingController.text.trim().toString()
+      });
+
+      log('Send chat formData : ${formData.fields}');
+
+
+      var response = await dioRequest.post(url, data: formData);
+      log('sendChatMessageFunction Response : ${response.data}');
+
+      MessageSendModel messageSendModel = MessageSendModel.fromJson(json.decode(response.data));
+      successStatus.value = messageSendModel.statusCode;
+
+      if(successStatus.value == 200) {
+        // Fluttertoast.showToast(msg: messageSendModel.msg);
+        chatList.add(ChatData(messageText: textEditingController.text.trim(), clientMessage: true));
+        textEditingController.clear();
+      } else {
+        log('sendChatMessageFunction Else');
+      }
+
+      /*var request = http.MultipartRequest('POST', Uri.parse(url));
+
       request.fields['token'] = verifyToken;
       request.fields['recipient_id'] = personData.id;
-      request.fields['text'] = textEditingController.text.trim();
+      request.fields['text'] = textEditingController.text.trim().toString();
 
       var response = await request.send();
 
@@ -100,7 +126,8 @@ class ChatScreenController extends GetxController {
           log('sendChatMessageFunction Else');
         }
 
-      });
+      });*/
+
     } catch(e) {
       log('sendChatMessageFunction Error :$e');
       rethrow;

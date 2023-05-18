@@ -563,7 +563,8 @@ class AboutMeAllModule extends StatelessWidget {
             children: [
               WidgetSpan(child: Image.asset(AppImages.location2Image,height: 2.h,)),
               TextSpan(
-                text: ' New south Wales, Sydney 3 km away',
+                text: ' ${screenController.userCountry}',
+                // ${screenController.userDistance.value} km away
                 style: TextStyleConfig.textStyle(
                   textColor: AppColors.grey800Color,
                   fontFamily: FontFamilyText.sFProDisplayRegular,
@@ -586,7 +587,7 @@ class AboutMeAllModule extends StatelessWidget {
                     backgroundImage: AssetImage(AppImages.ballImage),
                   ),
                   label: Text(
-                    'Live in New South Wales',
+                    index == 0 ? 'Live in ${screenController.userCountry}' : "From ${screenController.userHomeTown}",
                     style: TextStyleConfig.textStyle(
                       fontFamily: FontFamilyText.sFProDisplaySemibold,
                       textColor: AppColors.grey600Color,

@@ -28,6 +28,7 @@ class ProfileScreenController extends GetxController {
   RxString userBio = "".obs;
   RxString userVerified = "".obs;
   RxString userHomeTown = "".obs;
+  RxString userCountry = "".obs;
   RxString userLookingFor = "".obs;
   RxString userDistance = "".obs;
   RxString userAge = "".obs;
@@ -97,6 +98,7 @@ class ProfileScreenController extends GetxController {
           userReligion.value = loggedInUserDetailsModel.msg[0].basic.religion;
           userKids.value = loggedInUserDetailsModel.msg[0].basic.kids;
           userPercentage.value = double.parse(loggedInUserDetailsModel.msg[0].percentage.toString());
+          userCountry.value = loggedInUserDetailsModel.msg[0].country;
 
           promptsList.clear();
           if(loggedInUserDetailsModel.msg[0].prompts.isNotEmpty) {

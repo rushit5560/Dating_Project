@@ -50,6 +50,7 @@ class UserDetails {
     required this.basic,
     required this.prompts,
     required this.percentage,
+    required this.country,
 
   });
 
@@ -69,6 +70,7 @@ class UserDetails {
   Basic basic;
   List<Prompt> prompts;
   int percentage;
+  String country;
 
 
   factory UserDetails.fromJson(Map<String, dynamic> json) => UserDetails(
@@ -89,6 +91,7 @@ class UserDetails {
     prompts: List<Prompt>.from((json["prompts"] ?? []).map((x) => Prompt.fromJson(x ?? {}))),
     // percentage: json["percentage"] ?? 0,
     percentage: json["percentage"] ?? 0,
+    country: json["country"] ?? "",
 
   );
 
