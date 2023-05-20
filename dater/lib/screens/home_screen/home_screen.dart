@@ -40,20 +40,20 @@ class HomeScreen extends StatelessWidget {
               GestureDetector(
                   onTap: () async {
 
-                    if(homeScreenController.isRewindAllow == true) {
-                      Fluttertoast.showToast(msg: "Please wait...Rewinding");
+                    // if(homeScreenController.isRewindAllow == true) {
+                    //   Fluttertoast.showToast(msg: "Please wait...Rewinding");
                       if (homeScreenController.selected.value == true) {
                         homeScreenController.selected.value =
                         await homeScreenController.userPreference
                             .getBoolFromPrefs(
                             key: UserPreference.isragatherInKey);
-                        if (homeScreenController.lastLikeProfileId != "") {
+                        // if (homeScreenController.lastLikeProfileId != "") {
                           await homeScreenController.understandFunction();
                           homeScreenController.cardController.rewind(
                               duration: const Duration(seconds: 1));
-                        } else {
+                        /*} else {
                           log('No likes');
-                        }
+                        }*/
                         // await homeScreenController.initMethod();
                       }
                       else if (homeScreenController.selected.value == false) {
@@ -154,9 +154,10 @@ class HomeScreen extends StatelessWidget {
                           },
                         );
                       }
-                    } else {
+                    // }
+                    /*else {
                       log('not allow');
-                    }
+                    }*/
                   },
                 child: Image.asset(
                   AppImages.refreshImage,

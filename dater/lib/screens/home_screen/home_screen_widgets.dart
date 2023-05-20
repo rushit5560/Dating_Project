@@ -718,9 +718,8 @@ class SwipeUserModule extends StatelessWidget {
                           swipeCard: true,
                           index: finalIndex,
                         );
-                        homeScreenController.lastLikeProfileId =
-                            homeScreenController.suggestionList[index].id!;
-                        homeScreenController.isRewindAllow = true;
+                        homeScreenController.lastLikeProfileId = homeScreenController.suggestionList[index].id!;
+                        // homeScreenController.isRewindAllow = true;
                       }
 
                       /// When swipe Left
@@ -734,14 +733,16 @@ class SwipeUserModule extends StatelessWidget {
                           homeScreenController.setChangedUserData(finalIndex);
                           homeScreenController.loadUI();
                         }
-                        homeScreenController.isRewindAllow = false;
+                        // homeScreenController.isRewindAllow = false;
+                        homeScreenController.lastLikeProfileId = homeScreenController.suggestionList[index].id!;
                       }
 
                       /// When Swipe Up
                       else if (swipeDirection == SwipeDirection.up) {
                         await homeScreenController
                             .understandSuperLoveFunction(finalIndex);
-                        homeScreenController.isRewindAllow = true;
+                        // homeScreenController.isRewindAllow = true;
+                        homeScreenController.lastLikeProfileId = homeScreenController.suggestionList[index].id!;
                       }
 
                     },
